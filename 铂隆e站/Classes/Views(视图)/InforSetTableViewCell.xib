@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="107" id="KGk-i7-Jjw" customClass="InforSetTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="535" height="107"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="535" height="106"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="setquanzi_quanquan.png" translatesAutoresizingMaskIntoConstraints="NO" id="uvn-bI-mMw">
+                        <rect key="frame" x="28" y="13" width="73" height="80"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="uvn-bI-mMw" secondAttribute="height" multiplier="41:45" id="Fah-4x-YDp"/>
+                        </constraints>
+                    </imageView>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jcj-IP-1Rx">
+                        <rect key="frame" x="467" y="13" width="42" height="76"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="1wl-zw-4nt"/>
+                        </constraints>
+                    </switch>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="不接受圈子消息" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VON-pm-3ad">
+                        <rect key="frame" x="112" y="13" width="345" height="80"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="VON-pm-3ad" firstAttribute="leading" secondItem="uvn-bI-mMw" secondAttribute="trailing" constant="10" id="3JU-iy-jIK"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="jcj-IP-1Rx" secondAttribute="bottom" constant="7" id="7q7-6x-4Sp"/>
+                    <constraint firstItem="VON-pm-3ad" firstAttribute="height" secondItem="uvn-bI-mMw" secondAttribute="height" id="DFe-vJ-A9Y"/>
+                    <constraint firstItem="jcj-IP-1Rx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="7" id="O2t-ku-vTt"/>
+                    <constraint firstItem="uvn-bI-mMw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="20" id="Q5t-iS-hyT"/>
+                    <constraint firstItem="uvn-bI-mMw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="k9j-Sa-6vR"/>
+                    <constraint firstItem="jcj-IP-1Rx" firstAttribute="leading" secondItem="VON-pm-3ad" secondAttribute="trailing" constant="10" id="msI-1J-m09"/>
+                    <constraint firstItem="VON-pm-3ad" firstAttribute="top" secondItem="uvn-bI-mMw" secondAttribute="top" id="tIs-Bg-jxS"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="jcj-IP-1Rx" secondAttribute="trailing" constant="20" id="u0z-Pf-5Lw"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="uvn-bI-mMw" secondAttribute="bottom" constant="5" id="v0B-nr-lrF"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="choose" destination="jcj-IP-1Rx" id="hY4-bv-wHw"/>
+                <outlet property="infor" destination="VON-pm-3ad" id="kfK-1B-SvR"/>
+            </connections>
+            <point key="canvasLocation" x="372.5" y="411.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="setquanzi_quanquan.png" width="25" height="25"/>
+    </resources>
+</document>

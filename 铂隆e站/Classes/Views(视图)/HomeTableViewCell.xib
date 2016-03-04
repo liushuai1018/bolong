@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="206" id="KGk-i7-Jjw" customClass="HomeTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="485" height="206"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="485" height="205"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="d0m-n4-B6Z">
+                        <rect key="frame" x="8" y="8" width="469" height="189"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zan.png" translatesAutoresizingMaskIntoConstraints="NO" id="FFY-5N-89a">
+                        <rect key="frame" x="432" y="18" width="35" height="35"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="35" id="BqS-jc-qMB"/>
+                            <constraint firstAttribute="width" constant="35" id="XJJ-hf-jjy"/>
+                        </constraints>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dnV-EJ-rdg">
+                        <rect key="frame" x="434" y="18" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="3eV-3s-Bvo"/>
+                            <constraint firstAttribute="height" constant="30" id="FZr-NA-LvA"/>
+                        </constraints>
+                        <state key="normal" title="Button" image="zan-3.png"/>
+                        <connections>
+                            <action selector="clickAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="sF7-jP-Rg6"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1086" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KUg-v2-27g">
+                        <rect key="frame" x="433" y="41" width="34" height="10"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="34" id="1ho-c9-i2v"/>
+                            <constraint firstAttribute="height" constant="10" id="Sui-zx-9z3"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jyp-dC-h2o">
+                        <rect key="frame" x="18" y="132" width="60" height="60"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="dnz-6v-e7i"/>
+                            <constraint firstAttribute="height" constant="60" id="jEG-K2-2Ja"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="d0m-n4-B6Z" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="2m5-jP-XTL"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="d0m-n4-B6Z" secondAttribute="trailing" id="2uG-k3-7zG"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="FFY-5N-89a" secondAttribute="trailing" constant="10" id="59b-tq-Lfh"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="d0m-n4-B6Z" secondAttribute="bottom" id="GeX-9y-z0d"/>
+                    <constraint firstItem="FFY-5N-89a" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="JBt-z1-I1P"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="KUg-v2-27g" secondAttribute="trailing" constant="10" id="Jsa-Tw-Hiy"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="jyp-dC-h2o" secondAttribute="bottom" constant="5" id="QKy-ct-iyy"/>
+                    <constraint firstItem="KUg-v2-27g" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="33" id="YXN-ja-PPO"/>
+                    <constraint firstItem="jyp-dC-h2o" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="f51-8Y-pgn"/>
+                    <constraint firstItem="dnV-EJ-rdg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="lVD-9d-aGO"/>
+                    <constraint firstItem="d0m-n4-B6Z" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="rZ4-gp-1Ih"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="dnV-EJ-rdg" secondAttribute="trailing" constant="13" id="xMM-aa-A3r"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="image" destination="d0m-n4-B6Z" id="SWG-Ic-scm"/>
+                <outlet property="iocImage" destination="jyp-dC-h2o" id="ORT-fE-lYH"/>
+                <outlet property="zanButton" destination="dnV-EJ-rdg" id="w16-ZO-sA7"/>
+                <outlet property="zanTime" destination="KUg-v2-27g" id="wQz-BO-f0w"/>
+            </connections>
+            <point key="canvasLocation" x="-3.5" y="160"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="zan-3.png" width="61" height="61"/>
+        <image name="zan.png" width="61" height="61"/>
+    </resources>
+</document>

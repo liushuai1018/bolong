@@ -1,0 +1,88 @@
+//
+//  PrefixHeader.pch
+//  铂隆e站
+//
+//  Created by 铂隆资产1号 on 15/11/26.
+//  Copyright © 2015年 铂隆资产. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// 屏幕宽
+#define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
+// 屏幕高
+#define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
+
+/**
+ *  微信KEY
+ */
+#define WXAppId @"wxac7a9b0e54792579"
+#define WXSecret @"6495cf5079105add555117a7eb6160e1"
+#define WXURL @"http://www.umeng.com/social"
+
+/**
+ *  QQ Key
+ */
+#define QQAppId @"1105024974"
+#define QQSecret @"N6Cr9uUMhTx6kpTb"
+#define QQURL @"http://www.umeng.com/social"
+
+/**
+ *  友盟 Key
+ */
+#define UMKey @"566e68d967e58eeb4e0023ff"
+
+/**
+ *  友盟 IM Key
+ */
+#define UM_IM_Key @"23287383"
+#define UM_IM_Appkey @"77f1e86dfc704dd70868fea2390887e6"
+
+/**
+ *  百度地图 Key
+ */
+#define MA_Map_Key @"936f390ba2e0836fa084ec4f61afc41c"
+
+/**
+ *  融云 IM Key
+ */
+#define RC_IM_Key @"8w7jv4qb7ey6y"
+#define RC_IM_Temp_Token @"5G5SIKct12Xl0z7Qt3dJ7ZsLTG6GOYogeXXCfIDmWU8kTKfEVyLg2c2gVhENud/C7q3DSwITG0InfHOQihSkdA=="
+
+// 引入
+#import "TempTableViewController.h"
+#import "UMSocial.h"
+#import "UIImageView+WebCache.h"
+#import "NetWorkRequestManage.h"
+#import "LocalStoreManage.h"
+
+// 注册接口
+#define kRegistURL @"http://123.56.182.208/bolong/mobile.php/Mobile/Login/register"
+// 登陆接口
+#define kLonginURL @"http://123.56.182.208/bolong/mobile.php/Mobile/Login"
+// 发送注册码
+#define kSenderPhoneURL @"http://123.56.182.208/bolong/mobile.php/Mobile/Login/sendCode"
+// 第三方登陆
+#define kOpenLoginURL @"http://123.56.182.208/bolong/mobile.php/Mobile/Login/otherLogin"
+// 修改头像
+#define kUpLoadHead @"http://123.56.182.208/bolong/mobile.php/Mobile/User/uploadHead"
+// 修改昵称
+#define kUpdateUserName @"http://123.56.182.208/bolong/mobile.php/Mobile/User/updateUser"
+// 忘记密码
+#define kForgetPassword @"http://123.56.182.208/bolong/mobile.php/Mobile/Login/forgetPassword"
+
+
+
+
+
+// 发送用户信息
+#define kSendUserURL @""
+// 请求用户信息
+#define kRequestUserInforURL @""
+
+// 获取好友列表
+#define kToObtainFriendsList @""
+
+
+#endif /* PrefixHeader_pch */
