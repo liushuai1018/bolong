@@ -20,6 +20,9 @@
 #import "LocalStoreManage.h"
 #import "InformationSetViewController.h"
 
+#import "CustomTabBar.h"
+#import "LonginViewController.h"
+
 @interface UserTableViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 {
     UserfirstSTableViewCell *_cell3;  // 第一个cell
@@ -76,6 +79,10 @@
     if (_userInfor.backgroundImage != nil) {
         _userView.backgroundImage.image = _userInfor.backgroundImage;
     }
+    if (_userInfor.headPortrait == nil) {
+        [self downloadHeadImage];                               
+    }
+    
     _userView.headPortraitImage.image = _userInfor.headPortrait;
     _userView.userNameLabel.text = _userInfor.name;
 }
@@ -132,9 +139,15 @@
 - (void)presentVC
 {
     __block UserTableViewController *userTVC = self;
+    
+    UserTableViewController * __weak userListVC = self;
     // 实现推出'头像'图片来源选择提示框
     _userView.block1 = ^(UIAlertController *alertC) {
-        [userTVC presentViewController:alertC animated:YES completion:nil];
+        UserTableViewController *userlistVC = userListVC;
+        if (userlistVC) {
+            
+            [userTVC presentViewController:alertC animated:YES completion:nil];
+        }
     };
     
     
@@ -193,6 +206,8 @@
     if (indexPath.row == 1) {
         _cell1 = [tableView dequeueReusableCellWithIdentifier:@"secondCell" forIndexPath:indexPath];
         [_cell1.friendsBut addTarget:self action:@selector(didClickFriends:) forControlEvents:UIControlEventTouchUpInside]; // 好友
+        
+        
         return _cell1;
     }
     _cell2 = [tableView dequeueReusableCellWithIdentifier:@"thirdCell" forIndexPath:indexPath];
@@ -219,8 +234,32 @@
 // 设置
 - (void)didClickSet:(UIButton *)but
 {
+    __weak UserTableViewController *userTVC = self;
     
     SetTableViewController *VC = [[SetTableViewController alloc] init];
+    VC.block = ^(){
+        // 设置tabBar 为0
+        userTVC.tabBarController.selectedIndex = 0;
+        NSArray *array = userTVC.tabBarController.view.subviews;
+        
+        // 设置自定义button 为灰色
+        for (id obje in array) {
+            NSLog(@"id = %@", [obje class]);
+            if ([obje isKindOfClass:[CustomTabBar class]]) {
+                CustomTabBar *tabBar = (CustomTabBar *)obje;
+                [tabBar.button setImage:[UIImage imageNamed:@"wo"] forState:UIControlStateNormal];
+                break;
+            }
+        }
+        
+        // 推出 登陆界面
+        LonginViewController *longinVC = [[LonginViewController alloc] init];
+        [userTVC presentViewController:longinVC animated:YES completion:nil];
+        
+        // 移除上一个用户信息
+        [[LocalStoreManage sharInstance] removeAllUserInfor];
+        
+    };
     self.navigationC.viewControllers = @[VC];
     [self presentViewController:self.navigationC animated:YES completion:nil];
 }

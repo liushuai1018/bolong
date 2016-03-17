@@ -55,32 +55,14 @@
     homeNavigtion.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"首页" image:[UIImage imageNamed:@"shouye"] tag:100000];
     helpNavigtion.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"帮助" image:[UIImage imageNamed:@"bangzhu"] tag:100002];
     
-    [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]]; // 设置所有顶部导航栏的背景
-    
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.99 green:0.66 blue:0.07 alpha:1.0]]; // 设置所有顶部导航栏的背景
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     
     // 创建自定义样式tabBar替换系统样式
     _custom = [[CustomTabBar alloc] init];
     _custom.delegates = self;
     [self setValue:_custom forKeyPath:@"tabBar"];
 }
-
-/**
- * 添加子控制器到UITabBarController中
-- (void)addChildController:(UIViewController *)childViewController title:(NSString *)title image:(NSString *)image
-{
-    // 设置子控制器，tabbar和navigationBar上的title
-    childViewController.title = title;
-
-    // 设置tabBarItem上默认的指示图片和选中时的图片
-    childViewController.tabBarItem.image = [UIImage imageNamed:image];
-    childViewController.tabBarItem.selectedImage = [[UIImage imageNamed:[NSString stringWithFormat:@"%@%@", image, @"_selected"]]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-
-    // 使用系统默认的UINavigationController
-    [self addChildViewController:[[UINavigationController alloc] initWithRootViewController:childViewController]];
-
-
-}
- */
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

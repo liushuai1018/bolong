@@ -6,9 +6,13 @@
 //  Copyright © 2015年 铂隆资产. All rights reserved.
 //
 
+#import <RongIMKit/RongIMKit.h>
 #import "CircleTableViewController.h"
+#import "CircleListTableViewCell.h"
 
 @interface CircleTableViewController ()
+
+@property (strong, nonatomic) NSMutableArray *dataArray;
 
 @end
 
@@ -17,9 +21,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self addLeftBut];
+    [self initSet];
+    [self initData];
 }
 
+#pragma mark - init
+- (void)initSet
+{
+    self.title = @"发现圈子";
+    self.navigationController.navigationBar.translucent = NO;
+    
+    [self addLeftBut];
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.tableHeaderView = [UIImageView new];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"CircleListTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell"];
+}
+
+#pragma mark - addBar
 - (void)addLeftBut
 {
     UIBarButtonItem *leftBut = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"fanhui.png"] style:UIBarButtonItemStylePlain target:self action:@selector(didCilckLeftAction:)];
@@ -36,74 +56,64 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - data
+- (void)initData
+{
+    NSDictionary *dic = @{@"name" : @"门头沟  （石门营）",
+                          @"headImage" : [UIImage imageNamed:@"shimenying"],
+                          @"targetId" : @"circle1"};
+    NSDictionary *dic1= @{@"name" : @"门头沟  （冯  村）",
+                          @"headImage" : [UIImage imageNamed:@"fengcun"],
+                          @"targetId" : @"circle2"};
+    
+    self.dataArray = [NSMutableArray arrayWithObjects:dic, dic1, nil];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 2;
+    return _dataArray.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-    }
-    
-    cell.textLabel.text = @"圈子";
+    CircleListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    NSDictionary *dic = _dataArray[indexPath.row];
+    cell.circleName.text = [dic objectForKey:@"name"];
+    cell.headImage.image = [dic objectForKey:@"headImage"];
     
     return cell;
 }
 
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return SCREEN_HEIGHT * 0.125;
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary *dic = _dataArray[indexPath.row];
+    
+    // 创建一个聊天会话view Controller对象
+    RCConversationViewController *chat = [[RCConversationViewController alloc] init];
+    
+    // 设置会话的类型为聊天室
+    chat.conversationType = ConversationType_CHATROOM;
+    
+    // 设置目标会话ID
+    chat.targetId = [dic objectForKey:@"targetId"];
+    
+    // 设置加入聊天室时候需要获取的历史聊天数量
+    chat.defaultHistoryMessageCountOfChatRoom = 20;
+    
+    // 显示聊天会话界面
+    [self.navigationController pushViewController:chat animated:YES];
+    
+    
 }
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

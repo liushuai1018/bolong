@@ -32,14 +32,13 @@
 
 @implementation HelpTableViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad { 
     [super viewDidLoad];
     
     
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     self.navigationItem.title = @"帮助";
     self.tableView.showsVerticalScrollIndicator = NO; // 隐藏滚动条
-    
     // 注册 cell
     [self.tableView registerNib:[UINib nibWithNibName:@"HelpTableViewCell" bundle:nil] forCellReuseIdentifier:@"helpCell"];
     
@@ -72,6 +71,7 @@
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone; // 选中背景
     
+    cell.backgroundColor = [UIColor colorWithRed:0.94 green:0.95 blue:0.95 alpha:1.0];
     
     
     return cell;

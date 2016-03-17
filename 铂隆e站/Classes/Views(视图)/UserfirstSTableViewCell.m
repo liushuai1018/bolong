@@ -35,7 +35,7 @@
     
     
     // 设置动画
-    _sttingImage = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_tempImage.frame), 0, 110, SCREEN_HEIGHT * 0.17)];
+    _sttingImage = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_tempImage.frame), 0, 111, SCREEN_HEIGHT * 0.17)];
     _sttingImage.image = [UIImage imageNamed:@"shezhi-2.png"];
     _sttingImage.userInteractionEnabled = YES;
     [self.contentView addSubview:_sttingImage];

@@ -6,6 +6,9 @@
 //  Copyright © 2016年 铂隆资产. All rights reserved.
 //
 
+/**
+ *  绑定手机号
+ */
 #import <UIKit/UIKit.h>
 
 @interface TheBindingView : UIView

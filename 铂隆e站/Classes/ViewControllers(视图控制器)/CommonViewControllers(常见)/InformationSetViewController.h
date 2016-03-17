@@ -11,13 +11,10 @@
  */
 #import <UIKit/UIKit.h>
 
-typedef void(^kBlock)(UserInformation *);
 
 @class UserInformation;
 @interface InformationSetViewController : UIViewController
 
 @property (nonatomic, strong) UserInformation *userInfor;
-
-@property (nonatomic, copy) kBlock block;
 
 @end

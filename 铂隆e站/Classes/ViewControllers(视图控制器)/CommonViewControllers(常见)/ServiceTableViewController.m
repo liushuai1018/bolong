@@ -28,6 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     self.navigationController.navigationBar.translucent = NO;
     
     self.title = @"停车";
@@ -35,7 +36,7 @@
     // 借助了帮助界面的Cell
     [self.tableView registerNib:[UINib nibWithNibName:@"HelpTableViewCell" bundle:nil] forCellReuseIdentifier:@"helpCell"];
     
-    _imageNameArray = @[@"zhandaotingche.png", @"zhoubian.png", @"tingchezixun.png"];
+    _imageNameArray = @[@"zhandaotingche.png", @"shangyetingche", @"shequtingche",@"zhoubian.png", @"tingchezixun.png"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -64,7 +65,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return _imageNameArray.count;
 }
 
 
@@ -90,12 +91,12 @@
             [self.navigationController pushViewController:_presenceVC animated:YES];
             break;
         }
-        case 1: {
+        case 3: {
             _surroundTVC = [[SurroundTableViewController alloc] init];
             [self.navigationController pushViewController:_surroundTVC animated:YES];
             break;
         }
-        case 2: {
+        case 4: {
             _parkingConsultingVC = [[ParkingConsultingViewController alloc] init];
             [self.navigationController pushViewController:_parkingConsultingVC animated:YES];
             break;

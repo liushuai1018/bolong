@@ -317,6 +317,7 @@
     // 设置 POST 请求文件上传
     [request setValue:@"multipart/form-data; boundary=LS" forHTTPHeaderField:@"Content-Type"];
     
+    
     [NSURLConnection sendAsynchronousRequest:request
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError)

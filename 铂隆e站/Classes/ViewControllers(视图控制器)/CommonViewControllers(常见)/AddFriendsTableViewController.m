@@ -9,12 +9,20 @@
 #import "AddFriendsTableViewController.h"
 #import <AddressBook/AddressBook.h>
 #import "AddressBook.h"
+#import "AddFriendsTableViewCell.h"
 
-@interface AddFriendsTableViewController () <UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating>
+#import "ApplyForViewController.h" // 申请添加好友
+
+@interface AddFriendsTableViewController () <UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating, UISearchBarDelegate>
 
 @property (nonatomic, strong) NSMutableArray *addressBookArr;  // 存储所有联系人数组
 
 @property (nonatomic, strong) NSMutableArray *searchResult;    // 搜索的数据
+
+
+@property (nonatomic, strong) UISearchController *searchController;
+
+@property (nonatomic, strong) ApplyForViewController *applyFor;
 
 @end
 
@@ -29,9 +37,8 @@
     
     [self setTheTabelView];
     
-    // 初始化 data
-    _searchResult = [[NSMutableArray alloc] init];
     
+    [self.tableView registerNib:[UINib nibWithNibName:@"AddFriendsTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell"];
 }
 
 #pragma mark - 申请访问通讯录权限
@@ -117,7 +124,18 @@
         // 获取当前联系人姓氏
         NSString *lastName = (__bridge NSString *)(ABRecordCopyValue(people, kABPersonLastNameProperty));
         
-        addressBook.name = [NSString stringWithFormat:@"%@%@", lastName, firstName];
+        NSString *name = @"";
+        
+        if (lastName != nil) {
+            
+            name = [NSString stringWithFormat:@"%@", lastName];
+        }
+        if (firstName != nil) {
+            
+            name =  name ? [name stringByAppendingString:firstName] : firstName;
+        }
+        
+        addressBook.name = name;
         
         // 获取当前联系人姓氏拼音
         NSString *lastNamePhoneic = (__bridge NSString *)(ABRecordCopyValue(people, kABPersonLastNamePhoneticProperty));
@@ -166,119 +184,126 @@
 - (void)setTheTabelView
 {
     
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    self.searchController.searchResultsUpdater = self;
+    self.searchController.dimsBackgroundDuringPresentation = NO; // 不隐藏发暗背景
+    self.searchController.hidesNavigationBarDuringPresentation = NO; // 不隐藏导航栏
+    [self.searchController.searchBar sizeToFit];
+    self.tableView.tableHeaderView = self.searchController.searchBar;
     
-    self.tableView.tableHeaderView = [self createrSearchBar];
+    self.definesPresentationContext = YES;
     
     self.tableView.tableFooterView = [UIImageView new];
-}
-
-// 创建区头搜索
-- (UIView *)createrSearchBar
-{
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT * 0.1)];
-    view.backgroundColor = [UIColor whiteColor];
-    
-    // 创建搜索框
-    /*
-    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:view.frame];
-    searchBar.backgroundColor = [UIColor lightGrayColor];
-    searchBar.backgroundImage = [UIImage new];
-    searchBar.delegate = self;
-    [view addSubview:searchBar];
-    */
-    UISearchController *searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
-    searchController.searchResultsUpdater = self;
-    searchController.dimsBackgroundDuringPresentation = NO;
-    [searchController.searchBar sizeToFit];
-    [view addSubview:searchController.searchBar];
-    /*
-    CGFloat height = SCREEN_HEIGHT * 0.06;
-    
-    UITextField *text = [[UITextField alloc] initWithFrame:CGRectMake(20, SCREEN_HEIGHT * 0.02, SCREEN_WIDTH - 40 - height, height)];
-    text.borderStyle = UITextBorderStyleRoundedRect;
-    [view addSubview:text];
-    
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(CGRectGetMaxX(text.frame), CGRectGetMinY(text.frame), height, height);
-    [button setBackgroundImage:[UIImage imageNamed:@"sousuo"] forState:UIControlStateNormal];
-    [view addSubview:button];
-    
-    UIView *divider = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(view.frame) - 1, CGRectGetWidth(view.frame), 0.5)];
-    divider.backgroundColor = [UIColor lightGrayColor];
-    [view addSubview:divider];
-    */
-    return view;
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 1;
+    if (self.searchController.active) { // 判断当前tableView 是不是搜索状态
+        return 1;
+    } else {
+        
+        return 1;
+    }
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
+    if (self.searchController.active) { // 判断当前tableView 是不是搜索状态
+        return _searchResult.count;
+    } else {
+        
+        return _addressBookArr.count;
+    }
     
-    return _addressBookArr.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *cellString = @"cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellString];
-    
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellString];
-    }
-    
-    
+    if (self.searchController.active) { // 判断当前tableView 是不是搜索状态
+        
+        static NSString *cellString = @"cell";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellString];
+        
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellString];
+        }
+        
+        cell.textLabel.text = @"1231231";
+        cell.backgroundColor = [UIColor redColor];
+        return cell;
+        
+    } else {
+        
+        AddFriendsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
         
         AddressBook *addressBook = [self.addressBookArr objectAtIndex:indexPath.row];
         
-        if (!addressBook.headImage) {
-            cell.imageView.image = [UIImage imageNamed:@"touxiang.jpg"];
-        } else {
-            
-            cell.imageView.image = addressBook.headImage;
+        if (addressBook.headImage != nil) {
+            cell.headImage.image = addressBook.headImage;
         }
         
-        cell.textLabel.text = addressBook.name;
-        cell.detailTextLabel.text = addressBook.phoneNumber;
+        cell.name.text = addressBook.name;
         
-        NSLog(@"name : %@ \n phoneNumber : %@", addressBook.name, addressBook.phoneNumber);
-    
-    
-    return cell;
+        [cell.add addTarget:self action:@selector(addFriends:event:) forControlEvents:UIControlEventTouchUpInside];
+        
+        return cell;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return SCREEN_HEIGHT * 0.12;
+    if (self.searchController.active) { // 判断当前tableView 是不是搜索状态
+        return 45;
+    } else {
+        
+        return SCREEN_HEIGHT * 0.12;
+    }
 }
 
-#pragma mark - searchDelegate
-/**
- *  执行delegate搜索好友
- *
- *  @param searchBar  searchBar description
- *  @param searchText searchText description
- */
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"我也不知道这是在干嘛");
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [_searchResult addObjectsFromArray:@[@"1",@"12",@"123"]];
-        [self.searchDisplayController.searchResultsTableView reloadData];
-    });
+    if (self.searchController.active) { // 判断当前tableView 是不是搜索状态
+        
+    } else {
+        
+        
+        
+    }
+}
+#pragma mark - 添加好友事件
+- (void)addFriends:(UIButton *)sender event:(UIEvent *)event
+{
+    UITouch *touch = [[event allTouches] anyObject];
+    
+    
+    // 根据点击动作获取 获取点击tableView 上的位置
+    CGPoint touchPosition = [touch locationInView:self.tableView];
+    // 根据点击位置获取所点击的区、行。
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:touchPosition];
+    NSLog(@"indexPath : %@", indexPath);
+    
+    AddressBook *addressBook = _addressBookArr[indexPath.row];
+    NSLog(@"addressBook = %@", addressBook.name);
+    
+    _applyFor = [[ApplyForViewController alloc] init];
+    [self.navigationController pushViewController:_applyFor animated:YES];
+    
     
 }
+
 
 #pragma mark - UISearchResultsUpdating
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController
 {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        [self.tableView reloadData];
+    });
     
     NSLog(@"这个方法真晕了");
 }

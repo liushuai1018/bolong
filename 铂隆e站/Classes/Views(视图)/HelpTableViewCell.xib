@@ -20,7 +20,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </imageView>
                 </subviews>
-                <color key="backgroundColor" red="0.88279204842931935" green="0.88279204842931935" blue="0.88279204842931935" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
                     <constraint firstItem="nOj-BQ-iMh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="La9-fn-q8C"/>
                     <constraint firstAttribute="trailingMargin" secondItem="nOj-BQ-iMh" secondAttribute="trailing" id="XWB-pL-6OJ"/>

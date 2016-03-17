@@ -6,6 +6,9 @@
 //  Copyright © 2016年 铂隆资产. All rights reserved.
 //
 
+/**
+ *  设置接受消息
+ */
 #import <UIKit/UIKit.h>
 
 @interface InforSetTableViewCell : UITableViewCell

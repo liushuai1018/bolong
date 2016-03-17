@@ -48,7 +48,7 @@
  *  融云 IM Key
  */
 #define RC_IM_Key @"8w7jv4qb7ey6y"
-#define RC_IM_Temp_Token @"5G5SIKct12Xl0z7Qt3dJ7ZsLTG6GOYogeXXCfIDmWU8kTKfEVyLg2c2gVhENud/C7q3DSwITG0InfHOQihSkdA=="
+#define RC_IM_Temp_Token @"VAZqz8j5M8QUss7jfSTc5DVHXkAG7pcbJF4TZk7kk0nL6WDRhRfgEW6YMsqg4LLcWSL898AphGuL8iwmgPbJcQ=="
 
 // 引入
 #import "TempTableViewController.h"

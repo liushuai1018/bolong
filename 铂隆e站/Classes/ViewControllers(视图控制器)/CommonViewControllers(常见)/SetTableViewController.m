@@ -8,7 +8,6 @@
 
 #import "SetTableViewController.h"
 #import "SetTableViewCell.h"
-#import "LonginViewController.h"
 
 #import "InforSetTableViewController.h"
 #import "TheBindingViewController.h"
@@ -94,9 +93,9 @@
 // 退出按钮
 - (void)clickFooterButton:(UIButton *)sender
 {
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"account"];
-    LonginViewController *longin = [[LonginViewController alloc] init];
-    [self presentViewController:longin animated:YES completion:nil];
+    // 退出当前界面，返回到首界面
+    [self dismissViewControllerAnimated:YES completion:nil];
+    self.block();
 }
 
 // 区尾高度

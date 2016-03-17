@@ -12,6 +12,10 @@
  */
 #import <UIKit/UIKit.h>
 
+typedef void(^kBlock)();
+
 @interface SetTableViewController : UITableViewController
+
+@property (nonatomic, copy) kBlock block;
 
 @end

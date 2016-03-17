@@ -101,12 +101,7 @@
 {
     
     // 设置需要显示那些类型的会话
-    [self setDisplayConversationTypes:@[@(ConversationType_PRIVATE),
-                                        @(ConversationType_DISCUSSION),
-                                        @(ConversationType_CHATROOM),
-                                        @(ConversationType_GROUP),
-                                        @(ConversationType_APPSERVICE),
-                                        @(ConversationType_SYSTEM)]];
+    [self setDisplayConversationTypes:@[@(ConversationType_PRIVATE)]];
     
     // 设置需要将那些类型的会话在会话列表中聚合显示
     [self setCollectionConversationType:@[@(ConversationType_DISCUSSION),
@@ -119,7 +114,7 @@
     RCConversationViewController *conversationVC = [[RCConversationViewController alloc] init];
     conversationVC.conversationType = model.conversationType;
     conversationVC.targetId = model.targetId;
-    conversationVC.title = [NSString stringWithFormat:@"与%@对话中...", model.targetId];
+    conversationVC.title = [NSString stringWithFormat:@"%@", model.targetId];
     [self.navigationController pushViewController:conversationVC animated:YES];
 }
 

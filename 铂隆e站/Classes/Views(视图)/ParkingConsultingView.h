@@ -37,4 +37,6 @@
  */
 - (void)replyActionForName:(NSString *)str;
 
+@property (strong, nonatomic) UIButton *newsButton;        // 发布消息
+
 @end

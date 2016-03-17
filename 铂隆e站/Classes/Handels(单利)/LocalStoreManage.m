@@ -9,6 +9,17 @@
 #import "LocalStoreManage.h"
 #import "UserInformation.h"
 
+// 存储文件夹路径
+#define kFilePath [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
+// 用户信息路径
+#define kUserInforPath [kFilePath stringByAppendingPathComponent:@"userInfor.plist"]
+// 头像路径
+#define kHeadImagePath [kFilePath stringByAppendingPathComponent:@"userInforHeadImage.png"]
+// 背景图路径
+#define kBackgroundPath [kFilePath stringByAppendingPathComponent:@"backgroundImage.png"]
+// 文件夹管理工具
+#define kFileManager [NSFileManager defaultManager]
+
 @interface LocalStoreManage ()
 
 @property (nonatomic, strong) UserInformation *userInfor;
@@ -42,7 +53,7 @@
     // 归档结束
     [archiver finishEncoding];
     // 本地存储路径
-    NSString *path = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"userInfor.plist"];
+    NSString *path = kUserInforPath;
     [data writeToFile:path atomically:YES];
     
 }
@@ -57,7 +68,7 @@
     }
     _userInfor.headPortrait = image;
     NSData *data1 = UIImagePNGRepresentation(image);
-    NSString *path1 = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"userInforHeadImage.png"];
+    NSString *path1 = kHeadImagePath;
     [data1 writeToFile:path1 atomically:YES];
 }
 
@@ -71,7 +82,7 @@
     }
     _userInfor.backgroundImage = image;
     NSData *data1 = UIImagePNGRepresentation(image);
-    NSString *path1 = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"backgroundImage.png"];
+    NSString *path1 = kBackgroundPath;
     [data1 writeToFile:path1 atomically:YES];
 }
 
@@ -85,7 +96,7 @@
     }
     
     // 本地存储路径
-    NSString *path = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"userInfor.plist"];
+    NSString *path = kUserInforPath;
     
     // 存储在本地data类型的用户信息
     NSData *data = [NSData dataWithContentsOfFile:path];
@@ -94,17 +105,17 @@
     _userInfor = [archiver decodeObjectForKey:@"userInfor"];
     
     // Image头像
-    NSString *path1 = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"userInforHeadImage.png"];
+    NSString *path1 = kHeadImagePath;
     
-    if (![[NSFileManager defaultManager] fileExistsAtPath:path1]) {
+    if (![kFileManager fileExistsAtPath:path1]) {
         return _userInfor; // 本地没有存储头像
     }
     NSData *data1 = [NSData dataWithContentsOfFile:path1];
     _userInfor.headPortrait = [UIImage imageWithData:data1];
     
     // 背景图片
-    NSString *path2 = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"backgroundImage.png"];
-    if (![[NSFileManager defaultManager] fileExistsAtPath:path2]) {
+    NSString *path2 = kBackgroundPath;
+    if (![kFileManager fileExistsAtPath:path2]) {
         return _userInfor; // 本地没有存储背景
     }
     NSData *data2 = [NSData dataWithContentsOfFile:path2];
@@ -121,6 +132,27 @@
     NSLog(@"修改头像后的用户信息 :%@", _userInfor);
     
     [self UserInforStoredLocally:_userInfor];
+}
+
+#pragma mark -清除所有用户信息
+- (void)removeAllUserInfor
+{
+    // 获取所有路径
+    NSString *userInforPath = kUserInforPath;
+    NSString *headPath = kHeadImagePath;
+    NSString *backgroundPath = kBackgroundPath;
+    
+    if ([kFileManager fileExistsAtPath:userInforPath]) {
+        [kFileManager removeItemAtPath:userInforPath error:nil];
+    }
+    
+    if ([kFileManager fileExistsAtPath:headPath]) {
+        [kFileManager removeItemAtPath:headPath error:nil];
+    }
+    
+    if ([kFileManager fileExistsAtPath:backgroundPath]) {
+        [kFileManager removeItemAtPath:backgroundPath error:nil];
+    }
 }
 
 @end

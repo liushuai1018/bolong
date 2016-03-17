@@ -29,6 +29,7 @@
     
     [self initializeUM];
     [self initiazeRong];
+    [self connectionIMSDKServer:RC_IM_Temp_Token];
     
     // 判断是不是第一次启动
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"firstLaunch"]) {
@@ -86,9 +87,36 @@
     
 }
 
+#pragma mark - 获得IM token后连接SDK服务器
+- (void)connectionIMSDKServer:(NSString *)token
+{
+    // 获得 token 后 连接融云IM SDK 服务器
+    [[RCIM sharedRCIM] connectWithToken:token
+                                success:^(NSString *userId) {
+                                    
+                                    NSLog(@"登陆融云IM成功,当前登陆的用户ID: %@", userId);
+                                    
+                                } error:^(RCConnectErrorCode status) {
+                                    
+                                    NSLog(@"登陆的错误码为: %ld", (long)status);
+                                    
+                                } tokenIncorrect:^{
+                                    
+                                    /**
+                                     *  token过期或者不正确。
+                                     *  如果设置了token有限期限并且token过期，请重新请求您的服务器获取新的token
+                                     *  如果没有设置token有效期却提示token错误，请检查您的客户端和服务端的appkey是否匹配，还有检查您获取token的流程。
+                                     */
+                                    NSLog(@"token错误");
+                                    
+                                }];
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    
+    
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="176" id="KGk-i7-Jjw" customClass="AddFriendsTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="528" height="176"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="528" height="175"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="孙悟空" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8nO-8v-JOm">
+                        <rect key="frame" x="207" y="59" width="150" height="57"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="150" id="HUn-oh-BJc"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XnO-a9-fJy">
+                        <rect key="frame" x="391" y="59" width="114" height="57"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="XnO-a9-fJy" secondAttribute="height" multiplier="2:1" id="hSu-8E-crH"/>
+                        </constraints>
+                        <state key="normal" title="添加"/>
+                    </button>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="touxiang.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="tJ1-vc-aFA">
+                        <rect key="frame" x="8" y="5" width="177" height="165"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="tJ1-vc-aFA" secondAttribute="height" multiplier="15:8" id="Ubc-9Y-ess"/>
+                            <constraint firstAttribute="width" secondItem="tJ1-vc-aFA" secondAttribute="height" multiplier="72:67" id="cDB-oa-ImJ"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Ubc-9Y-ess"/>
+                            </mask>
+                        </variation>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="tJ1-vc-aFA" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="4yu-wG-6mr"/>
+                    <constraint firstItem="tJ1-vc-aFA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="KRK-Ag-qBD"/>
+                    <constraint firstItem="XnO-a9-fJy" firstAttribute="height" secondItem="8nO-8v-JOm" secondAttribute="height" id="NM0-Gu-QWK"/>
+                    <constraint firstItem="8nO-8v-JOm" firstAttribute="leading" secondItem="tJ1-vc-aFA" secondAttribute="trailing" constant="20" id="Ns2-jg-QKe"/>
+                    <constraint firstAttribute="bottom" secondItem="tJ1-vc-aFA" secondAttribute="bottom" constant="5" id="VCa-21-bN8"/>
+                    <constraint firstItem="XnO-a9-fJy" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="e5W-z5-VNU"/>
+                    <constraint firstItem="tJ1-vc-aFA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="fZs-VK-4yh"/>
+                    <constraint firstItem="tJ1-vc-aFA" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="jul-E9-NjK"/>
+                    <constraint firstItem="8nO-8v-JOm" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="lnO-Zd-w2s"/>
+                    <constraint firstItem="8nO-8v-JOm" firstAttribute="height" secondItem="tJ1-vc-aFA" secondAttribute="height" multiplier="0.35" id="w3Y-HA-h6G"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="XnO-a9-fJy" secondAttribute="trailing" constant="15" id="xZQ-hM-kRe"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="add" destination="XnO-a9-fJy" id="jLR-0b-aHz"/>
+                <outlet property="headImage" destination="tJ1-vc-aFA" id="HDE-Ao-qgI"/>
+                <outlet property="name" destination="8nO-8v-JOm" id="FxC-du-sdm"/>
+            </connections>
+            <point key="canvasLocation" x="457" y="306"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="touxiang.jpg" width="300" height="300"/>
+    </resources>
+</document>

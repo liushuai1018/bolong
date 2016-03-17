@@ -56,6 +56,8 @@
 // 点击是否缴费
 - (void)clickWhetherOrNotPay:(UIButton *)sender
 {
+    
+    
     switch (sender.tag) {
         case 12500:
             [_heatV createCompleteView];

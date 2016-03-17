@@ -57,4 +57,9 @@
  */
 - (void)upUserHeadURL:(NSString *)headURL;
 
+/**
+ *  清除所有用户信息
+ */
+- (void)removeAllUserInfor;
+
 @end
