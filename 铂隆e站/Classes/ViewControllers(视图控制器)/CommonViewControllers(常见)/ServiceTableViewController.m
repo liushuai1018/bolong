@@ -78,7 +78,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return SCREEN_HEIGHT * 0.25;
+    return SCREEN_HEIGHT * 0.23;
 }
 
 // 点击Cell

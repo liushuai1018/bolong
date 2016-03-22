@@ -35,14 +35,18 @@
     _textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     _textField.textAlignment = NSTextAlignmentCenter;
     _textField.delegate = self;
-    [_textField addTarget:self action:@selector(dropdown) forControlEvents:UIControlEventAllTouchEvents];
+    [_textField addTarget:self action:@selector(dropdown) forControlEvents:UIControlEventAllEditingEvents];
     [self addSubview:_textField];
     
 }
 
 - (void)createTableView
 {
-    _tv = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 0)];
+    _tv = [[UITableView alloc] initWithFrame:CGRectMake(0, 5, self.frame.size.width, 0)];
+//    _tv.layer.masksToBounds = YES;
+//    _tv.layer.cornerRadius = 5;
+//    _tv.layer.borderWidth = 0.5;
+    _tv.layer.borderColor = [UIColor lightGrayColor].CGColor;
     _tv.delegate = self;
     _tv.dataSource = self;
     _tv.backgroundColor = [UIColor grayColor];
@@ -59,11 +63,16 @@
 
 - (void)dropdown
 {
+    
     if (showList) {
         return;
     } else {
         
-        [self createTableView];
+        if (!_tv) {
+            
+            [self createTableView];
+            
+        }
         
         CGRect sf = self.frame;
         sf.size.height = frameHeight;
@@ -115,7 +124,7 @@
     cell.textLabel.font = [UIFont systemFontOfSize:16.0f];
     cell.textLabel.textAlignment = NSTextAlignmentCenter;
     cell.accessoryType = UITableViewCellAccessoryNone;
-    cell.selectionStyle = UITableViewCellSelectionStyleGray;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }

@@ -81,7 +81,7 @@
 }
 
 
-// 替换系统的左边BarButton
+#pragma mark - add Left BarButton
 - (void)replaceLeftBarButton
 {
     
@@ -89,7 +89,7 @@
     self.navigationItem.leftBarButtonItem = left;
     
 }
-// 自定义左边BarBUtton事件
+// left Action
 - (void)didClickLeftAction:(UIBarButtonItem *)bar
 {
     [self.navigationController popViewControllerAnimated:YES];
@@ -100,6 +100,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - segmentedDetegate
 - (void)didClickSegmentedAction:(UISegmentedControl *)sender
 {
     
