@@ -15,6 +15,8 @@
 
 @interface WaterView : UIView <UITextFieldDelegate>
 
+@property (strong, nonatomic) UIScrollView *scrollView;
+
 /**
  *  水电费选择背景图
  */
@@ -115,5 +117,7 @@
  *  铂隆币余额
  */
 @property (nonatomic, strong) UILabel *boLongBalanceLabel;
+
+- (void)LSResignFirstResponder;
 
 @end

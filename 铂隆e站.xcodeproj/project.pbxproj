@@ -1450,8 +1450,6 @@
 				0C55DAA51C321322006863A9 /* PocketMoneyViewController.m */,
 				0C55DAB01C325938006863A9 /* PhoneViewController.h */,
 				0C55DAB11C325938006863A9 /* PhoneViewController.m */,
-				0C58648A1C33ACAA008FF9E2 /* WaterAndElectricityViewController.h */,
-				0C58648B1C33ACAA008FF9E2 /* WaterAndElectricityViewController.m */,
 				0C54D1521C3B4B2000EAC3E7 /* BankCardTableViewController.h */,
 				0C54D1531C3B4B2000EAC3E7 /* BankCardTableViewController.m */,
 			);
@@ -1494,6 +1492,44 @@
 				0C21EDE21C11916600C44468 /* CircleTableViewController.m */,
 			);
 			name = Circle;
+			sourceTree = "<group>";
+		};
+		0C58EF5B1CA3D3250045FE7C /* 物业 */ = {
+			isa = PBXGroup;
+			children = (
+				0C6B185C1C4335750096DE3F /* PropertyViewController.h */,
+				0C6B185D1C4335750096DE3F /* PropertyViewController.m */,
+				0C46649F1CA233D700F2278C /* SelectAVillageTableViewController.h */,
+				0C4664A01CA233D700F2278C /* SelectAVillageTableViewController.m */,
+			);
+			name = "物业";
+			sourceTree = "<group>";
+		};
+		0C58EF5C1CA3D32E0045FE7C /* 水电 */ = {
+			isa = PBXGroup;
+			children = (
+				0C58648A1C33ACAA008FF9E2 /* WaterAndElectricityViewController.h */,
+				0C58648B1C33ACAA008FF9E2 /* WaterAndElectricityViewController.m */,
+			);
+			name = "水电";
+			sourceTree = "<group>";
+		};
+		0C58EF5D1CA3D3340045FE7C /* 暖气 */ = {
+			isa = PBXGroup;
+			children = (
+				0C6B186B1C438F220096DE3F /* HeatingViewController.h */,
+				0C6B186C1C438F220096DE3F /* HeatingViewController.m */,
+			);
+			name = "暖气";
+			sourceTree = "<group>";
+		};
+		0C58EF5E1CA3D3390045FE7C /* 燃气 */ = {
+			isa = PBXGroup;
+			children = (
+				0C6B18751C4398040096DE3F /* FuelGasViewController.h */,
+				0C6B18761C4398040096DE3F /* FuelGasViewController.m */,
+			);
+			name = "燃气";
 			sourceTree = "<group>";
 		};
 		0C642FC51C756E4B00EEC11E /* Rong_Cloud_iOS_IMKit_SDK_v2_4_7_stable */ = {
@@ -1542,16 +1578,12 @@
 		0C696B911C3E1927007AE88A /* 缴费 */ = {
 			isa = PBXGroup;
 			children = (
+				0C58EF5E1CA3D3390045FE7C /* 燃气 */,
+				0C58EF5D1CA3D3340045FE7C /* 暖气 */,
+				0C58EF5C1CA3D32E0045FE7C /* 水电 */,
+				0C58EF5B1CA3D3250045FE7C /* 物业 */,
 				0C696B891C3E00D7007AE88A /* PayTableViewController.h */,
 				0C696B8A1C3E00D7007AE88A /* PayTableViewController.m */,
-				0C6B185C1C4335750096DE3F /* PropertyViewController.h */,
-				0C6B185D1C4335750096DE3F /* PropertyViewController.m */,
-				0C46649F1CA233D700F2278C /* SelectAVillageTableViewController.h */,
-				0C4664A01CA233D700F2278C /* SelectAVillageTableViewController.m */,
-				0C6B186B1C438F220096DE3F /* HeatingViewController.h */,
-				0C6B186C1C438F220096DE3F /* HeatingViewController.m */,
-				0C6B18751C4398040096DE3F /* FuelGasViewController.h */,
-				0C6B18761C4398040096DE3F /* FuelGasViewController.m */,
 			);
 			name = "缴费";
 			sourceTree = "<group>";

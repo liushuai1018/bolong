@@ -16,18 +16,21 @@
 
 @implementation HeatingViewController
 
-- (void)loadView
-{
-    self.heatV = [[HeatingView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.view = _heatV;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationController.navigationBar.translucent = NO;
     self.title = @"暖气缴费";
+    [self createrView];
     [self initializeTheSet]; // 初始化设置
     [self addPayEvent]; // 添加缴费按钮事件
+}
+
+#pragma mark - 创建View
+- (void)createrView
+{
+    self.heatV = [[HeatingView alloc] initWithFrame:self.view.bounds];
+    self.view = _heatV;
 }
 
 // 初始化设置
@@ -46,6 +49,9 @@
 
 - (void)clickPayEvent:(UIButton *)sender
 {
+    // 取消输入框的第一响应链
+    [_heatV LSResignFirstResponder];
+    
     [_heatV createConfirmView];
     for (int i = 0; i < 2; i++) {
         UIButton *button = [_heatV.confirmView viewWithTag:i + 12500];
@@ -81,9 +87,71 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - 视图将要出现
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    // 注册键盘推出通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    // 注册键盘回收通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+    NSLog(@"注册监控键盘");
+}
+#pragma mark - 视图将要消失
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    // remove通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillShowNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
+    NSLog(@"注销监控键盘");
+}
 
+#pragma mark - 监听键盘的弹出
+- (void)keyboardWillShow:(NSNotification *)info
+{
+    // 获取键盘高度
+    CGFloat height = [[info.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+    
+    /*
+     *  在弹出键盘的状态下再次修改输入的类型 会再次减去键盘的高度，导致tableView下面一大块空白
+     */
+    
+    // 获取键盘的顶端到导航栏下部的高
+    CGFloat tableViewHeight = _heatV.frame.size.height - height;
+    
+    // 获取键盘弹出动画的时间
+    double duration = [[info.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    
+    [UIView animateWithDuration:duration animations:^{
+        _heatV.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, tableViewHeight);
+        _heatV.scrollView.contentSize = CGSizeMake(_heatV.frame.size.width, _heatV.frame.size.height);
+    }];
+    
+    
+}
+
+#pragma mark - 监听键盘的收回
+- (void)keyboardWillHide:(NSNotification *)infor
+{
+    double duraction = [[infor.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] doubleValue];
+    
+    [UIView animateWithDuration:duraction animations:^{
+        _heatV.scrollView.frame = CGRectMake(0, 0, _heatV.frame.size.width, _heatV.frame.size.height);
+        _heatV.scrollView.contentSize = CGSizeMake(_heatV.frame.size.width, _heatV.frame.size.height);
+    }];
+}
 
 @end

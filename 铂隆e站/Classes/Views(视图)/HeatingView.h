@@ -14,6 +14,9 @@
 
 @interface HeatingView : UIView <UITextFieldDelegate>
 
+@property (strong, nonatomic) UIScrollView *scrollView;
+
+
 /**
  *  显示图标
  */
@@ -83,5 +86,7 @@
  *  铂隆币余额
  */
 @property (nonatomic, strong) UILabel *boLongBalanceLabel;
+
+- (void)LSResignFirstResponder;
 
 @end

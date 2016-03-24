@@ -29,13 +29,18 @@
 
 - (void)createAllSubViews
 {
-    self.backgroundColor = [UIColor colorWithRed:235.0/256.0 green:235.0/256.0 blue:235.0/256.0 alpha:1.0];
+    
+    self.scrollView = [[UIScrollView alloc] initWithFrame:self.frame];
+    _scrollView.backgroundColor = [UIColor colorWithRed:235.0/256.0 green:235.0/256.0 blue:235.0/256.0 alpha:1.0];
+    _scrollView.contentSize = CGSizeMake(self.frame.size.width, self.frame.size.height);
+    [self addSubview:_scrollView];
+    
     
     // 图像
     self.xuanZeImage = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH * 0.25, 20, SCREEN_WIDTH * 0.5, 30)];
     _xuanZeImage.image = [UIImage imageNamed:@"xuanze.png"];
     _xuanZeImage.userInteractionEnabled = YES;
-    [self addSubview:_xuanZeImage];
+    [_scrollView addSubview:_xuanZeImage];
     
     
     // 水费 button
@@ -58,18 +63,18 @@
     self.positionButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _positionButton.frame = CGRectMake(CGRectGetMaxX(_xuanZeImage.frame) + 20, CGRectGetMinY(_xuanZeImage.frame) + 7, 12, 15);
     [_positionButton setImage:[UIImage imageNamed:@"dingwei.png"] forState:UIControlStateNormal];
-    [self addSubview:_positionButton];
+    [_scrollView addSubview:_positionButton];
     
     //
     self.positionLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_positionButton.frame) + 5, CGRectGetMinY(_positionButton.frame), 20, 10)];
     _positionLabel.textColor = [UIColor colorWithRed:135.0/256.0 green:135.0/256.0 blue:135.0/256.0 alpha:1.0];
     _positionLabel.font = [UIFont systemFontOfSize: 8.0f];
-    [self addSubview:_positionLabel];
+    [_scrollView addSubview:_positionLabel];
     
     // 图标
     self.iocImage = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH * 0.5 - 40, CGRectGetMaxY(_xuanZeImage.frame) + 30, 80, 80)];
     _iocImage.image = [UIImage imageNamed:@"shui.png"];
-    [self addSubview:_iocImage];
+    [_scrollView addSubview:_iocImage];
     
     CGFloat width = SCREEN_WIDTH * 0.9;
     // 公司列表
@@ -79,7 +84,7 @@
     _pulldownMenusV.tv.backgroundColor = [UIColor whiteColor];
     _pulldownMenusV.layer.masksToBounds = YES;
     _pulldownMenusV.layer.cornerRadius = 5.0;
-    [self addSubview:_pulldownMenusV];
+    [_scrollView addSubview:_pulldownMenusV];
     
     // 缴费账号
     self.accountNumber = [[UITextField alloc] initWithFrame:CGRectMake(CGRectGetMinX(_pulldownMenusV.frame), CGRectGetMaxY(_pulldownMenusV.frame) + 15, width, 50)];
@@ -92,7 +97,7 @@
     _accountNumber.delegate = self;
     _accountNumber.clearsOnBeginEditing = YES;
     _accountNumber.clearButtonMode = UITextFieldViewModeWhileEditing;
-    [self addSubview:_accountNumber];
+    [_scrollView addSubview:_accountNumber];
     
     // 缴费金额
     self.paymentAmount = [[UITextField alloc] initWithFrame:CGRectMake(CGRectGetMinX(_pulldownMenusV.frame), CGRectGetMaxY(_accountNumber.frame) + 15, width, 50)];
@@ -105,7 +110,7 @@
     _paymentAmount.delegate = self;
     _paymentAmount.clearsOnBeginEditing = YES;
     _paymentAmount.clearButtonMode = UITextFieldViewModeWhileEditing;
-    [self addSubview: _paymentAmount];
+    [_scrollView addSubview: _paymentAmount];
     
     
     // 缴费按钮
@@ -114,7 +119,7 @@
     [_payBUtton setTitle:@"缴费" forState:UIControlStateNormal];
     [_payBUtton setBackgroundImage:[UIImage imageNamed:@"jifei.png"] forState:UIControlStateNormal];
     _payBUtton.tag = 12300;
-    [self addSubview:_payBUtton];
+    [_scrollView addSubview:_payBUtton];
     
     // 取消界面其他第一响应链
     __weak WaterView *water = self;
@@ -124,6 +129,13 @@
     };
     
     
+}
+
+#pragma mark - 取消输入框的第一响应
+- (void)LSResignFirstResponder
+{
+    [_accountNumber resignFirstResponder];
+    [_paymentAmount resignFirstResponder];
 }
 
 // 转化水费界面

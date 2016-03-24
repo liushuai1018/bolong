@@ -17,16 +17,12 @@
 
 @implementation WaterAndElectricityViewController
 
-- (void)loadView
-{
-    self.waterV = [[WaterView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.view = _waterV;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationController.navigationBar.translucent = NO;
     self.title = @"水电缴费";
+    [self createrView];
     
     // 定位地址
     _waterV.positionLabel.text = @"北京";
@@ -47,6 +43,13 @@
     
 }
 
+#pragma mark - 创建自定义视图
+- (void)createrView
+{
+    self.waterV = [[WaterView alloc] initWithFrame:self.view.bounds];
+    self.view = _waterV;
+}
+
 #pragma mark 给 缴费按钮添加事件
 - (void)addAction
 {
@@ -55,6 +58,7 @@
 
 - (void)didClickPayAction:(UIButton *)sender
 {
+    [_waterV LSResignFirstResponder];
     
     switch (sender.tag) {
         case 12300:
@@ -109,9 +113,74 @@
     }
 }
 
+#pragma mark - 视图将要出现
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    // 注册键盘推出通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    // 注册键盘回收通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+    NSLog(@"注册监控键盘");
+}
+#pragma mark - 视图将要消失
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    // remove通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillShowNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
+    NSLog(@"注销监控键盘");
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - 监听键盘的弹出
+- (void)keyboardWillShow:(NSNotification *)info
+{
+    // 获取键盘高度
+    CGFloat height = [[info.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+    
+    /*
+     *  在弹出键盘的状态下再次修改输入的类型 会再次减去键盘的高度，导致tableView下面一大块空白
+     */
+    
+    // 获取键盘的顶端到导航栏下部的高
+    CGFloat tableViewHeight = _waterV.frame.size.height - height;
+    
+    // 获取键盘弹出动画的时间
+    double duration = [[info.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    
+    [UIView animateWithDuration:duration animations:^{
+        _waterV.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, tableViewHeight);
+        _waterV.scrollView.contentSize = CGSizeMake(_waterV.frame.size.width, _waterV.frame.size.height);
+    }];
+    
+    
+}
+
+#pragma mark - 监听键盘的收回
+- (void)keyboardWillHide:(NSNotification *)infor
+{
+    double duraction = [[infor.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] doubleValue];
+    
+    [UIView animateWithDuration:duraction animations:^{
+        _waterV.scrollView.frame = CGRectMake(0, 0, _waterV.frame.size.width, _waterV.frame.size.height);
+        _waterV.scrollView.contentSize = CGSizeMake(_waterV.frame.size.width, _waterV.frame.size.height);
+    }];
 }
 
 @end

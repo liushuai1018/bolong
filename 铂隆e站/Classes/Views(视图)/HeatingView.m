@@ -22,11 +22,14 @@
 #pragma mark 创建所有子视图
 - (void)createAllSubView
 {
-    self.backgroundColor = [UIColor colorWithRed:235.0/256.0 green:235.0/256.0 blue:235.0/256.0 alpha:1.0];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:self.frame];
+    self.scrollView.contentSize = CGSizeMake(self.frame.size.width, self.frame.size.height);
+    _scrollView.backgroundColor = [UIColor colorWithRed:235.0/256.0 green:235.0/256.0 blue:235.0/256.0 alpha:1.0];
+    [self addSubview:_scrollView];
     
     // 图标
     self.iocImage = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH * 0.5 - 40, 60, 80, 80)];
-    [self addSubview:_iocImage];
+    [_scrollView addSubview:_iocImage];
     
     // 宽度
     CGFloat width = SCREEN_WIDTH * 0.9;
@@ -37,7 +40,7 @@
     _pulldownMenusV.tv.backgroundColor = [UIColor whiteColor];
     _pulldownMenusV.layer.masksToBounds = YES;
     _pulldownMenusV.layer.cornerRadius = 5.0;
-    [self addSubview:_pulldownMenusV];
+    [_scrollView addSubview:_pulldownMenusV];
     
     // 缴费账号
     self.accountNumber = [[UITextField alloc] initWithFrame:CGRectMake(CGRectGetMinX(_pulldownMenusV.frame), CGRectGetMaxY(_pulldownMenusV.frame) + 15, width, height)];
@@ -50,7 +53,7 @@
     _accountNumber.delegate = self;
     _accountNumber.clearsOnBeginEditing = YES;
     _accountNumber.clearButtonMode = UITextFieldViewModeWhileEditing;
-    [self addSubview:_accountNumber];
+    [_scrollView addSubview:_accountNumber];
     
     // 缴费金额
     self.paymentAmount = [[UITextField alloc] initWithFrame:CGRectMake(CGRectGetMinX(_pulldownMenusV.frame), CGRectGetMaxY(_accountNumber.frame) + 15, width, height)];
@@ -63,7 +66,7 @@
     _paymentAmount.delegate = self;
     _paymentAmount.clearsOnBeginEditing = YES;
     _paymentAmount.clearButtonMode = UITextFieldViewModeWhileEditing;
-    [self addSubview: _paymentAmount];
+    [_scrollView addSubview: _paymentAmount];
     
     
     // 缴费按钮
@@ -72,7 +75,7 @@
     [_payBUtton setTitle:@"缴费" forState:UIControlStateNormal];
     [_payBUtton setBackgroundImage:[UIImage imageNamed:@"jifei.png"] forState:UIControlStateNormal];
     _payBUtton.tag = 12300;
-    [self addSubview:_payBUtton];
+    [_scrollView addSubview:_payBUtton];
     
     // 取消界面其他第一响应链
     __weak HeatingView *heat = self;
@@ -106,6 +109,13 @@
     // 隐藏下拉菜单
     [_pulldownMenusV clickOnTheOther];
     return YES;
+}
+
+#pragma mark - 取消输入框第一响应
+- (void)LSResignFirstResponder
+{
+    [_accountNumber resignFirstResponder];
+    [_paymentAmount resignFirstResponder];
 }
 
 #pragma mark 确认缴费视图

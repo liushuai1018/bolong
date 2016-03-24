@@ -48,6 +48,8 @@
 
 - (void)clickPayEvent:(UIButton *)sender
 {
+    [_fuelGasV LSResignFirstResponder];
+    
     [_fuelGasV createConfirmView];
     for (int i = 0; i < 2; i++) {
         UIButton *button = [_fuelGasV.confirmView viewWithTag:i + 12500];
@@ -85,6 +87,69 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - 视图将要出现
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    // 注册键盘推出通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    // 注册键盘回收通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+    NSLog(@"注册监控键盘");
+}
+#pragma mark - 视图将要消失
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    // remove通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillShowNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
+    NSLog(@"注销监控键盘");
+}
 
+#pragma mark - 监听键盘的弹出
+- (void)keyboardWillShow:(NSNotification *)info
+{
+    // 获取键盘高度
+    CGFloat height = [[info.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+    
+    /*
+     *  在弹出键盘的状态下再次修改输入的类型 会再次减去键盘的高度，导致tableView下面一大块空白
+     */
+    
+    // 获取键盘的顶端到导航栏下部的高
+    CGFloat tableViewHeight = _fuelGasV.frame.size.height - height;
+    
+    // 获取键盘弹出动画的时间
+    double duration = [[info.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    
+    [UIView animateWithDuration:duration animations:^{
+        _fuelGasV.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, tableViewHeight);
+        _fuelGasV.scrollView.contentSize = CGSizeMake(_fuelGasV.frame.size.width, _fuelGasV.frame.size.height);
+    }];
+    
+    
+}
+
+#pragma mark - 监听键盘的收回
+- (void)keyboardWillHide:(NSNotification *)infor
+{
+    double duraction = [[infor.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] doubleValue];
+    
+    [UIView animateWithDuration:duraction animations:^{
+        _fuelGasV.scrollView.frame = CGRectMake(0, 0, _fuelGasV.frame.size.width, _fuelGasV.frame.size.height);
+        _fuelGasV.scrollView.contentSize = CGSizeMake(_fuelGasV.frame.size.width, _fuelGasV.frame.size.height);
+    }];
+}
 
 @end
