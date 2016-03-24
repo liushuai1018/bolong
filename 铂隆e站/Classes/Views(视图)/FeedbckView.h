@@ -6,6 +6,9 @@
 //  Copyright © 2015年 铂隆资产. All rights reserved.
 //
 
+/**
+ *  意见反馈
+ */
 #import <UIKit/UIKit.h>
 
 @interface FeedbckView : UIView <UITextFieldDelegate, UITextViewDelegate>

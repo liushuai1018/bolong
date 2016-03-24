@@ -8,7 +8,7 @@
 
 #import "PropertyViewController.h"
 #import "PropertyView.h"
-#import "PulldownMenusView.h"
+#import "SelectAVillageTableViewController.h"
 
 @interface PropertyViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
@@ -18,7 +18,6 @@
 @property (nonatomic, strong) UITableView *aTableView;
 @property (nonatomic, strong) NSArray *dataArray;
 
-@property (nonatomic, strong) PulldownMenusView *pulldownMenus;  // 二级菜单
 
 @end
 
@@ -35,14 +34,13 @@
     [super viewDidLoad];
     
     self.title = @"物业缴费";
-    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBar.translucent = YES;
     
     self.aTableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     self.aTableView.delegate = self;
     self.aTableView.dataSource = self;
     self.aTableView.tableFooterView = [self createFooterView];
     self.view = _aTableView;
-    
     
     _dataArray = @[@"缴费单位", @"缴费小区",
                    @"户主姓名", @"身份证号"];
@@ -70,10 +68,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - 视图已经出现
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
     
     UITableViewCell *cell = [_aTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     CGRect frame = cell.textLabel.frame;
@@ -84,19 +82,34 @@
     UITextField *text1 = [_aTableView viewWithTag:14001];
     text1.frame = CGRectMake(CGRectGetMaxX(frame) + 20, CGRectGetMinY(frame), 200, CGRectGetHeight(frame));
     
-    _pulldownMenus = [[PulldownMenusView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(frame) + 20, CGRectGetMinY(frame), 200, CGRectGetHeight(frame))];
-    _pulldownMenus.textField.placeholder = @"您的小区";
-    _pulldownMenus.textField.textAlignment = NSTextAlignmentLeft;
-    _pulldownMenus.tableArray = @[@"惠润嘉园一区",
-                                  @"惠润嘉园二区",
-                                  @"惠润嘉园三区",
-                                  @"惠润嘉园四区",
-                                  @"惠润嘉园五区",
-                                  @"惠润嘉园六区",
-                                  @"惠润嘉园七区"];
-    [cell addSubview:_pulldownMenus];
     
-    
+}
+#pragma mark - 视图将要出现
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    // 注册键盘推出通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    // 注册键盘回收通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+}
+#pragma mark - 视图将要消失
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    // remove通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillShowNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
 }
 
 #pragma mark - tableViewDelegate
@@ -178,6 +191,22 @@
 // 点击cell
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    // 点击小区推出选择界面
+    if (1 == indexPath.row) {
+        SelectAVillageTableViewController *selectVillage = [[SelectAVillageTableViewController alloc] init];
+        
+        // 选择完成本界面并设置上选择的小区
+        __block PropertyViewController *property = self;
+        selectVillage.block = ^(NSString *villageName){
+            UITableViewCell *cell = [property.aTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+            cell.detailTextLabel.text = villageName;
+            
+        };
+        
+        [self.navigationController pushViewController:selectVillage animated:YES];
+    }
+    
     NSLog(@"indexPath = %@", indexPath);
 }
 
@@ -222,7 +251,7 @@
     // 缴费
     UIColor *grennColor = [UIColor colorWithRed:0 green:0.95 blue:0 alpha:1.0];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-    button.frame = CGRectMake(SCREEN_WIDTH * 0.25, CGRectGetMaxY(label.frame) + 20, SCREEN_WIDTH * 0.5, 40);
+    button.frame = CGRectMake(SCREEN_WIDTH * 0.25, CGRectGetMaxY(label.frame) + 10, SCREEN_WIDTH * 0.5, 40);
     button.layer.masksToBounds = YES;
     button.layer.cornerRadius = 5;
     button.layer.borderWidth = 1;
@@ -232,26 +261,9 @@
     [button addTarget:self action:@selector(propertyAction) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:button];
     
-    view.frame = CGRectMake(0, 0, SCREEN_WIDTH, size.height + 70);
+    view.frame = CGRectMake(0, 0, SCREEN_WIDTH, CGRectGetMaxY(button.frame) + 10);
     
     return view;
-}
-
-#pragma makr - 创建accessoryView
-- (UIView *)createrAccessoryView
-{
-    UIView *accessory = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
-    
-    UITextField *label = [[UITextField alloc] initWithFrame:accessory.bounds];
-    label.placeholder = @"家庭";
-    label.textAlignment = NSTextAlignmentCenter;
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"xiayibu"]];
-    imageView.frame = CGRectMake(0, 0, 10, 15);
-    label.rightView = imageView;
-    label.rightViewMode = UITextFieldViewModeAlways;
-    [accessory addSubview:label];
-    
-    return accessory;
 }
 
 #pragma makr - 根据字符串获取高度
@@ -274,7 +286,20 @@
 #pragma mark - 物业缴费事件
 - (void)propertyAction
 {
-    NSLog(@"物业缴费...............");
+    // 小区名称
+    UITableViewCell *cell = [_aTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    NSString *villageName = cell.detailTextLabel.text;
+    
+    // 户主名
+    UITextField *nameTextField = [_aTableView viewWithTag:14000];
+    NSString *name = nameTextField.text;
+    
+    // 户主身份证号
+    UITextField *certificate = [_aTableView viewWithTag:14001];
+    NSString *number = certificate.text;
+    
+    NSLog(@"\n village = %@, \n name = %@, \n number = %@", villageName, name, number);
+    
 }
 
 #pragma makr - textFieldDelegate
@@ -284,4 +309,37 @@
     return YES;
 }
 
+#pragma mark - 监听键盘的弹出
+- (void)keyboardWillShow:(NSNotification *)info
+{
+    // 获取键盘高度
+    CGFloat height = [[info.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+    
+#warning mark - 遇到问题： 
+    /*
+     *  在弹出键盘的状态下再次修改输入的类型 会再次减去键盘的高度，导致tableView下面一大块空白
+     */
+    
+    // 获取键盘的顶端到导航栏下部的高
+    CGFloat tableViewHeight = SCREEN_HEIGHT - height;
+    
+    // 获取键盘弹出动画的时间
+    double duration = [[info.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    
+    [UIView animateWithDuration:duration animations:^{
+        _aTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, tableViewHeight);
+    }];
+    
+    
+}
+
+#pragma mark - 监听键盘的收回
+- (void)keyboardWillHide:(NSNotification *)infor
+{
+    double duraction = [[infor.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] doubleValue];
+    
+    [UIView animateWithDuration:duraction animations:^{
+        _aTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    }];
+}
 @end

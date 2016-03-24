@@ -70,6 +70,7 @@
 		0C434AD61C473DEA0053AD2E /* POIAnntation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C434AD51C473DEA0053AD2E /* POIAnntation.m */; };
 		0C44E1821C0FCA8B001BCD89 /* LonginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C44E1811C0FCA8B001BCD89 /* LonginViewController.m */; };
 		0C44E1891C0FCEFE001BCD89 /* LonginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C44E1881C0FCEFE001BCD89 /* LonginView.m */; };
+		0C4664A11CA233D700F2278C /* SelectAVillageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4664A01CA233D700F2278C /* SelectAVillageTableViewController.m */; };
 		0C46C96F1C0BD1AE0074CE4F /* shangcheng-.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C46C96D1C0BD1AD0074CE4F /* shangcheng-.png */; };
 		0C46C9721C0BD4830074CE4F /* shangcheng-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C46C9711C0BD4830074CE4F /* shangcheng-5.png */; };
 		0C46C9771C0BF3890074CE4F /* NetWorkRequestManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C46C9761C0BF3890074CE4F /* NetWorkRequestManage.m */; };
@@ -470,6 +471,8 @@
 		0C44E1811C0FCA8B001BCD89 /* LonginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LonginViewController.m; sourceTree = "<group>"; };
 		0C44E1871C0FCEFE001BCD89 /* LonginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LonginView.h; sourceTree = "<group>"; };
 		0C44E1881C0FCEFE001BCD89 /* LonginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LonginView.m; sourceTree = "<group>"; };
+		0C46649F1CA233D700F2278C /* SelectAVillageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectAVillageTableViewController.h; sourceTree = "<group>"; };
+		0C4664A01CA233D700F2278C /* SelectAVillageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectAVillageTableViewController.m; sourceTree = "<group>"; };
 		0C46C96D1C0BD1AD0074CE4F /* shangcheng-.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shangcheng-.png"; sourceTree = "<group>"; };
 		0C46C9711C0BD4830074CE4F /* shangcheng-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shangcheng-5.png"; sourceTree = "<group>"; };
 		0C46C9751C0BF3890074CE4F /* NetWorkRequestManage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetWorkRequestManage.h; sourceTree = "<group>"; };
@@ -1266,24 +1269,58 @@
 			path = "引导页";
 			sourceTree = "<group>";
 		};
+		0C3DF8DA1CA2999B003F5CAB /* 缴费 */ = {
+			isa = PBXGroup;
+			children = (
+				0C3DF8DE1CA299DE003F5CAB /* 燃气 */,
+				0C3DF8DD1CA299B3003F5CAB /* 暖气 */,
+				0C3DF8DC1CA299AB003F5CAB /* 水电 */,
+				0C3DF8DB1CA299A5003F5CAB /* 物业 */,
+			);
+			name = "缴费";
+			sourceTree = "<group>";
+		};
+		0C3DF8DB1CA299A5003F5CAB /* 物业 */ = {
+			isa = PBXGroup;
+			children = (
+				0C6B185F1C4337840096DE3F /* PropertyView.h */,
+				0C6B18601C4337840096DE3F /* PropertyView.m */,
+			);
+			name = "物业";
+			sourceTree = "<group>";
+		};
+		0C3DF8DC1CA299AB003F5CAB /* 水电 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "水电";
+			sourceTree = "<group>";
+		};
+		0C3DF8DD1CA299B3003F5CAB /* 暖气 */ = {
+			isa = PBXGroup;
+			children = (
+				0C6B186E1C4390660096DE3F /* HeatingView.h */,
+				0C6B186F1C4390660096DE3F /* HeatingView.m */,
+			);
+			name = "暖气";
+			sourceTree = "<group>";
+		};
+		0C3DF8DE1CA299DE003F5CAB /* 燃气 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "燃气";
+			sourceTree = "<group>";
+		};
 		0C44E1831C0FCAB1001BCD89 /* 首页视图 */ = {
 			isa = PBXGroup;
 			children = (
-				0C92EC601C4F7A2D00C1ABD4 /* 停车咨询 */,
+				0C3DF8DA1CA2999B003F5CAB /* 缴费 */,
+				0C92EC601C4F7A2D00C1ABD4 /* 停车 */,
 				0CB1ABB11C3F90A200C14662 /* 商城Cell */,
-				0CAAA67A1C1907EA00A9BD6B /* CustomView.h */,
-				0CAAA67B1C1907EA00A9BD6B /* CustomView.m */,
-				0C81BC491C1E68A20037F64D /* FeedbckView.h */,
-				0C81BC4A1C1E68A20037F64D /* FeedbckView.m */,
 				0C6611521C0848F9002315BD /* HomeTableViewCell.h */,
 				0C6611531C0848F9002315BD /* HomeTableViewCell.m */,
 				0C6611541C0848F9002315BD /* HomeTableViewCell.xib */,
-				0CAAA6771C19073900A9BD6B /* NearView.h */,
-				0CAAA6781C19073900A9BD6B /* NearView.m */,
-				0C6B185F1C4337840096DE3F /* PropertyView.h */,
-				0C6B18601C4337840096DE3F /* PropertyView.m */,
-				0C6B186E1C4390660096DE3F /* HeatingView.h */,
-				0C6B186F1C4390660096DE3F /* HeatingView.m */,
 			);
 			name = "首页视图";
 			sourceTree = "<group>";
@@ -1311,6 +1348,8 @@
 		0C44E1851C0FCB04001BCD89 /* 帮助视图 */ = {
 			isa = PBXGroup;
 			children = (
+				0C81BC491C1E68A20037F64D /* FeedbckView.h */,
+				0C81BC4A1C1E68A20037F64D /* FeedbckView.m */,
 				0C0993551C4E32F000243270 /* MAHeaderView.h */,
 				0C0993561C4E32F000243270 /* MAHeaderView.m */,
 				0C46C9D31C0C271E0074CE4F /* HelpTableViewCell.h */,
@@ -1507,6 +1546,8 @@
 				0C696B8A1C3E00D7007AE88A /* PayTableViewController.m */,
 				0C6B185C1C4335750096DE3F /* PropertyViewController.h */,
 				0C6B185D1C4335750096DE3F /* PropertyViewController.m */,
+				0C46649F1CA233D700F2278C /* SelectAVillageTableViewController.h */,
+				0C4664A01CA233D700F2278C /* SelectAVillageTableViewController.m */,
 				0C6B186B1C438F220096DE3F /* HeatingViewController.h */,
 				0C6B186C1C438F220096DE3F /* HeatingViewController.m */,
 				0C6B18751C4398040096DE3F /* FuelGasViewController.h */,
@@ -1799,18 +1840,22 @@
 			path = Wechat;
 			sourceTree = "<group>";
 		};
-		0C92EC601C4F7A2D00C1ABD4 /* 停车咨询 */ = {
+		0C92EC601C4F7A2D00C1ABD4 /* 停车 */ = {
 			isa = PBXGroup;
 			children = (
+				0CAAA67A1C1907EA00A9BD6B /* CustomView.h */,
+				0CAAA67B1C1907EA00A9BD6B /* CustomView.m */,
+				0C5AE9271C9A33EB00AA3C1D /* PresenceParkingView.h */,
+				0C5AE9281C9A33EB00AA3C1D /* PresenceParkingView.m */,
+				0CAAA6771C19073900A9BD6B /* NearView.h */,
+				0CAAA6781C19073900A9BD6B /* NearView.m */,
 				0C6A31071C4F1E0D00510189 /* ParkingConsultingView.h */,
 				0C6A31081C4F1E0D00510189 /* ParkingConsultingView.m */,
 				0C92EC641C4F7ABF00C1ABD4 /* LatestTableViewCell.h */,
 				0C92EC651C4F7ABF00C1ABD4 /* LatestTableViewCell.m */,
 				0C92EC661C4F7ABF00C1ABD4 /* LatestTableViewCell.xib */,
-				0C5AE9271C9A33EB00AA3C1D /* PresenceParkingView.h */,
-				0C5AE9281C9A33EB00AA3C1D /* PresenceParkingView.m */,
 			);
-			name = "停车咨询";
+			name = "停车";
 			sourceTree = "<group>";
 		};
 		0C9AB9161C0FE9BF0070AF70 /* 登陆 */ = {
@@ -2459,6 +2504,7 @@
 				0C0993571C4E32F000243270 /* MAHeaderView.m in Sources */,
 				0C6386811C60864700EF9806 /* InforSetTableViewCell.m in Sources */,
 				0C44E1891C0FCEFE001BCD89 /* LonginView.m in Sources */,
+				0C4664A11CA233D700F2278C /* SelectAVillageTableViewController.m in Sources */,
 				0C5AE9291C9A33EB00AA3C1D /* PresenceParkingView.m in Sources */,
 				0C80470C1C76E76E0002F031 /* KxMenu.m in Sources */,
 				0CB1AB881C3F5DA100C14662 /* OfflineMapsViewController.m in Sources */,
