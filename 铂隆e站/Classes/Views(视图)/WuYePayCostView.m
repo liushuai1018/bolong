@@ -1,0 +1,69 @@
+//
+//  WuYePayCostView.m
+//  铂隆e站
+//
+//  Created by 铂隆资产1号 on 16/3/29.
+//  Copyright © 2016年 铂隆资产. All rights reserved.
+//
+
+#import "WuYePayCostView.h"
+#import "PulldownMenusView.h"
+
+@implementation WuYePayCostView
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self createrAllSubView];
+    }
+    return self;
+}
+
+#pragma mark - 创建子视图
+- (void)createrAllSubView
+{
+    self.backgroundColor = [UIColor whiteColor];
+    
+    CGFloat X = 30;
+    CGFloat interval = 15;
+    CGFloat width = SCREEN_WIDTH - 60;
+    CGFloat height = 40;
+    
+    self.name = [[UILabel alloc] initWithFrame:CGRectMake(X, SCREEN_HEIGHT * 0.15, width, height)];
+    _name.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:_name];
+    
+    self.number = [[UILabel alloc] initWithFrame:CGRectMake(X, CGRectGetMaxY(_name.frame) + interval, width, height)];
+    _number.textAlignment= NSTextAlignmentCenter;
+    [self addSubview:_number];
+    
+    self.pulldownMenus = [[PulldownMenusView alloc] initWithFrame:CGRectMake(X, CGRectGetMaxY(_number.frame) + interval, width, height)];
+    _pulldownMenus.textField.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:_pulldownMenus];
+    
+    self.paymentDetails = [[UILabel alloc] initWithFrame:CGRectMake(X, CGRectGetMaxY(_pulldownMenus.frame) + interval, width, height)];
+    _paymentDetails.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:_paymentDetails];
+    
+    self.totalFee = [[UILabel alloc] initWithFrame:CGRectMake(X, CGRectGetMaxY(_paymentDetails.frame) + 40, width, height)];
+    [self addSubview:_totalFee];
+    
+    self.button = [UIButton buttonWithType:UIButtonTypeSystem];
+    _button.frame = CGRectMake(SCREEN_WIDTH * 0.5 - 50, CGRectGetMaxY(_totalFee.frame) + 40, 100, 30);
+    [_button setTitle:@"确定" forState:UIControlStateNormal];
+    [_button setTitleColor:[UIColor colorWithRed:0.98 green:0.42 blue:0.43 alpha:1.0] forState:UIControlStateNormal];
+    [_button addTarget:self action:@selector(didAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:_button];
+    
+}
+
+- (void)didAction:(UIButton *)sender
+{
+    if (self.block) {
+        
+        self.block();
+    }
+}
+
+@end

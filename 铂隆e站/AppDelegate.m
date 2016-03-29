@@ -11,6 +11,7 @@
 #import "CustomViewController.h"     // 自定义标签导航栏
 #import "LonginViewController.h"
 #import <RongIMKit/RongIMKit.h>
+#import <AlipaySDK/AlipaySDK.h>
 
 @interface AppDelegate ()
  
@@ -137,13 +138,28 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-// URL SchemesA跳转回调
-- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options
+#pragma mark - URL SchemesA跳转回调
+- (BOOL)application:(UIApplication *)app
+            openURL:(NSURL *)url
+            options:(NSDictionary<NSString *,id> *)options
 {
     BOOL result = [UMSocialSnsService handleOpenURL:url];
     if (result == FALSE) {
         NSLog(@"跳转状态未知!");
     }
+    
+    // 跳转支付宝钱包进行支付，处理支付结果
+    if ([url.host isEqualToString:@"safepay"]) {
+        
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url
+                                                  standbyCallback:^(NSDictionary *resultDic)
+         {
+             NSLog(@"aliPay = %@", resultDic);
+         }];
+        
+    }
+    
+    
     return YES;
 }
 

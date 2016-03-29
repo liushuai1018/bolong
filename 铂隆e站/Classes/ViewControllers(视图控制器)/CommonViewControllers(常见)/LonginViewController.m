@@ -11,7 +11,6 @@
 #import "LonginView.h"
 #import "RegisteredViewController.h"
 #import "CustomViewController.h"
-#import "UserInformation.h"
 #import "RetrievePasswordViewController.h"
 @interface LonginViewController () <UIAlertViewDelegate>
 

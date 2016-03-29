@@ -7,7 +7,6 @@
 //
 
 #import "LocalStoreManage.h"
-#import "UserInformation.h"
 
 // 存储文件夹路径
 #define kFilePath [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]

@@ -7,60 +7,57 @@
 //
 
 #import "PropertyViewController.h"
-#import "PropertyView.h"
 #import "SelectAVillageTableViewController.h"
+#import "CommunityInformation.h"
+#import "WuYePayCostViewController.h"
 
 @interface PropertyViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+{
+    CommunityInformation *_community;    // 记录选择的小区
+}
 
-// 物业缴费视图
-@property (nonatomic, strong) PropertyView *propertyV;
-
-@property (nonatomic, strong) UITableView *aTableView;
-@property (nonatomic, strong) NSArray *dataArray;
-
+@property (nonatomic, strong) UITableView *aTableView;  // 表格
+@property (nonatomic, strong) NSArray *dataArray;       // 表格数据
+@property (strong, nonatomic) NSArray *communityArray;  // 小区数据
 
 @end
 
 @implementation PropertyViewController
 
-/*
-- (void)loadView
-{
-    self.propertyV = [[PropertyView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.view = _propertyV;
-}
-*/
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.title = @"物业缴费";
     self.navigationController.navigationBar.translucent = YES;
     
+    [self getCommunityInformation];
+    [self createrTableView];
+    
+}
+
+#pragma mark - 获取数据
+- (void)getCommunityInformation
+{
+    _dataArray = @[@"缴费单位",
+                   @"缴费小区",
+                   @"户主姓名",
+                   @"身份证号"];
+    
+    // 获取所有小区信息
+    [[NetWorkRequestManage sharInstance] getCommunity:^(NSArray *array) {
+        _communityArray = array;
+    }];
+    
+}
+
+#pragma mark - 创建tableView
+- (void)createrTableView
+{
     self.aTableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     self.aTableView.delegate = self;
     self.aTableView.dataSource = self;
     self.aTableView.tableFooterView = [self createFooterView];
     self.view = _aTableView;
-    
-    _dataArray = @[@"缴费单位", @"缴费小区",
-                   @"户主姓名", @"身份证号"];
-//    _propertyV.communltyPMV.tableArray = @[@"XXX小区", @"XXX小区", @"XXX小区", @"XXX小区", @"XXX小区", @"XXX小区"];
-//    _propertyV.unitPMV.tableArray = @[@"一单元", @"二单元", @"三单元", @"四单元"];
-//    
-//    [self cilckButton]; // 添加按钮事件
-}
-
-
-
-#pragma makr - addAction
-- (void)cilckButton
-{
-    [_propertyV.payButton addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
-}
-
-- (void)clickAction:(UIButton *)sender
-{
-    NSLog(@"缴纳物业费用");
 }
 
 - (void)didReceiveMemoryWarning {
@@ -196,11 +193,16 @@
     if (1 == indexPath.row) {
         SelectAVillageTableViewController *selectVillage = [[SelectAVillageTableViewController alloc] init];
         
+        selectVillage.dataArray = _communityArray;
+        
         // 选择完成本界面并设置上选择的小区
         __block PropertyViewController *property = self;
-        selectVillage.block = ^(NSString *villageName){
+        selectVillage.block = ^(CommunityInformation *community){
+            
+            _community = community;
+            
             UITableViewCell *cell = [property.aTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-            cell.detailTextLabel.text = villageName;
+            cell.detailTextLabel.text = community.home;
             
         };
         
@@ -286,9 +288,6 @@
 #pragma mark - 物业缴费事件
 - (void)propertyAction
 {
-    // 小区名称
-    UITableViewCell *cell = [_aTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-    NSString *villageName = cell.detailTextLabel.text;
     
     // 户主名
     UITextField *nameTextField = [_aTableView viewWithTag:14000];
@@ -298,7 +297,15 @@
     UITextField *certificate = [_aTableView viewWithTag:14001];
     NSString *number = certificate.text;
     
-    NSLog(@"\n village = %@, \n name = %@, \n number = %@", villageName, name, number);
+    UserInformation *user =  [[LocalStoreManage sharInstance] requestUserInfor];
+    
+    [[NetWorkRequestManage sharInstance] wuyeInoformationID:@"19"
+                                                       wuye:_community.wuye_id
+                                                     number:number
+                                                       name:name];
+    
+    WuYePayCostViewController *wuyePay = [[WuYePayCostViewController alloc] init];
+    [self.navigationController pushViewController:wuyePay animated:YES];
     
 }
 

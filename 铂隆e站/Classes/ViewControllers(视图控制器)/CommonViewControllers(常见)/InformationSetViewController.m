@@ -7,7 +7,6 @@
 //
 
 #import "InformationSetViewController.h"
-#import "UserInformation.h"
 #import "ImageView.h"
 #import "LSPickerView.h"
 
@@ -138,6 +137,8 @@
     [[NetWorkRequestManage sharInstance] upLoadHead:_userInfor.user_id image:headImage.image]; // 头像存储到服务器
     [[LocalStoreManage sharInstance] storageBackgroundImage:_headImage.image]; // 背景图片存储到本地
     [self alertView];
+    
+    [self clickLeftBarButtonItem:nil];
 }
 
 #pragma mark - 存储成功提示框

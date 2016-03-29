@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void(^kBlock)(NSString *);
+@class CommunityInformation;
+typedef void(^kBlock)(CommunityInformation *);
 
 @interface SelectAVillageTableViewController : UITableViewController
+
+@property (strong, nonatomic) NSArray *dataArray;
 
 @property (copy, nonatomic) kBlock block;
 

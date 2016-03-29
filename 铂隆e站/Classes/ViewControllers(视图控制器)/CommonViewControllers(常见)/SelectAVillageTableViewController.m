@@ -7,10 +7,9 @@
 //
 
 #import "SelectAVillageTableViewController.h"
+#import "CommunityInformation.h"
 
 @interface SelectAVillageTableViewController ()
-
-@property (strong, nonatomic) NSArray *dataArray;
 
 @end
 
@@ -21,21 +20,11 @@
     
     self.title = @"选择小区";
     self.navigationController.navigationBar.translucent = NO;
-    [self setData];
+    
+    
     self.tableView.tableFooterView = [UIImageView new];
 }
 
-#pragma mark - 设置数据源
-- (void)setData
-{
-    self.dataArray = @[@"惠润嘉园一区",
-                       @"惠润嘉园二区",
-                       @"惠润嘉园三区",
-                       @"惠润嘉园四区",
-                       @"惠润嘉园五区",
-                       @"惠润嘉园六区",
-                       @"惠润嘉园七区"];
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -56,20 +45,27 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellStr];
     if (nil == cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellStr];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellStr];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    cell.textLabel.text = _dataArray[indexPath.row];
+    CommunityInformation *community = _dataArray[indexPath.row];
+    
+    cell.textLabel.text = community.home;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"物业费每平方米:%@元", community.price];
+    cell.detailTextLabel.font = [UIFont systemFontOfSize:12.0];
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    CommunityInformation *community = [_dataArray objectAtIndex:indexPath.row];
+    
     // 判断block 是否实现
     if (self.block) {
-        self.block(_dataArray[indexPath.row]);
+        self.block(community);
     }
     
     [self.navigationController popViewControllerAnimated:YES];

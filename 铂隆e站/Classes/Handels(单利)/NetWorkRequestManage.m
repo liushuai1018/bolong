@@ -9,7 +9,7 @@
 
 
 #import "NetWorkRequestManage.h"
-#import "UserInformation.h"
+#import "CommunityInformation.h"
 
 #define LSEncode(string) [string dataUsingEncoding:NSUTF8StringEncoding]
 
@@ -232,41 +232,6 @@
     return is;
 }
 
-#pragma mark - 用户信息发送到服务器
-- (void)sendUserData:(UserInformation *)infor
-{
-    
-    NSURL *url = [NSURL URLWithString:kSendUserURL];
-    
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    
-    request.HTTPMethod = @"POST";
-    
-    // 此处发送一定要设置，这个地方吧字典封装成JSON格式
-    [request setValue:@"application/jason" forHTTPHeaderField:@"Content-Type"];
-    
-    NSDictionary *dic= [NSDictionary dictionaryWithObjectsAndKeys:
-                        infor.headPortraitURL, @"headPortraitURL",
-                        infor.name, @"name",
-                        infor.gender, @"gender",
-                        infor.birthday, @"birthday",
-                        infor.signature, @"signature",nil];
-    
-    NSData *data = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
-    
-    request.HTTPBody = data;
-    
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
-        
-        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
-        
-        if (dict) {
-            NSLog(@"发送服务器存储用户个人信息");
-        }
-        
-    }];
-}
 
 #pragma mark - 修改头像
 - (void)upLoadHead:(NSString *)user_id
@@ -333,66 +298,6 @@
    }];
 }
 
-//- (void)upload:(NSString *)name fileName:(NSString *)fileName mimeType:(NSString *)mimeType data:(NSData *)data parmas:(NSDictionary *)params
-//{
-//    // 文件上传
-//    NSURL *url = [NSURL URLWithString:kUpLoadHead];
-//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-//    request.HTTPMethod = @"POST";
-//    
-//    // 设置请求体
-//    NSMutableData *body = [NSMutableData data];
-//    
-//    /**********文件参数**********/
-//    
-//    // 参数开始的标志
-//    [body appendData:LSEncode(@"--YY\r\n")];
-//    
-//    // name:指定参数名
-//    // filename: 文件名
-//    NSString *disposition = [NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", name, fileName];
-//    [body appendData:LSEncode(disposition)];
-//    
-//    NSString *type = [NSString stringWithFormat:@"Content-Type: %@\r\n", mimeType];
-//    [body appendData:LSEncode(type)];
-//    
-//    [body appendData:LSEncode(@"\r\n")];
-//    [body appendData:data];
-//    [body appendData:LSEncode(@"\r\n")];
-//    
-//    /**********普通参数**********/
-//    [params enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-//        // 参数开始的标志
-//        [body appendData:LSEncode(@"--YY\r\n")];
-//        NSString *disposition = [NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n", key];
-//        [body appendData:LSEncode(disposition)];
-//        [body appendData:LSEncode(@"\r\n")];
-//        [body appendData:LSEncode(obj)];
-//        [body appendData:LSEncode(@"\r\n")];
-//    }];
-//    
-//    /**********参数结束**********/
-//    [body appendData:LSEncode(@"--YY--")];
-//    request.HTTPBody = body;
-//    
-//    // 设置请求头，请求体的长度
-//    [request setValue:[NSString stringWithFormat:@"%zd", body.length] forHTTPHeaderField:@"Content-Length"];
-//    // 声明这个POST请求是个文件上传
-//    [request setValue:@"multipart/form-data; boundary=YY" forHTTPHeaderField:@"Content-Type"];
-//    
-//    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
-//        
-//        if (data) {
-//            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
-//            
-//            NSLog(@"----code = %ld, datas = %@", [dic[@"code"] integerValue], dic[@"datas"]);
-//            
-//        }
-//        
-//    }];
-//    
-//}
-
 #pragma mark - 修改昵称
 - (void)updateUserName:(NSString *)name
                user_id:(NSString *)user_id
@@ -442,6 +347,65 @@
         block([dic objectForKey:@"datas"]);
     }
     
+}
+
+#pragma mark - 获取小区
+- (void)getCommunity:(void(^)(NSArray *array))sender
+{
+    NSURL *url = [NSURL URLWithString:kGetCommunity];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    request.HTTPMethod = @"POST";
+    
+    request.timeoutInterval = 10.0;
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
+        
+        NSMutableDictionary *dataDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        
+        NSArray *array = [dataDict objectForKey:@"datas"];
+        
+        NSMutableArray *communityArray = [NSMutableArray array];
+        
+        for (NSDictionary *dict in array) {
+            
+            CommunityInformation *community = [[CommunityInformation alloc] init];
+            [community setValuesForKeysWithDictionary:dict];
+            [communityArray addObject:community];
+            
+        }
+        
+        sender(communityArray);
+        
+    }];
+}
+
+#pragma mark - 交物业费
+- (void)wuyeInoformationID:(NSString *)user_id
+                      wuye:(NSString *)wuye_id
+                    number:(NSString *)number
+                      name:(NSString *)name;
+{
+    NSURL *url = [NSURL URLWithString:kWuYePayInformation];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    request.HTTPMethod = @"POST";
+    
+    // 请求体
+    NSString *str = [NSString stringWithFormat:@"user_id=%@&wuye_id=%@&number=%@&name=%@", user_id, wuye_id, number, name];
+    [request setHTTPBody:LSEncode(str)];
+    request.timeoutInterval = 10.0;
+    
+    NSURLResponse *respose = nil;
+    NSError *error = nil;
+    
+    NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                         returningResponse:&respose
+                                                     error:&error];
+    
+    NSMutableDictionary *dic = [NSJSONSerialization JSONObjectWithData:data
+                                                               options:NSJSONReadingMutableLeaves
+                                                                 error:nil];
+    
+    NSLog(@"物业information = \n %@", dic);
 }
 
 @end

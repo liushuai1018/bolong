@@ -16,7 +16,6 @@
 #import "FriendsTableViewController.h"  // 好友列表
 #import "YourTestChatViewController.h"  // 会话列表
 #import "CircleTableViewController.h"
-#import "UserInformation.h"
 #import "LocalStoreManage.h"
 #import "InformationSetViewController.h"
 

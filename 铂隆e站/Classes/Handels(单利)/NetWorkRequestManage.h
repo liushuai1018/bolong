@@ -21,6 +21,8 @@
  */
 + (instancetype)sharInstance;
 
+#pragma makr - 用户管理
+
 /**
  *  注册用户信息
  *
@@ -56,20 +58,6 @@
                     type:(NSInteger)type
                user_name:(NSString *)name
                user_avar:(NSString *)avar;
-
-/**
- *  用户信息发送到服务器
- *
- *  @param infor 用户信息
- */
-- (void)sendUserData:(UserInformation *)infor;
-
-/**
- *  请求用户信息
- *
- *  @return 返回用户信息
-- (void)requsetForUserInfor:(void(^)(UserInformation *infor))block;
- */
 
 /**
  *  发送手机号获取验证码
@@ -110,5 +98,28 @@
                    password:(NSString *)password
                        code:(NSString *)code
                       retun:(void(^)(NSString *str))block;
+
+#pragma mark - 物业方法接口
+/**
+ *  获取先去
+ *
+ *  @param sneder 获取的小区信息
+ */
+- (void)getCommunity:(void(^)(NSArray *array))sender;
+
+/**
+ *  物业缴费
+ *
+ *  @param user_id 用户ID
+ *  @param wuye_id 所在小区ID
+ *  @param number  户主身份证号码
+ *  @param name    业主姓名
+ *
+ *  @return 返回户主信息
+ */
+- (void)wuyeInoformationID:(NSString *)user_id
+                      wuye:(NSString *)wuye_id
+                    number:(NSString *)number
+                      name:(NSString *)name;
 
 @end

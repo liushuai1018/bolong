@@ -56,6 +56,11 @@
 #import "UIImageView+WebCache.h"
 #import "NetWorkRequestManage.h"
 #import "LocalStoreManage.h"
+#import "UserInformation.h"
+
+// 支付宝引用
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 // 注册接口
 #define kRegistURL @"http://123.56.182.208/bolong/mobile.php/Mobile/Login/register"
@@ -72,17 +77,10 @@
 // 忘记密码
 #define kForgetPassword @"http://123.56.182.208/bolong/mobile.php/Mobile/Login/forgetPassword"
 
-
-
-
-
-// 发送用户信息
-#define kSendUserURL @""
-// 请求用户信息
-#define kRequestUserInforURL @""
-
-// 获取好友列表
-#define kToObtainFriendsList @""
+// 获取小区
+#define kGetCommunity @"http://123.56.182.208/bolong/mobile.php/Mobile/Wuye/get_home"
+// 物业缴费信息
+#define kWuYePayInformation @"http://123.56.182.208/bolong/mobile.php/Mobile/Wuye/pay_wuye"
 
 
 #endif /* PrefixHeader_pch */
