@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PulldownMenusView.h"
 
-@class PulldownMenusView;
 typedef void(^kBlock)();
 /**
  *  选择缴纳那套房屋物业费

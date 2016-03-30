@@ -11,6 +11,7 @@
  */
 #import <Foundation/Foundation.h>
 @class UserInformation;
+@class WuYeDetails;
 
 @interface NetWorkRequestManage : NSObject
 
@@ -101,7 +102,7 @@
 
 #pragma mark - 物业方法接口
 /**
- *  获取先去
+ *  获取小区
  *
  *  @param sneder 获取的小区信息
  */
@@ -117,7 +118,7 @@
  *
  *  @return 返回户主信息
  */
-- (void)wuyeInoformationID:(NSString *)user_id
+- (WuYeDetails *)wuyeInoformationID:(NSString *)user_id
                       wuye:(NSString *)wuye_id
                     number:(NSString *)number
                       name:(NSString *)name;

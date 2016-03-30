@@ -7,7 +7,6 @@
 //
 
 #import "WuYePayCostView.h"
-#import "PulldownMenusView.h"
 
 @implementation WuYePayCostView
 
@@ -26,27 +25,33 @@
     self.backgroundColor = [UIColor whiteColor];
     
     CGFloat X = 30;
-    CGFloat interval = 15;
+    CGFloat interval = 20;
     CGFloat width = SCREEN_WIDTH - 60;
-    CGFloat height = 40;
+    CGFloat height = 25;
     
-    self.name = [[UILabel alloc] initWithFrame:CGRectMake(X, SCREEN_HEIGHT * 0.15, width, height)];
+    self.name = [[UILabel alloc] initWithFrame:CGRectMake(X, SCREEN_HEIGHT * 0.08, width, height)];
     _name.textAlignment = NSTextAlignmentCenter;
+    _name.font = [UIFont systemFontOfSize:14.0];
     [self addSubview:_name];
     
     self.number = [[UILabel alloc] initWithFrame:CGRectMake(X, CGRectGetMaxY(_name.frame) + interval, width, height)];
     _number.textAlignment= NSTextAlignmentCenter;
+    _number.font = [UIFont systemFontOfSize:14.0];
     [self addSubview:_number];
     
     self.pulldownMenus = [[PulldownMenusView alloc] initWithFrame:CGRectMake(X, CGRectGetMaxY(_number.frame) + interval, width, height)];
     _pulldownMenus.textField.textAlignment = NSTextAlignmentCenter;
+    _pulldownMenus.textField.font = [UIFont systemFontOfSize:14.0];
     [self addSubview:_pulldownMenus];
     
     self.paymentDetails = [[UILabel alloc] initWithFrame:CGRectMake(X, CGRectGetMaxY(_pulldownMenus.frame) + interval, width, height)];
     _paymentDetails.textAlignment = NSTextAlignmentCenter;
+    _paymentDetails.font = [UIFont systemFontOfSize:14.0];
     [self addSubview:_paymentDetails];
     
     self.totalFee = [[UILabel alloc] initWithFrame:CGRectMake(X, CGRectGetMaxY(_paymentDetails.frame) + 40, width, height)];
+    _totalFee.textAlignment = NSTextAlignmentRight;
+    _totalFee.font = [UIFont systemFontOfSize:14.0];
     [self addSubview:_totalFee];
     
     self.button = [UIButton buttonWithType:UIButtonTypeSystem];

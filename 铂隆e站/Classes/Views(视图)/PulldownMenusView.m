@@ -43,13 +43,13 @@
 - (void)createTableView
 {
     _tv = [[UITableView alloc] initWithFrame:CGRectMake(0, 5, self.frame.size.width, 0)];
-//    _tv.layer.masksToBounds = YES;
-//    _tv.layer.cornerRadius = 5;
-//    _tv.layer.borderWidth = 0.5;
+    _tv.layer.masksToBounds = YES;
+    _tv.layer.cornerRadius = 5;
+    _tv.layer.borderWidth = 0.5;
     _tv.layer.borderColor = [UIColor lightGrayColor].CGColor;
     _tv.delegate = self;
     _tv.dataSource = self;
-    _tv.backgroundColor = [UIColor grayColor];
+    _tv.backgroundColor = [UIColor whiteColor];
     _tv.separatorColor = [UIColor lightGrayColor];
     _tv.hidden = YES; // 隐藏
     [self addSubview:_tv];

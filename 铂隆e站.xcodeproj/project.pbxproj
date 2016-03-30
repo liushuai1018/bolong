@@ -13,6 +13,9 @@
 		0C09CB071C0D9FD8004E7B35 /* UserSecondTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C09CB051C0D9FD8004E7B35 /* UserSecondTableViewCell.xib */; };
 		0C09CB0B1C0DA1E0004E7B35 /* UserThirdTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C09CB091C0DA1E0004E7B35 /* UserThirdTableViewCell.m */; };
 		0C09CB0C1C0DA1E0004E7B35 /* UserThirdTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C09CB0A1C0DA1E0004E7B35 /* UserThirdTableViewCell.xib */; };
+		0C0A44A91CAB5C74004FA3F7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0A44A81CAB5C74004FA3F7 /* AppDelegate.m */; };
+		0C0A44AD1CAB5EFD004FA3F7 /* WuYeDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0A44AC1CAB5EFD004FA3F7 /* WuYeDetails.m */; };
+		0C0A44B01CAB74E2004FA3F7 /* HousingAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0A44AF1CAB74E2004FA3F7 /* HousingAddress.m */; };
 		0C0ED3C11C30E405008847AF /* bianlidian.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0ED3A41C30E405008847AF /* bianlidian.png */; };
 		0C0ED3C21C30E405008847AF /* bolongbi.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0ED3A51C30E405008847AF /* bolongbi.png */; };
 		0C0ED3C31C30E405008847AF /* gouwuche.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0ED3A61C30E405008847AF /* gouwuche.png */; };
@@ -56,7 +59,6 @@
 		0C21EDE01C118E7100C44468 /* FriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C21EDDF1C118E7100C44468 /* FriendsTableViewController.m */; };
 		0C21EDE31C11916600C44468 /* CircleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C21EDE21C11916600C44468 /* CircleTableViewController.m */; };
 		0C2561DE1C06D96A00543498 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2561DD1C06D96A00543498 /* main.m */; };
-		0C2561E11C06D96A00543498 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2561E01C06D96A00543498 /* AppDelegate.m */; };
 		0C2561E71C06D96A00543498 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C2561E51C06D96A00543498 /* Main.storyboard */; };
 		0C2561E91C06D96A00543498 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C2561E81C06D96A00543498 /* Assets.xcassets */; };
 		0C2561EC1C06D96A00543498 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C2561EA1C06D96A00543498 /* LaunchScreen.storyboard */; };
@@ -412,6 +414,12 @@
 		0C09CB081C0DA1E0004E7B35 /* UserThirdTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserThirdTableViewCell.h; sourceTree = "<group>"; };
 		0C09CB091C0DA1E0004E7B35 /* UserThirdTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserThirdTableViewCell.m; sourceTree = "<group>"; };
 		0C09CB0A1C0DA1E0004E7B35 /* UserThirdTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserThirdTableViewCell.xib; sourceTree = "<group>"; };
+		0C0A44A71CAB5C74004FA3F7 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		0C0A44A81CAB5C74004FA3F7 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		0C0A44AB1CAB5EFD004FA3F7 /* WuYeDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WuYeDetails.h; sourceTree = "<group>"; };
+		0C0A44AC1CAB5EFD004FA3F7 /* WuYeDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WuYeDetails.m; sourceTree = "<group>"; };
+		0C0A44AE1CAB74E2004FA3F7 /* HousingAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HousingAddress.h; sourceTree = "<group>"; };
+		0C0A44AF1CAB74E2004FA3F7 /* HousingAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HousingAddress.m; sourceTree = "<group>"; };
 		0C0ED3A41C30E405008847AF /* bianlidian.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bianlidian.png; sourceTree = "<group>"; };
 		0C0ED3A51C30E405008847AF /* bolongbi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bolongbi.png; sourceTree = "<group>"; };
 		0C0ED3A61C30E405008847AF /* gouwuche.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gouwuche.png; sourceTree = "<group>"; };
@@ -463,8 +471,6 @@
 		0C21EDE21C11916600C44468 /* CircleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleTableViewController.m; sourceTree = "<group>"; };
 		0C2561D91C06D96A00543498 /* 铂隆e站.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "铂隆e站.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C2561DD1C06D96A00543498 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		0C2561DF1C06D96A00543498 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../../AppDelegate.h; sourceTree = "<group>"; };
-		0C2561E01C06D96A00543498 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ../../AppDelegate.m; sourceTree = "<group>"; };
 		0C2561E61C06D96A00543498 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0C2561E81C06D96A00543498 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0C2561EB1C06D96A00543498 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -1089,6 +1095,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C0A44AA1CAB5E93004FA3F7 /* 物业 */ = {
+			isa = PBXGroup;
+			children = (
+				0C8FE97C1CAA53F900B6E63F /* CommunityInformation.h */,
+				0C8FE97D1CAA53F900B6E63F /* CommunityInformation.m */,
+				0C0A44AB1CAB5EFD004FA3F7 /* WuYeDetails.h */,
+				0C0A44AC1CAB5EFD004FA3F7 /* WuYeDetails.m */,
+				0C0A44AE1CAB74E2004FA3F7 /* HousingAddress.h */,
+				0C0A44AF1CAB74E2004FA3F7 /* HousingAddress.m */,
+			);
+			name = "物业";
+			sourceTree = "<group>";
+		};
 		0C0ED3A31C30E405008847AF /* 钱包 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1233,8 +1252,8 @@
 		0C2562101C06D97F00543498 /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
-				0C2561DF1C06D96A00543498 /* AppDelegate.h */,
-				0C2561E01C06D96A00543498 /* AppDelegate.m */,
+				0C0A44A71CAB5C74004FA3F7 /* AppDelegate.h */,
+				0C0A44A81CAB5C74004FA3F7 /* AppDelegate.m */,
 			);
 			path = AppDelegate;
 			sourceTree = "<group>";
@@ -1265,6 +1284,7 @@
 		0C2562131C06D97F00543498 /* Models(模型) */ = {
 			isa = PBXGroup;
 			children = (
+				0C0A44AA1CAB5E93004FA3F7 /* 物业 */,
 				0C3818A41C27A30A00A6B8A4 /* UserInformation.h */,
 				0C3818A51C27A30A00A6B8A4 /* UserInformation.m */,
 				0C434AD41C473DEA0053AD2E /* POIAnntation.h */,
@@ -1273,8 +1293,6 @@
 				0C1539FC1C7D55D5003AF119 /* AddressBook.m */,
 				0C5D1CC91CA4E917006494A5 /* Product.h */,
 				0C5D1CCA1CA4E917006494A5 /* Product.m */,
-				0C8FE97C1CAA53F900B6E63F /* CommunityInformation.h */,
-				0C8FE97D1CAA53F900B6E63F /* CommunityInformation.m */,
 			);
 			path = "Models(模型)";
 			sourceTree = "<group>";
@@ -2753,6 +2771,7 @@
 				0CEA40BE1C5781CC00E036B4 /* UIImageView+HighlightedWebCache.m in Sources */,
 				0CEA40861C5780DB00E036B4 /* TAAnimatedDotView.m in Sources */,
 				0C8BA30D1C06F40C00909777 /* HomeTableViewController.m in Sources */,
+				0C0A44A91CAB5C74004FA3F7 /* AppDelegate.m in Sources */,
 				0CEA40B21C5781CC00E036B4 /* NSData+ImageContentType.m in Sources */,
 				0C7AA5CE1C8EAF1800C6C7B1 /* ApplyForViewController.m in Sources */,
 				0CAAA6791C19073900A9BD6B /* NearView.m in Sources */,
@@ -2783,6 +2802,7 @@
 				0C6B185E1C4335750096DE3F /* PropertyViewController.m in Sources */,
 				0C5D1C781CA4E633006494A5 /* RSADataVerifier.m in Sources */,
 				0C696B961C3E2DCE007AE88A /* SurroundTableViewController.m in Sources */,
+				0C0A44AD1CAB5EFD004FA3F7 /* WuYeDetails.m in Sources */,
 				0CEA40B91C5781CC00E036B4 /* SDWebImagePrefetcher.m in Sources */,
 				0CB1AB8F1C3F622F00C14662 /* HelpOperationViewController.m in Sources */,
 				0C92EC671C4F7ABF00C1ABD4 /* LatestTableViewCell.m in Sources */,
@@ -2809,6 +2829,7 @@
 				0C6EF01A1C45F95D009BADFF /* MapView.m in Sources */,
 				0C25622A1C06DD2200543498 /* UserGuideViewController.m in Sources */,
 				0C54D16E1C3B682000EAC3E7 /* AddBankCardView.m in Sources */,
+				0C0A44B01CAB74E2004FA3F7 /* HousingAddress.m in Sources */,
 				0C6A31061C4F186C00510189 /* ParkingConsultingViewController.m in Sources */,
 				0CEA40BC1C5781CC00E036B4 /* UIImage+MultiFormat.m in Sources */,
 				0C434AD61C473DEA0053AD2E /* POIAnntation.m in Sources */,
@@ -2825,7 +2846,6 @@
 				0C46C9771C0BF3890074CE4F /* NetWorkRequestManage.m in Sources */,
 				0C8FE9811CAA688F00B6E63F /* WuYePayCostViewController.m in Sources */,
 				0C1539FD1C7D55D5003AF119 /* AddressBook.m in Sources */,
-				0C2561E11C06D96A00543498 /* AppDelegate.m in Sources */,
 				0C46C9D61C0C271E0074CE4F /* HelpTableViewCell.m in Sources */,
 				0C21EDE01C118E7100C44468 /* FriendsTableViewController.m in Sources */,
 				0CAAA67C1C1907EA00A9BD6B /* CustomView.m in Sources */,

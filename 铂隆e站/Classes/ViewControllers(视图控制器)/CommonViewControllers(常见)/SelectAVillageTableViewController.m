@@ -52,7 +52,7 @@
     CommunityInformation *community = _dataArray[indexPath.row];
     
     cell.textLabel.text = community.home;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"物业费每平方米:%@元", community.price];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"物业费每平方米: %.2f元", community.price];
     cell.detailTextLabel.font = [UIFont systemFontOfSize:12.0];
     
     return cell;

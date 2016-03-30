@@ -10,6 +10,8 @@
 
 #import "NetWorkRequestManage.h"
 #import "CommunityInformation.h"
+#import "WuYeDetails.h"
+#import "HousingAddress.h"
 
 #define LSEncode(string) [string dataUsingEncoding:NSUTF8StringEncoding]
 
@@ -380,7 +382,7 @@
 }
 
 #pragma mark - 交物业费
-- (void)wuyeInoformationID:(NSString *)user_id
+- (WuYeDetails *)wuyeInoformationID:(NSString *)user_id
                       wuye:(NSString *)wuye_id
                     number:(NSString *)number
                       name:(NSString *)name;
@@ -405,7 +407,18 @@
                                                                options:NSJSONReadingMutableLeaves
                                                                  error:nil];
     
-    NSLog(@"物业information = \n %@", dic);
+    WuYeDetails *wuye = [[WuYeDetails alloc] init];
+    wuye.code = [[dic objectForKey:@"code"] integerValue];
+    
+    if (0 == wuye.code) { // 请求成功则开始解析
+        
+        NSDictionary *dict = [dic objectForKey:@"datas"];
+        [wuye setValuesForKeysWithDictionary:dict];
+        
+        
+    }
+    
+    return wuye;
 }
 
 @end

@@ -26,6 +26,6 @@
 /**
  *  物业价格
  */
-@property (strong, nonatomic) NSString *price;
+@property (assign, nonatomic) CGFloat price;
 
 @end

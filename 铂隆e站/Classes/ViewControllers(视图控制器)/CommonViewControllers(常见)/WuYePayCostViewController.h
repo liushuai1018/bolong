@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class WuYeDetails;
+
 @interface WuYePayCostViewController : UIViewController
+
+@property (strong, nonatomic) WuYeDetails *wuye;
 
 @end

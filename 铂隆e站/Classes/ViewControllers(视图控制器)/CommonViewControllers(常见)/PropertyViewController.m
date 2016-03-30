@@ -10,6 +10,7 @@
 #import "SelectAVillageTableViewController.h"
 #import "CommunityInformation.h"
 #import "WuYePayCostViewController.h"
+#import "WuYeDetails.h"
 
 @interface PropertyViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 {
@@ -189,6 +190,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+    // 户主名
+    UITextField *nameTextField = [_aTableView viewWithTag:14000];
+    [nameTextField resignFirstResponder];
+    
+    // 户主身份证号
+    UITextField *certificate = [_aTableView viewWithTag:14001];
+    [certificate resignFirstResponder];
+    
     // 点击小区推出选择界面
     if (1 == indexPath.row) {
         SelectAVillageTableViewController *selectVillage = [[SelectAVillageTableViewController alloc] init];
@@ -209,7 +218,6 @@
         [self.navigationController pushViewController:selectVillage animated:YES];
     }
     
-    NSLog(@"indexPath = %@", indexPath);
 }
 
 #pragma mark - 创建尾部View
@@ -297,15 +305,22 @@
     UITextField *certificate = [_aTableView viewWithTag:14001];
     NSString *number = certificate.text;
     
+#warning mark -开发时 id 是假数据
     UserInformation *user =  [[LocalStoreManage sharInstance] requestUserInfor];
     
-    [[NetWorkRequestManage sharInstance] wuyeInoformationID:@"19"
-                                                       wuye:_community.wuye_id
-                                                     number:number
-                                                       name:name];
+    WuYeDetails *wuye = [[NetWorkRequestManage sharInstance] wuyeInoformationID:@"19"
+                                                                           wuye:_community.wuye_id
+                                                                         number:number
+                                                                           name:name];
+    if (0 == wuye.code) {
+        
+        WuYePayCostViewController *wuyePay = [[WuYePayCostViewController alloc] init];
+        wuyePay.wuye = wuye;
+        [self.navigationController pushViewController:wuyePay animated:YES];
+    } else {
+        [self creatAlert];
+    }
     
-    WuYePayCostViewController *wuyePay = [[WuYePayCostViewController alloc] init];
-    [self.navigationController pushViewController:wuyePay animated:YES];
     
 }
 
@@ -322,7 +337,7 @@
     // 获取键盘高度
     CGFloat height = [[info.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
     
-#warning mark - 遇到问题： 
+    
     /*
      *  在弹出键盘的状态下再次修改输入的类型 会再次减去键盘的高度，导致tableView下面一大块空白
      */
@@ -348,5 +363,19 @@
     [UIView animateWithDuration:duraction animations:^{
         _aTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     }];
+}
+
+#pragma mark - 警告框
+- (void)creatAlert
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"输入信息有误"
+                                                                   message:nil
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    
+    [alert addAction:cancel];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 @end
