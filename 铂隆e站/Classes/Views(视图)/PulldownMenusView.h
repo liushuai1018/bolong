@@ -13,6 +13,7 @@
 #import <UIKit/UIKit.h>
 
 typedef void(^kBlcok)();
+typedef void(^chooseBlock)(NSIndexPath *);
 
 @interface PulldownMenusView : UIView <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 {
@@ -29,6 +30,10 @@ typedef void(^kBlcok)();
  */
 @property (nonatomic, copy) kBlcok aBlock;
 
+/**
+ *  选择了那个cell
+ */
+@property (copy, nonatomic) chooseBlock chooseBlcok;
 
 /**
  *  点击其他收回菜单

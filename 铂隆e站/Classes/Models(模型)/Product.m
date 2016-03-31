@@ -12,7 +12,13 @@
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key
 {
+    if ([key isEqualToString:@"total_fee"]) {
+        _price = [value floatValue];
+    }
     
+    if ([key isEqualToString:@"out_trade_no"]) {
+        _orderId = value;
+    }
 }
 
 @end

@@ -123,4 +123,15 @@
                     number:(NSString *)number
                       name:(NSString *)name;
 
+
+/**
+ *  确认物业缴费
+ *
+ *  @param user_id 缴费用户ID
+ *  @param log_ids 缴费的房屋
+ */
+- (void)wuyePay:(NSString *)user_id
+        log_ids:(NSInteger)log_ids;
+
+
 @end

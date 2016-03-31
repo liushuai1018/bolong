@@ -14,4 +14,6 @@
 
 @property (strong, nonatomic) WuYeDetails *wuye;
 
+@property (strong, nonatomic) UserInformation *userInformation;
+
 @end

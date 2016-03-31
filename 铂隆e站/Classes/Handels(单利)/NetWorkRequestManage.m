@@ -12,6 +12,8 @@
 #import "CommunityInformation.h"
 #import "WuYeDetails.h"
 #import "HousingAddress.h"
+#import "Product.h"
+#import "AlipayManage.h"
 
 #define LSEncode(string) [string dataUsingEncoding:NSUTF8StringEncoding]
 
@@ -360,9 +362,13 @@
     
     request.timeoutInterval = 10.0;
     
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
         
-        NSMutableDictionary *dataDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        NSMutableDictionary *dataDict = [NSJSONSerialization JSONObjectWithData:data
+                                                                        options:NSJSONReadingMutableContainers
+                                                                          error:nil];
         
         NSArray *array = [dataDict objectForKey:@"datas"];
         
@@ -377,7 +383,6 @@
         }
         
         sender(communityArray);
-        
     }];
 }
 
@@ -404,7 +409,7 @@
                                                      error:&error];
     
     NSMutableDictionary *dic = [NSJSONSerialization JSONObjectWithData:data
-                                                               options:NSJSONReadingMutableLeaves
+                                                               options:NSJSONReadingMutableContainers
                                                                  error:nil];
     
     WuYeDetails *wuye = [[WuYeDetails alloc] init];
@@ -419,6 +424,46 @@
     }
     
     return wuye;
+}
+
+#pragma makr - 确认物业缴费
+- (void)wuyePay:(NSString *)user_id
+        log_ids:(NSInteger)log_ids
+{
+    NSURL *url = [NSURL URLWithString:kWuYePay];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    request.HTTPMethod = @"POST";
+    
+    NSString *str = [NSString stringWithFormat:@"user_id=%@&log_ids=%ld", user_id, (long)log_ids];
+    [request setHTTPBody:LSEncode(str)];
+    request.timeoutInterval = 10.0;
+    
+    NSURLResponse *respose = nil;
+    NSError *error = nil;
+    
+    NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                         returningResponse:&respose
+                                                     error:&error];
+    
+    NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:data
+                                                                options:NSJSONReadingMutableContainers
+                                                                  error:nil];
+    NSInteger index = [[dict objectForKey:@"code"] integerValue];
+    if (1 == index) {
+        NSLog(@"----------- 交易失败");
+        return;
+    }
+    
+    NSDictionary *dataDict = [dict objectForKey:@"datas"];
+    
+    Product *product = [[Product alloc] init];
+    [product setValuesForKeysWithDictionary:dataDict];
+    product.price = 0.01;
+    [[AlipayManage sharInstance] createrOrderAndSignature:product retum:^(NSDictionary *ditc) {
+        
+        
+        
+    }];
 }
 
 @end

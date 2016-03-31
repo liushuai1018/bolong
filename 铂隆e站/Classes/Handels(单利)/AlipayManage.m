@@ -27,7 +27,8 @@
 }
 
 #pragma mark - 创建订单和签名
-- (BOOL)createrOrderAndSignature:(Product *)product
+- (void)createrOrderAndSignature:(Product *)product
+                           retum:(void(^)(NSDictionary *dict))retum
 {
     /**
      *  商户的唯一的parnter和seller
@@ -44,20 +45,6 @@
     /*============================================================================*/
     /*============================================================================*/
     
-    //partner和seller获取失败,提示
-    if ([partner length] == 0 ||
-        [seller length] == 0 ||
-        [privateKey length] == 0)
-    {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                        message:@"缺少partner或者seller或者私钥。"
-                                                       delegate:self
-                                              cancelButtonTitle:@"确定"
-                                              otherButtonTitles:nil];
-        [alert show];
-        return NO;
-    }
-    
     /**
      *  生成订单信息及签名
      */
@@ -69,8 +56,7 @@
     order.tradeNO = product.orderId;          // 订单ID
     order.productName = product.subject;      // 商品标题
     order.productDescription = product.body;  // 商品描述
-#warning mark 开发时数据。。。 amount = 0.01
-    order.amount = [NSString stringWithFormat:@"%.2f", 0.01]; // 商品价格
+    order.amount = [NSString stringWithFormat:@"%.2f", product.price]; // 商品价格
     order.notifyURL = product.notify_URL;  // 支付成功后会给这个URL
     
     order.service = @"mobile.securitypay.pay";
@@ -84,7 +70,6 @@
     
     //将商品信息拼接成字符串
     NSString *orderSpec = [order description];
-    NSLog(@"orderSpec = %@",orderSpec);
     
     //获取私钥并将商户信息签名,外部商户可以根据情况存放私钥和签名,只需要遵循RSA签名规范,并将签名字符串base64编码和UrlEncode
     id<DataSigner> signer = CreateRSADataSigner(privateKey);
@@ -98,10 +83,10 @@
         
         [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
             NSLog(@"reslut = %@",resultDic);
+            
+            retum(resultDic);
         }];
-    } 
-    
-    return NO;
+    }
 
 }
 

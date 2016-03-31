@@ -10,6 +10,7 @@
  *  支付宝交易管理工具
  */
 #import <Foundation/Foundation.h>
+@class Product;
 
 @interface AlipayManage : NSObject
 
@@ -19,5 +20,14 @@
  *  @return 返回管理工具
  */
 + (instancetype)sharInstance;
+
+/**
+ *  创建订单并支付
+ *
+ *  @param product 订到信息
+ *  @param retum   返回结果
+ */
+- (void)createrOrderAndSignature:(Product *)product
+                           retum:(void(^)(NSDictionary *ditc))retum;
 
 @end

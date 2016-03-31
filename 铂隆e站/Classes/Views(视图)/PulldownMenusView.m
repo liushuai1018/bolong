@@ -137,6 +137,11 @@
 // 点击 cell
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    if (self.chooseBlcok) {
+        self.chooseBlcok(indexPath);
+    }
+    
     _textField.text = [_tableArray objectAtIndex:[indexPath row]];
     showList = NO;
     _tv.hidden = YES;

@@ -81,6 +81,8 @@
 #define kGetCommunity @"http://123.56.182.208/bolong/mobile.php/Mobile/Wuye/get_home"
 // 物业缴费信息
 #define kWuYePayInformation @"http://123.56.182.208/bolong/mobile.php/Mobile/Wuye/pay_wuye"
+// 确认物业缴费
+#define kWuYePay @"http://123.56.182.208/bolong/mobile.php/Mobile/Wuye/pay"
 
 
 #endif /* PrefixHeader_pch */

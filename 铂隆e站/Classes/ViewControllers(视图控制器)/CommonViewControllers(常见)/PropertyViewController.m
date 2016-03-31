@@ -190,13 +190,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    // 户主名
-    UITextField *nameTextField = [_aTableView viewWithTag:14000];
-    [nameTextField resignFirstResponder];
-    
-    // 户主身份证号
-    UITextField *certificate = [_aTableView viewWithTag:14001];
-    [certificate resignFirstResponder];
+    [self textFieldResignFirstResponder];
     
     // 点击小区推出选择界面
     if (1 == indexPath.row) {
@@ -297,6 +291,7 @@
 - (void)propertyAction
 {
     
+    [self textFieldResignFirstResponder];
     // 户主名
     UITextField *nameTextField = [_aTableView viewWithTag:14000];
     NSString *name = nameTextField.text;
@@ -305,10 +300,9 @@
     UITextField *certificate = [_aTableView viewWithTag:14001];
     NSString *number = certificate.text;
     
-#warning mark -开发时 id 是假数据
     UserInformation *user =  [[LocalStoreManage sharInstance] requestUserInfor];
     
-    WuYeDetails *wuye = [[NetWorkRequestManage sharInstance] wuyeInoformationID:@"19"
+    WuYeDetails *wuye = [[NetWorkRequestManage sharInstance] wuyeInoformationID:user.user_id
                                                                            wuye:_community.wuye_id
                                                                          number:number
                                                                            name:name];
@@ -316,6 +310,7 @@
         
         WuYePayCostViewController *wuyePay = [[WuYePayCostViewController alloc] init];
         wuyePay.wuye = wuye;
+        wuyePay.userInformation = user;
         [self.navigationController pushViewController:wuyePay animated:YES];
     } else {
         [self creatAlert];
@@ -329,6 +324,17 @@
 {
     [textField resignFirstResponder];
     return YES;
+}
+
+- (void)textFieldResignFirstResponder
+{
+    // 户主名
+    UITextField *nameTextField = [_aTableView viewWithTag:14000];
+    [nameTextField resignFirstResponder];
+    
+    // 户主身份证号
+    UITextField *certificate = [_aTableView viewWithTag:14001];
+    [certificate resignFirstResponder];
 }
 
 #pragma mark - 监听键盘的弹出
@@ -368,7 +374,7 @@
 #pragma mark - 警告框
 - (void)creatAlert
 {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"输入信息有误"
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"输入户主信息有误"
                                                                    message:nil
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
