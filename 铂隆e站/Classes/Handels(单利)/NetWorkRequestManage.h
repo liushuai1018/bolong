@@ -131,7 +131,8 @@
  *  @param log_ids 缴费的房屋
  */
 - (void)wuyePay:(NSString *)user_id
-        log_ids:(NSInteger)log_ids;
+        log_ids:(NSInteger)log_ids
+          retum:(void(^)(NSDictionary *dict))inform;
 
 
 @end

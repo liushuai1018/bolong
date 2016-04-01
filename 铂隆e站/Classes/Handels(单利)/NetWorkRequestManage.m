@@ -429,6 +429,7 @@
 #pragma makr - 确认物业缴费
 - (void)wuyePay:(NSString *)user_id
         log_ids:(NSInteger)log_ids
+          retum:(void(^)(NSDictionary *dict))inform
 {
     NSURL *url = [NSURL URLWithString:kWuYePay];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
@@ -445,23 +446,24 @@
                                          returningResponse:&respose
                                                      error:&error];
     
-    NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:data
+    NSMutableDictionary *dic = [NSJSONSerialization JSONObjectWithData:data
                                                                 options:NSJSONReadingMutableContainers
                                                                   error:nil];
-    NSInteger index = [[dict objectForKey:@"code"] integerValue];
+    NSInteger index = [[dic objectForKey:@"code"] integerValue];
     if (1 == index) {
         NSLog(@"----------- 交易失败");
         return;
     }
     
-    NSDictionary *dataDict = [dict objectForKey:@"datas"];
+    NSDictionary *dataDict = [dic objectForKey:@"datas"];
     
     Product *product = [[Product alloc] init];
     [product setValuesForKeysWithDictionary:dataDict];
     product.price = 0.01;
     [[AlipayManage sharInstance] createrOrderAndSignature:product retum:^(NSDictionary *ditc) {
         
-        
+        // 把支付宝返回信息反馈到显示界面
+        inform(ditc);
         
     }];
 }

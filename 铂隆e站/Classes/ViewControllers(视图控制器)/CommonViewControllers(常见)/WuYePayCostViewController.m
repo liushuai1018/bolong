@@ -18,6 +18,9 @@
 // 记录选择缴费的房屋
 @property (strong, nonatomic) HousingAddress *chooseAddress;
 
+@property (strong, nonatomic) NSTimer *timer;
+@property (assign, nonatomic) int secondsCountDown;
+
 @end
 
 @implementation WuYePayCostViewController
@@ -69,9 +72,30 @@
         if (is) { // 判断有没有选择房屋
             
             [[NetWorkRequestManage sharInstance] wuyePay:wuyePay.userInformation.user_id
-                                                 log_ids:wuyePay.chooseAddress.log_id];
+                                                 log_ids:wuyePay.chooseAddress.log_id
+                                                   retum:^(NSDictionary *dict)
+            {
+                NSInteger index = [[dict objectForKey:@"resultStatus"] integerValue];
+                if (9000 == index) { // 判断缴费情况 resultStatus 值除了 9000 以外都是缴费失败
+                    
+                    NSLog(@"dict = = = = %@", dict);
+                    [wuyePay createrAlertString:@"缴费成功" choose:NO];
+                    
+                    
+                    
+                } else {
+                    
+                    [wuyePay createrAlertString:[dict objectForKey:@"memo"] choose:YES];
+                    
+                }
+                
+             }];
+            
         } else {
-            [wuyePay createrAlertString:@"请选择缴纳的房屋地址"];
+            
+            [wuyePay createrAlertString:@"请选择缴纳的房屋地址" choose:YES];
+            
+            
         }
         
     };
@@ -93,20 +117,63 @@
 }
 
 #pragma mark - 提示框
-- (void)createrAlertString:(NSString *)title
+- (void)createrAlertString:(NSString *)title choose:(BOOL)is
 {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
                                                                    message:nil
                                                             preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"确定"
-                                                     style:UIAlertActionStyleCancel
-                                                   handler:nil];
-    [alert addAction:cancel];
+    if (is) {
+        
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"确定"
+                                                         style:UIAlertActionStyleCancel
+                                                       handler:nil];
+        [alert addAction:cancel];
+    } else {
+        
+        __weak WuYePayCostViewController *wuyePay = self;
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"确定"
+                                                       style:UIAlertActionStyleCancel
+                                                     handler:^(UIAlertAction * _Nonnull action)
+        {
+            // 缴费成功点击确定 退出到父视图
+            [_timer invalidate];
+            [wuyePay.navigationController popToRootViewControllerAnimated:YES];
+            
+        }];
+        [alert addAction:cancel];
+        
+        [self createrTimer];
+    }
+    
     
     
     [self presentViewController:alert
                        animated:YES
                      completion:nil];
 }
+
+#pragma mark - 计时器
+- (void)createrTimer
+{
+    _secondsCountDown = 2;
+    _timer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                              target:self
+                                            selector:@selector(timerAction)
+                                            userInfo:nil
+                                             repeats:YES];
+}
+
+#pragma mark - 倒计时
+- (void)timerAction
+{
+    if (_secondsCountDown == 0) {
+        [_timer invalidate];
+        [self dismissViewControllerAnimated:YES completion:nil];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+    _secondsCountDown--;
+}
+
+
 
 @end
