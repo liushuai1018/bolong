@@ -11,6 +11,7 @@
  *  自定义首页的 cell
  */
 #import <UIKit/UIKit.h>
+typedef void(^kBlock)();
 
 @interface HomeTableViewCell : UITableViewCell
 

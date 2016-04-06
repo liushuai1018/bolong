@@ -32,9 +32,6 @@
                             <constraint firstAttribute="height" constant="30" id="FZr-NA-LvA"/>
                         </constraints>
                         <state key="normal" title="Button" image="zan-3.png"/>
-                        <connections>
-                            <action selector="clickAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="sF7-jP-Rg6"/>
-                        </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1086" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KUg-v2-27g">
                         <rect key="frame" x="433" y="41" width="34" height="10"/>

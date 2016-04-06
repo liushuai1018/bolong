@@ -9,7 +9,6 @@
 #import "OfflineMapsViewController.h"
 #import "MapView.h"
 #import "OfflineCityTableViewController.h"
-#import "Reachability.h"
 
 @interface OfflineMapsViewController ()
 
@@ -36,31 +35,14 @@
 - (void)determineTheNetworkCallOfflineMaps
 {
     
-    if ([self isEnable3G] && [self isEnableWIFI]) {
+    
         NSString *file = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"autonavi/data/vmap"];
         CGFloat number = [self folderSizeAtPath:file];
         
-        if (number > 0.01) {
-            
+        if (number != 0) {
             // 调用离线地图
             [self.mapView offlineDataIntoEffect];
-            
         }
-        
-    }
-    
-}
-
-// 判断 wifi
-- (BOOL)isEnableWIFI
-{
-    return ([[Reachability reachabilityForLocalWiFi] currentReachabilityStatus] == NotReachable);
-}
-
-// 判断 3G
-- (BOOL)isEnable3G
-{
-    return ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == NotReachable);
 }
 
 // 获取文件总大小

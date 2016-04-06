@@ -30,6 +30,8 @@
 // 轮播图
 @property (nonatomic, strong) SDCycleScrollView *sdc;
 
+@property (strong, nonatomic) NSArray *zan_array;
+
 
 @end
 
@@ -42,25 +44,51 @@
     self.tableView.showsVerticalScrollIndicator = NO; // 隐藏滚动条
     self.navigationItem.title = @"首页";
     
+    [self obtainData];
+    [self createrHeaderView];
     
+    // 注册 cell
+    [self.tableView registerNib:[UINib nibWithNibName:@"HomeTableViewCell" bundle:nil] forCellReuseIdentifier:@"homeCell"];
+    
+}
+
+#pragma mark - 获取数据
+- (void)obtainData
+{
+    NSDictionary *dict = [[NetWorkRequestManage sharInstance] requestHomeInformation];
+    
+    self.zan_array = [dict objectForKey:@"zan_count"];
     
     // 本地轮播图片
-    self.shuFflingArray = [[NSMutableArray alloc] initWithObjects:[UIImage imageNamed:@"L1.jpg"],[UIImage imageNamed:@"L2.jpg"], [UIImage imageNamed:@"L3.jpg"], [UIImage imageNamed:@"L4.jpg"], nil];
+    self.shuFflingArray = [[NSMutableArray alloc] initWithObjects:[UIImage imageNamed:@"L1.jpg"],
+                           [UIImage imageNamed:@"L2.jpg"],
+                           [UIImage imageNamed:@"L3.jpg"],
+                           [UIImage imageNamed:@"L4.jpg"],
+                           nil];
+    
+    // 背景图片数组
+    _imageNameArray = @[@"jiaofei-.png",
+                        @"tingche-.png",
+                        @"shangcheng-.png",
+                        @"jiaofei-3.png",
+                        @"tingche-4.png",
+                        @"shangcheng-5"];
+}
+
+- (void)obtainDate
+{
+    NSDate *date = [NSDate date];
+    
+}
+
+#pragma mark - 创建区头
+- (void)createrHeaderView
+{
     //创建区头轮播图
     _sdc = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_HEIGHT * 0.25) imagesGroup:self.shuFflingArray];
     _sdc.delegate = self;
     _sdc.autoScrollTimeInterval = 2.0; // 设置时间
     self.tableView.tableHeaderView = self.sdc;
-    
-    
-    
-    
-    // 注册 cell
-    [self.tableView registerNib:[UINib nibWithNibName:@"HomeTableViewCell" bundle:nil] forCellReuseIdentifier:@"homeCell"];
-    
-    // 背景图片数组
-    _imageNameArray = @[@"jiaofei-.png", @"tingche-.png", @"shangcheng-.png", @"jiaofei-3.png", @"tingche-4.png", @"shangcheng-5"];
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -98,8 +126,12 @@
     
     cell.image.image = [UIImage imageNamed:_imageNameArray[indexPath.row]];
     cell.iocImage.image = [UIImage imageNamed:_imageNameArray[indexPath.row + 3]];
+    
+    cell.zanTime.text = [NSString stringWithFormat:@"%@", [_zan_array objectAtIndex:indexPath.row]];
+    
     NSInteger number = 1100 + indexPath.row;
     [cell.zanButton setTag:number];
+    [cell.zanButton addTarget:self action:@selector(zanButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;// 选中背景
     
@@ -112,12 +144,44 @@
     return SCREEN_HEIGHT * 0.23;
 }
 
+#pragma mark - 点赞
+- (void)zanButtonAction:(UIButton *)sender
+{
+    NSInteger index = sender.tag - 1100;
+    
+    UserInformation *userInformation = [[LocalStoreManage sharInstance] requestUserInfor];
+    
+    NSString *type = [NSString stringWithFormat:@"%ld", index + 1];
+    
+    [[NetWorkRequestManage sharInstance] didZanUser_id:userInformation.user_id
+                                                  type:type];
+    
+    HomeTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index
+                                                                                       inSection:0]];
+    
+    NSInteger count = [[_zan_array objectAtIndex:index] integerValue] + 1;
+    cell.zanTime.text = [NSString stringWithFormat:@"%ld", count];
+    
+    [sender setImage:[UIImage imageNamed:@"zan-2.png"] forState:UIControlStateNormal];
+    
+    
+    // 当前点击时间
+    NSDate *date = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSTimeZone *zone = [NSTimeZone timeZoneWithName:@"Asia/Beijing"];
+    [dateFormatter setTimeZone:zone];
+    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    NSString *datestr = [dateFormatter stringFromDate:date];
+    NSLog(@"时间 = %@", datestr);
+}
+
 #pragma mark - 轮播图点击事件
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
     NSLog(@"你点击了地%ld张图片", (long)index);
 }
 
+#pragma mark - 点击cell
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     

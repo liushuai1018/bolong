@@ -14,6 +14,7 @@
 #import "HousingAddress.h"
 #import "Product.h"
 #import "AlipayManage.h"
+#import "Reachability.h"
 
 #define LSEncode(string) [string dataUsingEncoding:NSUTF8StringEncoding]
 
@@ -22,6 +23,7 @@
 @end
 
 @implementation NetWorkRequestManage
+
 
 + (instancetype)sharInstance
 {
@@ -33,11 +35,51 @@
     return manage;
 }
 
+#pragma mark - 判断当前是否有网络连接
+- (BOOL)determineTheNetwork
+{
+    // WIFI
+    BOOL isWIFI = ([[Reachability reachabilityForLocalWiFi] currentReachabilityStatus] == NotReachable);
+    // 3G
+    BOOL is3G = ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == NotReachable);
+    
+    
+    if (isWIFI && is3G) {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                        message:@"网络请求失败，请检查网络连接"
+                                                       delegate:self
+                                              cancelButtonTitle:nil
+                                              otherButtonTitles:nil];
+        [alert show];
+        
+        // 延时执行方法
+        [self performSelector:@selector(dismissAlert:)
+                   withObject:alert
+                   afterDelay:2];
+        
+        return NO; // 没有网络连接
+    } else {
+        return YES;  // 有网络连接
+    }
+}
+
+// 移除提示框
+- (void)dismissAlert:(UIAlertView *)sender
+{
+    if (sender) {
+        [sender dismissWithClickedButtonIndex:[sender cancelButtonIndex] animated:YES];
+    }
+}
 
 #pragma mark - 发送手机号，获取验证码
 - (void)senderVerificationCode:(NSString *)phone
         returnVerificationCode:(void(^)(NSString *str))verification
 {
+    if (![self determineTheNetwork]) {
+        return;
+    }
+    
     if ([phone isEqualToString:@""]) {
         if (verification) {
             verification(@"手机号不能为空");
@@ -79,6 +121,10 @@
                      code:(NSString *)code
                  password:(NSString *)password
 {
+    if (![self determineTheNetwork]) {
+        return NO;
+    }
+    
     // 创建请求体
     NSString *str = [NSString stringWithFormat:@"mobile=%@&code=%@&password=%@", account, code, password];
     NSData *data = LSEncode(str);
@@ -122,6 +168,10 @@
 - (BOOL)longinAccount:(NSString *)account
              password:(NSString *)password
 {
+    if (![self determineTheNetwork]) {
+        return NO;
+    }
+    
     // 账户或密码为空直接 NO
     if (!account.length && !password.length) {
         return NO;
@@ -187,6 +237,10 @@
                user_name:(NSString *)name
                user_avar:(NSString *)avar
 {
+    if (![self determineTheNetwork]) {
+        return NO;
+    }
+    
     BOOL is;
     
     // 参数
@@ -241,6 +295,10 @@
 - (void)upLoadHead:(NSString *)user_id
              image:(UIImage *)image
 {
+    if (![self determineTheNetwork]) {
+        return;
+    }
+    
     // 记录Image的类型和data
     NSData *imageData;
     NSString *imageFormat;
@@ -306,6 +364,10 @@
 - (void)updateUserName:(NSString *)name
                user_id:(NSString *)user_id
 {
+    if (![self determineTheNetwork]) {
+        return;
+    }
+    
     NSURL *url = [NSURL URLWithString:kUpdateUserName];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
@@ -331,6 +393,10 @@
                        code:(NSString *)code
                       retun:(void(^)(NSString *str))block
 {
+    if (![self determineTheNetwork]) {
+        return;
+    }
+    
     NSURL *url = [NSURL URLWithString:kForgetPassword];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     request.HTTPMethod = @"POST";
@@ -356,6 +422,11 @@
 #pragma mark - 获取小区
 - (void)getCommunity:(void(^)(NSArray *array))sender
 {
+    
+    if (![self determineTheNetwork]) {
+        return;
+    }
+    
     NSURL *url = [NSURL URLWithString:kGetCommunity];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     request.HTTPMethod = @"POST";
@@ -392,6 +463,10 @@
                     number:(NSString *)number
                       name:(NSString *)name;
 {
+    if (![self determineTheNetwork]) {
+        return nil;
+    }
+    
     NSURL *url = [NSURL URLWithString:kWuYePayInformation];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     request.HTTPMethod = @"POST";
@@ -431,6 +506,10 @@
         log_ids:(NSInteger)log_ids
           retum:(void(^)(NSDictionary *dict))inform
 {
+    if (![self determineTheNetwork]) {
+        return;
+    }
+    
     NSURL *url = [NSURL URLWithString:kWuYePay];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     request.HTTPMethod = @"POST";
@@ -459,13 +538,83 @@
     
     Product *product = [[Product alloc] init];
     [product setValuesForKeysWithDictionary:dataDict];
-    product.price = 0.01;
     [[AlipayManage sharInstance] createrOrderAndSignature:product retum:^(NSDictionary *ditc) {
         
         // 把支付宝返回信息反馈到显示界面
         inform(ditc);
         
     }];
+}
+
+#pragma mark - 首页信息
+- (NSDictionary *)requestHomeInformation
+{
+    if (![self determineTheNetwork]) {
+        return nil;
+    }
+    
+    NSURL *url = [NSURL URLWithString:kHomeInformation];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    request.HTTPMethod = @"POST";
+    request.timeoutInterval = 10.0;
+    
+    NSURLResponse *response = nil;
+    NSError *error = nil;
+    
+    NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                         returningResponse:&response
+                                                     error:&error];
+    
+    NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:data
+                                                                options:NSJSONReadingMutableContainers
+                                                                  error:nil];
+    NSInteger index = [[dict objectForKey:@"code"] integerValue];
+    
+    if (0 == index) {
+        
+        NSDictionary *datas = [dict objectForKey:@"datas"];
+        
+        // 轮播图
+        NSArray *advs = [datas objectForKey:@"advs"];
+        
+        // 点赞
+        NSDictionary *zan_count = [datas objectForKey:@"zan_count"];
+        
+        NSArray *zan_array = @[[zan_count objectForKey:@"type1"],
+                               [zan_count objectForKey:@"type2"],
+                               [zan_count objectForKey:@"type3"]];
+        
+        NSDictionary *returnDataDict = [NSDictionary dictionaryWithObjectsAndKeys:advs, @"advs", zan_array, @"zan_count", nil];
+        
+        return returnDataDict;
+    }
+    
+    return nil;
+}
+
+#pragma mark - 为首页服务项点赞
+- (void)didZanUser_id:(NSString *)user_id
+                 type:(NSString *)type
+{
+    if (![self determineTheNetwork]) {
+        return;
+    }
+    
+    NSURL *url = [NSURL URLWithString:KHomeDidZan];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    
+    // 参数
+    NSString *parameter = [NSString stringWithFormat:@"user_id=%@&type=%@", user_id, type];
+    [request setHTTPBody:LSEncode(parameter)];
+    [request setTimeoutInterval:10.0];
+    
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
+                               
+                           }];
+    
 }
 
 @end

@@ -1351,8 +1351,7 @@
 				0C916CF71C1FC6B000BC7071 /* libiconv.tbd */,
 				0C916CF51C1FC6A200BC7071 /* Security.framework */,
 				0C916D031C1FC74300BC7071 /* libz.tbd */,
-				0CEA408C1C5780F500E036B4 /* Reachability.h */,
-				0CEA408D1C5780F500E036B4 /* Reachability.m */,
+				0C8A3FEB1CB3562E00505781 /* 判断网络连接 */,
 				0C5D1BEC1CA4E4A1006494A5 /* Alipay */,
 				0C642FC51C756E4B00EEC11E /* Rong_Cloud_iOS_IMKit_SDK_v2_4_7_stable */,
 				0CEA408F1C5781CC00E036B4 /* SDWebImage */,
@@ -2096,6 +2095,15 @@
 			);
 			name = "停车";
 			path = "服务";
+			sourceTree = "<group>";
+		};
+		0C8A3FEB1CB3562E00505781 /* 判断网络连接 */ = {
+			isa = PBXGroup;
+			children = (
+				0CEA408C1C5780F500E036B4 /* Reachability.h */,
+				0CEA408D1C5780F500E036B4 /* Reachability.m */,
+			);
+			name = "判断网络连接";
 			sourceTree = "<group>";
 		};
 		0C916D051C1FE4D700BC7071 /* UMSocial_Sdk_Extra_Frameworks */ = {

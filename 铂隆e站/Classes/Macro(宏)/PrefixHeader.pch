@@ -50,6 +50,7 @@
 #define RC_IM_Key @"8w7jv4qb7ey6y"
 #define RC_IM_Temp_Token @"VAZqz8j5M8QUss7jfSTc5DVHXkAG7pcbJF4TZk7kk0nL6WDRhRfgEW6YMsqg4LLcWSL898AphGuL8iwmgPbJcQ=="
 
+
 // 引入
 #import "TempTableViewController.h"
 #import "UMSocial.h"
@@ -58,9 +59,11 @@
 #import "LocalStoreManage.h"
 #import "UserInformation.h"
 
+
 // 支付宝引用
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+
 
 // 注册接口
 #define kRegistURL @"http://123.56.182.208/bolong/mobile.php/Mobile/Login/register"
@@ -77,12 +80,19 @@
 // 忘记密码
 #define kForgetPassword @"http://123.56.182.208/bolong/mobile.php/Mobile/Login/forgetPassword"
 
+
 // 获取小区
 #define kGetCommunity @"http://123.56.182.208/bolong/mobile.php/Mobile/Wuye/get_home"
 // 物业缴费信息
 #define kWuYePayInformation @"http://123.56.182.208/bolong/mobile.php/Mobile/Wuye/pay_wuye"
 // 确认物业缴费
 #define kWuYePay @"http://123.56.182.208/bolong/mobile.php/Mobile/Wuye/pay"
+
+
+// 获取首页信息
+#define kHomeInformation @"http://123.56.182.208/bolong/mobile.php/Mobile/Index"
+// 首页点赞
+#define KHomeDidZan @"http://123.56.182.208/bolong/mobile.php/Mobile/Index/zan"
 
 
 #endif /* PrefixHeader_pch */

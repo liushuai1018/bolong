@@ -100,6 +100,23 @@
                        code:(NSString *)code
                       retun:(void(^)(NSString *str))block;
 
+#pragma mark - 首页信息
+/**
+ *  获取首页信息
+ *
+ *  @param inform 返回请求数据
+ */
+- (NSDictionary *)requestHomeInformation;
+
+/**
+ *  为服务项点赞
+ *
+ *  @param user_id 用户id
+ *  @param type    那一项点赞
+ */
+- (void)didZanUser_id:(NSString *)user_id
+                 type:(NSString *)type;
+
 #pragma mark - 物业方法接口
 /**
  *  获取小区
