@@ -9,10 +9,13 @@
 #import "ParkingConsultingViewController.h"
 #import "ParkingConsultingView.h"
 #import "LatestTableViewCell.h"
+#import "ConsultListModel.h"
 
 @interface ParkingConsultingViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) ParkingConsultingView *parkingCV; // 停车咨询视图
+
+@property (strong, nonatomic) NSArray *consultList;
 
 @end
 
@@ -30,6 +33,12 @@
     // Do any additional setup after loading the view.
     
     [self initializ];
+    [self requestData];
+}
+
+- (void)requestData
+{
+    self.consultList =  [[NetWorkRequestManage sharInstance] consultListPage:@"1"];
 }
 
 #pragma mark - initializ
@@ -78,7 +87,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return _consultList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -89,6 +98,12 @@
     cell.iocImageView.layer.cornerRadius = CGRectGetHeight(cell.iocImageView.frame) * 0.5;
     [cell.zanButton addTarget:self action:@selector(zanAction:event:) forControlEvents:UIControlEventTouchUpInside];
     [cell.huiFuBUtton addTarget:self action:@selector(replyClickAction:event:) forControlEvents:UIControlEventTouchUpInside];
+    
+    // 界面信息
+    ConsultListModel *model = [_consultList objectAtIndex:indexPath.row];
+    
+    [cell.iocImageView sd_setImageWithURL:[NSURL URLWithString:model.user_avar]];
+    
     return cell;
     
 }

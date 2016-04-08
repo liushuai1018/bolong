@@ -98,7 +98,7 @@
                                     
                                 } error:^(RCConnectErrorCode status) {
                                     
-                                    NSLog(@"登陆的错误码为: %ld", (long)status);
+                                    NSLog(@"登陆的错误码为-------- : %ld", (long)status);
                                     
                                 } tokenIncorrect:^{
                                     

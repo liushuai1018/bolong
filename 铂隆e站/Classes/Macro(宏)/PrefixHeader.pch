@@ -92,7 +92,10 @@
 // 获取首页信息
 #define kHomeInformation @"http://123.56.182.208/bolong/mobile.php/Mobile/Index"
 // 首页点赞
-#define KHomeDidZan @"http://123.56.182.208/bolong/mobile.php/Mobile/Index/zan"
+#define kHomeDidZan @"http://123.56.182.208/bolong/mobile.php/Mobile/Index/zan"
 
+
+// 获取咨询列表
+#define kConsultList @"http://123.56.182.208/bolong/mobile.php/Mobile/Consult"
 
 #endif /* PrefixHeader_pch */

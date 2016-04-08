@@ -152,4 +152,15 @@
           retum:(void(^)(NSDictionary *dict))inform;
 
 
+#pragma mark - 停车咨询接口
+
+/**
+ *  获取咨询列表
+ *
+ *  @param index 分页
+ *
+ *  @return 返回列表信息
+ */
+- (NSArray *)consultListPage:(NSString *)index;
+
 @end

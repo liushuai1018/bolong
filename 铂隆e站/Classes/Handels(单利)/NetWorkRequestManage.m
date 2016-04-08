@@ -15,6 +15,7 @@
 #import "Product.h"
 #import "AlipayManage.h"
 #import "Reachability.h"
+#import "ConsultListModel.h"
 
 #define LSEncode(string) [string dataUsingEncoding:NSUTF8StringEncoding]
 
@@ -600,7 +601,7 @@
         return;
     }
     
-    NSURL *url = [NSURL URLWithString:KHomeDidZan];
+    NSURL *url = [NSURL URLWithString:kHomeDidZan];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"POST"];
     
@@ -615,6 +616,49 @@
                                
                            }];
     
+}
+
+#pragma mark - 获取资讯列表
+- (NSArray *)consultListPage:(NSString *)index
+{
+    if (![self determineTheNetwork]) {
+        return nil;
+    }
+    
+    NSURL *url = [NSURL URLWithString:kConsultList];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    NSString *parameter = [NSString stringWithFormat:@"page=%@", index];
+    [request setHTTPBody:LSEncode(parameter)];
+    [request setTimeoutInterval:10.0];
+    
+    NSURLResponse *response = nil;
+    NSError *error = nil;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                         returningResponse:&response
+                                                     error:&error];
+    
+    NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:data
+                                                                options:NSJSONReadingMutableContainers
+                                                                  error:nil];
+    
+    if (0 == [[dict objectForKey:@"code"] integerValue]) {
+        
+        NSArray *consultAr = [dict objectForKey:@"datas"];
+        
+        NSLog(@"consultList = %@", consultAr);
+        
+        NSMutableArray *consultListArray = [NSMutableArray array];
+        
+        for (NSDictionary *dict in consultAr) {
+            ConsultListModel *model = [[ConsultListModel alloc] init];
+            [model setValuesForKeysWithDictionary:dict];
+            [consultListArray addObject:model];
+            
+        }
+        return consultListArray;
+    }
+    return nil;
 }
 
 @end
