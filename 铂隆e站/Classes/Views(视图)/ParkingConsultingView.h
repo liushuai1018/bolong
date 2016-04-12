@@ -11,6 +11,8 @@
  */
 #import <UIKit/UIKit.h>
 
+typedef void(^kBlock)(NSInteger index);
+
 @interface ParkingConsultingView : UIView <UITextFieldDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;    //滑动视图
@@ -21,22 +23,13 @@
 
 @property (nonatomic, strong) UITableView *replyTV;        //答复
 
-@property (nonatomic, strong) UITextField *ziXunTF;        //我要咨询(回复)
+@property (strong, nonatomic) UISegmentedControl *segmentControl; // 分段视图
 
-@property (nonatomic, strong) UIButton *sendButton;        //发送消息
-
-@property (nonatomic, assign) BOOL interpretation;         //判读发送按钮是回复信息还是最新咨询
+@property (strong, nonatomic) UIButton *senderConsulting;   //发送咨询
 
 /**
- *  键盘回收
+ *  选择别的界面
  */
-- (void)textfieldResignFirstResponder;
-
-/**
- *  回复事件
- */
-- (void)replyActionForName:(NSString *)str;
-
-@property (strong, nonatomic) UIButton *newsButton;        // 发布消息
+@property (copy, nonatomic) kBlock block;
 
 @end

@@ -55,7 +55,7 @@
     homeNavigtion.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"首页" image:[UIImage imageNamed:@"shouye"] tag:100000];
     helpNavigtion.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"帮助" image:[UIImage imageNamed:@"bangzhu"] tag:100002];
     
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.99 green:0.66 blue:0.07 alpha:1.0]]; // 设置所有顶部导航栏的背景
+    [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]]; // 设置所有顶部导航栏的背景
     [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
     
     // 创建自定义样式tabBar替换系统样式

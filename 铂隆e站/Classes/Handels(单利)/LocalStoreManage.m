@@ -89,7 +89,6 @@
 - (UserInformation *)requestUserInfor
 {
     if (nil != _userInfor) {
-        NSLog(@"已经保存用户信息直接返回 userInfor : %@", _userInfor);
         
         return _userInfor;
     }

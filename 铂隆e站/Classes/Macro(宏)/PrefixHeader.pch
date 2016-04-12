@@ -97,5 +97,13 @@
 
 // 获取咨询列表
 #define kConsultList @"http://123.56.182.208/bolong/mobile.php/Mobile/Consult"
+// 发送新的咨询
+#define kSenderConsult @"http://123.56.182.208/bolong/mobile.php/Mobile/Consult/add_consult"
+// 赞
+#define kConsult_zan @"http://123.56.182.208/bolong/mobile.php/Mobile/Consult/zan"
+// 回复咨询
+#define kReplyConsult @"http://123.56.182.208/bolong/mobile.php/Mobile/Consult/reply"
+// 我的答复列表
+#define kReplyList @"http://123.56.182.208/bolong/mobile.php/Mobile/Consult/reply_list"
 
 #endif /* PrefixHeader_pch */

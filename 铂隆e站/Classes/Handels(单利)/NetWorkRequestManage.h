@@ -157,10 +157,42 @@
 /**
  *  获取咨询列表
  *
- *  @param index 分页
- *
- *  @return 返回列表信息
+ *  @param index 参数
+ *  @param block 获取到的数据
  */
-- (NSArray *)consultListPage:(NSString *)index;
+- (void)consultListPage:(NSString *)index returns:(void(^)(NSArray *array))block;
+
+/**
+ *  发送新的咨询
+ *
+ *  @param user_id 发送者ID
+ *  @param info    发送的消息
+ */
+- (void)senderConsultUser_id:(NSString *)user_id info:(NSString *)info;
+
+/**
+ *  赞_咨询
+ *
+ *  @param user_id    赞的用户
+ *  @param consult_id 赞的那一条
+ */
+- (void)consultZanUser_id:(NSString *)user_id consult_id:(NSString *)consult_id;
+
+/**
+ *  回复咨询
+ *
+ *  @param user_id   回复用户
+ *  @param conult_id 回复的那一条
+ *  @param info      回复内容
+ */
+- (void)replyConsultUser_id:(NSString *)user_id consult_id:(NSString *)conult_id info:(NSString *)info;
+
+/**
+ *  获取答复列表信息
+ *
+ *  @param user_id 获取的用户
+ *  @param block   获取到的信息
+ */
+- (void)requestReplyListInfoUser_id:(NSString *)user_id returns:(void(^)(NSArray *array))block;
 
 @end

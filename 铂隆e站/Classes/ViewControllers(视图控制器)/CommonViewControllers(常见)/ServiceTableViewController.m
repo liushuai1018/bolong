@@ -11,6 +11,7 @@
 #import "PresenceViewController.h"
 #import "SurroundTableViewController.h"
 #import "ParkingConsultingViewController.h"
+#import "ConsultRootViewController.h"
 
 @interface ServiceTableViewController ()
 {
@@ -19,6 +20,7 @@
     PresenceViewController *_presenceVC; // 占道停车控制器
     SurroundTableViewController *_surroundTVC; // 周边控制器
     ParkingConsultingViewController *_parkingConsultingVC; // 停车咨询
+    ConsultRootViewController *_consultRootVC; // 新停车咨询
 }
 
 @end
@@ -98,7 +100,8 @@
         }
         case 4: {
             _parkingConsultingVC = [[ParkingConsultingViewController alloc] init];
-            [self.navigationController pushViewController:_parkingConsultingVC animated:YES];
+            _consultRootVC = [[ConsultRootViewController alloc] init];
+            [self.navigationController pushViewController:_consultRootVC animated:YES];
             break;
         }
         default:

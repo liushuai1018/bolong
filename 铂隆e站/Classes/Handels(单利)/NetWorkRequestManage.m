@@ -16,6 +16,7 @@
 #import "AlipayManage.h"
 #import "Reachability.h"
 #import "ConsultListModel.h"
+#import "ReplyListModel.h"
 
 #define LSEncode(string) [string dataUsingEncoding:NSUTF8StringEncoding]
 
@@ -619,10 +620,10 @@
 }
 
 #pragma mark - 获取资讯列表
-- (NSArray *)consultListPage:(NSString *)index
+- (void)consultListPage:(NSString *)index returns:(void(^)(NSArray *array))block
 {
     if (![self determineTheNetwork]) {
-        return nil;
+        return;
     }
     
     NSURL *url = [NSURL URLWithString:kConsultList];
@@ -632,33 +633,146 @@
     [request setHTTPBody:LSEncode(parameter)];
     [request setTimeoutInterval:10.0];
     
-    NSURLResponse *response = nil;
-    NSError *error = nil;
-    NSData *data = [NSURLConnection sendSynchronousRequest:request
-                                         returningResponse:&response
-                                                     error:&error];
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError)
+    {
+        NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:data
+                                                                    options:NSJSONReadingMutableContainers
+                                                                      error:nil];
+        
+        if (0 == [[dict objectForKey:@"code"] integerValue]) {
+            
+            NSArray *consultAr = [dict objectForKey:@"datas"];
+            
+            NSMutableArray *consultListArray = [NSMutableArray array];
+            
+            for (NSDictionary *dict in consultAr) {
+                ConsultListModel *model = [[ConsultListModel alloc] init];
+                [model setValuesForKeysWithDictionary:dict];
+                [consultListArray addObject:model];
+                
+            }
+            
+            block(consultListArray);
+        } else {
+            block(nil);
+        }
+        
+    }];
+}
+
+#pragma mark - 发送新的咨询
+- (void)senderConsultUser_id:(NSString *)user_id info:(NSString *)info
+{
+    if (![self determineTheNetwork]) {
+        return;
+    }
     
-    NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:data
-                                                                options:NSJSONReadingMutableContainers
-                                                                  error:nil];
+    NSURL *url = [NSURL URLWithString:kSenderConsult];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    NSString *parameter = [NSString stringWithFormat:@"user_id=%@&info=%@", user_id, info];
+    [request setHTTPBody:LSEncode(parameter)];
+    [request setTimeoutInterval:10.0];
     
-    if (0 == [[dict objectForKey:@"code"] integerValue]) {
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
+                               
+                           }];
+}
+
+#pragma mark - 咨询_赞
+- (void)consultZanUser_id:(NSString *)user_id consult_id:(NSString *)consult_id
+{
+    if (![self determineTheNetwork]) {
+        return;
+    }
+    
+    NSURL *url = [NSURL URLWithString:kConsult_zan];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    NSString *parameter = [NSString stringWithFormat:@"user_id=%@&consult_id=%@", user_id, consult_id];
+    [request setHTTPBody:LSEncode(parameter)];
+    [request setTimeoutInterval:10.0];
+    
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
+                               
+                           }];
+}
+
+#pragma mark - 回复咨询
+- (void)replyConsultUser_id:(NSString *)user_id consult_id:(NSString *)consult_id info:(NSString *)info
+{
+    if (![self determineTheNetwork]) {
+        return;
+    }
+    
+    NSURL *url = [NSURL URLWithString:kReplyConsult];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    NSString *parameter = [NSString stringWithFormat:@"user_id=%@&consult_id=%@&info=%@", user_id, consult_id, info];
+    [request setHTTPBody:LSEncode(parameter)];
+    [request setTimeoutInterval:10.0];
+    
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError)
+    {
+        NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:data
+                                                                    options:NSJSONReadingMutableLeaves
+                                                                      error:nil];
         
-        NSArray *consultAr = [dict objectForKey:@"datas"];
-        
-        NSLog(@"consultList = %@", consultAr);
-        
-        NSMutableArray *consultListArray = [NSMutableArray array];
-        
-        for (NSDictionary *dict in consultAr) {
-            ConsultListModel *model = [[ConsultListModel alloc] init];
-            [model setValuesForKeysWithDictionary:dict];
-            [consultListArray addObject:model];
+        if ([[dict objectForKey:@"code"] integerValue] == 0) {
+            NSLog(@"---咨询列表回复成功---");
+        }
+    
+    
+    }];
+}
+
+#pragma mark - 获取答复列表信息
+- (void)requestReplyListInfoUser_id:(NSString *)user_id returns:(void(^)(NSArray *array))block
+{
+    if (![self determineTheNetwork]) {
+        return;
+    }
+    
+    NSURL *url = [NSURL URLWithString:kReplyList];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    NSString *parameter = [NSString stringWithFormat:@"user_id=%@", user_id];
+    [request setHTTPBody:LSEncode(parameter)];
+    [request setTimeoutInterval:10.0];
+    
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError)
+    {
+        NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:data
+                                                                    options:NSJSONReadingMutableLeaves
+                                                                      error:nil];
+        if ([[dict objectForKey:@"code"] integerValue] == 0) {
+            
+            NSArray *array = [dict objectForKey:@"datas"];
+            NSMutableArray *replyArray = [NSMutableArray array];
+            for (NSDictionary *dic in array) {
+                
+                ReplyListModel *model = [[ReplyListModel alloc] init];
+                [model setValuesForKeysWithDictionary:dic];
+                [replyArray addObject:model];
+                
+            }
+            
+            // 请求解析完毕返回数据
+            block(replyArray);
             
         }
-        return consultListArray;
-    }
-    return nil;
+    }];
+    
 }
 
 @end
