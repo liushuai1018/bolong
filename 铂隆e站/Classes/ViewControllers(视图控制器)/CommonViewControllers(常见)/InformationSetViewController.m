@@ -134,6 +134,7 @@
     // 开始存储信息
     [[LocalStoreManage sharInstance] UserInforStoredLocally:infor]; // 文件信息存储到本地
     [[LocalStoreManage sharInstance] storageHeadImage:headImage.image]; // 头像存储到本地
+    [[NetWorkRequestManage sharInstance] updateUserName:infor.name user_id:_userInfor.user_id]; // 名称存储到服务器
     [[NetWorkRequestManage sharInstance] upLoadHead:_userInfor.user_id image:headImage.image]; // 头像存储到服务器
     [[LocalStoreManage sharInstance] storageBackgroundImage:_headImage.image]; // 背景图片存储到本地
     [self alertView];

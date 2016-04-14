@@ -13,6 +13,8 @@
 #import "ParkingConsultingViewController.h"
 #import "ConsultRootViewController.h"
 
+#import "PresenceOfparkingViewController.h"
+
 @interface ServiceTableViewController ()
 {
     NSArray *_imageNameArray; // 存储图片名字
@@ -20,6 +22,8 @@
     PresenceViewController *_presenceVC; // 占道停车控制器
     SurroundTableViewController *_surroundTVC; // 周边控制器
     ParkingConsultingViewController *_parkingConsultingVC; // 停车咨询
+    
+    PresenceOfparkingViewController *_presenceOfParkingVC; // 新占道停车
     ConsultRootViewController *_consultRootVC; // 新停车咨询
 }
 
@@ -89,8 +93,9 @@
     switch (indexPath.row) {
             
         case 0: {
-            _presenceVC = [[PresenceViewController alloc] init];
-            [self.navigationController pushViewController:_presenceVC animated:YES];
+//            _presenceVC = [[PresenceViewController alloc] init];
+            _presenceOfParkingVC = [[PresenceOfparkingViewController alloc] init];
+            [self.navigationController pushViewController:_presenceOfParkingVC animated:YES];
             break;
         }
         case 3: {

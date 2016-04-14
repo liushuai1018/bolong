@@ -93,6 +93,9 @@
 // 退出按钮
 - (void)clickFooterButton:(UIButton *)sender
 {
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"status"];
+    // 移除信息
+    [[LocalStoreManage sharInstance] removeAllUserInfor];
     // 退出当前界面，返回到首界面
     [self dismissViewControllerAnimated:YES completion:nil];
     self.block();

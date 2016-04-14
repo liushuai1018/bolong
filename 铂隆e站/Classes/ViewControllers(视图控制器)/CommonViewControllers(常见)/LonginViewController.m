@@ -72,7 +72,7 @@
     BOOL is = [[NetWorkRequestManage sharInstance] longinAccount:userName password:pawdName];
     
     if (is) {
-        
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"status"];
         [self successPushRootViewControl]; // 登陆成功跳转主界面
     } else {
         

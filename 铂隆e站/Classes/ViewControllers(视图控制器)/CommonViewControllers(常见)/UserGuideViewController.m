@@ -37,12 +37,6 @@
         
         // 在最后一个imageView上添加一个透明button
         if (3 == i) {
-//            UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-//            [button setFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-//            [button setTitle:nil forState:UIControlStateNormal];
-//            [button addTarget:self action:@selector(firstpressed) forControlEvents:UIControlEventTouchUpInside];
-//            [imageView addSubview:button];
-            
             UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(firstpressed)];
             [imageView addGestureRecognizer:tapGesture];
             
@@ -52,7 +46,6 @@
     
     [self.view addSubview:scroView];
 }
-
 
 // button跳转跟视图
 - (void)firstpressed
@@ -64,7 +57,4 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
-
 @end

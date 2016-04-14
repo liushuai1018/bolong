@@ -44,11 +44,19 @@
         userGuide.block = ^() {
             [appD firstpressed];// 跳转主界面
             // 第一次登陆自动弹出登陆界面
-            [self jumpLongViewController];
+            [appD jumpLongViewController];
         };
         
     } else {
-        [self firstpressed]; // 跳转主界面
+        
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"status"]) {
+            
+            [self firstpressed]; // 跳转主界面
+        } else {
+            [self firstpressed];
+            [self jumpLongViewController];
+        }
+        
     }
     
     return YES;
