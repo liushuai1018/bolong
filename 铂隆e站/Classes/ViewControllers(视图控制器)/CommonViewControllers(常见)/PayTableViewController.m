@@ -13,6 +13,7 @@
 #import "HeatingViewController.h"
 #import "FuelGasViewController.h"
 
+
 @interface PayTableViewController ()
 {
     // cell背景图片数组
@@ -26,6 +27,7 @@
     HeatingViewController *_heatingVC;
     // 燃气缴费
     FuelGasViewController *_fuelGasVC;
+    
 }
 @end
 
@@ -34,20 +36,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    // 设置cell分割线
-    self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
-    
     self.title = @"缴费";
     self.navigationController.navigationBar.translucent = NO;
     
-    _backgroundImageArray = @[ @"wuye_", @"shuidianfeibuji_.png",@"nuanqi_.png", @"ranqi_.png"];
-    
-    // 添加 左边BarButton
-    [self addBarButton];
-    
-    // 注册 cell
-    [self.tableView registerNib:[UINib nibWithNibName:@"HelpTableViewCell" bundle:nil] forCellReuseIdentifier:@"Cell"];
+    [self initData];
+    [self initTableView];
     
 }
 
@@ -56,17 +49,27 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - 添加左边 barBUtton
-- (void)addBarButton
+#pragma mark - initData
+- (void)initData
 {
-    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"fanhui.png"] style:UIBarButtonItemStylePlain target:self action:@selector(clickLeftBarButton:)];
-    self.navigationItem.leftBarButtonItem = left;
+    _backgroundImageArray = @[ @"new_wuyejiaofei",
+                               @"new_shuidianjiaofei",
+                               @"new_meiqijiaofei",
+                               @"new_nuanqijiaofei"];
 }
 
-- (void)clickLeftBarButton:(UIBarButtonItem *)sender
+#pragma mark - initTableView
+- (void)initTableView
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    // 设置cell分割线
+    self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
+    self.tableView.showsVerticalScrollIndicator = NO;
+    self.tableView.tableFooterView = [UIImageView new];
+    // 注册 cell
+    [self.tableView registerNib:[UINib nibWithNibName:@"HelpTableViewCell" bundle:nil] forCellReuseIdentifier:@"Cell"];
 }
+
+
 
 
 #pragma mark - Table view data source
@@ -75,8 +78,14 @@
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (_backgroundImageArray.count != 0) {
+        return _backgroundImageArray.count;
+    } else {
+        
+        return 0;
+    }
 }
 
 
@@ -90,7 +99,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return SCREEN_HEIGHT * 0.25 + 10;
+    return SCREEN_HEIGHT * 0.22;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -113,7 +122,7 @@
             _fuelGasVC = [[FuelGasViewController alloc] init];
             [self.navigationController pushViewController:_fuelGasVC animated:YES];
             break;
-            
+        
         default:
             break;
     }

@@ -10,7 +10,6 @@
 #import "LonginViewController.h"
 #import "LonginView.h"
 #import "RegisteredViewController.h"
-#import "CustomViewController.h"
 #import "RetrievePasswordViewController.h"
 @interface LonginViewController () <UIAlertViewDelegate>
 
@@ -66,6 +65,9 @@
 #pragma Mark - 登陆
 - (void)longinAction:(UIButton *)but
 {
+    [_longView.userNameText resignFirstResponder];
+    [_longView.passwordText resignFirstResponder];
+    
     NSString *userName =  _longView.userNameText.text;
     NSString *pawdName = _longView.passwordText.text;
     
@@ -187,7 +189,6 @@
     [_activityIndicatorView stopAnimating]; // 停止旋转
     [self dismissViewControllerAnimated:YES completion:nil];
     
-
     // 根据用户token 登陆IM服务器
     [self connectionIMSDKServer:RC_IM_Temp_Token];
 }

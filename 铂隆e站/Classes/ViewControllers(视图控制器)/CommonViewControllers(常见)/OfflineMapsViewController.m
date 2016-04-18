@@ -85,8 +85,8 @@
 // 左边按钮
 - (void)clickBarButton:(UIBarButtonItem *)sender
 {
-    self.block(_mapView);
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.mapView stopDelegateLocation];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

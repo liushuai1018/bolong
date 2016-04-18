@@ -8,7 +8,6 @@
 
 #import "RegisteredViewController.h"
 #import "RegisteredView.h"
-#import "CustomViewController.h"
 @interface RegisteredViewController ()
 
 @property (nonatomic, strong) RegisteredView *regisView; // 注册视图

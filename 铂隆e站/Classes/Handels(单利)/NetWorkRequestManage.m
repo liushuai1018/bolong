@@ -306,7 +306,7 @@
     NSString *imageFormat;
     if (UIImagePNGRepresentation(image) == nil) {
         imageFormat = @"Content-Type: image/jpeg \r\n";
-        imageData = UIImageJPEGRepresentation(image, 1.0);
+        imageData = UIImageJPEGRepresentation(image, 0.5f);
     } else {
         imageFormat = @"Content-Type: image/png \r\n";
         imageData = UIImagePNGRepresentation(image);

@@ -67,12 +67,6 @@
     return YES;
 }
 
-- (BOOL)textViewShouldEndEditing:(UITextView *)textView
-{
-    [textView resignFirstResponder];
-    return YES;
-}
-
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [_opinionTF resignFirstResponder];

@@ -15,8 +15,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="191"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nOj-BQ-iMh">
-                        <rect key="frame" x="8" y="4" width="398" height="183"/>
+                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nOj-BQ-iMh">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="191"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </imageView>
                 </subviews>
@@ -24,11 +24,11 @@
                     <constraint firstItem="nOj-BQ-iMh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="La9-fn-q8C"/>
                     <constraint firstAttribute="trailingMargin" secondItem="nOj-BQ-iMh" secondAttribute="trailing" id="XWB-pL-6OJ"/>
                     <constraint firstItem="nOj-BQ-iMh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="dtC-Cr-5K5"/>
-                    <constraint firstItem="nOj-BQ-iMh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="eBR-gQ-7BZ"/>
+                    <constraint firstItem="nOj-BQ-iMh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="eBR-gQ-7BZ"/>
                     <constraint firstAttribute="bottomMargin" secondItem="nOj-BQ-iMh" secondAttribute="bottom" id="mB8-LM-DTS"/>
-                    <constraint firstAttribute="trailing" secondItem="nOj-BQ-iMh" secondAttribute="trailing" constant="8" id="n3m-dk-wPd"/>
-                    <constraint firstItem="nOj-BQ-iMh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="tsi-mB-mk4"/>
-                    <constraint firstAttribute="bottom" secondItem="nOj-BQ-iMh" secondAttribute="bottom" constant="4" id="xHb-te-ObE"/>
+                    <constraint firstAttribute="trailing" secondItem="nOj-BQ-iMh" secondAttribute="trailing" id="n3m-dk-wPd"/>
+                    <constraint firstItem="nOj-BQ-iMh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="tsi-mB-mk4"/>
+                    <constraint firstAttribute="bottom" secondItem="nOj-BQ-iMh" secondAttribute="bottom" id="xHb-te-ObE"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">

@@ -93,12 +93,19 @@
 // 退出按钮
 - (void)clickFooterButton:(UIButton *)sender
 {
+    // 设置登录状态
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"status"];
-    // 移除信息
+    // 移除上一个用户信息
     [[LocalStoreManage sharInstance] removeAllUserInfor];
-    // 退出当前界面，返回到首界面
-    [self dismissViewControllerAnimated:YES completion:nil];
-    self.block();
+    
+    [self dismissViewControllerAnimated:YES completion:^{
+        if (_block) {
+            _block();
+        }
+    }];
+    
+    
+    
 }
 
 // 区尾高度

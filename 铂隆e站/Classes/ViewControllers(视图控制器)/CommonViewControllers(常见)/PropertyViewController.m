@@ -29,7 +29,7 @@
     [super viewDidLoad];
     
     self.title = @"物业缴费";
-    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.navigationBar.translucent = NO;
     
     [self getCommunityInformation];
     [self createrTableView];

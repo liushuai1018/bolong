@@ -26,7 +26,19 @@
     [super viewDidLoad];
     self.title = @"手机充值";
     [self addAction];
-    
+    [self createrBatItem];
+}
+
+#pragma mark - 创建
+- (void)createrBatItem
+{
+    UIBarButtonItem *leftBut = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"fanhui.png"] style:UIBarButtonItemStylePlain target:self action:@selector(barItemAction:)];
+    self.navigationItem.leftBarButtonItem = leftBut;
+}
+
+- (void)barItemAction:(UIBarButtonItem *)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 // 添加按钮事件

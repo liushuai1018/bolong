@@ -16,23 +16,26 @@
 
 @implementation FeedbckViewController
 
-- (void)loadView
-{
-    self.feedbckView = [[FeedbckView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.view = _feedbckView;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.navigationController.navigationBar.translucent = NO;
     self.title = @"意见反馈";
     
-    // 添加事件
-    [_feedbckView.submitBtn addTarget:self action:@selector(didClickAction:) forControlEvents:UIControlEventTouchUpInside];
     
+    [self createrSubView];
     // 添加左边按钮
     [self addleftBarButton];
+}
+
+#pragma mark - 创建View
+- (void)createrSubView
+{
+    self.feedbckView = [[FeedbckView alloc] initWithFrame:self.view.bounds];
+    self.view = _feedbckView;
+    
+    // 添加事件
+    [_feedbckView.submitBtn addTarget:self action:@selector(didClickAction:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 // 添加左边barButton
@@ -45,10 +48,9 @@
 // 左边BarButton
 - (void)didClickLeftAction:(UIBarButtonItem *)but
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
-#warning mark -- 提交
 - (void)didClickAction:(UIButton *)but
 {
     NSString *opinion = _feedbckView.opinionTF.text;

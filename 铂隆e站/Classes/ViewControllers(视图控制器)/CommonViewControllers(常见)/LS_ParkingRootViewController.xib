@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LS_ParkingRootViewController">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Npv-Gx-PXo">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="170"/>
+                    <state key="normal" image="new_zhandao_tingche.png"/>
+                    <connections>
+                        <action selector="parkingAction:" destination="-1" eventType="touchUpInside" id="1Yt-ct-8Q7"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nRa-En-3wE">
+                    <rect key="frame" x="0.0" y="170" width="320" height="170"/>
+                    <state key="normal" image="new_shangye_tingche.png"/>
+                    <connections>
+                        <action selector="businessAction:" destination="-1" eventType="touchUpInside" id="Bxd-k2-gUJ"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IK6-LM-emm">
+                    <rect key="frame" x="0.0" y="340" width="320" height="170"/>
+                    <state key="normal" image="new_shequ_tingche.png"/>
+                    <connections>
+                        <action selector="communityAction:" destination="-1" eventType="touchUpInside" id="Oeq-vM-iY0"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hDm-4L-j4J">
+                    <rect key="frame" x="0.0" y="510" width="320" height="57"/>
+                    <state key="normal" image="new_tingche_other1.png"/>
+                    <connections>
+                        <action selector="otherAction:" destination="-1" eventType="touchUpInside" id="fMo-mJ-U0B"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="IK6-LM-emm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="DW0-qf-wyD"/>
+                <constraint firstAttribute="trailing" secondItem="Npv-Gx-PXo" secondAttribute="trailing" id="Nwd-jG-Sum"/>
+                <constraint firstItem="IK6-LM-emm" firstAttribute="top" secondItem="nRa-En-3wE" secondAttribute="bottom" id="QRF-pu-7p8"/>
+                <constraint firstItem="nRa-En-3wE" firstAttribute="height" secondItem="Npv-Gx-PXo" secondAttribute="height" id="X7o-e3-60a"/>
+                <constraint firstItem="hDm-4L-j4J" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="e7i-i9-dSs"/>
+                <constraint firstItem="Npv-Gx-PXo" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="hGn-aj-pXM"/>
+                <constraint firstItem="Npv-Gx-PXo" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ki0-55-QDI"/>
+                <constraint firstItem="hDm-4L-j4J" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="lxm-gR-Yvc"/>
+                <constraint firstItem="nRa-En-3wE" firstAttribute="top" secondItem="Npv-Gx-PXo" secondAttribute="bottom" id="oDM-cO-vsN"/>
+                <constraint firstItem="nRa-En-3wE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="qIj-v9-8tj"/>
+                <constraint firstItem="hDm-4L-j4J" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.1" id="rxs-Mv-EUJ"/>
+                <constraint firstItem="hDm-4L-j4J" firstAttribute="top" secondItem="IK6-LM-emm" secondAttribute="bottom" id="tVx-cL-2qC"/>
+                <constraint firstItem="Npv-Gx-PXo" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.3" id="tkq-XD-ZAW"/>
+                <constraint firstItem="IK6-LM-emm" firstAttribute="height" secondItem="nRa-En-3wE" secondAttribute="height" id="ubQ-EO-lx2"/>
+                <constraint firstAttribute="trailing" secondItem="nRa-En-3wE" secondAttribute="trailing" id="xev-xy-GlF"/>
+                <constraint firstAttribute="trailing" secondItem="IK6-LM-emm" secondAttribute="trailing" id="z0Z-ar-8dX"/>
+            </constraints>
+            <point key="canvasLocation" x="503" y="381"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="new_shangye_tingche.png" width="657" height="326"/>
+        <image name="new_shequ_tingche.png" width="657" height="326"/>
+        <image name="new_tingche_other1.png" width="658" height="76"/>
+        <image name="new_zhandao_tingche.png" width="657" height="326"/>
+    </resources>
+</document>

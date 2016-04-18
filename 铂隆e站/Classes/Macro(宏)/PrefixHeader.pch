@@ -52,7 +52,6 @@
 
 
 // 引入
-#import "TempTableViewController.h"
 #import "UMSocial.h"
 #import "UIImageView+WebCache.h"
 #import "NetWorkRequestManage.h"

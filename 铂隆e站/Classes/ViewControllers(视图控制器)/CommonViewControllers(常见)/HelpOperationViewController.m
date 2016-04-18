@@ -36,7 +36,7 @@
 
 - (void)clickBarButton:(UIBarButtonItem *)sender
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

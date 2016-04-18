@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "UserGuideViewController.h"  // 用户引导页
-#import "CustomViewController.h"     // 自定义标签导航栏
+#import "LS_TabBarController.h"      // 新自定义导航栏
 #import "LonginViewController.h"
 #import <RongIMKit/RongIMKit.h>
 #import <AlipaySDK/AlipaySDK.h>
@@ -82,8 +82,10 @@
 - (void)firstpressed
 {
     // 创建跟视图
-    CustomViewController *custom = [[CustomViewController alloc] init];
-    self.window.rootViewController = custom;
+//    CustomViewController *custom = [[CustomViewController alloc] init];
+//    self.window.rootViewController = custom;
+    LS_TabBarController *tabBar = [[LS_TabBarController alloc] init];
+    self.window.rootViewController = tabBar;
     
 }
 
