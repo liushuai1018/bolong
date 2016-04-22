@@ -108,19 +108,6 @@
     }
 }
 
-//#pragma mark - 时间选择
-//- (void)datePickerValueChanged:(UIDatePicker *)sender
-//{
-//    [_numberView removeKeyObtaionNumber];
-//    
-//    NSDate *select = [sender date]; // 获取被选中的时间
-//    NSDateFormatter *selectDateFormatter = [[NSDateFormatter alloc] init];
-//    selectDateFormatter.dateFormat = @"HH:mm"; // 设置时间和日期的格式
-//    NSString *dateAndTime = [selectDateFormatter stringFromDate:select]; // 把date类型转为设置好格式的string类型
-//    
-//    _numberStr = dateAndTime;
-//}
-
 #pragma mark - 泊车号确定
 - (void)determineAction:(UIButton *)sender
 {

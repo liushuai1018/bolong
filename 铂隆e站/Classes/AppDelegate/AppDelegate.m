@@ -27,6 +27,9 @@
     _window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
+    // 隐藏状态栏
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+    
     [self initializeUM];
     [self initiazeRong];
     [self connectionIMSDKServer:RC_IM_Temp_Token];
@@ -47,12 +50,13 @@
             [appD jumpLongViewController];
         };
         
-    } else {
+    } else { // 不是第一次登陆
         
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"status"]) {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"status"]) {  // 判断当前是否是登陆状态
             
             [self firstpressed]; // 跳转主界面
-        } else {
+        } else { // 不是登陆状态弹出登陆界面
+            
             [self firstpressed];
             [self jumpLongViewController];
         }
@@ -136,11 +140,17 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    
+    // 隐藏状态栏
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 //    [UMSocialSnsService applicationDidBecomeActive];
+    
+    // 隐藏状态栏
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

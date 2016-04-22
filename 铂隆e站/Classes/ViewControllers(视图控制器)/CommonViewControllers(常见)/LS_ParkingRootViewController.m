@@ -22,6 +22,10 @@
     // 其他按钮子视图
     UIView *_otherView;
 }
+
+@property (weak, nonatomic) IBOutlet UIButton *otherBut;
+
+
 @end
 
 @implementation LS_ParkingRootViewController
@@ -38,6 +42,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 #pragma mark - initSet
 - (void)initSet
 {
@@ -123,6 +128,7 @@
 {
     _surround = [[SurroundTableViewController alloc] init];
     [self.navigationController pushViewController:_surround animated:YES];
+    [self hiddenOtheBut];
 }
 
 #pragma mark - 咨询
@@ -130,7 +136,15 @@
 {
     _consultRoot = [[ConsultRootViewController alloc] init];
     [self.navigationController pushViewController:_consultRoot animated:YES];
+    [self hiddenOtheBut];
 }
 
+#pragma mark - 隐藏其他按钮
+- (void)hiddenOtheBut
+{
+    [_otherBut setImage:[UIImage imageNamed:@"new_tingche_other1"] forState:UIControlStateNormal];
+    _otherShow = NO;
+    [_otherView setHidden:YES];
+}
 
 @end

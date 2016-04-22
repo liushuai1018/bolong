@@ -102,7 +102,7 @@
     return SCREEN_WIDTH * 0.2;
 }
 
-- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     id control = nil;
     switch (indexPath.row) {

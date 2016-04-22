@@ -22,7 +22,9 @@
     self.navigationController.navigationBar.translucent = NO; // navigation 不透明
     self.title = @"信息设置";
     
-    _array = @[@"不接受圈子消息", @"不接受好友邀请", @"不接受消息提醒"];
+    _array = @[@"不接受圈子消息",
+               @"不接受好友邀请",
+               @"不接受消息提醒"];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"InforSetTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     

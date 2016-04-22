@@ -10,7 +10,7 @@
 #import "SetTableViewCell.h"
 
 #import "InforSetTableViewController.h"
-#import "TheBindingViewController.h"
+#import "LS_AddressManage_ViewController.h"
 
 @interface SetTableViewController ()
 {
@@ -18,7 +18,7 @@
     NSArray *_titleArray; // 标题数组
     
     InforSetTableViewController *_inforSetTVC; // 信息设置
-    TheBindingViewController *_theBindingVC;    // 绑定手机
+    LS_AddressManage_ViewController *_addressManage; // 地址管理
 }
 @end
 
@@ -26,18 +26,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     self.title = @"设置";
     
-    _imageArray = @[@"xinxishezhi.png", @"bangding.png", @"qingchuhuancun.png", @"dizhiguanli.png"];
-    _titleArray = @[@"信息设置", @"未绑定", @"清理缓存", @"地址管理"];
     
+    [self initData];
     [self addLeftBut];
+    [self initTableView];
     
-    self.tableView.cellLayoutMarginsFollowReadableWidth = NO;
-    
-    [self.tableView registerNib:[UINib nibWithNibName:@"SetTableViewCell" bundle:nil] forCellReuseIdentifier:@"Cell"];
+}
+
+#pragma mark - initData
+- (void)initData
+{
+    _imageArray = @[@"LS_xinxishezhi",
+                    @"LS_qingchuhuancun",
+                    @"LS_dizhiguabli"];
+    _titleArray = @[@"信息设置",
+                    @"清理缓存",
+                    @"地址管理"];
 }
 
 #pragma mark - 添加 BarBUtton
@@ -57,6 +63,15 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - init TableView
+- (void)initTableView
+{
+    self.tableView.cellLayoutMarginsFollowReadableWidth = NO;
+    [self.tableView registerNib:[UINib nibWithNibName:@"SetTableViewCell" bundle:nil] forCellReuseIdentifier:@"Cell"];
+    
+    self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"new_bangzhu_bg"]];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -64,7 +79,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    if (_titleArray.count != 0) {
+        return _titleArray.count;
+    } else {
+        return 0;
+    }
 }
 
 
@@ -82,9 +101,9 @@
 {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 45)];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-    button.frame = view.bounds;
+    button.frame = CGRectMake(SCREEN_WIDTH * 0.3, 5, SCREEN_WIDTH * 0.4, 30);
     [button setTitle:@"退出登陆" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(clickFooterButton:) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:button];
     return view;
@@ -108,10 +127,15 @@
     
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return SCREEN_HEIGHT * 0.08;
+}
+
 // 区尾高度
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 45.0;
+    return 45;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -121,14 +145,14 @@
             
             _inforSetTVC = [[InforSetTableViewController alloc] init];
             [self.navigationController pushViewController:_inforSetTVC animated:YES];
+            break;
+        }
+        case 2: {
+            _addressManage = [[LS_AddressManage_ViewController alloc] init];
+            [self.navigationController pushViewController:_addressManage animated:YES];
+            break;
+        }
             
-            break;
-        }
-        case 1: {
-            _theBindingVC = [[TheBindingViewController alloc] init];
-            [self.navigationController pushViewController:_theBindingVC animated:YES];
-            break;
-        }
         default:
             break;
     }

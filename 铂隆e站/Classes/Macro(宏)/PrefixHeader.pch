@@ -57,6 +57,7 @@
 #import "NetWorkRequestManage.h"
 #import "LocalStoreManage.h"
 #import "UserInformation.h"
+#import "LS_EquipmentModel.h"
 
 
 // 支付宝引用
@@ -104,5 +105,15 @@
 #define kReplyConsult @"http://123.56.182.208/bolong/mobile.php/Mobile/Consult/reply"
 // 我的答复列表
 #define kReplyList @"http://123.56.182.208/bolong/mobile.php/Mobile/Consult/reply_list"
+
+
+// 我的地址列表
+#define kAddress_list @"http://123.56.182.208/bolong/mobile.php/Address"
+// 删除地址
+#define kRemoveAddress @"http://123.56.182.208/bolong/mobile.php/Address/address_del"
+// 添加新地址
+#define kAddNewAddress @"http://123.56.182.208/bolong/mobile.php/Mobile/Address/address_add"
+// 修改地址
+#define kUpAddress @"http://123.56.182.208/bolong/mobile.php/Mobile/Address/address_update"
 
 #endif /* PrefixHeader_pch */

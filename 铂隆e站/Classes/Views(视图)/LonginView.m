@@ -22,25 +22,21 @@
 // 创建子控件
 - (void)creatorAllSubView
 {
-    self.backgroundColor = [UIColor colorWithRed:240 / 255.0 green:240 / 255.0 blue:240 / 255.0 alpha:1.0];
+    self.backgroundColor = [UIColor whiteColor];
     
-    // 头像背景图
-    UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT * 0.3)];
-    backgroundImage.image = [UIImage imageNamed:@"toubeijing.png"];
-    [self addSubview:backgroundImage];
     
     // 头像
     UIImageView *headPortraitImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"touxiang.jpg"]];
     headPortraitImage.frame = CGRectMake(0, 0, 90, 90);
-    headPortraitImage.center = CGPointMake(CGRectGetWidth(backgroundImage.frame) / 2, CGRectGetHeight(backgroundImage.frame) / 2 + 25);
+    headPortraitImage.center = CGPointMake(CGRectGetWidth(self.frame) / 2, SCREEN_HEIGHT * 0.15 + 25);
     headPortraitImage.layer.masksToBounds = YES; // 显示圆角
     headPortraitImage.layer.cornerRadius = 45.0; // 设置弧度
     headPortraitImage.layer.borderWidth = 2.0; // 圆边宽度
     headPortraitImage.layer.borderColor = [UIColor whiteColor].CGColor; // 圆边颜色
-    [backgroundImage addSubview:headPortraitImage];
+    [self addSubview:headPortraitImage];
     
     // 输入框
-    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(backgroundImage.frame), SCREEN_WIDTH, SCREEN_HEIGHT * 0.18)];
+    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT * 0.3, SCREEN_WIDTH, SCREEN_HEIGHT * 0.18)];
     backgroundView.backgroundColor = [UIColor whiteColor];
     [self addSubview:backgroundView];
     
@@ -48,8 +44,8 @@
     // 用户名
     self.userNameText = [[UITextField alloc] initWithFrame:CGRectMake(30, 10, SCREEN_WIDTH - 60, 35)];
     _userNameText.backgroundColor = [UIColor whiteColor];
-    _userNameText.borderStyle = UITextBorderStyleNone;
-    _userNameText.placeholder = @"   请输入账号";
+    _userNameText.borderStyle = UITextBorderStyleRoundedRect;
+    _userNameText.placeholder = @"   请输入手机号";
     _userNameText.returnKeyType = UIReturnKeyNext; // 键盘带一个Next按钮，进入下一个输入框
     _userNameText.clearButtonMode = UITextFieldViewModeWhileEditing; // 清空按钮
     _userNameText.keyboardType = UIKeyboardTypeASCIICapable;
@@ -59,20 +55,14 @@
     // 左侧图片
     _userNameText.leftViewMode = UITextFieldViewModeAlways;
     UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"zhanghao.png"]];
-    image.frame = CGRectMake(0, 0, 20, 25);
+    image.frame = CGRectMake(5, 0, 20, 25);
     _userNameText.leftView = image;
-    
-    
-    // 分割线
-    UIView *segmentationView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMinX(_userNameText.frame), CGRectGetHeight(backgroundView.frame) * 0.5, CGRectGetWidth(_userNameText.frame), 1)];
-    segmentationView.backgroundColor = [UIColor lightGrayColor];
-    [backgroundView addSubview:segmentationView];
     
     
     // 密码
     self.passwordText = [[UITextField alloc] initWithFrame:CGRectMake(CGRectGetMinX(_userNameText.frame), CGRectGetHeight(backgroundView.frame) - 45, CGRectGetWidth(_userNameText.frame), CGRectGetHeight(_userNameText.frame))];
     _passwordText.backgroundColor = [UIColor whiteColor];
-    _passwordText.borderStyle = UITextBorderStyleNone;
+    _passwordText.borderStyle = UITextBorderStyleRoundedRect;
     _passwordText.placeholder = @"   请输入密码";
     _passwordText.clearsOnBeginEditing = YES; // 再次输入清空内容
     _passwordText.secureTextEntry = YES; // 密码以圆点形式显示
@@ -84,7 +74,7 @@
     // 左侧图片
     _passwordText.leftViewMode = UITextFieldViewModeAlways;
     UIImageView *padImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mima.png"]];
-    padImage.frame = CGRectMake(0, 0, 20, 25);
+    padImage.frame = CGRectMake(5, 0, 20, 25);
     _passwordText.leftView = padImage;
     
     
@@ -94,8 +84,8 @@
     
     // 登陆按钮
     self.longBut = [UIButton buttonWithType:UIButtonTypeCustom];
-    _longBut.frame = CGRectMake(CGRectGetMinX(_userNameText.frame), CGRectGetMaxY(_promptLabel.frame) + 5, CGRectGetWidth(_userNameText.frame), 50);
-    [_longBut setImage:[UIImage imageNamed:@"anniu-1.png"] forState:UIControlStateNormal];
+    _longBut.frame = CGRectMake(SCREEN_WIDTH * 0.25, CGRectGetMaxY(backgroundView.frame) + 10, SCREEN_WIDTH * 0.5, 40);
+    [_longBut setBackgroundImage:[UIImage imageNamed:@"LS_New_login"] forState:UIControlStateNormal];
     [self addSubview:_longBut];
     
     

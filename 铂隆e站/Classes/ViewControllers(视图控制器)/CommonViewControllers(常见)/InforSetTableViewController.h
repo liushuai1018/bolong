@@ -6,6 +6,9 @@
 //  Copyright © 2016年 铂隆资产. All rights reserved.
 //
 
+/**
+ *  信息设置
+ */
 #import <UIKit/UIKit.h>
 
 @interface InforSetTableViewController : UITableViewController

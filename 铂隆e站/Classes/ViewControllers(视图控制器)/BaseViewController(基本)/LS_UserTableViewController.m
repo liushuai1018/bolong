@@ -72,7 +72,6 @@
 #pragma mark - initTableView
 - (void)initTableView
 {
-    self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.scrollEnabled = NO;
     self.tableView.tableFooterView = [UIImageView new];
@@ -165,7 +164,7 @@
     return SCREEN_HEIGHT * 0.06;
 }
 
-- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (!_navigationControl) {
         _navigationControl = [[UINavigationController alloc] init];

@@ -17,6 +17,7 @@
 #import "Reachability.h"
 #import "ConsultListModel.h"
 #import "ReplyListModel.h"
+#import "LS_addressManage.h"
 
 #define LSEncode(string) [string dataUsingEncoding:NSUTF8StringEncoding]
 
@@ -773,6 +774,124 @@
         }
     }];
     
+}
+
+#pragma mark - 我的地址列表
+- (void)requestAddressUser_id:(NSString *)user_id  returns:(void(^)(NSArray *array))block
+{
+    if (![self determineTheNetwork]) {
+        return;
+    }
+    
+    NSURL *url = [NSURL URLWithString:kAddress_list];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    NSString *parameter = [NSString stringWithFormat:@"user_id=%@", user_id];
+    [request setHTTPBody:LSEncode(parameter)];
+    [request setTimeoutInterval:10.0];
+    
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError)
+    {
+        NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:data
+                                                                    options:NSJSONReadingMutableLeaves
+                                                                      error:nil];
+        
+        
+        if (0 == [[dict objectForKey:@"code"] integerValue]) {
+            
+            NSArray *dataAr = [dict objectForKey:@"datas"];
+            NSMutableArray *array = [NSMutableArray array];
+            
+            for (NSDictionary *dic in dataAr) {
+                LS_addressManage *address = [[LS_addressManage alloc] init];
+                [address setValuesForKeysWithDictionary:dic];
+                [array addObject:address];
+            }
+            
+            block(array);
+        }
+    }];
+}
+
+#pragma mark - 删除地址
+- (void)removeAddressUser_id:(NSString *)user_id address_id:(NSString *)addres_id
+{
+    if (![self determineTheNetwork]) {
+        return;
+    }
+    
+    NSURL *url = [NSURL URLWithString:kRemoveAddress];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    NSString *parameter = [NSString stringWithFormat:@"user_id=%@&address_id=%@", user_id, addres_id];
+    [request setHTTPBody:LSEncode(parameter)];
+    [request setTimeoutInterval:10.0];
+    
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError)
+    {
+        NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:data
+                                                                    options:NSJSONReadingMutableLeaves
+                                                                      error:nil];
+        if (0 == [[dict objectForKey:@"code"] integerValue]) {
+            NSLog(@"删除成功");
+        }
+    }];
+}
+
+#pragma mark - 添加新地址
+- (void)addNewAddressUser_id:(NSString *)user_id full_address:(LS_addressManage *)address
+{
+    if (![self determineTheNetwork]) {
+        return;
+    }
+    
+    NSURL *url = [NSURL URLWithString:kAddNewAddress];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    NSString *parameter = [NSString stringWithFormat:@"user_id=%@&name=%@&mobile=%@&code=%@&province=%@&city=%@&region=%@&street=%@&full_address=%@", user_id, address.name, address.mobile, address.code, address.province, address.city, address.region, address.street, address.full_address];
+    [request setHTTPBody:LSEncode(parameter)];
+    [request setTimeoutInterval:10.0];
+    
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError)
+    {
+        NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:data
+                                                                    options:NSJSONReadingMutableLeaves
+                                                                      error:nil];
+        
+        NSLog(@"addNewAddress = %@", dict);
+    }];
+}
+
+#pragma mark - 修改地址
+- (void)upAddressUser_id:(NSString *)user_id address:(LS_addressManage *)address
+{
+    if (![self determineTheNetwork]) {
+        return;
+    }
+    
+    NSURL *url = [NSURL URLWithString:kUpAddress];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    NSString *parameter = [NSString stringWithFormat:@"user_id=%@&name=%@&mobile=%@&code=%@&province=%@&city=%@&region=%@&street=%@&full_address=%@&address_id=%@", user_id, address.name, address.mobile, address.code, address.province, address.city, address.region, address.street, address.full_address, address.address_id];
+    [request setHTTPBody:LSEncode(parameter)];
+    [request setTimeoutInterval:10.0];
+    
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError)
+    {
+        NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:data
+                                                                    options:NSJSONReadingMutableLeaves
+                                                                      error:nil];
+        
+        NSLog(@"datas ===== %@", [dict objectForKey:@"datas"]);
+    }];
 }
 
 @end

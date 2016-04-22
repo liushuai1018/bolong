@@ -8,7 +8,7 @@
 
 
 /**
- *  第三方用户信息模型
+ *  用户信息模型
  */
 #import <Foundation/Foundation.h>
 

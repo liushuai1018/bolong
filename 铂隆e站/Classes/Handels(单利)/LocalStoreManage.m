@@ -7,7 +7,7 @@
 //
 
 #import "LocalStoreManage.h"
-
+#import "LS_addressManage.h"
 // 存储文件夹路径
 #define kFilePath [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 // 用户信息路径
@@ -18,6 +18,11 @@
 #define kBackgroundPath [kFilePath stringByAppendingPathComponent:@"backgroundImage.png"]
 // 文件夹管理工具
 #define kFileManager [NSFileManager defaultManager]
+
+// 缓存文件夹路径
+#define kCacheFilePath NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).lastObject
+// 地址信息路径
+#define kAddressPath [kFilePath stringByAppendingPathComponent:@"addressList.plist"]
 
 @interface LocalStoreManage ()
 
@@ -150,6 +155,59 @@
     
     if ([kFileManager fileExistsAtPath:backgroundPath]) {
         [kFileManager removeItemAtPath:backgroundPath error:nil];
+    }
+    
+    if ([kFileManager fileExistsAtPath:kAddressPath]) {
+        [kFileManager removeItemAtPath:kAddressPath error:nil];
+    }
+}
+
+#pragma mark - 将地址列表存储到本地
+- (void)storageAddressList:(NSMutableArray *)addressAr
+{
+    if ([kFileManager fileExistsAtPath:kAddressPath]) {
+        [kFileManager removeItemAtPath:kAddressPath error:nil];
+    }
+    
+    
+    NSMutableArray *tempAr = [NSMutableArray array];
+    
+    for (int i = 0; i < addressAr.count; i++) {
+        LS_addressManage *address = [addressAr objectAtIndex:i];
+        
+        NSMutableData *data = [NSMutableData data];
+        NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+        [archiver encodeObject:address forKey:[NSString stringWithFormat:@"addressAr_%d", i]];
+        [archiver finishEncoding];
+        
+        [tempAr addObject:data];
+    }
+    
+    NSString *path = kAddressPath;
+    BOOL is = [tempAr writeToFile:path atomically:YES];
+    
+}
+
+#pragma mark - 获取本地地址列表
+- (NSMutableArray *)obtainAddressList
+{
+    NSString *path = kAddressPath;
+    if ([kFileManager fileExistsAtPath:path]) {
+        
+        NSArray *array = [NSArray arrayWithContentsOfFile:path];
+        NSMutableArray *temp = [NSMutableArray array];
+        
+        for (int i = 0; i < array.count; i++) {
+            NSData *data = [array objectAtIndex:i];
+            
+            NSKeyedUnarchiver *archiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+            LS_addressManage *address = [archiver decodeObjectForKey:[NSString stringWithFormat:@"addressAr_%d", i]];
+            [temp addObject:address];
+        }
+        
+        return temp;
+    } else {
+        return nil;
     }
 }
 

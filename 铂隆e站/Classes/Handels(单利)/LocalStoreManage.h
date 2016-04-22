@@ -62,4 +62,18 @@
  */
 - (void)removeAllUserInfor;
 
+/**
+ *  将地址列表存储到本地
+ *
+ *  @param addressAr 地址列表数组
+ */
+- (void)storageAddressList:(NSMutableArray *)addressAr;
+
+/**
+ *  获取本地存储的地址列表
+ *
+ *  @return 地址列表
+ */
+- (NSMutableArray *)obtainAddressList;
+
 @end

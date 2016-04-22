@@ -12,6 +12,7 @@
 #import <Foundation/Foundation.h>
 @class UserInformation;
 @class WuYeDetails;
+@class LS_addressManage;
 
 @interface NetWorkRequestManage : NSObject
 
@@ -194,5 +195,39 @@
  *  @param block   获取到的信息
  */
 - (void)requestReplyListInfoUser_id:(NSString *)user_id returns:(void(^)(NSArray *array))block;
+
+#pragma mark - 地址管理接口
+
+/**
+ *  获取地址列表
+ *
+ *  @param user_id 用户ID
+ *  @param block   返回数据值
+ */
+- (void)requestAddressUser_id:(NSString *)user_id  returns:(void(^)(NSArray *array))block;
+
+/**
+ *  删除地址
+ *
+ *  @param user_id   用户ID
+ *  @param addres_id 地址ID
+ */
+- (void)removeAddressUser_id:(NSString *)user_id address_id:(NSString *)addres_id;
+
+/**
+ *  添加新地址
+ *
+ *  @param user_id 用户ID
+ *  @param address 地址信息
+ */
+- (void)addNewAddressUser_id:(NSString *)user_id full_address:(LS_addressManage *)address;
+
+/**
+ *  修改地址
+ *
+ *  @param user_id 用户id
+ *  @param address 修改后地址
+ */
+- (void)upAddressUser_id:(NSString *)user_id address:(LS_addressManage *)address;
 
 @end
