@@ -97,7 +97,8 @@
 - (void)jumpLongViewController
 {
     LonginViewController *longinVC = [[LonginViewController alloc] init];
-    [self.window.rootViewController presentViewController:longinVC animated:NO completion:nil];
+    UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:longinVC];
+    [self.window.rootViewController presentViewController:navigation animated:NO completion:nil];
     
 }
 

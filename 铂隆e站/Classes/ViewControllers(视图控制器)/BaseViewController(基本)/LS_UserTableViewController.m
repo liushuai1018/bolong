@@ -18,6 +18,9 @@
 #import "SetTableViewController.h"
 #import "LonginViewController.h"
 
+// 新钱包
+#import "LS_Wallet_Root_ViewController.h"
+
 @interface LS_UserTableViewController () <UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 {
     NSArray *_imageAr;   // 图标数组
@@ -172,7 +175,7 @@
     id control = nil;
     switch (indexPath.row) {
         case 0:{ // 钱包
-            control = [[WalletViewController alloc] init];
+            control = [[LS_Wallet_Root_ViewController alloc] init];
             
         }
             break;

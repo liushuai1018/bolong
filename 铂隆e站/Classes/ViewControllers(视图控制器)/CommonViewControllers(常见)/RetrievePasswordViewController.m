@@ -57,7 +57,8 @@
 {
     _passwordView1 = [[PasswordView alloc] initWithFrame:self.view.bounds];
     [_passwordView1.doneButton addTarget:self action:@selector(clickDoneAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_passwordView1];
+    
+    self.view = _passwordView1;
     
 }
 

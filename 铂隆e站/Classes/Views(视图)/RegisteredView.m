@@ -126,9 +126,9 @@
     
     // 获取验证码
     self.gettingCaptcha = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    _gettingCaptcha.frame = CGRectMake(CGRectGetMaxX(_captcha.frame), CGRectGetMinY(_captcha.frame) + height * 0.05, 90, textHeight - height * 0.1);
-    _gettingCaptcha.backgroundColor = [UIColor orangeColor];
-    [_gettingCaptcha setTitle:@"获取验证码" forState:UIControlStateNormal];
+    _gettingCaptcha.frame = CGRectMake(CGRectGetMaxX(_captcha.frame) + 20, CGRectGetMinY(_captcha.frame) + height * 0.05, 70, textHeight - height * 0.1);
+    _gettingCaptcha.backgroundColor = [UIColor colorWithRed:77.0 / 255 green:77.0 / 255 blue:77.0 / 255 alpha:1.0];
+    [_gettingCaptcha setTitle:@"验证码" forState:UIControlStateNormal];
     [_gettingCaptcha setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _gettingCaptcha.layer.masksToBounds = YES;
     _gettingCaptcha.layer.cornerRadius = 5.0;

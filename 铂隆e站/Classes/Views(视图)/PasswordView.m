@@ -55,7 +55,7 @@
     _doneButton.frame = CGRectMake(CGRectGetMinX(view.frame), CGRectGetMaxY(view.frame) + 35, viewWidth, SCREEN_HEIGHT * 0.1);
     [_doneButton setTitle:@"完成" forState:UIControlStateNormal];
     [_doneButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_doneButton setBackgroundColor:[UIColor colorWithRed:0.98 green:0.66 blue:0.39 alpha:1.0]];
+    [_doneButton setBackgroundColor:[UIColor colorWithRed:77.0 / 255 green:77.0 / 255 blue:77.0 / 255 alpha:1.0]];
     _doneButton.layer.masksToBounds = YES;
     _doneButton.layer.cornerRadius = 5.0;
     [self addSubview:_doneButton];

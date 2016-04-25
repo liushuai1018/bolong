@@ -28,7 +28,7 @@
     // 头像
     UIImageView *headPortraitImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"touxiang.jpg"]];
     headPortraitImage.frame = CGRectMake(0, 0, 90, 90);
-    headPortraitImage.center = CGPointMake(CGRectGetWidth(self.frame) / 2, SCREEN_HEIGHT * 0.15 + 25);
+    headPortraitImage.center = CGPointMake(CGRectGetWidth(self.frame) / 2, SCREEN_HEIGHT * 0.15);
     headPortraitImage.layer.masksToBounds = YES; // 显示圆角
     headPortraitImage.layer.cornerRadius = 45.0; // 设置弧度
     headPortraitImage.layer.borderWidth = 2.0; // 圆边宽度
@@ -36,7 +36,7 @@
     [self addSubview:headPortraitImage];
     
     // 输入框
-    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT * 0.3, SCREEN_WIDTH, SCREEN_HEIGHT * 0.18)];
+    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT * 0.28, SCREEN_WIDTH, SCREEN_HEIGHT * 0.18)];
     backgroundView.backgroundColor = [UIColor whiteColor];
     [self addSubview:backgroundView];
     
@@ -96,7 +96,8 @@
     [_registeredBut setTintColor:[UIColor grayColor]];
     [self addSubview:_registeredBut];
     
-#warning mark - 移除第三方登陆
+    
+      
     // 第三方登陆按钮
     self.thirdLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(_registeredBut.frame) - 9, CGRectGetMaxY(_registeredBut.frame) + 30, 80, 30)];
     _thirdLabel.text = @"第三方登陆";

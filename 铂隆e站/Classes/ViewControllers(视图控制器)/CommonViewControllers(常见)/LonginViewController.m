@@ -18,6 +18,12 @@
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView; // 菊花
 @property (nonatomic, strong) UIView *backgView; // 菊花背景
 
+// 奖励图片
+@property (strong, nonatomic) UIButton *rewardImage;
+// 倒计时
+@property (assign, nonatomic) NSInteger countdown; // 倒计时秒数
+@property (strong, nonatomic) NSTimer *timer;
+
 @end
 
 @implementation LonginViewController
@@ -32,6 +38,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"登陆";
+    self.navigationController.navigationBar.translucent = NO;
+    
     [self addAction]; // 事件关联
     
     // 设置微信 AppId、appSecret、分享
@@ -42,6 +51,20 @@
     // 微博 SSO
     [UMSocialSinaHandler openSSOWithRedirectURL:@"http://sns.whalecloud.com/sina2/callback_success_151218"];
     
+}
+
+#pragma mark - 视图将要显示
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // 本地有存储的话自动输入账号信息
+    NSDictionary *dict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"account"];
+    
+    if (dict) {
+        _longView.userNameText.text = [dict objectForKey:@"account"];
+        _longView.passwordText.text = [dict objectForKey:@"pawd"];
+    }
 }
 
 #pragma mark - 添加按钮事件
@@ -75,6 +98,15 @@
     
     if (is) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"status"];
+        
+        // 记录登陆成功的账号
+        NSDictionary *userDic = @{
+                                  @"account":userName,
+                                  @"pawd":pawdName
+                                  };
+        // 账号密码存储到 userDefaults
+        [[NSUserDefaults standardUserDefaults] setObject:userDic forKey:@"account"];
+        
         [self successPushRootViewControl]; // 登陆成功跳转主界面
     } else {
         
@@ -88,11 +120,53 @@
 - (void)registeredAction:(UIButton *)but
 {
     RegisteredViewController *registeredVC = [[RegisteredViewController alloc] init];
-    UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:registeredVC];
-    [self presentViewController:navigation animated:YES completion:nil]; // 推出注册界面
+    
+    __weak LonginViewController *control = self;
+    registeredVC.block = ^(){
+        
+        // 注册成功后弹出奖励铂隆币图片
+        [control createrBoLongBiImage];
+    };
+    [self.navigationController pushViewController:registeredVC animated:YES];
 }
 
+// 创建奖励铂隆币图片
+- (void)createrBoLongBiImage
+{
+    // 创建并启动倒计时
+    _countdown = 3; // 三秒
+    _timer = [NSTimer scheduledTimerWithTimeInterval:1
+                                              target:self
+                                            selector:@selector(onTimer)
+                                            userInfo:nil
+                                             repeats:YES];
+    
+    [self.navigationController setNavigationBarHidden:YES];
+    self.rewardImage = [UIButton buttonWithType:UIButtonTypeCustom];
+    _rewardImage.frame = [UIScreen mainScreen].bounds;
+    [_rewardImage setImage:[UIImage imageNamed:@"new_jiangli"] forState:UIControlStateNormal];
+    [_rewardImage addTarget:self action:@selector(BoLongBiAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_rewardImage];
+}
 
+- (void)BoLongBiAction:(UIButton *)sender
+{
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [sender removeFromSuperview];
+}
+
+- (void)onTimer
+{
+    if (_countdown > 0) {
+        _countdown--;
+        
+    } else {
+        _countdown = 3;
+        [_timer invalidate];
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+        [_rewardImage removeFromSuperview];
+    }
+}
 
 #pragma mark -- 获取微信的授权
 - (void)didClickWeiXinAction:(UIButton *)but

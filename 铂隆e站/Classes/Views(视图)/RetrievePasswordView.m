@@ -74,7 +74,7 @@
     _nextButton.frame = CGRectMake(CGRectGetMinX(view.frame), CGRectGetMaxY(view.frame) + 35, viewWidth, SCREEN_HEIGHT * 0.1);
     [_nextButton setTitle:@"下一步" forState:UIControlStateNormal];
     [_nextButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_nextButton setBackgroundColor:[UIColor colorWithRed:0.98 green:0.66 blue:0.39 alpha:1.0]];
+    [_nextButton setBackgroundColor:[UIColor colorWithRed:77.0 / 255 green:77.0 / 255 blue:77.0 / 255 alpha:1.0]];
     _nextButton.layer.masksToBounds = YES;
     _nextButton.layer.cornerRadius = 5.0;
     [self addSubview:_nextButton];
@@ -84,22 +84,35 @@
 #pragma mark -button 事件
 - (void)clickButton:(UIButton *)sender
 {
-    // 发送验证码请求
-    [[NetWorkRequestManage sharInstance] senderVerificationCode:_phone.text returnVerificationCode:^(NSString *str) {
+    if ([_phone.text isEqualToString:@""]) {
         
-    }];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                        message:@"请输入手机号"
+                                                       delegate:self
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil];
+        [alert show];
+        
+    } else {
+        
+        // 发送验证码请求
+        [[NetWorkRequestManage sharInstance] senderVerificationCode:_phone.text returnVerificationCode:^(NSString *str) {
+            
+        }];
+        
+        sender.enabled = NO;
+        [sender setTitle:@"60秒" forState:UIControlStateNormal];
+        [sender setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [sender setBackgroundColor:[UIColor lightGrayColor]];
+        
+        _countdown = 60;
+        _timer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                  target:self
+                                                selector:@selector(onTimer)
+                                                userInfo:nil
+                                                 repeats:YES];
+    }
     
-    sender.enabled = NO;
-    [sender setTitle:@"60秒" forState:UIControlStateNormal];
-    [sender setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [sender setBackgroundColor:[UIColor lightGrayColor]];
-    
-    _countdown = 60;
-    _timer = [NSTimer scheduledTimerWithTimeInterval:1.0
-                                              target:self
-                                            selector:@selector(onTimer)
-                                            userInfo:nil
-                                             repeats:YES];
     
 }
 

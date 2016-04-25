@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LS_Wallet_Root_ViewController">
+            <connections>
+                <outlet property="bg" destination="BLe-cU-Zsl" id="EeP-SK-ik6"/>
+                <outlet property="distanceTop" destination="ED1-FB-mr5" id="Oaz-X7-nB7"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LS_qianbao_bg.png" translatesAutoresizingMaskIntoConstraints="NO" id="BLe-cU-Zsl">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LS_qianbao_yue.png" translatesAutoresizingMaskIntoConstraints="NO" id="89F-yG-DiR">
+                    <rect key="frame" x="48" y="0.0" width="224" height="284"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123.45" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lsf-xk-Haj">
+                    <rect key="frame" x="85" y="85" width="150" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="X7x-Id-H5T"/>
+                        <constraint firstAttribute="width" constant="150" id="YvG-ei-oyC"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="铂隆币余额" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Oa-Oo-obG">
+                    <rect key="frame" x="85" y="135" width="150" height="25"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gjQ-Kp-SG5">
+                    <rect key="frame" x="135" y="345" width="46" height="48"/>
+                    <state key="normal" image="LS_qianbao_center_logo.png"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="utJ-4p-yfJ">
+                    <rect key="frame" x="81" y="345" width="46" height="48"/>
+                    <state key="normal" image="LS_qianbao_gouwuche.png"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beg-kV-IzQ">
+                    <rect key="frame" x="196" y="345" width="46" height="48"/>
+                    <state key="normal" image="LS_qianbao_xiaofei.png"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QHW-mc-vpw">
+                    <rect key="frame" x="110" y="299" width="46" height="48"/>
+                    <state key="normal" image="LS_qianbao_wuyefuwu.png"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hzA-kO-epm">
+                    <rect key="frame" x="164" y="299" width="46" height="48"/>
+                    <state key="normal" image="LS_qianbao_shangcheng.png"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qlu-lT-0nT">
+                    <rect key="frame" x="56" y="401" width="46" height="48"/>
+                    <state key="normal" image="LS_qianbao_shangdian.png"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cos-YA-g0P">
+                    <rect key="frame" x="110" y="401" width="46" height="48"/>
+                    <state key="normal" image="LS_qianbao_eat.png"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kW4-L9-Pud">
+                    <rect key="frame" x="164" y="401" width="46" height="48"/>
+                    <state key="normal" image="LS_qianbao_qiandao.png"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i6A-6e-xuY">
+                    <rect key="frame" x="218" y="401" width="46" height="48"/>
+                    <state key="normal" image="LS_qianbao_chongzhi.png"/>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="铂隆币是不可以提现的哦!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hb7-O0-AoL">
+                    <rect key="frame" x="16" y="465" width="274" height="20"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="在商城购物铂隆币可是很便宜的" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xfl-ji-oKN">
+                    <rect key="frame" x="16" y="493" width="274" height="20"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="BLe-cU-Zsl" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="2Ns-Bq-us3"/>
+                <constraint firstItem="BLe-cU-Zsl" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="6KN-wx-Nsd"/>
+                <constraint firstItem="7Oa-Oo-obG" firstAttribute="width" secondItem="Lsf-xk-Haj" secondAttribute="width" id="7cC-wn-uAJ"/>
+                <constraint firstAttribute="bottom" secondItem="BLe-cU-Zsl" secondAttribute="bottom" id="9Lz-1O-hOD"/>
+                <constraint firstItem="Lsf-xk-Haj" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="85" id="ED1-FB-mr5"/>
+                <constraint firstItem="89F-yG-DiR" firstAttribute="width" secondItem="BLe-cU-Zsl" secondAttribute="width" multiplier="0.7" id="FK7-cL-O4l"/>
+                <constraint firstItem="89F-yG-DiR" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="HZr-uD-T4N"/>
+                <constraint firstItem="7Oa-Oo-obG" firstAttribute="top" secondItem="Lsf-xk-Haj" secondAttribute="bottom" id="OaD-M1-zKP"/>
+                <constraint firstItem="Lsf-xk-Haj" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="OdN-KP-tfK"/>
+                <constraint firstItem="89F-yG-DiR" firstAttribute="height" secondItem="BLe-cU-Zsl" secondAttribute="height" multiplier="0.5" id="Rx3-vH-KcJ"/>
+                <constraint firstItem="89F-yG-DiR" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="SRP-kw-2i5"/>
+                <constraint firstAttribute="trailing" secondItem="BLe-cU-Zsl" secondAttribute="trailing" id="rqz-G4-k4C"/>
+                <constraint firstItem="7Oa-Oo-obG" firstAttribute="height" secondItem="Lsf-xk-Haj" secondAttribute="height" multiplier="0.5" id="t1S-Rm-ynH"/>
+                <constraint firstItem="7Oa-Oo-obG" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="wcg-HL-lna"/>
+            </constraints>
+            <point key="canvasLocation" x="422" y="409"/>
+        </view>
+        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="AfN-gh-bBv">
+            <rect key="frame" x="0.0" y="0.0" width="46" height="48"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <state key="normal" image="LS_qianbao_center_logo.png"/>
+            <point key="canvasLocation" x="83" y="483"/>
+        </button>
+    </objects>
+    <resources>
+        <image name="LS_qianbao_bg.png" width="658" height="1068"/>
+        <image name="LS_qianbao_center_logo.png" width="118" height="136"/>
+        <image name="LS_qianbao_chongzhi.png" width="126" height="139"/>
+        <image name="LS_qianbao_eat.png" width="126" height="139"/>
+        <image name="LS_qianbao_gouwuche.png" width="126" height="139"/>
+        <image name="LS_qianbao_qiandao.png" width="126" height="139"/>
+        <image name="LS_qianbao_shangcheng.png" width="126" height="139"/>
+        <image name="LS_qianbao_shangdian.png" width="126" height="139"/>
+        <image name="LS_qianbao_wuyefuwu.png" width="126" height="139"/>
+        <image name="LS_qianbao_xiaofei.png" width="126" height="139"/>
+        <image name="LS_qianbao_yue.png" width="408" height="481"/>
+    </resources>
+</document>

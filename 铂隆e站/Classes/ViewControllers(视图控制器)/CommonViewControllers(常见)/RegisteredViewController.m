@@ -31,7 +31,6 @@
     [super viewDidLoad];
     
     self.title = @"注册";
-    self.navigationController.navigationBar.translucent = NO; // navigation不透明
     [self addBarButtonItem]; // 添加navigaction 按钮
     
     
@@ -70,7 +69,7 @@
         // 发送短信失败重新开启获取验证码
          [_timer invalidate];
          sender.enabled = YES;
-         [sender setTitle:@"获取验证码" forState:UIControlStateNormal];
+         [sender setTitle:@"验证码" forState:UIControlStateNormal];
         
     }];
 }
@@ -78,7 +77,7 @@
 - (void)onTimer
 {
     if (_countdown > 0) {
-        [self.sender setTitle:[NSString stringWithFormat:@"%ld秒重取", (long)_countdown]
+        [self.sender setTitle:[NSString stringWithFormat:@"%ld秒", (long)_countdown]
                      forState:UIControlStateNormal];
         _countdown--;
         
@@ -86,7 +85,7 @@
         
         _countdown = 60;
         [_timer invalidate];
-        [self.sender setTitle:@"重新获取验证码" forState:UIControlStateNormal];
+        [self.sender setTitle:@"验证码" forState:UIControlStateNormal];
         self.sender.titleLabel.font = [UIFont systemFontOfSize:12.0];
         self.sender.enabled = YES;
         
@@ -96,18 +95,10 @@
 #pragma mark - 添加 navigation Button
 - (void)addBarButtonItem
 {
-    UIBarButtonItem *leftBut = [[UIBarButtonItem alloc] initWithTitle:@"< 登陆" style:UIBarButtonItemStylePlain target:self action:@selector(didClickLeft:)];
-    self.navigationItem.leftBarButtonItem = leftBut;
     UIBarButtonItem *rightBI1 = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(didClickRightBI:)];
     self.navigationItem.rightBarButtonItem = rightBI1;
     [[UINavigationBar appearance] setTintColor:[UIColor lightGrayColor]];
     
-}
-
-// 左边事件
-- (void)didClickLeft:(UIBarButtonItem *)but
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 // 右边事件
@@ -115,6 +106,9 @@
 {
     if (!_regisView.record) {
         [self alertView:@"请输入完整"];
+        
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        
         return;
     }
     
@@ -138,9 +132,12 @@
         // 账号密码存储到 userDefaults
         [[NSUserDefaults standardUserDefaults] setObject:userDic forKey:@"account"];
         
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self.navigationController popViewControllerAnimated:YES];
         
-        
+        // 注册成功退出当前视图控制器，下一步执行
+        if (self.block) {
+            self.block();
+        }
         
     } else {
         
