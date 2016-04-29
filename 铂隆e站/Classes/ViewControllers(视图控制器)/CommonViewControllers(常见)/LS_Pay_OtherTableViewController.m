@@ -9,13 +9,13 @@
 #import "LS_Pay_OtherTableViewController.h"
 #import "HelpTableViewCell.h"
 
+#import "LS_Other_Unlocking_ViewController.h"
+#import "LS_Other_recycling_ViewController.h"
+#import "LS_Other_Water_ViewController.h"
 #import "LS_Other_BaoXiu_ViewController.h"
+#import "LS_Other_Sign_ViewController.h"
 
 @interface LS_Pay_OtherTableViewController ()
-{
-    // 报修
-    LS_Other_BaoXiu_ViewController *_baoxiu;
-}
 // 背景图片
 @property (strong, nonatomic) NSArray *backgroundImageAr;
 
@@ -106,9 +106,26 @@
 {
     id control = nil;
     switch (indexPath.row) {
-        case 3:
+        case 0: {
+            control = [[LS_Other_Unlocking_ViewController alloc] init];
+            break;
+        }
+        case 1: {
+            control = [[LS_Other_recycling_ViewController alloc] init];
+            break;
+        }
+        case 2: {
+            control = [[LS_Other_Water_ViewController alloc] init];
+            break;
+        }
+        case 3: {
             control = [[LS_Other_BaoXiu_ViewController alloc] init];
             break;
+        }
+        case 4: {
+            control = [[LS_Other_Sign_ViewController alloc] init];
+            break;
+        }
             
         default:
             break;

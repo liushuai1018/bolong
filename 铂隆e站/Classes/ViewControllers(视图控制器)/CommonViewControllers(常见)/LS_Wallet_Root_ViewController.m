@@ -8,13 +8,18 @@
 
 #import "LS_Wallet_Root_ViewController.h"
 
+#import "PayTableViewController.h"
+#import "ConvenientViewController.h"
+#import "FoodViewController.h"
+#import "LS_Other_Sign_ViewController.h"
+
 @interface LS_Wallet_Root_ViewController ()
+
+// 剩余铂隆币
+@property (weak, nonatomic) IBOutlet UILabel *dough;
 
 // 设置铂隆币距离上边的距离
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *distanceTop;
-
-// 背景
-@property (weak, nonatomic) IBOutlet UIImageView *bg;
 
 @end
 
@@ -34,15 +39,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    _dough.text = _userInfo.money;
+}
+
 #pragma mark - 适配
 - (void)adapter
 {
-    
-    NSLog(@"height = %.f \n width = %.f", SCREEN_HEIGHT, SCREEN_WIDTH);
-    
-    NSLog(@"view_height = %.f \n view_width = %.f", CGRectGetHeight(_bg.frame), CGRectGetWidth(_bg.frame));
-    
-    _distanceTop.constant = SCREEN_HEIGHT * 0.16;
+    _distanceTop.constant = SCREEN_HEIGHT * 0.12;
 }
 
 #pragma mark - 添加返回按钮
@@ -59,6 +65,46 @@
 - (void)cancelItemAction:(UIBarButtonItem *)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - 物业服务
+- (IBAction)service:(UIButton *)sender {
+    PayTableViewController *pay = [[PayTableViewController alloc] init];
+    [self.navigationController pushViewController:pay animated:YES];
+}
+
+#pragma mark - 铂隆商城
+- (IBAction)boLongMall:(UIButton *)sender {
+}
+
+#pragma mark - 购物车
+- (IBAction)shoppingCart:(UIButton *)sender {
+}
+
+#pragma mark - 消费清单
+- (IBAction)consumerList:(UIButton *)sender {
+}
+
+#pragma mark - 附近商店
+- (IBAction)nearTheShop:(UIButton *)sender {
+    ConvenientViewController *control = [[ConvenientViewController alloc] init];
+    [self.navigationController pushViewController:control animated:YES];
+}
+
+#pragma mark - 附近小吃
+- (IBAction)nearTheSnack:(UIButton *)sender {
+    FoodViewController *control = [[FoodViewController alloc] init];
+    [self.navigationController pushViewController:control animated:YES];
+}
+
+#pragma mark - 每日签到
+- (IBAction)dailyCheck:(UIButton *)sender {
+    LS_Other_Sign_ViewController *control = [[LS_Other_Sign_ViewController alloc] init];
+    [self.navigationController pushViewController:control animated:YES];
+}
+
+#pragma mark - 充值
+- (IBAction)topUp:(UIButton *)sender {
 }
 
 @end

@@ -175,8 +175,9 @@
     id control = nil;
     switch (indexPath.row) {
         case 0:{ // 钱包
-            control = [[LS_Wallet_Root_ViewController alloc] init];
-            
+            LS_Wallet_Root_ViewController *wallet = [[LS_Wallet_Root_ViewController alloc] init];
+            wallet.userInfo = _userInfo;
+            control = wallet;
         }
             break;
         case 1:{ // 充值

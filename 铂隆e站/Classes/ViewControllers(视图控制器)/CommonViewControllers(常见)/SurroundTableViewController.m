@@ -36,7 +36,10 @@
     self.title = @"周边";
     
     // 背景图
-    _backgroundImageArray = @[@"jiayouzhan.png", @"meishi_.png", @"bianlidian_.png", @"cesuo.png"];
+    _backgroundImageArray = @[@"LS_tingche_jiayouzhan",
+                              @"LS_tingche_meishi",
+                              @"LS_tingche_chaoshi",
+                              @"LS_tingche_xishoujian"];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"HelpTableViewCell" bundle:nil] forCellReuseIdentifier:@"Cell"];
     

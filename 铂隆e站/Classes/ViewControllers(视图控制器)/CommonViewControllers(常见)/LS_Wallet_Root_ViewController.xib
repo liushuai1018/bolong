@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -8,8 +8,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LS_Wallet_Root_ViewController">
             <connections>
-                <outlet property="bg" destination="BLe-cU-Zsl" id="EeP-SK-ik6"/>
                 <outlet property="distanceTop" destination="ED1-FB-mr5" id="Oaz-X7-nB7"/>
+                <outlet property="dough" destination="Lsf-xk-Haj" id="R4v-LY-x6l"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -18,13 +18,13 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LS_qianbao_bg.png" translatesAutoresizingMaskIntoConstraints="NO" id="BLe-cU-Zsl">
+                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LS_qianbao_bg.png" translatesAutoresizingMaskIntoConstraints="NO" id="BLe-cU-Zsl">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LS_qianbao_yue.png" translatesAutoresizingMaskIntoConstraints="NO" id="89F-yG-DiR">
-                    <rect key="frame" x="48" y="0.0" width="224" height="284"/>
+                    <rect key="frame" x="56" y="0.0" width="208" height="256"/>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123.45" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lsf-xk-Haj">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lsf-xk-Haj">
                     <rect key="frame" x="85" y="85" width="150" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="X7x-Id-H5T"/>
@@ -40,87 +40,194 @@
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gjQ-Kp-SG5">
-                    <rect key="frame" x="135" y="345" width="46" height="48"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gjQ-Kp-SG5">
+                    <rect key="frame" x="130" y="316" width="60" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="60" id="10O-bu-12K"/>
+                        <constraint firstAttribute="height" constant="60" id="PzW-iG-6v2"/>
+                    </constraints>
                     <state key="normal" image="LS_qianbao_center_logo.png"/>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="utJ-4p-yfJ">
-                    <rect key="frame" x="81" y="345" width="46" height="48"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="utJ-4p-yfJ">
+                    <rect key="frame" x="67" y="316" width="60" height="60"/>
                     <state key="normal" image="LS_qianbao_gouwuche.png"/>
+                    <connections>
+                        <action selector="shoppingCart:" destination="-1" eventType="touchUpInside" id="eHK-08-rdE"/>
+                    </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beg-kV-IzQ">
-                    <rect key="frame" x="196" y="345" width="46" height="48"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beg-kV-IzQ">
+                    <rect key="frame" x="193" y="316" width="60" height="60"/>
                     <state key="normal" image="LS_qianbao_xiaofei.png"/>
+                    <connections>
+                        <action selector="consumerList:" destination="-1" eventType="touchUpInside" id="jEF-9p-Qjf"/>
+                    </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QHW-mc-vpw">
-                    <rect key="frame" x="110" y="299" width="46" height="48"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QHW-mc-vpw">
+                    <rect key="frame" x="98" y="266" width="60" height="60"/>
                     <state key="normal" image="LS_qianbao_wuyefuwu.png"/>
+                    <connections>
+                        <action selector="service:" destination="-1" eventType="touchUpInside" id="5NO-BK-dpJ"/>
+                    </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hzA-kO-epm">
-                    <rect key="frame" x="164" y="299" width="46" height="48"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hzA-kO-epm">
+                    <rect key="frame" x="162" y="266" width="60" height="60"/>
                     <state key="normal" image="LS_qianbao_shangcheng.png"/>
+                    <connections>
+                        <action selector="boLongMall:" destination="-1" eventType="touchUpInside" id="BRM-Ex-Hx9"/>
+                    </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qlu-lT-0nT">
-                    <rect key="frame" x="56" y="401" width="46" height="48"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qlu-lT-0nT">
+                    <rect key="frame" x="35" y="366" width="60" height="60"/>
                     <state key="normal" image="LS_qianbao_shangdian.png"/>
+                    <connections>
+                        <action selector="nearTheShop:" destination="-1" eventType="touchUpInside" id="mzW-QA-CWt"/>
+                    </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cos-YA-g0P">
-                    <rect key="frame" x="110" y="401" width="46" height="48"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cos-YA-g0P">
+                    <rect key="frame" x="98" y="366" width="60" height="60"/>
                     <state key="normal" image="LS_qianbao_eat.png"/>
+                    <connections>
+                        <action selector="nearTheSnack:" destination="-1" eventType="touchUpInside" id="6AX-d4-BbI"/>
+                    </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kW4-L9-Pud">
-                    <rect key="frame" x="164" y="401" width="46" height="48"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kW4-L9-Pud">
+                    <rect key="frame" x="162" y="366" width="60" height="60"/>
                     <state key="normal" image="LS_qianbao_qiandao.png"/>
+                    <connections>
+                        <action selector="dailyCheck:" destination="-1" eventType="touchUpInside" id="Zaj-P3-0Aw"/>
+                    </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i6A-6e-xuY">
-                    <rect key="frame" x="218" y="401" width="46" height="48"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i6A-6e-xuY">
+                    <rect key="frame" x="225" y="366" width="60" height="60"/>
                     <state key="normal" image="LS_qianbao_chongzhi.png"/>
+                    <connections>
+                        <action selector="topUp:" destination="-1" eventType="touchUpInside" id="rsT-U8-9YR"/>
+                    </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="铂隆币是不可以提现的哦!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hb7-O0-AoL">
-                    <rect key="frame" x="16" y="465" width="274" height="20"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="铂隆币是不可以提现的哦!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hb7-O0-AoL">
+                    <rect key="frame" x="10" y="436" width="300" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="6gq-s3-tOC"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="在商城购物铂隆币可是很便宜的" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xfl-ji-oKN">
-                    <rect key="frame" x="16" y="493" width="274" height="20"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="在商城购物铂隆币可是很便宜的" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xfl-ji-oKN">
+                    <rect key="frame" x="10" y="461" width="300" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="Vuy-DK-E4B"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LS_qianbao_di_xian.png" translatesAutoresizingMaskIntoConstraints="NO" id="RdU-iC-9dq">
+                    <rect key="frame" x="20" y="491" width="280" height="10"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="10" id="NfX-wN-aeN"/>
+                    </constraints>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LS_qianbao_huise.png" translatesAutoresizingMaskIntoConstraints="NO" id="lwj-47-vd0">
+                    <rect key="frame" x="35" y="266" width="60" height="60"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LS_qianbao_huise.png" translatesAutoresizingMaskIntoConstraints="NO" id="HpU-1S-szd">
+                    <rect key="frame" x="4" y="316" width="60" height="60"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LS_qianbao_huise.png" translatesAutoresizingMaskIntoConstraints="NO" id="C1I-nW-9R3">
+                    <rect key="frame" x="256" y="316" width="60" height="60"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LS_qianbao_huise.png" translatesAutoresizingMaskIntoConstraints="NO" id="yxe-dW-gQx">
+                    <rect key="frame" x="225" y="266" width="60" height="60"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="qlu-lT-0nT" firstAttribute="height" secondItem="gjQ-Kp-SG5" secondAttribute="height" id="1ij-ob-iAv"/>
                 <constraint firstItem="BLe-cU-Zsl" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="2Ns-Bq-us3"/>
+                <constraint firstItem="gjQ-Kp-SG5" firstAttribute="top" secondItem="QHW-mc-vpw" secondAttribute="bottom" constant="-10" id="2Qv-8F-h3g"/>
+                <constraint firstItem="hzA-kO-epm" firstAttribute="width" secondItem="gjQ-Kp-SG5" secondAttribute="width" id="3DG-ZW-SuU"/>
+                <constraint firstItem="hb7-O0-AoL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="3dv-XO-Gi2"/>
+                <constraint firstAttribute="trailing" secondItem="hb7-O0-AoL" secondAttribute="trailing" constant="10" id="3td-pp-MAo"/>
+                <constraint firstItem="HpU-1S-szd" firstAttribute="width" secondItem="gjQ-Kp-SG5" secondAttribute="width" id="5Co-NU-qIb"/>
+                <constraint firstItem="i6A-6e-xuY" firstAttribute="leading" secondItem="kW4-L9-Pud" secondAttribute="trailing" constant="3.3300000000000001" id="5TO-JQ-zdj"/>
                 <constraint firstItem="BLe-cU-Zsl" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="6KN-wx-Nsd"/>
+                <constraint firstItem="yxe-dW-gQx" firstAttribute="top" secondItem="hzA-kO-epm" secondAttribute="top" id="7Nv-Tv-tcw"/>
                 <constraint firstItem="7Oa-Oo-obG" firstAttribute="width" secondItem="Lsf-xk-Haj" secondAttribute="width" id="7cC-wn-uAJ"/>
+                <constraint firstAttribute="trailing" secondItem="RdU-iC-9dq" secondAttribute="trailing" constant="20" id="7w3-ca-iHc"/>
+                <constraint firstItem="HpU-1S-szd" firstAttribute="height" secondItem="gjQ-Kp-SG5" secondAttribute="height" id="8Lh-Qt-Owl"/>
+                <constraint firstItem="Cos-YA-g0P" firstAttribute="leading" secondItem="qlu-lT-0nT" secondAttribute="trailing" constant="3.3300000000000001" id="8bZ-QU-k8b"/>
                 <constraint firstAttribute="bottom" secondItem="BLe-cU-Zsl" secondAttribute="bottom" id="9Lz-1O-hOD"/>
+                <constraint firstItem="beg-kV-IzQ" firstAttribute="top" secondItem="hzA-kO-epm" secondAttribute="bottom" constant="-10" id="BtY-KF-P4e"/>
                 <constraint firstItem="Lsf-xk-Haj" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="85" id="ED1-FB-mr5"/>
-                <constraint firstItem="89F-yG-DiR" firstAttribute="width" secondItem="BLe-cU-Zsl" secondAttribute="width" multiplier="0.7" id="FK7-cL-O4l"/>
+                <constraint firstItem="QHW-mc-vpw" firstAttribute="width" secondItem="gjQ-Kp-SG5" secondAttribute="width" id="EWV-q3-7A2"/>
+                <constraint firstItem="89F-yG-DiR" firstAttribute="width" secondItem="BLe-cU-Zsl" secondAttribute="width" multiplier="0.65" id="FK7-cL-O4l"/>
+                <constraint firstItem="hb7-O0-AoL" firstAttribute="top" secondItem="i6A-6e-xuY" secondAttribute="bottom" constant="10" id="GbP-zf-zug"/>
+                <constraint firstItem="Xfl-ji-oKN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="Ghs-T9-FIM"/>
                 <constraint firstItem="89F-yG-DiR" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="HZr-uD-T4N"/>
+                <constraint firstItem="C1I-nW-9R3" firstAttribute="top" secondItem="beg-kV-IzQ" secondAttribute="top" id="MUO-A2-sDq"/>
+                <constraint firstItem="Cos-YA-g0P" firstAttribute="leading" secondItem="QHW-mc-vpw" secondAttribute="leading" id="Nr6-PS-DFG"/>
+                <constraint firstItem="QHW-mc-vpw" firstAttribute="height" secondItem="gjQ-Kp-SG5" secondAttribute="height" id="OZY-d9-8B2"/>
                 <constraint firstItem="7Oa-Oo-obG" firstAttribute="top" secondItem="Lsf-xk-Haj" secondAttribute="bottom" id="OaD-M1-zKP"/>
                 <constraint firstItem="Lsf-xk-Haj" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="OdN-KP-tfK"/>
-                <constraint firstItem="89F-yG-DiR" firstAttribute="height" secondItem="BLe-cU-Zsl" secondAttribute="height" multiplier="0.5" id="Rx3-vH-KcJ"/>
+                <constraint firstItem="gjQ-Kp-SG5" firstAttribute="leading" secondItem="QHW-mc-vpw" secondAttribute="leading" constant="32" id="Q9E-gu-G8f"/>
+                <constraint firstItem="beg-kV-IzQ" firstAttribute="top" secondItem="gjQ-Kp-SG5" secondAttribute="top" id="RWE-mi-cOM"/>
+                <constraint firstItem="89F-yG-DiR" firstAttribute="height" secondItem="BLe-cU-Zsl" secondAttribute="height" multiplier="0.45" id="Rx3-vH-KcJ"/>
                 <constraint firstItem="89F-yG-DiR" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="SRP-kw-2i5"/>
+                <constraint firstItem="yxe-dW-gQx" firstAttribute="leading" secondItem="hzA-kO-epm" secondAttribute="trailing" constant="3.3300000000000001" id="T8k-VP-vPY"/>
+                <constraint firstItem="kW4-L9-Pud" firstAttribute="height" secondItem="gjQ-Kp-SG5" secondAttribute="height" id="TUP-9p-mUo"/>
+                <constraint firstItem="kW4-L9-Pud" firstAttribute="width" secondItem="gjQ-Kp-SG5" secondAttribute="width" id="Uu8-le-sfo"/>
+                <constraint firstItem="beg-kV-IzQ" firstAttribute="leading" secondItem="gjQ-Kp-SG5" secondAttribute="trailing" constant="3.3300000000000001" id="VKf-x7-3Dy"/>
+                <constraint firstItem="hzA-kO-epm" firstAttribute="height" secondItem="gjQ-Kp-SG5" secondAttribute="height" id="XeN-xA-aqT"/>
+                <constraint firstItem="yxe-dW-gQx" firstAttribute="height" secondItem="gjQ-Kp-SG5" secondAttribute="height" id="Xoj-7N-x46"/>
+                <constraint firstItem="yxe-dW-gQx" firstAttribute="width" secondItem="gjQ-Kp-SG5" secondAttribute="width" id="YgL-qC-7eW"/>
+                <constraint firstAttribute="trailing" secondItem="Xfl-ji-oKN" secondAttribute="trailing" constant="10" id="Zex-1F-fNe"/>
+                <constraint firstItem="qlu-lT-0nT" firstAttribute="width" secondItem="gjQ-Kp-SG5" secondAttribute="width" id="aVm-Nj-1Aj"/>
+                <constraint firstItem="qlu-lT-0nT" firstAttribute="top" secondItem="Cos-YA-g0P" secondAttribute="top" id="alf-nR-p8r"/>
+                <constraint firstItem="QHW-mc-vpw" firstAttribute="top" secondItem="lwj-47-vd0" secondAttribute="top" id="b0H-u5-I6K"/>
+                <constraint firstItem="lwj-47-vd0" firstAttribute="width" secondItem="gjQ-Kp-SG5" secondAttribute="width" id="bOv-7U-7oW"/>
+                <constraint firstItem="i6A-6e-xuY" firstAttribute="height" secondItem="gjQ-Kp-SG5" secondAttribute="height" id="cxa-p2-14G"/>
+                <constraint firstItem="Cos-YA-g0P" firstAttribute="width" secondItem="gjQ-Kp-SG5" secondAttribute="width" id="eeV-Mt-AzJ"/>
+                <constraint firstItem="utJ-4p-yfJ" firstAttribute="leading" secondItem="HpU-1S-szd" secondAttribute="trailing" constant="3.3300000000000001" id="fIq-QA-K3P"/>
+                <constraint firstItem="Cos-YA-g0P" firstAttribute="top" secondItem="utJ-4p-yfJ" secondAttribute="bottom" constant="-10" id="fLe-cf-ISV"/>
+                <constraint firstItem="gjQ-Kp-SG5" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="fRV-Pj-Xwl"/>
+                <constraint firstItem="i6A-6e-xuY" firstAttribute="top" secondItem="kW4-L9-Pud" secondAttribute="top" id="h5R-sA-9bq"/>
+                <constraint firstItem="gjQ-Kp-SG5" firstAttribute="top" secondItem="utJ-4p-yfJ" secondAttribute="top" id="jsi-IM-SNy"/>
+                <constraint firstItem="beg-kV-IzQ" firstAttribute="width" secondItem="gjQ-Kp-SG5" secondAttribute="width" id="jwN-Zw-QKg"/>
+                <constraint firstItem="C1I-nW-9R3" firstAttribute="leading" secondItem="beg-kV-IzQ" secondAttribute="trailing" constant="3.3300000000000001" id="kMO-lo-nfY"/>
+                <constraint firstItem="Xfl-ji-oKN" firstAttribute="top" secondItem="hb7-O0-AoL" secondAttribute="bottom" constant="5" id="l00-wG-PXJ"/>
+                <constraint firstItem="Cos-YA-g0P" firstAttribute="height" secondItem="gjQ-Kp-SG5" secondAttribute="height" id="lus-mO-jlA"/>
+                <constraint firstItem="gjQ-Kp-SG5" firstAttribute="top" secondItem="89F-yG-DiR" secondAttribute="bottom" constant="60" id="lvq-Kk-kqq"/>
+                <constraint firstItem="QHW-mc-vpw" firstAttribute="leading" secondItem="lwj-47-vd0" secondAttribute="trailing" constant="3.3300000000000001" id="nRw-HO-OI0"/>
+                <constraint firstItem="RdU-iC-9dq" firstAttribute="top" secondItem="Xfl-ji-oKN" secondAttribute="bottom" constant="10" id="ocl-ku-7oB"/>
+                <constraint firstItem="RdU-iC-9dq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="orK-pw-p2G"/>
+                <constraint firstItem="beg-kV-IzQ" firstAttribute="height" secondItem="gjQ-Kp-SG5" secondAttribute="height" id="rWY-IY-AU4"/>
+                <constraint firstItem="i6A-6e-xuY" firstAttribute="width" secondItem="gjQ-Kp-SG5" secondAttribute="width" id="rlA-ar-Pd4"/>
                 <constraint firstAttribute="trailing" secondItem="BLe-cU-Zsl" secondAttribute="trailing" id="rqz-G4-k4C"/>
+                <constraint firstItem="gjQ-Kp-SG5" firstAttribute="trailing" secondItem="hzA-kO-epm" secondAttribute="trailing" constant="-32" id="rvc-Me-3vl"/>
+                <constraint firstItem="C1I-nW-9R3" firstAttribute="width" secondItem="gjQ-Kp-SG5" secondAttribute="width" id="s9G-zy-Ej7"/>
+                <constraint firstItem="utJ-4p-yfJ" firstAttribute="width" secondItem="gjQ-Kp-SG5" secondAttribute="width" id="sZ6-SG-xvC"/>
                 <constraint firstItem="7Oa-Oo-obG" firstAttribute="height" secondItem="Lsf-xk-Haj" secondAttribute="height" multiplier="0.5" id="t1S-Rm-ynH"/>
+                <constraint firstItem="C1I-nW-9R3" firstAttribute="height" secondItem="gjQ-Kp-SG5" secondAttribute="height" id="tEU-i4-Smr"/>
+                <constraint firstItem="utJ-4p-yfJ" firstAttribute="height" secondItem="gjQ-Kp-SG5" secondAttribute="height" id="tZe-XB-RGO"/>
+                <constraint firstItem="utJ-4p-yfJ" firstAttribute="top" secondItem="HpU-1S-szd" secondAttribute="top" id="td6-x5-cqE"/>
+                <constraint firstItem="lwj-47-vd0" firstAttribute="height" secondItem="gjQ-Kp-SG5" secondAttribute="height" id="u05-dW-3cZ"/>
+                <constraint firstItem="kW4-L9-Pud" firstAttribute="top" secondItem="beg-kV-IzQ" secondAttribute="bottom" constant="-10" id="uJH-vT-ALU"/>
                 <constraint firstItem="7Oa-Oo-obG" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="wcg-HL-lna"/>
+                <constraint firstItem="kW4-L9-Pud" firstAttribute="trailing" secondItem="hzA-kO-epm" secondAttribute="trailing" id="xyr-Xl-KqB"/>
+                <constraint firstItem="gjQ-Kp-SG5" firstAttribute="leading" secondItem="utJ-4p-yfJ" secondAttribute="trailing" constant="3.3300000000000001" id="yup-01-PUf"/>
             </constraints>
-            <point key="canvasLocation" x="422" y="409"/>
+            <point key="canvasLocation" x="196" y="307"/>
         </view>
-        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="AfN-gh-bBv">
-            <rect key="frame" x="0.0" y="0.0" width="46" height="48"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <state key="normal" image="LS_qianbao_center_logo.png"/>
-            <point key="canvasLocation" x="83" y="483"/>
-        </button>
     </objects>
     <resources>
         <image name="LS_qianbao_bg.png" width="658" height="1068"/>
         <image name="LS_qianbao_center_logo.png" width="118" height="136"/>
         <image name="LS_qianbao_chongzhi.png" width="126" height="139"/>
+        <image name="LS_qianbao_di_xian.png" width="462" height="18"/>
         <image name="LS_qianbao_eat.png" width="126" height="139"/>
         <image name="LS_qianbao_gouwuche.png" width="126" height="139"/>
+        <image name="LS_qianbao_huise.png" width="118" height="136"/>
         <image name="LS_qianbao_qiandao.png" width="126" height="139"/>
         <image name="LS_qianbao_shangcheng.png" width="126" height="139"/>
         <image name="LS_qianbao_shangdian.png" width="126" height="139"/>
