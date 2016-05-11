@@ -111,7 +111,7 @@
         _bg.image = [UIImage imageNamed:@"LS_qiandao_bg_after_x4"];
     } else {
         _imageView.image = [UIImage imageNamed:@"LS_qiandao_x1"];
-        _bg.image = [UIImage imageNamed:@"LS_qiandao_bg_after_x1"];
+        _bg.image = [UIImage imageNamed:@"LS_qiandao_bg_after"];
     }
     
     [self.view addSubview:_imageView];

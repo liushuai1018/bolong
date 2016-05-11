@@ -116,4 +116,8 @@
 // 修改地址
 #define kUpAddress @"http://123.56.182.208/bolong/mobile.php/Mobile/Address/address_update"
 
+
+// 即时通讯touke
+#define kIM_token @"http://192.168.1.64/bolong/mobile.php/Mobile/Token/tok"
+
 #endif /* PrefixHeader_pch */

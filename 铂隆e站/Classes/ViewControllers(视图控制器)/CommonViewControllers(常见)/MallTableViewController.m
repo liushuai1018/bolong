@@ -23,8 +23,22 @@
     
     self.title = @"商城";
     self.navigationController.navigationBar.translucent = NO;
-    _allMallIconArray = @[@"shuishulei.png", @"liangyou.png", @"roupin.png", @"yulei.png", @"qiche.png", @"lingshi.png", @"chongwu.png", @"riyong.png"];
-    _allMallTitleArray = @[@"水疏类", @"粮油类", @"肉品类", @"鱼类", @"汽车类", @"零食类", @"宠物类", @"日用百货"];
+    _allMallIconArray = @[@"shuishulei.png",
+                          @"liangyou.png",
+                          @"roupin.png",
+                          @"yulei.png",
+                          @"qiche.png",
+                          @"lingshi.png",
+                          @"chongwu.png",
+                          @"riyong.png"];
+    _allMallTitleArray = @[@"水疏类",
+                           @"粮油类",
+                           @"肉品类",
+                           @"鱼类",
+                           @"汽车类",
+                           @"零食类",
+                           @"宠物类",
+                           @"日用百货"];
     
     [self addBarButton]; // 添加 barButton
     [self addHeader]; // 添加区头
@@ -66,11 +80,11 @@
 #pragma mark AddBarButton
 - (void)addBarButton
 {
-    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"fanhui.png"] style:UIBarButtonItemStylePlain target:self action:@selector(clickBarButton:)];
+    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"fanhui.png"] style:UIBarButtonItemStylePlain target:self action:@selector(clickBarButton)];
     self.navigationItem.leftBarButtonItem = left;
 }
 
-- (void)clickBarButton:(UIBarButtonItem *)sender
+- (void)clickBarButton
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }

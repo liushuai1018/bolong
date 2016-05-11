@@ -49,22 +49,28 @@
     
     if (isWIFI && is3G) {
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                        message:@"网络请求失败，请检查网络连接"
-                                                       delegate:self
-                                              cancelButtonTitle:nil
-                                              otherButtonTitles:nil];
-        [alert show];
-        
-        // 延时执行方法
-        [self performSelector:@selector(dismissAlert:)
-                   withObject:alert
-                   afterDelay:2];
+        [self alertView:@"网络请求失败，请检查网络连接"];
         
         return NO; // 没有网络连接
     } else {
         return YES;  // 有网络连接
     }
+}
+
+// 多用提示框
+- (void)alertView:(NSString *)str
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                    message:str
+                                                   delegate:self
+                                          cancelButtonTitle:nil
+                                          otherButtonTitles:nil];
+    [alert show];
+    
+    // 延时执行方法
+    [self performSelector:@selector(dismissAlert:)
+               withObject:alert
+               afterDelay:2];
 }
 
 // 移除提示框
@@ -891,6 +897,44 @@
                                                                       error:nil];
         
         NSLog(@"datas ===== %@", [dict objectForKey:@"datas"]);
+    }];
+}
+
+#pragma mark - 获取IM_token
+- (void)obtainIMToken:(UserInformation *)userInfo returns:(void(^)(NSString *token))block
+{
+    if (![self determineTheNetwork]) {
+        return;
+    }
+    
+    NSURL *url = [NSURL URLWithString:kIM_token];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    
+    NSString *parameter = [NSString stringWithFormat:@"user_id=%@&user_name=%@&user_avar=%@", userInfo.user_id, userInfo.name, userInfo.headPortraitURL];
+    [request setHTTPBody:LSEncode(parameter)];
+    [request setTimeoutInterval:10.0];
+    
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError)
+    {
+        
+        NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:data
+                                                                    options:NSJSONReadingMutableLeaves
+                                                                      error:nil];
+        NSInteger code = [[dict objectForKey:@"code"] integerValue];
+        
+        if (code == 200) {
+            
+            NSString *token = [dict objectForKey:@"token"];
+            block(token);
+            
+        } else {
+            [self alertView:@"IM登陆失败"];
+        }
+        
+        
     }];
 }
 

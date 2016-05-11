@@ -230,4 +230,14 @@
  */
 - (void)upAddressUser_id:(NSString *)user_id address:(LS_addressManage *)address;
 
+#pragma mark - IM
+
+/**
+ *  获取IM_token
+ *
+ *  @param userInfo 输入用户信息
+ *  @param block    返回令牌token
+ */
+- (void)obtainIMToken:(UserInformation *)userInfo returns:(void(^)(NSString *token))block;
+
 @end

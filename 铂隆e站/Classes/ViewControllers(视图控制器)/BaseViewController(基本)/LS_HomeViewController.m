@@ -9,13 +9,15 @@
 #import "LS_HomeViewController.h"
 #import "LS_pay_TableViewController.h"
 #import "LS_ParkingRootViewController.h"
+#import "LS_Mall_ViewController.h"
 #import "MallTableViewController.h"
 
 @interface LS_HomeViewController ()
 {
-    LS_pay_TableViewController *_pay;  // 缴费
+    LS_pay_TableViewController *_pay;       // 缴费
     LS_ParkingRootViewController *_parking; // 停车
-    MallTableViewController *_mall; // 商城
+//    MallTableViewController *_mall;       // 商城
+    LS_Mall_ViewController *_mall;          // 新商城
     
 }
 
@@ -52,7 +54,7 @@
 #pragma mark - 商城
 - (IBAction)mall:(UIButton *)sender {
     
-    _mall = [[MallTableViewController alloc] init];
+    _mall = [[LS_Mall_ViewController alloc] init];
     [self presentViewcontrol:@[_mall]];
 }
 
