@@ -12,6 +12,7 @@
 #import "ConvenientViewController.h"
 #import "FoodViewController.h"
 #import "LS_Other_Sign_ViewController.h"
+#import "LS_Mall_ViewController.h"
 
 @interface LS_Wallet_Root_ViewController ()
 
@@ -75,6 +76,11 @@
 
 #pragma mark - 铂隆商城
 - (IBAction)boLongMall:(UIButton *)sender {
+    LS_Mall_ViewController *mall = [[LS_Mall_ViewController alloc] init];
+    
+    UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:mall];
+    
+    [self presentViewController:navigation animated:YES completion:nil];
 }
 
 #pragma mark - 购物车

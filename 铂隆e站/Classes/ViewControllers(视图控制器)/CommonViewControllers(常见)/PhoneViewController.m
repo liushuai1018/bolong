@@ -25,6 +25,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"手机充值";
+    self.navigationController.navigationBar.translucent = NO;
+    
+    
     [self addAction];
     [self createrBatItem];
 }

@@ -3614,7 +3614,7 @@
 				GCC_PREFIX_HEADER = "铂隆e站/Classes/Macro(宏)/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = "铂隆e站/Classes/ThirdParty(第三方)/Alipay/RelyOn";
 				INFOPLIST_FILE = "铂隆e站/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3654,7 +3654,7 @@
 				GCC_PREFIX_HEADER = "铂隆e站/Classes/Macro(宏)/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = "铂隆e站/Classes/ThirdParty(第三方)/Alipay/RelyOn";
 				INFOPLIST_FILE = "铂隆e站/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

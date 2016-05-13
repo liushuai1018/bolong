@@ -61,11 +61,16 @@
     _xihuan_Ar = [NSMutableArray arrayWithObjects:[UIImage imageNamed:@"11_11.jpg"], [UIImage imageNamed:@"LS_Mall_xihuanImage"], [UIImage imageNamed:@"12_12.jpg"], nil];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    _scrollView.contentSize = CGSizeMake(CGRectGetWidth(_shoppingCart.frame), CGRectGetMaxY(_shoppingCart.frame));
+}
+
 #pragma mark - 初始化设置
 - (void)initSet
 {
-    _scrollView.contentSize = CGSizeMake(CGRectGetWidth(_shoppingCart.frame), CGRectGetMaxY(_shoppingCart.frame));
-    
     _xihuan_image.image = [_xihuan_Ar objectAtIndex:1];
 }
 
@@ -176,7 +181,7 @@
     _xihuan_image.image = [_xihuan_Ar objectAtIndex:subscript];
 }
 
-// 按钮
+// 按钮w
 - (IBAction)xihuan_action:(UIButton *)sender {
     
     NSInteger index = [_xihuan_Ar indexOfObject:_xihuan_image.image];

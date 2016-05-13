@@ -86,6 +86,8 @@
         [sender setImage:[UIImage imageNamed:@"new_tingche_other1"] forState:UIControlStateNormal];
         [_otherView setHidden:YES];
     } else {
+        
+        _otherView.frame = CGRectMake(0, CGRectGetMinY(sender.frame) - CGRectGetHeight(_otherView.frame), CGRectGetWidth(_otherView.frame), CGRectGetHeight(_otherView.frame));
         _otherShow = YES;
         [sender setImage:[UIImage imageNamed:@"new_tingche_other2"] forState:UIControlStateNormal];
         [self.view bringSubviewToFront:_otherView];
