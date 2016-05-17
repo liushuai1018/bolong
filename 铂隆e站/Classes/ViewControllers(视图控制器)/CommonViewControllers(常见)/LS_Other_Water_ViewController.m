@@ -38,7 +38,11 @@
 #pragma mark - 送水支付事件
 - (IBAction)songShui_pay:(UIButton *)sender {
     
+    UserInformation *userInfo = [[LocalStoreManage sharInstance] requestUserInfor];
     
+    [[NetWorkRequestManage sharInstance] other_waterAddress:_address.text
+                                                      momey:@"0.1"
+                                                   userInfo:userInfo];
     
 }
 

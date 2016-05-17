@@ -66,58 +66,62 @@
 
 
 // 注册接口
-#define kRegistURL @"http://123.56.182.208/bolong/mobile.php/Mobile/Login/register"
+#define kRegistURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Login/register"
 // 登陆接口
-#define kLonginURL @"http://123.56.182.208/bolong/mobile.php/Mobile/Login"
+#define kLonginURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Login"
 // 发送注册码
-#define kSenderPhoneURL @"http://123.56.182.208/bolong/mobile.php/Mobile/Login/sendCode"
+#define kSenderPhoneURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Login/sendCode"
 // 第三方登陆
-#define kOpenLoginURL @"http://123.56.182.208/bolong/mobile.php/Mobile/Login/otherLogin"
+#define kOpenLoginURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Login/otherLogin"
 // 修改头像
-#define kUpLoadHead @"http://123.56.182.208/bolong/mobile.php/Mobile/User/uploadHead"
+#define kUpLoadHead @"http://101.201.147.70/bolong/mobile.php/Mobile/User/uploadHead"
 // 修改昵称
-#define kUpdateUserName @"http://123.56.182.208/bolong/mobile.php/Mobile/User/updateUser"
+#define kUpdateUserName @"http://101.201.147.70/bolong/mobile.php/Mobile/User/updateUser"
 // 忘记密码
-#define kForgetPassword @"http://123.56.182.208/bolong/mobile.php/Mobile/Login/forgetPassword"
+#define kForgetPassword @"http://101.201.147.70/bolong/mobile.php/Mobile/Login/forgetPassword"
 
 
 // 获取小区
-#define kGetCommunity @"http://123.56.182.208/bolong/mobile.php/Mobile/Wuye/get_home"
+#define kGetCommunity @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/get_home"
 // 物业缴费信息
-#define kWuYePayInformation @"http://123.56.182.208/bolong/mobile.php/Mobile/Wuye/pay_wuye"
+#define kWuYePayInformation @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/pay_wuye"
 // 确认物业缴费
-#define kWuYePay @"http://123.56.182.208/bolong/mobile.php/Mobile/Wuye/pay"
+#define kWuYePay @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/pay"
 
 
 // 获取首页信息
-#define kHomeInformation @"http://123.56.182.208/bolong/mobile.php/Mobile/Index"
+#define kHomeInformation @"http://101.201.147.70/bolong/mobile.php/Mobile/Index"
 // 首页点赞
-#define kHomeDidZan @"http://123.56.182.208/bolong/mobile.php/Mobile/Index/zan"
+#define kHomeDidZan @"http://101.201.147.70/bolong/mobile.php/Mobile/Index/zan"
 
 
 // 获取咨询列表
-#define kConsultList @"http://123.56.182.208/bolong/mobile.php/Mobile/Consult"
+#define kConsultList @"http://101.201.147.70/bolong/mobile.php/Mobile/Consult"
 // 发送新的咨询
-#define kSenderConsult @"http://123.56.182.208/bolong/mobile.php/Mobile/Consult/add_consult"
+#define kSenderConsult @"http://101.201.147.70/bolong/mobile.php/Mobile/Consult/add_consult"
 // 赞
-#define kConsult_zan @"http://123.56.182.208/bolong/mobile.php/Mobile/Consult/zan"
+#define kConsult_zan @"http://101.201.147.70/bolong/mobile.php/Mobile/Consult/zan"
 // 回复咨询
-#define kReplyConsult @"http://123.56.182.208/bolong/mobile.php/Mobile/Consult/reply"
+#define kReplyConsult @"http://101.201.147.70/bolong/mobile.php/Mobile/Consult/reply"
 // 我的答复列表
-#define kReplyList @"http://123.56.182.208/bolong/mobile.php/Mobile/Consult/reply_list"
+#define kReplyList @"http://101.201.147.70/bolong/mobile.php/Mobile/Consult/reply_list"
 
 
 // 我的地址列表
-#define kAddress_list @"http://123.56.182.208/bolong/mobile.php/Address"
+#define kAddress_list @"http://101.201.147.70/bolong/mobile.php/Address"
 // 删除地址
-#define kRemoveAddress @"http://123.56.182.208/bolong/mobile.php/Address/address_del"
+#define kRemoveAddress @"http://101.201.147.70/bolong/mobile.php/Address/address_del"
 // 添加新地址
-#define kAddNewAddress @"http://123.56.182.208/bolong/mobile.php/Mobile/Address/address_add"
+#define kAddNewAddress @"http://101.201.147.70/bolong/mobile.php/Mobile/Address/address_add"
 // 修改地址
-#define kUpAddress @"http://123.56.182.208/bolong/mobile.php/Mobile/Address/address_update"
+#define kUpAddress @"http://101.201.147.70/bolong/mobile.php/Mobile/Address/address_update"
 
 
 // 即时通讯touke
-#define kIM_token @"http://192.168.1.64/bolong/mobile.php/Mobile/Token/tok"
+#define kIM_token @"http://101.201.147.70/bolong/mobile.php/Mobile/Token/tok"
+
+
+// 送水
+#define kWaterURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/water"
 
 #endif /* PrefixHeader_pch */

@@ -153,6 +153,17 @@
           retum:(void(^)(NSDictionary *dict))inform;
 
 
+/**
+ *  其他_送水
+ *  @param address   送水地址
+ *  @param momey     总钱数
+ *  @param userInfo  用户信息
+ */
+- (void)other_waterAddress:(NSString *)address
+                     momey:(NSString *)momey
+                  userInfo:(UserInformation *)user;
+
+
 #pragma mark - 停车咨询接口
 
 /**

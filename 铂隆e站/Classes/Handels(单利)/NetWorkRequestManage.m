@@ -273,7 +273,6 @@
     NSData *data1 = [NSURLConnection sendSynchronousRequest:request
                                           returningResponse:&respose
                                                       error:&error];
-    
     // JSON数据解析
     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data1
                                                         options:NSJSONReadingMutableContainers
@@ -553,6 +552,42 @@
         inform(ditc);
         
     }];
+}
+
+#pragma mark - 送水
+- (void)other_waterAddress:(NSString *)address
+                     momey:(NSString *)momey
+                  userInfo:(UserInformation *)user
+{
+    if (![self determineTheNetwork]) {
+        return;
+    }
+    
+    NSURL *url = [NSURL URLWithString:kWaterURL];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    
+    NSString *parameter = [NSString stringWithFormat:@"wuye_id=%@&money=%@&address=%@&user_id=%@", @"4", momey, address, user.user_id];
+    [request setHTTPBody:LSEncode(parameter)];
+    [request setTimeoutInterval:10.0];
+    
+    NSURLResponse *respose = nil;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                         returningResponse:&respose
+                                                     error:nil];
+    NSMutableDictionary *dic = [NSJSONSerialization JSONObjectWithData:data
+                                                                options:NSJSONReadingMutableContainers
+                                                                  error:nil];
+    
+    NSInteger index = [[dic objectForKey:@"code"] intValue];
+    if (index == 0) {
+        Product *product = [[Product alloc] init];
+        [product setValuesForKeysWithDictionary:[dic objectForKey:@"datas"]];
+        product.price = 0.01;
+        [[AlipayManage sharInstance] createrOrderAndSignature:product retum:^(NSDictionary *ditc) {
+            NSLog(@"alipay = %@", ditc);
+        }];
+    }
 }
 
 #pragma mark - 首页信息

@@ -86,8 +86,6 @@
 - (void)firstpressed
 {
     // 创建跟视图
-//    CustomViewController *custom = [[CustomViewController alloc] init];
-//    self.window.rootViewController = custom;
     LS_TabBarController *tabBar = [[LS_TabBarController alloc] init];
     self.window.rootViewController = tabBar;
     
