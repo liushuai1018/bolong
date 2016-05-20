@@ -40,6 +40,6 @@
 /**
  *  后台通知地址
  */
-@property (copy, nonatomic) NSString *notify_URL;
+@property (copy, nonatomic) NSString *notify_url;
 
 @end

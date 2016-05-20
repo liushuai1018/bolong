@@ -57,7 +57,8 @@
     order.productName = product.subject;      // 商品标题
     order.productDescription = product.body;  // 商品描述
     order.amount = [NSString stringWithFormat:@"%.2f", product.price]; // 商品价格
-    order.notifyURL = product.notify_URL;  // 支付成功后会给这个URL
+    order.notifyURL = product.notify_url;  // 支付成功后会给这个URL
+    
     
     order.service = @"mobile.securitypay.pay";
     order.paymentType = @"1";
@@ -82,7 +83,6 @@
                        orderSpec, signedString, @"RSA"];
         
         [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
-            NSLog(@"reslut = %@",resultDic);
             
             retum(resultDic);
         }];

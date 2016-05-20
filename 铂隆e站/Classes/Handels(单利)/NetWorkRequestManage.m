@@ -584,8 +584,14 @@
         Product *product = [[Product alloc] init];
         [product setValuesForKeysWithDictionary:[dic objectForKey:@"datas"]];
         product.price = 0.01;
+        
+        __weak NetWorkRequestManage *netWork = self;
         [[AlipayManage sharInstance] createrOrderAndSignature:product retum:^(NSDictionary *ditc) {
-            NSLog(@"alipay = %@", ditc);
+            if ([[ditc objectForKey:@"resultStatus"] intValue] == 9000) {
+                [netWork alertView:@"购买成功!"];
+            } else {
+                [netWork alertView:@"购买失败!"];
+            }
         }];
     }
 }

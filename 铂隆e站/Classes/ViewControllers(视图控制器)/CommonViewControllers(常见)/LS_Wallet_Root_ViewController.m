@@ -13,6 +13,7 @@
 #import "FoodViewController.h"
 #import "LS_Other_Sign_ViewController.h"
 #import "LS_Mall_ViewController.h"
+#import "LS_topUpBLB_ViewController.h"
 
 @interface LS_Wallet_Root_ViewController ()
 
@@ -111,6 +112,8 @@
 
 #pragma mark - 充值
 - (IBAction)topUp:(UIButton *)sender {
+    LS_topUpBLB_ViewController *topUp = [[LS_topUpBLB_ViewController alloc] init];
+    [self.navigationController pushViewController:topUp animated:YES];
 }
 
 @end

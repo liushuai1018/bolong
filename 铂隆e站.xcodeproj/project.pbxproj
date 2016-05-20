@@ -324,6 +324,8 @@
 		0C87FB7C1C4C70ED00CC3498 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C87FB7B1C4C70ED00CC3498 /* OpenGLES.framework */; };
 		0C87FB7E1C4C711200CC3498 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C87FB7D1C4C711200CC3498 /* libc++.tbd */; };
 		0C87FB811C4C7D4000CC3498 /* OfflineCityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C87FB801C4C7D4000CC3498 /* OfflineCityTableViewController.m */; };
+		0C8BE8F71CED50AE00FFA80C /* LS_chongzhi_zhizhen.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C8BE8F61CED50AE00FFA80C /* LS_chongzhi_zhizhen.png */; };
+		0C8BE8F91CED51B500FFA80C /* LS_chongz_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C8BE8F81CED51B500FFA80C /* LS_chongz_background.png */; };
 		0C8FE97E1CAA53F900B6E63F /* CommunityInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8FE97D1CAA53F900B6E63F /* CommunityInformation.m */; };
 		0C8FE9811CAA688F00B6E63F /* WuYePayCostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8FE9801CAA688F00B6E63F /* WuYePayCostViewController.m */; };
 		0C8FE9841CAA68D100B6E63F /* WuYePayCostView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8FE9831CAA68D100B6E63F /* WuYePayCostView.m */; };
@@ -447,6 +449,9 @@
 		0CEA40BE1C5781CC00E036B4 /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEA40AC1C5781CC00E036B4 /* UIImageView+HighlightedWebCache.m */; };
 		0CEA40BF1C5781CC00E036B4 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEA40AE1C5781CC00E036B4 /* UIImageView+WebCache.m */; };
 		0CEA40C01C5781CC00E036B4 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEA40B01C5781CC00E036B4 /* UIView+WebCacheOperation.m */; };
+		0CFED6C21CEBF501005DC47D /* LS_topUpBLB_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFED6C11CEBF501005DC47D /* LS_topUpBLB_ViewController.m */; };
+		0CFED6C51CEBF9E1005DC47D /* LS_TopUpBLB_View.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFED6C41CEBF9E1005DC47D /* LS_TopUpBLB_View.m */; };
+		0CFED6C81CEC6BFD005DC47D /* LS_Rotation_View.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFED6C71CEC6BFD005DC47D /* LS_Rotation_View.m */; };
 		0CFFBC451C2CDA0A005DEECC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CFFBC441C2CDA0A005DEECC /* UIKit.framework */; };
 		0CFFBC471C2CDA2C005DEECC /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CFFBC461C2CDA2C005DEECC /* AddressBook.framework */; };
 		0CFFBC491C2CDA71005DEECC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CFFBC481C2CDA71005DEECC /* CoreLocation.framework */; };
@@ -989,6 +994,8 @@
 		0C87FB7D1C4C711200CC3498 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		0C87FB7F1C4C7D4000CC3498 /* OfflineCityTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfflineCityTableViewController.h; sourceTree = "<group>"; };
 		0C87FB801C4C7D4000CC3498 /* OfflineCityTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfflineCityTableViewController.m; sourceTree = "<group>"; };
+		0C8BE8F61CED50AE00FFA80C /* LS_chongzhi_zhizhen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LS_chongzhi_zhizhen.png; sourceTree = "<group>"; };
+		0C8BE8F81CED51B500FFA80C /* LS_chongz_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LS_chongz_background.png; sourceTree = "<group>"; };
 		0C8FE97C1CAA53F900B6E63F /* CommunityInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommunityInformation.h; sourceTree = "<group>"; };
 		0C8FE97D1CAA53F900B6E63F /* CommunityInformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunityInformation.m; sourceTree = "<group>"; };
 		0C8FE97F1CAA688F00B6E63F /* WuYePayCostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WuYePayCostViewController.h; sourceTree = "<group>"; };
@@ -1179,6 +1186,12 @@
 		0CEA40AE1C5781CC00E036B4 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		0CEA40AF1C5781CC00E036B4 /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		0CEA40B01C5781CC00E036B4 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
+		0CFED6C01CEBF501005DC47D /* LS_topUpBLB_ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LS_topUpBLB_ViewController.h; sourceTree = "<group>"; };
+		0CFED6C11CEBF501005DC47D /* LS_topUpBLB_ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LS_topUpBLB_ViewController.m; sourceTree = "<group>"; };
+		0CFED6C31CEBF9E1005DC47D /* LS_TopUpBLB_View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LS_TopUpBLB_View.h; sourceTree = "<group>"; };
+		0CFED6C41CEBF9E1005DC47D /* LS_TopUpBLB_View.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LS_TopUpBLB_View.m; sourceTree = "<group>"; };
+		0CFED6C61CEC6BFD005DC47D /* LS_Rotation_View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LS_Rotation_View.h; sourceTree = "<group>"; };
+		0CFED6C71CEC6BFD005DC47D /* LS_Rotation_View.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LS_Rotation_View.m; sourceTree = "<group>"; };
 		0CFFBC441C2CDA0A005DEECC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0CFFBC461C2CDA2C005DEECC /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		0CFFBC481C2CDA71005DEECC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -2677,6 +2690,12 @@
 				0CA5EA321CCDC27200346D34 /* LS_Wallet_Root_ViewController.h */,
 				0CA5EA331CCDC27200346D34 /* LS_Wallet_Root_ViewController.m */,
 				0CA5EA341CCDC27200346D34 /* LS_Wallet_Root_ViewController.xib */,
+				0CFED6C01CEBF501005DC47D /* LS_topUpBLB_ViewController.h */,
+				0CFED6C11CEBF501005DC47D /* LS_topUpBLB_ViewController.m */,
+				0CFED6C31CEBF9E1005DC47D /* LS_TopUpBLB_View.h */,
+				0CFED6C41CEBF9E1005DC47D /* LS_TopUpBLB_View.m */,
+				0CFED6C61CEC6BFD005DC47D /* LS_Rotation_View.h */,
+				0CFED6C71CEC6BFD005DC47D /* LS_Rotation_View.m */,
 			);
 			name = "新钱包界面";
 			sourceTree = "<group>";
@@ -2684,6 +2703,8 @@
 		0CA5EA371CCDC32800346D34 /* 新钱包 */ = {
 			isa = PBXGroup;
 			children = (
+				0C8BE8F81CED51B500FFA80C /* LS_chongz_background.png */,
+				0C8BE8F61CED50AE00FFA80C /* LS_chongzhi_zhizhen.png */,
 				0CA786B91CD30C1C0077FB7D /* LS_qianbao_huise.png */,
 				0CA5EA381CCDC34D00346D34 /* LS_qianbao_bg.png */,
 				0CA5EA391CCDC34D00346D34 /* LS_qianbao_center_logo.png */,
@@ -3115,6 +3136,7 @@
 				0C6D48D71CC0B6EA00650E80 /* new_xiergongting.png in Resources */,
 				0CC1E82C1C1EA44800CA4831 /* UMSnsAccountViewController.xib in Resources */,
 				0C49F94F1CBF8899005850B6 /* tabBar_bang@2x.png in Resources */,
+				0C8BE8F91CED51B500FFA80C /* LS_chongz_background.png in Resources */,
 				0C6D48C41CC08D4400650E80 /* new_tingche_other1.png in Resources */,
 				0C6B18741C43976E0096DE3F /* meiqi_iOC.png in Resources */,
 				0C9AB9261C0FE9BF0070AF70 /* nanniu.png in Resources */,
@@ -3148,6 +3170,7 @@
 				0C4C43121CE2CC3A00B14221 /* LS_Mall_7.png in Resources */,
 				0C4C43101CE2CC3A00B14221 /* LS_Mall_5.png in Resources */,
 				0CC1E8281C1EA44800CA4831 /* UMSCommentInputControlleriPad.xib in Resources */,
+				0C8BE8F71CED50AE00FFA80C /* LS_chongzhi_zhizhen.png in Resources */,
 				0C7150A71C4CDDB5004B2CC7 /* pause@3x.png in Resources */,
 				0C6D48C91CC0B25400650E80 /* new_zhoubian.png in Resources */,
 				0C6D48E51CC0BF3800650E80 /* LS_shezhi_ico.png in Resources */,
@@ -3299,6 +3322,7 @@
 				0C53D7E31C462B4500A116F2 /* FoodViewController.m in Sources */,
 				0C696B8B1C3E00D7007AE88A /* PayTableViewController.m in Sources */,
 				0C75F44A1C8FF9D300D0CC5D /* CircleListTableViewCell.m in Sources */,
+				0CFED6C51CEBF9E1005DC47D /* LS_TopUpBLB_View.m in Sources */,
 				0CEA408E1C5780F500E036B4 /* Reachability.m in Sources */,
 				0C03800B1C7AEEDB003C385C /* AddFriendsTableViewController.m in Sources */,
 				0CEA40B41C5781CC00E036B4 /* SDWebImageCompat.m in Sources */,
@@ -3308,6 +3332,7 @@
 				0C76320F1C112DB2005EB27E /* RegisteredView.m in Sources */,
 				0C6F72081CC4BE7C00E62EA0 /* LS_Help_TableViewController.m in Sources */,
 				0C9DE4B91CE037110018A68B /* LS_Other_recycling_View.m in Sources */,
+				0CFED6C81CEC6BFD005DC47D /* LS_Rotation_View.m in Sources */,
 				0C8FE97E1CAA53F900B6E63F /* CommunityInformation.m in Sources */,
 				0C6F72101CC4CCA800E62EA0 /* LS_Other_BaoXiu_ViewController.m in Sources */,
 				0C6021721CBC8E2700158887 /* ConsultListTableViewController.m in Sources */,
@@ -3423,6 +3448,7 @@
 				0C54D1541C3B4B2000EAC3E7 /* BankCardTableViewController.m in Sources */,
 				0C55DAAF1C3235E4006863A9 /* PhoneView.m in Sources */,
 				0C55DAA61C321322006863A9 /* PocketMoneyViewController.m in Sources */,
+				0CFED6C21CEBF501005DC47D /* LS_topUpBLB_ViewController.m in Sources */,
 				0C6021751CBC8E6F00158887 /* OnlineConsultViewController.m in Sources */,
 				0C21EDDD1C118D8300C44468 /* SetTableViewController.m in Sources */,
 				0C5D1C751CA4E633006494A5 /* NSDataEx.m in Sources */,

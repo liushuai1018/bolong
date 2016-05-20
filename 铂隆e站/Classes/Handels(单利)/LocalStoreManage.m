@@ -130,9 +130,11 @@
 #pragma mark - 更新用户头像URL
 - (void)upUserHeadURL:(NSString *)headURL
 {
-    _userInfor.headPortraitURL = headURL;
+    if (!_userInfor) {
+        _userInfor = [self requestUserInfor];
+    }
     
-    NSLog(@"修改头像后的用户信息 :%@", _userInfor);
+    _userInfor.headPortraitURL = headURL;
     
     [self UserInforStoredLocally:_userInfor];
 }
