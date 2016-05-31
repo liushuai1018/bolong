@@ -21,6 +21,15 @@
     
 }
 
+// 这个是商城
+@property (weak, nonatomic) IBOutlet UIView *parking_View;
+// 这个是停车
+@property (weak, nonatomic) IBOutlet UIView *mall_View;
+
+// 约束
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *width;
+
+
 @end
 
 @implementation LS_HomeViewController
@@ -71,5 +80,16 @@
     [navigationC setViewControllers:array];
     [self presentViewController:navigationC animated:YES completion:nil];
 }
+
+#warning mark - 隐藏为完成的下一版本在展开
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    _parking_View.hidden = YES;
+    _mall_View.hidden = YES;
+    
+    _width.constant = SCREEN_WIDTH * 0.3;
+}
+
 
 @end

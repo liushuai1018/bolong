@@ -97,6 +97,7 @@ static inline float radians (double degrees){
 //覆盖方法，点击时判断点是否在path内，YES则响应，NO则不响应
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
 {
+    
     BOOL res = [super pointInside:point withEvent:event];
     
     if (res) {
@@ -106,6 +107,11 @@ static inline float radians (double degrees){
             if ([obje containsPoint:point]) {
                 
                 NSInteger index = [_pointAr indexOfObject:obje];
+                if (index == 0) {
+                    index = 5;
+                } else {
+                    index = index - 1;
+                }
                 [_delegate selectButtonAction:self selectIndex:index];
                 
                 _shapeLayer.path = obje.CGPath;

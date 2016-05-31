@@ -80,12 +80,16 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+#warning mark - 限制展示,后期再次更新在展开
+    /*
     if (_backgroundImageArray.count != 0) {
         return _backgroundImageArray.count;
     } else {
         
         return 0;
     }
+     */
+    return 1;
 }
 
 

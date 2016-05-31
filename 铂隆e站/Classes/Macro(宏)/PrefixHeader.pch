@@ -89,12 +89,6 @@
 #define kWuYePay @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/pay"
 
 
-// 获取首页信息
-#define kHomeInformation @"http://101.201.147.70/bolong/mobile.php/Mobile/Index"
-// 首页点赞
-#define kHomeDidZan @"http://101.201.147.70/bolong/mobile.php/Mobile/Index/zan"
-
-
 // 获取咨询列表
 #define kConsultList @"http://101.201.147.70/bolong/mobile.php/Mobile/Consult"
 // 发送新的咨询
@@ -118,10 +112,23 @@
 
 
 // 即时通讯touke
-#define kIM_token @"http://101.201.147.70/bolong/mobile.php/Mobile/Token/tok"
+#define kIM_token @"http://101.201.147.70/bolong/mobile.php/Mobile/Token/toke"
 
-
-// 送水
+// 其他_每桶水单价
+#define kWaterMoneyURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/water_pric"
+// 其他_送水
 #define kWaterURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/water"
+// 其他_开锁
+#define kUnlockingURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/unlock"
+// 其他_废品单价
+#define kFeipinPriceURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/feipinprice"
+// 其他_废品回收
+#define kFeiPinRecycleURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/feipin"
+// 其他_报修
+#define kQuestionURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/question"
+// 其他_是否已经签到
+#define kIsSignInURL @"http://101.201.147.70/bolong/mobile.php/Mobile/user/old_time"
+// 其他_签到
+#define kSignInURl @"http://101.201.147.70/bolong/mobile.php/Mobile/user/time"
 
 #endif /* PrefixHeader_pch */

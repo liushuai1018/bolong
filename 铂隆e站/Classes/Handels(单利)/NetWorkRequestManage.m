@@ -18,10 +18,13 @@
 #import "ConsultListModel.h"
 #import "ReplyListModel.h"
 #import "LS_addressManage.h"
+#import "LS_feipinPrice_model.h"
 
 #define LSEncode(string) [string dataUsingEncoding:NSUTF8StringEncoding]
 
 @interface NetWorkRequestManage ()
+
+@property (strong, nonatomic) UIAlertController *alertControl;
 
 @end
 
@@ -60,24 +63,54 @@
 // 多用提示框
 - (void)alertView:(NSString *)str
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                    message:str
-                                                   delegate:self
-                                          cancelButtonTitle:nil
-                                          otherButtonTitles:nil];
-    [alert show];
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+//                                                    message:str
+//                                                   delegate:self
+//                                          cancelButtonTitle:@"确定"
+//                                          otherButtonTitles:nil];
+//    [alert show];
+//    
+//    // 延时执行方法
+//    [self performSelector:@selector(dismissAlert:)
+//               withObject:alert
+//               afterDelay:2];
+    
+    
+    if (!_alertControl) {
+        _alertControl = [UIAlertController alertControllerWithTitle:@"提示" message:str preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+        
+        [_alertControl addAction:cancel];
+    }
+    
+    _alertControl.message = str;
+    [[self getCurrentVC] presentViewController:_alertControl animated:YES completion:nil];
     
     // 延时执行方法
     [self performSelector:@selector(dismissAlert:)
-               withObject:alert
+               withObject:_alertControl
                afterDelay:2];
+
+}
+// 获取当前显示的viewController
+- (UIViewController *)getCurrentVC
+{
+    UIViewController *appRootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
+    UIViewController *topVC = appRootVC;
+    if (topVC.presentedViewController) {
+        topVC = topVC.presentedViewController;
+    }
+    
+    return topVC;
 }
 
+
 // 移除提示框
-- (void)dismissAlert:(UIAlertView *)sender
+- (void)dismissAlert:(UIAlertController *)sender
 {
     if (sender) {
-        [sender dismissWithClickedButtonIndex:[sender cancelButtonIndex] animated:YES];
+        [sender dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
@@ -125,7 +158,7 @@
     
 }
 
-#pragma mark 注册用户
+#pragma mark
 - (BOOL)registeredAccount:(NSString *)account
                      code:(NSString *)code
                  password:(NSString *)password
@@ -554,7 +587,46 @@
     }];
 }
 
-#pragma mark - 送水
+#pragma mark - 其他_送水单价
+- (NSString *)other_WaterMoney
+{
+    if (![self determineTheNetwork]) {
+        return nil;
+    }
+    
+    NSURL *url = [NSURL URLWithString:kWaterMoneyURL];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    [request setTimeoutInterval:10.0];
+    
+    NSURLResponse *response = nil;
+    NSError *error = nil;
+    
+    NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                         returningResponse:&response
+                                                     error:&error];
+    
+    if (!data) {
+        [self alertView:@"网络请求失败"];
+        return nil;
+    }
+    
+    NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:data
+                                                                options:NSJSONReadingMutableLeaves
+                                                                  error:nil];
+    NSInteger code = [[dict objectForKey:@"code"] integerValue];
+    if (code != 0) {
+        [self alertView:@"网络请求失败"];
+        return nil;
+    }
+    
+    NSDictionary *dataDict = [dict objectForKey:@"datas"];
+    
+    
+    return [dataDict objectForKey:@"price"];
+}
+
+#pragma mark - 其他_送水
 - (void)other_waterAddress:(NSString *)address
                      momey:(NSString *)momey
                   userInfo:(UserInformation *)user
@@ -575,96 +647,266 @@
     NSData *data = [NSURLConnection sendSynchronousRequest:request
                                          returningResponse:&respose
                                                      error:nil];
+    if (!data) {
+        [self alertView:@"网络请求失败"];
+        return;
+    }
+    
     NSMutableDictionary *dic = [NSJSONSerialization JSONObjectWithData:data
                                                                 options:NSJSONReadingMutableContainers
                                                                   error:nil];
     
     NSInteger index = [[dic objectForKey:@"code"] intValue];
-    if (index == 0) {
-        Product *product = [[Product alloc] init];
-        [product setValuesForKeysWithDictionary:[dic objectForKey:@"datas"]];
-        product.price = 0.01;
-        
-        __weak NetWorkRequestManage *netWork = self;
-        [[AlipayManage sharInstance] createrOrderAndSignature:product retum:^(NSDictionary *ditc) {
-            if ([[ditc objectForKey:@"resultStatus"] intValue] == 9000) {
-                [netWork alertView:@"购买成功!"];
-            } else {
-                [netWork alertView:@"购买失败!"];
-            }
-        }];
+    if (index != 0) {
+        [self alertView:@"网络请求失败"];
+        return;
     }
+    Product *product = [[Product alloc] init];
+    [product setValuesForKeysWithDictionary:[dic objectForKey:@"datas"]];
+    __weak NetWorkRequestManage *netWork = self;
+    [[AlipayManage sharInstance] createrOrderAndSignature:product retum:^(NSDictionary *ditc) {
+        if ([[ditc objectForKey:@"resultStatus"] intValue] == 9000) {
+            [netWork alertView:@"购买成功!"];
+        } else {
+            [netWork alertView:@"购买失败!"];
+        }
+    }];
 }
 
-#pragma mark - 首页信息
-- (NSDictionary *)requestHomeInformation
+#pragma mark - 其他_开锁
+- (void)other_UnlockingAddress:(NSString *)address returns:(void(^)(NSString *phone))block
 {
-    if (![self determineTheNetwork]) {
-        return nil;
-    }
-    
-    NSURL *url = [NSURL URLWithString:kHomeInformation];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    request.HTTPMethod = @"POST";
-    request.timeoutInterval = 10.0;
-    
-    NSURLResponse *response = nil;
-    NSError *error = nil;
-    
-    NSData *data = [NSURLConnection sendSynchronousRequest:request
-                                         returningResponse:&response
-                                                     error:&error];
-    
-    NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:data
-                                                                options:NSJSONReadingMutableContainers
-                                                                  error:nil];
-    NSInteger index = [[dict objectForKey:@"code"] integerValue];
-    
-    if (0 == index) {
-        
-        NSDictionary *datas = [dict objectForKey:@"datas"];
-        
-        // 轮播图
-        NSArray *advs = [datas objectForKey:@"advs"];
-        
-        // 点赞
-        NSDictionary *zan_count = [datas objectForKey:@"zan_count"];
-        
-        NSArray *zan_array = @[[zan_count objectForKey:@"type1"],
-                               [zan_count objectForKey:@"type2"],
-                               [zan_count objectForKey:@"type3"]];
-        
-        NSDictionary *returnDataDict = [NSDictionary dictionaryWithObjectsAndKeys:advs, @"advs", zan_array, @"zan_count", nil];
-        
-        return returnDataDict;
-    }
-    
-    return nil;
+    NSString *parameter = [NSString stringWithFormat:@"wuye_id=%@&unlock=%@", @"4", address];
+    [self requestNetworkURL:kUnlockingURL requserParameter:parameter returns:^(NSMutableDictionary *dataDict) {
+        NSDictionary *dict = [dataDict objectForKey:@"datas"];
+        block([dict objectForKey:@"phone"]);
+    }];
 }
 
-#pragma mark - 为首页服务项点赞
-- (void)didZanUser_id:(NSString *)user_id
-                 type:(NSString *)type
+#pragma mark - 其他_获取废品单价
+- (void)other_FeipinPriceReturn:(void(^)(NSArray *array))block
 {
+    [self requestNetworkURL:kFeipinPriceURL
+           requserParameter:nil
+                    returns:^(NSMutableDictionary *dataDict)
+    {
+        NSArray *dataAr = [dataDict objectForKey:@"datas"];
+        
+        NSMutableArray *array = [NSMutableArray array];
+        for (int i = 0; i < dataAr.count; i++) {
+            LS_feipinPrice_model *model = [[LS_feipinPrice_model alloc] init];
+            [model setValuesForKeysWithDictionary:[dataAr objectAtIndex:i]];
+            [array addObject:model];
+        }
+        if (block) {
+            block(array);
+        }
+    }];
+}
+
+#pragma mark - 其他_废品回收
+- (void)other_FeipinAcquisitionID:(NSString *)feipinID
+                          wuye_id:(NSString *)wuye_id
+                          address:(NSString *)address
+                            phone:(NSString *)phone
+                           returns:(void(^)(BOOL is))block
+{
+    NSString *parameter = [NSString stringWithFormat:@"id=%@&wuye_id=%@&address=%@&phone=%@", feipinID, wuye_id, address, phone];
+    
+    [self requestNetworkURL:kFeiPinRecycleURL
+           requserParameter:parameter
+                    returns:^(NSMutableDictionary *dataDict)
+    {
+        if (block) {
+            block(YES);
+        }
+    }];
+}
+
+#pragma mark - 其他_报修
+- (void)other_repairUserID:(NSString *)userID
+                   wuye_id:(NSString *)wuye_ID
+                  question:(NSString *)question
+                   address:(NSString *)address
+                      pic1:(UIImage *)image1
+                      pic2:(UIImage *)image2
+                      pic3:(UIImage *)image3
+                   returns:(void(^)(BOOL is))block
+{
+    
     if (![self determineTheNetwork]) {
         return;
     }
     
-    NSURL *url = [NSURL URLWithString:kHomeDidZan];
+    NSURL *url = [NSURL URLWithString:kQuestionURL];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"POST"];
+    // 设置为 multipart 请求
+    NSString *contenType = @"multipart/form-data;boundary=LS";
+    [request setValue:contenType forHTTPHeaderField:@"Content-Type"];
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+    
+    // data
+    NSMutableData *data = [NSMutableData data];
+    
+    // 图片
+    if (image1) {
+        
+        [data appendData:LSEncode(@"--LS\r\n")];
+        NSString *disposition = @"Content-Disposition: form-data; name=\"pic1\"; filename=\"image1.jpeg\"\r\n";
+        [data appendData:LSEncode(disposition)];
+        NSString *imageFormat = @"Content-Type: image/jpeg \r\n";
+        [data appendData:LSEncode(imageFormat)];
+        [data appendData:LSEncode(@"\r\n")];
+        NSData *imageData = UIImageJPEGRepresentation(image1, 0.5);
+        [data appendData:imageData];
+        [data appendData:LSEncode(@"\r\n")];
+    }
+    
+    if (image2) {
+        
+        [data appendData:LSEncode(@"--LS\r\n")];
+        NSString *disposition = @"Content-Disposition: form-data; name=\"pic2\"; filename=\"image2.jpeg\"\r\n";
+        [data appendData:LSEncode(disposition)];
+        NSString *imageFormat = @"Content-Type: image/jpeg \r\n";
+        [data appendData:LSEncode(imageFormat)];
+        [data appendData:LSEncode(@"\r\n")];
+        NSData *imageData = UIImageJPEGRepresentation(image2, 0.5);
+        [data appendData:imageData];
+        [data appendData:LSEncode(@"\r\n")];
+    }
+    
+    if (image3) {
+        
+        [data appendData:LSEncode(@"--LS\r\n")];
+        NSString *disposition = @"Content-Disposition: form-data; name=\"pic3\"; filename=\"image3.jpeg\"\r\n";
+        [data appendData:LSEncode(disposition)];
+        NSString *imageFormat = @"Content-Type: image/jpeg \r\n";
+        [data appendData:LSEncode(imageFormat)];
+        [data appendData:LSEncode(@"\r\n")];
+        NSData *imageData = UIImageJPEGRepresentation(image3, 0.5);
+        [data appendData:imageData];
+        [data appendData:LSEncode(@"\r\n")];
+    }
+    
     
     // 参数
-    NSString *parameter = [NSString stringWithFormat:@"user_id=%@&type=%@", user_id, type];
-    [request setHTTPBody:LSEncode(parameter)];
-    [request setTimeoutInterval:10.0];
+    [data appendData:LSEncode(@"--LS\r\n")];
+    NSString *parameter_userID = @"Content-Disposition: form-data; name=\"id\"\r\n";
+    [data appendData:LSEncode(parameter_userID)];
+    [data appendData:LSEncode(@"\r\n")];
+    [data appendData:LSEncode(userID)];
+    [data appendData:LSEncode(@"\r\n")];
     
-    [NSURLConnection sendAsynchronousRequest:request
-                                       queue:[NSOperationQueue mainQueue]
-                           completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
-                               
-                           }];
+    [data appendData:LSEncode(@"--LS\r\n")];
+    NSString *parameter_wuyeID = @"Content-Disposition: form-data; name=\"wuye_id\"\r\n";
+    [data appendData:LSEncode(parameter_wuyeID)];
+    [data appendData:LSEncode(@"\r\n")];
+    [data appendData:LSEncode(wuye_ID)];
+    [data appendData:LSEncode(@"\r\n")];
     
+    [data appendData:LSEncode(@"--LS\r\n")];
+    NSString *parameter_question = @"Content-Disposition: form-data; name=\"question\"\r\n";
+    [data appendData:LSEncode(parameter_question)];
+    [data appendData:LSEncode(@"\r\n")];
+    [data appendData:LSEncode(question)];
+    [data appendData:LSEncode(@"\r\n")];
+    
+    [data appendData:LSEncode(@"--LS\r\n")];
+    NSString *parameter_address = @"Content-Disposition: form-data; name=\"address\"\r\n";
+    [data appendData:LSEncode(parameter_address)];
+    [data appendData:LSEncode(@"\r\n")];
+    [data appendData:LSEncode(address)];
+    [data appendData:LSEncode(@"\r\n")];
+    
+    NSURLSessionUploadTask *upLoadTask = [session uploadTaskWithRequest:request fromData:data completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error) {
+            [self alertView:@"网络请求失败!"];
+            return ;
+        }
+        
+        NSMutableDictionary *dataDict = [NSJSONSerialization JSONObjectWithData:data
+                                                                        options:NSJSONReadingMutableLeaves
+                                                                          error:nil];
+        if ([[dataDict objectForKey:@"code"] integerValue] != 0) {
+            [self alertView:[dataDict objectForKey:@"datas"]];
+            return ;
+        }
+        
+        if (block) {
+            block(YES);
+        }
+        
+        NSLog(@"question = %@", dataDict);
+        
+    }];
+    [upLoadTask resume];
+}
+
+#pragma mark - 其他_是否已经签到
+- (BOOL)other_isSignInUserID:(NSString *)userID
+{
+    if (![self determineTheNetwork]) {
+        return NO;
+    }
+    NSURL *url = [NSURL URLWithString:kIsSignInURL];
+    NSMutableURLRequest *quest = [NSMutableURLRequest requestWithURL:url];
+    [quest setHTTPMethod:@"POST"];
+    NSString *parameter = [NSString stringWithFormat:@"user_id=%@", userID];
+    [quest setHTTPBody:LSEncode(parameter)];
+    [quest setTimeoutInterval:10.0];
+    
+    NSURLResponse * respose = nil;
+    NSError * error = nil;
+    NSData *data = [NSURLConnection sendSynchronousRequest:quest
+                                         returningResponse:&respose
+                                                     error:&error];
+    if (error) {
+        return NO;
+    }
+    
+    NSMutableDictionary *dataDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+    NSInteger index = [[dataDict objectForKey:@"code"] integerValue];
+    
+    if (0 == index) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+#pragma mark - 其他_签到
+- (BOOL)other_signinUserID:(NSString *)userID
+{
+    if (![self determineTheNetwork]) {
+        return NO;
+    }
+    NSURL *url = [NSURL URLWithString:kSignInURl];
+    NSMutableURLRequest *quest = [NSMutableURLRequest requestWithURL:url];
+    [quest setHTTPMethod:@"POST"];
+    NSString *parameter = [NSString stringWithFormat:@"user_id=%@", userID];
+    [quest setHTTPBody:LSEncode(parameter)];
+    [quest setTimeoutInterval:10.0];
+    
+    NSURLResponse * respose = nil;
+    NSError * error = nil;
+    NSData *data = [NSURLConnection sendSynchronousRequest:quest
+                                         returningResponse:&respose
+                                                     error:&error];
+    if (error) {
+        return NO;
+    }
+    
+    NSMutableDictionary *dataDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+    NSInteger index = [[dataDict objectForKey:@"code"] integerValue];
+    
+    if (0 == index) {
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 #pragma mark - 获取资讯列表
@@ -977,6 +1219,50 @@
         
         
     }];
+}
+
+#pragma mark - 网络请求函数
+- (void)requestNetworkURL:(NSString *)url
+         requserParameter:(NSString *)parameter
+                  returns:(void(^)(NSMutableDictionary *dataDict))block;
+{
+    if (![self determineTheNetwork]) {
+        return;
+    }
+    NSURL *urlPath = [NSURL URLWithString:url];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:urlPath];
+    [request setHTTPMethod:@"POST"];
+    if (parameter) {
+        [request setHTTPBody:LSEncode(parameter)];
+    }
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    [configuration setTimeoutIntervalForRequest:10.0];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+    
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request
+                                            completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)
+                                  {
+                                      if (!data) {
+                                          [self alertView:@"网络请求失败"];
+                                          return;
+                                      }
+                                      NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:data
+                                                                                                  options:NSJSONReadingMutableLeaves
+                                                                                                    error:nil];
+                                      NSInteger code = [[dict objectForKey:@"code"] integerValue];
+                                      if (code != 0) {
+                                          [self alertView:[dict objectForKey:@"datas"]];
+                                          return;
+                                      }
+                                      
+                                      if (block) {
+                                          block(dict);
+                                      }
+                                      
+                                  }];
+    [task resume];
 }
 
 @end

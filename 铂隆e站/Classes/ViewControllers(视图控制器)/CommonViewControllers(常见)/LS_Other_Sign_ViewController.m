@@ -41,6 +41,9 @@
 // 点击签到
 @property (weak, nonatomic) IBOutlet UIButton *didSign;
 
+// 记录是否已经签到
+@property (assign, nonatomic) BOOL isSignIn;
+
 @end
 
 @implementation LS_Other_Sign_ViewController
@@ -58,9 +61,20 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (_isSignIn) {
+        [self didSignInAction];
+    }
+}
+
 #pragma mark - initData
 - (void)initData
 {
+    UserInformation *userInfo = [[LocalStoreManage sharInstance] requestUserInfor];
+    _isSignIn = ![[NetWorkRequestManage sharInstance] other_isSignInUserID:userInfo.user_id];
+    
     // 获取当月天数
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSRange range = [calendar rangeOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitMonth forDate:[NSDate date]];
@@ -102,8 +116,37 @@
 #pragma mark - 点击签到
 - (IBAction)didSign:(UIButton *)sender {
     
-    _imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    UserInformation *userInfo = [[LocalStoreManage sharInstance] requestUserInfor];
     
+    // 签到
+    BOOL is = [[NetWorkRequestManage sharInstance] other_signinUserID:userInfo.user_id];
+    
+    if (!is) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"签到失败" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:cancel];
+        
+        [self presentViewController:alert animated:YES completion:nil];
+        
+        return;
+    }
+    
+    [self didSignInAction];
+    
+    _imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    // 计时器
+    _timer = [NSTimer scheduledTimerWithTimeInterval:1
+                                              target:self
+                                            selector:@selector(countdown:)
+                                            userInfo:nil
+                                             repeats:YES];
+    _number = 1;
+}
+
+#pragma mark - 签到后变成点击都状态
+- (void)didSignInAction
+{
     // 判断是否星期五
     if ([_daySet containsObject:[NSString stringWithFormat:@"%ld", _day]]) {
         
@@ -120,15 +163,7 @@
     _xm.image = [UIImage imageNamed:@"LS_qiandao_mao_pre"];
     
     // 为了防止多次点击获取
-    sender.userInteractionEnabled = NO;
-    
-    // 计时器
-    _timer = [NSTimer scheduledTimerWithTimeInterval:1
-                                              target:self
-                                            selector:@selector(countdown:)
-                                            userInfo:nil
-                                             repeats:YES];
-    _number = 1;
+    _didSign.userInteractionEnabled = NO;
 }
 
 // 监听倒计时
@@ -245,14 +280,6 @@
     
     
     return cell;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    _bg.image = [UIImage imageNamed:@"LS_qiandao_bg_pre"];
-    _xm.image = [UIImage imageNamed:@"LS_qiandao_mao_after"];
-    _didSign.userInteractionEnabled = YES;
-    
 }
 
 @end

@@ -101,23 +101,6 @@
                        code:(NSString *)code
                       retun:(void(^)(NSString *str))block;
 
-#pragma mark - 首页信息
-/**
- *  获取首页信息
- *
- *  @param inform 返回请求数据
- */
-- (NSDictionary *)requestHomeInformation;
-
-/**
- *  为服务项点赞
- *
- *  @param user_id 用户id
- *  @param type    那一项点赞
- */
-- (void)didZanUser_id:(NSString *)user_id
-                 type:(NSString *)type;
-
 #pragma mark - 物业方法接口
 /**
  *  获取小区
@@ -152,6 +135,12 @@
         log_ids:(NSInteger)log_ids
           retum:(void(^)(NSDictionary *dict))inform;
 
+/**
+ *  每桶水价格
+ *
+ *  @return 获取的水的价格
+ */
+- (NSString *)other_WaterMoney;
 
 /**
  *  其他_送水
@@ -163,6 +152,75 @@
                      momey:(NSString *)momey
                   userInfo:(UserInformation *)user;
 
+/**
+ *  其他_开锁
+ *
+ *  @param address 开锁地址
+ *  @param block   求助电话
+ */
+- (void)other_UnlockingAddress:(NSString *)address
+                        returns:(void(^)(NSString *phone))block;
+
+/**
+ *  获取废品单价
+ *
+ *  @param block 获取到的废品单价
+ */
+- (void)other_FeipinPriceReturn:(void(^)(NSArray *array))block;
+
+/**
+ *  其他_废品回收
+ *
+ *  @param feipinID 废品ID
+ *  @param wuye_id  物业ID
+ *  @param address  用户地址
+ *  @param phone    用户手机号
+ *  @param block    返回是否发送成功
+ */
+- (void)other_FeipinAcquisitionID:(NSString *)feipinID
+                          wuye_id:(NSString *)wuye_id
+                          address:(NSString *)address
+                            phone:(NSString *)phone
+                           returns:(void(^)(BOOL is))block;
+
+/**
+ *  其他_报修
+ *
+ *  @param userID   用户ID
+ *  @param wuye_ID  物业ID
+ *  @param question 问题
+ *  @param address  地址
+ *  @param image1   图片1
+ *  @param image2   图片2
+ *  @param image3   图片3
+ *  @param block    返回是否发送成功
+ */
+- (void)other_repairUserID:(NSString *)userID
+                   wuye_id:(NSString *)wuye_ID
+                  question:(NSString *)question
+                   address:(NSString *)address
+                      pic1:(UIImage *)image1
+                      pic2:(UIImage *)image2
+                      pic3:(UIImage *)image3
+                   returns:(void(^)(BOOL is))block;
+
+/**
+ *  其他_是否已经签到
+ *
+ *  @param userID 用户ID
+ *
+ *  @return 是否已经签到
+ */
+- (BOOL)other_isSignInUserID:(NSString *)userID;
+
+/**
+ *  其他_签到
+ *
+ *  @param userID 用户ID
+ *
+ *  @return 签到结果
+ */
+- (BOOL)other_signinUserID:(NSString *)userID;
 
 #pragma mark - 停车咨询接口
 

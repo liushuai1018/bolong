@@ -413,6 +413,7 @@
 		0CB1ABD41C3FA10900C14662 /* 表.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CB1ABC41C3FA10900C14662 /* 表.png */; };
 		0CB1ABD51C3FA10900C14662 /* yulei.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CB1ABC51C3FA10900C14662 /* yulei.png */; };
 		0CB1ABD71C3FA33F00C14662 /* shangchengTitle.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CB1ABD61C3FA33F00C14662 /* shangchengTitle.png */; };
+		0CB86CA01CF6FC180079CE4A /* LS_feipinPrice_model.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CB86C9F1CF6FC180079CE4A /* LS_feipinPrice_model.m */; };
 		0CC1E8241C1EA44800CA4831 /* UMSocialLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0CC1E80A1C1EA44800CA4831 /* UMSocialLocalizable.strings */; };
 		0CC1E8251C1EA44800CA4831 /* libUMSocial_Sdk_4.4.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CC1E8181C1EA44800CA4831 /* libUMSocial_Sdk_4.4.a */; };
 		0CC1E8261C1EA44800CA4831 /* UMSCommentDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CC1E81A1C1EA44800CA4831 /* UMSCommentDetailController.xib */; };
@@ -1112,6 +1113,8 @@
 		0CB1ABC41C3FA10900C14662 /* 表.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "表.png"; sourceTree = "<group>"; };
 		0CB1ABC51C3FA10900C14662 /* yulei.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yulei.png; sourceTree = "<group>"; };
 		0CB1ABD61C3FA33F00C14662 /* shangchengTitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shangchengTitle.png; sourceTree = "<group>"; };
+		0CB86C9E1CF6FC180079CE4A /* LS_feipinPrice_model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LS_feipinPrice_model.h; sourceTree = "<group>"; };
+		0CB86C9F1CF6FC180079CE4A /* LS_feipinPrice_model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LS_feipinPrice_model.m; sourceTree = "<group>"; };
 		0CC1E80B1C1EA44800CA4831 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UMSocialLocalizable.strings; sourceTree = "<group>"; };
 		0CC1E80D1C1EA44800CA4831 /* UMSocial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocial.h; sourceTree = "<group>"; };
 		0CC1E80E1C1EA44800CA4831 /* UMSocialAccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialAccountManager.h; sourceTree = "<group>"; };
@@ -1289,6 +1292,8 @@
 				0C0A44AC1CAB5EFD004FA3F7 /* WuYeDetails.m */,
 				0C0A44AE1CAB74E2004FA3F7 /* HousingAddress.h */,
 				0C0A44AF1CAB74E2004FA3F7 /* HousingAddress.m */,
+				0CB86C9E1CF6FC180079CE4A /* LS_feipinPrice_model.h */,
+				0CB86C9F1CF6FC180079CE4A /* LS_feipinPrice_model.m */,
 			);
 			name = "物业";
 			sourceTree = "<group>";
@@ -3406,6 +3411,7 @@
 				0C3269201CD091E300BC0078 /* LS_Other_Unlocking_ViewController.m in Sources */,
 				0C0A44B01CAB74E2004FA3F7 /* HousingAddress.m in Sources */,
 				0C602C711CBE290E0079DBAC /* PresenceNumber.m in Sources */,
+				0CB86CA01CF6FC180079CE4A /* LS_feipinPrice_model.m in Sources */,
 				0C49F9471CBF83D0005850B6 /* LS_TabBarController.m in Sources */,
 				0CEA40BC1C5781CC00E036B4 /* UIImage+MultiFormat.m in Sources */,
 				0C434AD61C473DEA0053AD2E /* POIAnntation.m in Sources */,

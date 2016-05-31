@@ -59,19 +59,33 @@
     
     // 输入手机号
     NSString *phoneNumber = _regisView.phoneNumber.text;
-    // 发送短信验证码
-    __weak RegisteredViewController *registered = self;
-    [[NetWorkRequestManage sharInstance] senderVerificationCode:phoneNumber
-                                         returnVerificationCode:^(NSString *str) {
+    
+    if ([phoneNumber isEqualToString:@""]) {
         
-         [registered alertView:str];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                        message:@"请输入手机号"
+                                                       delegate:self
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil];
+        [alert show];
         
-        // 发送短信失败重新开启获取验证码
-         [_timer invalidate];
-         sender.enabled = YES;
-         [sender setTitle:@"验证码" forState:UIControlStateNormal];
+    } else {
         
-    }];
+        // 发送短信验证码
+        __weak RegisteredViewController *registered = self;
+        [[NetWorkRequestManage sharInstance] senderVerificationCode:phoneNumber
+                                             returnVerificationCode:^(NSString *str) {
+                                                 
+                                                 [registered alertView:str];
+                                                 
+                                                 // 发送短信失败重新开启获取验证码
+                                                 [_timer invalidate];
+                                                 sender.enabled = YES;
+                                                 [sender setTitle:@"验证码" forState:UIControlStateNormal];
+                                                 
+                                             }];
+    }
+    
 }
 // 倒计时方法
 - (void)onTimer

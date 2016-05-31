@@ -21,6 +21,15 @@
 
 // 记录点击的那个imageBut
 @property (assign, nonatomic) NSInteger index;
+
+// 记录选择的图片
+@property (strong, nonatomic) UIImage *image11;
+@property (strong, nonatomic) UIImage *image22;
+@property (strong, nonatomic) UIImage *image33;
+
+// alert
+@property (strong, nonatomic) UIAlertController *alertView;
+
 @end
 
 @implementation LS_Other_BaoXiu_ViewController
@@ -78,8 +87,37 @@
 #pragma mark - 上传报修问题
 - (IBAction)postBaoXiu:(UIButton *)sender {
     
+    NSString *question = _baoXiu.text;
+    if ([question isEqualToString:@"维修问题"] || [question isEqualToString:@""]) {
+        [self alertViewTitle:@"请填写报修的问题!"];
+        return;
+    }
     
+    NSString *address = _address.text;
+    if ([address isEqualToString:@"详细地址如: XX小区XX号楼XX单元XX号"] || [address isEqualToString:@""]) {
+        [self alertViewTitle:@"请填写完整地址!"];
+        return;
+    }
     
+    UserInformation *userInfo = [[LocalStoreManage sharInstance] requestUserInfor];
+    
+    __weak LS_Other_BaoXiu_ViewController *weak_control = self;
+    [[NetWorkRequestManage sharInstance] other_repairUserID:userInfo.user_id
+                                                    wuye_id:@"3"
+                                                   question:question
+                                                    address:address
+                                                       pic1:_image11
+                                                       pic2:_image22
+                                                       pic3:_image33
+                                                    returns:^(BOOL is) {
+                                                        LS_Other_BaoXiu_ViewController *strong_control = weak_control;
+                                                        if (strong_control) {
+                                                            if (is) {
+                                                                [strong_control alertViewTitle:@"我们以收到您的问题,会尽快给您去维修!"];
+                                                            }
+                                                        }
+                                                        
+                                                    }];
 }
 
 
@@ -152,12 +190,41 @@
     UIImage *editedImage = [info objectForKey:UIImagePickerControllerEditedImage];
     
     UIButton *but = [self.view viewWithTag:_index];
+    switch (_index) {
+        case 14000: {
+            _image11 = editedImage;
+            break;
+        }
+        case 14001: {
+            _image22 = editedImage;
+            break;
+        }
+        case 14002: {
+            _image33 = editedImage;
+            break;
+        }
+    }
+    
+    
     [but setImage:editedImage forState:UIControlStateNormal];
     
 }
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - alertVIew
+- (void)alertViewTitle:(NSString *)title
+{
+    if (!_alertView) {
+        _alertView = [UIAlertController alertControllerWithTitle:@"提示" message:title preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+        [_alertView addAction:cancel];
+    }
+    _alertView.message = title;
+    [self presentViewController:_alertView animated:YES completion:nil];
 }
 
 @end
