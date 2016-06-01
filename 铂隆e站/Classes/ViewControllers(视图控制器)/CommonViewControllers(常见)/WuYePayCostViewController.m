@@ -46,7 +46,7 @@
     _wuyePayCostView.pulldownMenus.textField.placeholder = @"地址:选择缴纳的房屋";
     _wuyePayCostView.pulldownMenus.tableArray = array;
     
-    _wuyePayCostView.paymentDetails.text = @"详情:物业费每平方米按2.2元收取";
+    _wuyePayCostView.paymentDetails.text = [NSString stringWithFormat:@"详情:物业费每平方米按%.2f元收取", _wuye.unit_price];
     _wuyePayCostView.totalFee.text = @"总计:0.00元";
     
 }
@@ -78,7 +78,6 @@
                 NSInteger index = [[dict objectForKey:@"resultStatus"] integerValue];
                 if (9000 == index) { // 判断缴费情况 resultStatus 值除了 9000 以外都是缴费失败
                     
-                    NSLog(@"dict = = = = %@", dict);
                     [wuyePay createrAlertString:@"缴费成功" choose:NO];
                     
                     

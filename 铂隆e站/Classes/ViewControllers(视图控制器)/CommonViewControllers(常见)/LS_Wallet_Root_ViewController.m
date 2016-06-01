@@ -44,7 +44,26 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    _dough.text = _userInfo.money;
+    [self getTheLatestBalance];
+}
+
+#pragma mark - 获取最新余额
+- (void)getTheLatestBalance
+{
+    UserInformation *userInfo = [[LocalStoreManage sharInstance] requestUserInfor];
+    
+    __weak LS_Wallet_Root_ViewController *weak_control = self;
+    [[NetWorkRequestManage sharInstance] wallet_obtainMoneyUserID:userInfo.user_id returns:^(NSString *money) {
+        LS_Wallet_Root_ViewController *strong_control = weak_control;
+        if (strong_control) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // 主线程更新余额
+                strong_control.dough.text = money;
+            });
+            
+        }
+    }];
 }
 
 #pragma mark - 适配

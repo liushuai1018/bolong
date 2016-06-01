@@ -10,8 +10,6 @@
 #import "LS_user_TableViewCell.h"
 #import "LS_user_headView.h"
 
-
-#import "WalletViewController.h"
 #import "PhoneViewController.h"
 #import "YourTestChatViewController.h"
 #import "CircleTableViewController.h"
@@ -94,9 +92,8 @@
     /**
      *   设置显示信息
      */
+    [self getTheLatestBalance];
     
-    // 铂隆币
-    _headView.BoLongbi.text = [NSString stringWithFormat:@"铂隆币: %@", _userInfo.money];
     NSRange range = {3, 6};
     // 手机号
     NSString *str = [_userInfo.mobile stringByReplacingCharactersInRange:range withString:@"******"];
@@ -105,6 +102,25 @@
     _headView.name.text = _userInfo.name;
     // 设置头像
     [self downloadHeadImage];
+}
+
+#pragma mark - 获取最新余额
+- (void)getTheLatestBalance
+{
+    UserInformation *userInfo = [[LocalStoreManage sharInstance] requestUserInfor];
+    
+    __weak LS_UserTableViewController *weak_control = self;
+    [[NetWorkRequestManage sharInstance] wallet_obtainMoneyUserID:userInfo.user_id returns:^(NSString *money) {
+        LS_UserTableViewController *strong_control = weak_control;
+        if (strong_control) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // 主线程更新余额
+                _headView.BoLongbi.text = [NSString stringWithFormat:@"铂隆币: %@", money];
+            });
+            
+        }
+    }];
 }
 
 #pragma marrk - 判断是否有头像图片没有下载
@@ -175,14 +191,11 @@
     id control = nil;
     switch (indexPath.row) {
         case 0:{ // 钱包
-            LS_Wallet_Root_ViewController *wallet = [[LS_Wallet_Root_ViewController alloc] init];
-            wallet.userInfo = _userInfo;
-            control = wallet;
+            control = [[LS_Wallet_Root_ViewController alloc] init];
         }
             break;
         case 1:{ // 充值
             control = [[PhoneViewController alloc]init];
-            
         }
             break;
         case 2:{ // 好友

@@ -88,7 +88,27 @@
     _parking_View.hidden = YES;
     _mall_View.hidden = YES;
     
-    _width.constant = SCREEN_WIDTH * 0.3;
+    NSString *equipmentModel = [[LS_EquipmentModel sharedEquipmentModel] accessModel];
+    
+    _width.constant = SCREEN_WIDTH * 0.25;
+    
+    if ([equipmentModel isEqualToString:@"4_inch"]) {
+        
+        _width.constant = SCREEN_WIDTH * 0.25;
+        return;
+    }
+    if ([equipmentModel isEqualToString:@"4.7_inch"]) {
+        
+        _width.constant = SCREEN_WIDTH * 0.3;
+        return;
+    }
+    if ([equipmentModel isEqualToString:@"5.5_inch"]) {
+        
+        _width.constant = SCREEN_WIDTH * 0.3;
+        return;
+    }
+    
+    
 }
 
 

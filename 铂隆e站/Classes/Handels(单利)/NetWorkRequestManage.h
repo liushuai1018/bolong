@@ -309,4 +309,26 @@
  */
 - (void)obtainIMToken:(UserInformation *)userInfo returns:(void(^)(NSString *token))block;
 
+#pragma mark - 钱包接口
+
+/**
+ *  获取账号剩余铂隆币
+ *
+ *  @param userID 用户ID
+ *  @param block  返回剩余的铂隆币
+ */
+- (void)wallet_obtainMoneyUserID:(NSString *)userID
+                         returns:(void(^)(NSString *money))block;
+
+/**
+ *  充值铂隆币
+ *
+ *  @param userID 用户ID
+ *  @param RMB    充值的铂隆币
+ *  @param block  充值结果
+ */
+- (void)wallet_top_upMoneyUserID:(NSString *)userID
+                      RMB:(NSString *)RMB
+                  returns:(void(^)(NSDictionary *dic))block;
+
 @end

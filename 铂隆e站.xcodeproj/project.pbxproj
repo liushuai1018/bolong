@@ -153,7 +153,6 @@
 		0C53D7E31C462B4500A116F2 /* FoodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C53D7E21C462B4500A116F2 /* FoodViewController.m */; };
 		0C53D7E61C462CDA00A116F2 /* ConvenientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C53D7E51C462CDA00A116F2 /* ConvenientViewController.m */; };
 		0C53D7E91C462EBD00A116F2 /* OpenBetaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C53D7E81C462EBD00A116F2 /* OpenBetaViewController.m */; };
-		0C54D1541C3B4B2000EAC3E7 /* BankCardTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C54D1531C3B4B2000EAC3E7 /* BankCardTableViewController.m */; };
 		0C54D1601C3B51AD00EAC3E7 /* anniu.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C54D1561C3B51AD00EAC3E7 /* anniu.png */; };
 		0C54D1611C3B51AD00EAC3E7 /* annui-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C54D1571C3B51AD00EAC3E7 /* annui-2.png */; };
 		0C54D1621C3B51AD00EAC3E7 /* bangdingchenggong.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C54D1581C3B51AD00EAC3E7 /* bangdingchenggong.png */; };
@@ -167,7 +166,6 @@
 		0C54D16B1C3B56FE00EAC3E7 /* tianjia.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C54D16A1C3B56FE00EAC3E7 /* tianjia.png */; };
 		0C54D16E1C3B682000EAC3E7 /* AddBankCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C54D16D1C3B682000EAC3E7 /* AddBankCardView.m */; };
 		0C54D1701C3B992800EAC3E7 /* LS_huanying_.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0C54D16F1C3B992800EAC3E7 /* LS_huanying_.jpg */; };
-		0C55DAA61C321322006863A9 /* PocketMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C55DAA51C321322006863A9 /* PocketMoneyViewController.m */; };
 		0C55DAA91C321392006863A9 /* PocketMoneyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C55DAA81C321392006863A9 /* PocketMoneyView.m */; };
 		0C55DAAF1C3235E4006863A9 /* PhoneView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C55DAAE1C3235E4006863A9 /* PhoneView.m */; };
 		0C55DAB21C325938006863A9 /* PhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C55DAB11C325938006863A9 /* PhoneViewController.m */; };
@@ -282,7 +280,6 @@
 		0C6F72131CC4CD3000E62EA0 /* LS_Other_baoxiu_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C6F72121CC4CD3000E62EA0 /* LS_Other_baoxiu_bg.png */; };
 		0C6F72151CC4CFAF00E62EA0 /* LS_Other_baoxiu_shangbao.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C6F72141CC4CFAF00E62EA0 /* LS_Other_baoxiu_shangbao.png */; };
 		0C6F72171CC4D4A500E62EA0 /* LS_Other_baoxiu_imageKuang.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C6F72161CC4D4A500E62EA0 /* LS_Other_baoxiu_imageKuang.png */; };
-		0C70DCF91C2D2D3F00786E27 /* WalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C70DCF81C2D2D3F00786E27 /* WalletViewController.m */; };
 		0C70DD011C2D2F5200786E27 /* AboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C70DCFF1C2D2F5200786E27 /* AboutUsViewController.m */; };
 		0C70DD021C2D2F5200786E27 /* AboutUsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C70DD001C2D2F5200786E27 /* AboutUsViewController.xib */; };
 		0C7150A51C4CDDB5004B2CC7 /* delete@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C7150A21C4CDDB5004B2CC7 /* delete@3x.png */; };
@@ -680,8 +677,6 @@
 		0C53D7E51C462CDA00A116F2 /* ConvenientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConvenientViewController.m; sourceTree = "<group>"; };
 		0C53D7E71C462EBD00A116F2 /* OpenBetaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenBetaViewController.h; sourceTree = "<group>"; };
 		0C53D7E81C462EBD00A116F2 /* OpenBetaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenBetaViewController.m; sourceTree = "<group>"; };
-		0C54D1521C3B4B2000EAC3E7 /* BankCardTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BankCardTableViewController.h; sourceTree = "<group>"; };
-		0C54D1531C3B4B2000EAC3E7 /* BankCardTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BankCardTableViewController.m; sourceTree = "<group>"; };
 		0C54D1561C3B51AD00EAC3E7 /* anniu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = anniu.png; sourceTree = "<group>"; };
 		0C54D1571C3B51AD00EAC3E7 /* annui-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "annui-2.png"; sourceTree = "<group>"; };
 		0C54D1581C3B51AD00EAC3E7 /* bangdingchenggong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bangdingchenggong.png; sourceTree = "<group>"; };
@@ -696,8 +691,6 @@
 		0C54D16C1C3B682000EAC3E7 /* AddBankCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddBankCardView.h; sourceTree = "<group>"; };
 		0C54D16D1C3B682000EAC3E7 /* AddBankCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddBankCardView.m; sourceTree = "<group>"; };
 		0C54D16F1C3B992800EAC3E7 /* LS_huanying_.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = LS_huanying_.jpg; sourceTree = "<group>"; };
-		0C55DAA41C321322006863A9 /* PocketMoneyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PocketMoneyViewController.h; sourceTree = "<group>"; };
-		0C55DAA51C321322006863A9 /* PocketMoneyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PocketMoneyViewController.m; sourceTree = "<group>"; };
 		0C55DAA71C321392006863A9 /* PocketMoneyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PocketMoneyView.h; sourceTree = "<group>"; };
 		0C55DAA81C321392006863A9 /* PocketMoneyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PocketMoneyView.m; sourceTree = "<group>"; };
 		0C55DAAD1C3235E4006863A9 /* PhoneView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhoneView.h; sourceTree = "<group>"; };
@@ -936,8 +929,6 @@
 		0C6F72121CC4CD3000E62EA0 /* LS_Other_baoxiu_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LS_Other_baoxiu_bg.png; sourceTree = "<group>"; };
 		0C6F72141CC4CFAF00E62EA0 /* LS_Other_baoxiu_shangbao.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LS_Other_baoxiu_shangbao.png; sourceTree = "<group>"; };
 		0C6F72161CC4D4A500E62EA0 /* LS_Other_baoxiu_imageKuang.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LS_Other_baoxiu_imageKuang.png; sourceTree = "<group>"; };
-		0C70DCF71C2D2D3F00786E27 /* WalletViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletViewController.h; sourceTree = "<group>"; };
-		0C70DCF81C2D2D3F00786E27 /* WalletViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletViewController.m; sourceTree = "<group>"; };
 		0C70DCFE1C2D2F5200786E27 /* AboutUsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsViewController.h; sourceTree = "<group>"; };
 		0C70DCFF1C2D2F5200786E27 /* AboutUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsViewController.m; sourceTree = "<group>"; };
 		0C70DD001C2D2F5200786E27 /* AboutUsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutUsViewController.xib; sourceTree = "<group>"; };
@@ -1563,12 +1554,12 @@
 		0C2562171C06D97F00543498 /* BaseViewController(基本) */ = {
 			isa = PBXGroup;
 			children = (
+				0C49F9451CBF83D0005850B6 /* LS_TabBarController.h */,
+				0C49F9461CBF83D0005850B6 /* LS_TabBarController.m */,
 				0C6F72061CC4BE7C00E62EA0 /* LS_Help_TableViewController.h */,
 				0C6F72071CC4BE7C00E62EA0 /* LS_Help_TableViewController.m */,
 				0C6D48D81CC0BA3600650E80 /* LS_UserTableViewController.h */,
 				0C6D48D91CC0BA3600650E80 /* LS_UserTableViewController.m */,
-				0C49F9451CBF83D0005850B6 /* LS_TabBarController.h */,
-				0C49F9461CBF83D0005850B6 /* LS_TabBarController.m */,
 				0C49F9541CBF8AC8005850B6 /* LS_HomeViewController.h */,
 				0C49F9551CBF8AC8005850B6 /* LS_HomeViewController.m */,
 				0C49F9561CBF8AC8005850B6 /* LS_HomeViewController.xib */,
@@ -1902,14 +1893,8 @@
 			isa = PBXGroup;
 			children = (
 				0CA5EA301CCDC23A00346D34 /* 新钱包界面 */,
-				0C70DCF71C2D2D3F00786E27 /* WalletViewController.h */,
-				0C70DCF81C2D2D3F00786E27 /* WalletViewController.m */,
-				0C55DAA41C321322006863A9 /* PocketMoneyViewController.h */,
-				0C55DAA51C321322006863A9 /* PocketMoneyViewController.m */,
 				0C55DAB01C325938006863A9 /* PhoneViewController.h */,
 				0C55DAB11C325938006863A9 /* PhoneViewController.m */,
-				0C54D1521C3B4B2000EAC3E7 /* BankCardTableViewController.h */,
-				0C54D1531C3B4B2000EAC3E7 /* BankCardTableViewController.m */,
 			);
 			name = Wallet;
 			sourceTree = "<group>";
@@ -3364,7 +3349,6 @@
 				0C9DE4B61CE036D40018A68B /* LS_Other_recycling_ViewController.m in Sources */,
 				0C6386701C6071BB00EF9806 /* LSPickerView.m in Sources */,
 				0C602C671CBE20C30079DBAC /* PresenceOfparkingViewController.m in Sources */,
-				0C70DCF91C2D2D3F00786E27 /* WalletViewController.m in Sources */,
 				0C53D7E61C462CDA00A116F2 /* ConvenientViewController.m in Sources */,
 				0C7AA5C91C8E799C00C6C7B1 /* AddFriendsTableViewCell.m in Sources */,
 				0C6EF0171C45F8DB009BADFF /* GasStationViewController.m in Sources */,
@@ -3451,9 +3435,7 @@
 				0C51AC9D1C1AA12900D39A4E /* PulldownMenusView.m in Sources */,
 				0CB1ABA91C3F80CA00C14662 /* SetTableViewCell.m in Sources */,
 				0C2561DE1C06D96A00543498 /* main.m in Sources */,
-				0C54D1541C3B4B2000EAC3E7 /* BankCardTableViewController.m in Sources */,
 				0C55DAAF1C3235E4006863A9 /* PhoneView.m in Sources */,
-				0C55DAA61C321322006863A9 /* PocketMoneyViewController.m in Sources */,
 				0CFED6C21CEBF501005DC47D /* LS_topUpBLB_ViewController.m in Sources */,
 				0C6021751CBC8E6F00158887 /* OnlineConsultViewController.m in Sources */,
 				0C21EDDD1C118D8300C44468 /* SetTableViewController.m in Sources */,

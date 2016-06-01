@@ -67,7 +67,6 @@
 {
     // Image
     if (image == nil) { // 如果没有图片则 return
-        NSLog(@"用户修改的头像为空");
         return;
     }
     _userInfor.headPortrait = image;
@@ -81,7 +80,6 @@
 {
     // Image
     if (image == nil) { // 如果没有图片则 return
-        NSLog(@"背景图片为空");
         return;
     }
     _userInfor.backgroundImage = image;
@@ -93,11 +91,6 @@
 #pragma mark -- 获取存储在本地的用户信息
 - (UserInformation *)requestUserInfor
 {
-    if (nil != _userInfor) {
-        
-        return _userInfor;
-    }
-    
     // 本地存储路径
     NSString *path = kUserInforPath;
     
@@ -162,6 +155,8 @@
     if ([kFileManager fileExistsAtPath:kAddressPath]) {
         [kFileManager removeItemAtPath:kAddressPath error:nil];
     }
+    
+    
 }
 
 #pragma mark - 将地址列表存储到本地
@@ -186,7 +181,7 @@
     }
     
     NSString *path = kAddressPath;
-    BOOL is = [tempAr writeToFile:path atomically:YES];
+    [tempAr writeToFile:path atomically:YES];
     
 }
 

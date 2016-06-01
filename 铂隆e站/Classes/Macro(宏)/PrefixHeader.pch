@@ -114,6 +114,7 @@
 // 即时通讯touke
 #define kIM_token @"http://101.201.147.70/bolong/mobile.php/Mobile/Token/toke"
 
+
 // 其他_每桶水单价
 #define kWaterMoneyURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/water_pric"
 // 其他_送水
@@ -130,5 +131,11 @@
 #define kIsSignInURL @"http://101.201.147.70/bolong/mobile.php/Mobile/user/old_time"
 // 其他_签到
 #define kSignInURl @"http://101.201.147.70/bolong/mobile.php/Mobile/user/time"
+
+
+// 钱包_剩余铂隆币
+#define kBoLongBiURL @"http://101.201.147.70/bolong/mobile.php/Mobile/User/moneyNum"
+// 钱包_充值
+#define ktopUpMoneyURL @"http://101.201.147.70/bolong/mobile.php/Mobile/User/money"
 
 #endif /* PrefixHeader_pch */

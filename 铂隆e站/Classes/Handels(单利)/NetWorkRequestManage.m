@@ -491,7 +491,6 @@
             CommunityInformation *community = [[CommunityInformation alloc] init];
             [community setValuesForKeysWithDictionary:dict];
             [communityArray addObject:community];
-            
         }
         
         sender(communityArray);
@@ -537,6 +536,9 @@
         [wuye setValuesForKeysWithDictionary:dict];
         
         
+    } else {
+        [self alertView:[dic objectForKey:@"datas"]];
+        return nil;
     }
     
     return wuye;
@@ -571,7 +573,6 @@
                                                                   error:nil];
     NSInteger index = [[dic objectForKey:@"code"] integerValue];
     if (1 == index) {
-        NSLog(@"----------- 交易失败");
         return;
     }
     
@@ -1221,6 +1222,47 @@
     }];
 }
 
+#pragma mark - 账号剩余的铂隆币
+- (void)wallet_obtainMoneyUserID:(NSString *)userID
+                         returns:(void(^)(NSString *money))block
+{
+    NSString *parameter = [NSString stringWithFormat:@"user_id=%@", userID];
+    [self requestNetworkURL:kBoLongBiURL requserParameter:parameter returns:^(NSMutableDictionary *dataDict) {
+        NSString *money = [dataDict objectForKey:@"datas"];
+        if (block) {
+            block(money);
+        }
+    }];
+}
+
+#pragma mark - 充值铂隆币
+- (void)wallet_top_upMoneyUserID:(NSString *)userID
+                             RMB:(NSString *)RMB
+                         returns:(void(^)(NSDictionary *dic))block
+{
+    NSString *parameter = [NSString stringWithFormat:@"user_id=%@&rmb=%@", userID, RMB];
+    [self requestNetworkURL:ktopUpMoneyURL requserParameter:parameter returns:^(NSMutableDictionary *dataDict) {
+        
+        // 请求玩订单信息生成订单
+        NSDictionary *dicts = [dataDict objectForKey:@"datas"];
+        Product *product = [[Product alloc] init];
+        [product setValuesForKeysWithDictionary:dicts];
+        
+        // 跳到主线程
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            // 根据生成订单去支付宝结算
+            [[AlipayManage sharInstance] createrOrderAndSignature:product retum:^(NSDictionary *ditc) {
+                if (block) {
+                    block(ditc);
+                }
+            }];
+            
+        });
+        
+    }];
+}
+
 #pragma mark - 网络请求函数
 - (void)requestNetworkURL:(NSString *)url
          requserParameter:(NSString *)parameter
@@ -1241,24 +1283,29 @@
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
     
+    __weak NetWorkRequestManage *weak_control = self; // 若引用防止block循环引用
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request
                                             completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)
                                   {
-                                      if (!data) {
-                                          [self alertView:@"网络请求失败"];
-                                          return;
-                                      }
-                                      NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:data
-                                                                                                  options:NSJSONReadingMutableLeaves
-                                                                                                    error:nil];
-                                      NSInteger code = [[dict objectForKey:@"code"] integerValue];
-                                      if (code != 0) {
-                                          [self alertView:[dict objectForKey:@"datas"]];
-                                          return;
-                                      }
-                                      
-                                      if (block) {
-                                          block(dict);
+                                      NetWorkRequestManage *strong_control = weak_control; // 弱引用装换强引用,防止在多线程和ARC下随时被释放的问题
+                                      if (strong_control) { // 判断释放释放已经被释放
+                                          
+                                          if (error) {
+                                              [strong_control alertView:@"网络请求失败"];
+                                              return;
+                                          }
+                                          NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:data
+                                                                                                      options:NSJSONReadingMutableLeaves
+                                                                                                        error:nil];
+                                          NSInteger code = [[dict objectForKey:@"code"] integerValue];
+                                          if (code != 0) {
+                                              [strong_control alertView:[dict objectForKey:@"datas"]];
+                                              return;
+                                          }
+                                          
+                                          if (block) {
+                                              block(dict);
+                                          }
                                       }
                                       
                                   }];

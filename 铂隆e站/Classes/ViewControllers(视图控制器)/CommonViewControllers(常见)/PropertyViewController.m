@@ -300,10 +300,13 @@
     UITextField *certificate = [_aTableView viewWithTag:14001];
     NSString *number = certificate.text;
     
+    // 小区id
+    NSString *communityID = _community.wuye_id;
+    
     UserInformation *user =  [[LocalStoreManage sharInstance] requestUserInfor];
     
     WuYeDetails *wuye = [[NetWorkRequestManage sharInstance] wuyeInoformationID:user.user_id
-                                                                           wuye:_community.wuye_id
+                                                                           wuye:communityID
                                                                          number:number
                                                                            name:name];
     if (0 == wuye.code) {
@@ -312,11 +315,7 @@
         wuyePay.wuye = wuye;
         wuyePay.userInformation = user;
         [self.navigationController pushViewController:wuyePay animated:YES];
-    } else {
-        [self creatAlert];
     }
-    
-    
 }
 
 #pragma makr - textFieldDelegate
@@ -367,21 +366,7 @@
     double duraction = [[infor.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] doubleValue];
     
     [UIView animateWithDuration:duraction animations:^{
-        _aTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        _aTableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT);
     }];
-}
-
-#pragma mark - 警告框
-- (void)creatAlert
-{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"输入户主信息有误"
-                                                                   message:nil
-                                                            preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    
-    [alert addAction:cancel];
-    
-    [self presentViewController:alert animated:YES completion:nil];
 }
 @end

@@ -13,7 +13,4 @@
 
 @interface LS_Wallet_Root_ViewController : UIViewController
 
-// 用户信息
-@property (strong, nonatomic) UserInformation *userInfo;
-
 @end
