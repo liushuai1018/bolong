@@ -27,7 +27,7 @@
     UIColor *color = [UIColor colorWithRed:240 / 255.0 green:240 / 255.0 blue:240 / 255.0 alpha:1.0];
     self.backgroundColor = color;
     // 背景View
-    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 30, SCREEN_WIDTH, SCREEN_HEIGHT * 0.4)];
+    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 5, SCREEN_WIDTH, SCREEN_HEIGHT * 0.4)];
     backgroundView.backgroundColor = [UIColor whiteColor];
     [self addSubview:backgroundView];
     
@@ -94,7 +94,7 @@
     [backgroundView addSubview:confirmLabel];
     // 确认密码输入框
     self.confirmPassword = [[UITextField alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.phoneNumber.frame), CGRectGetMinY(confirmLabel.frame), textWidth, textHeight)];
-    _confirmPassword.placeholder = @"请您再次数去密码";
+    _confirmPassword.placeholder = @"请您再次输入密码";
     _confirmPassword.font = [UIFont systemFontOfSize:14.0f];
     _confirmPassword.clearsOnBeginEditing = YES; // 再次输入清空
     _confirmPassword.secureTextEntry = YES; // 密码以圆点显示
@@ -118,7 +118,6 @@
     _captcha.placeholder = @"请您输入验证码";
     _captcha.font = [UIFont systemFontOfSize:14.0f];
     _captcha.clearButtonMode = UITextFieldViewModeWhileEditing;
-//    _captcha.keyboardType = UIKeyboardTypeASCIICapable;
     _captcha.returnKeyType = UIReturnKeyDone;
     _captcha.delegate = self;
     _captcha.tag = 13003;
@@ -238,76 +237,5 @@
     NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", phoneRegex];
     return [phoneTest evaluateWithObject:mobile];
 }
-
-#pragma mark - 随时监听输入文字
-/*
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-    
-    if (13003 == textField.tag) {
-        
-        // 添加选择输入文字监听
-        [textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
-        
-        // 临时存储
-        NSString *checkString;
-        
-        if (range.length > 6) {
-            
-            return NO;
-            
-        } else {
-            
-            if (![string isEqualToString:@""]) {
-                
-                checkString = [_captcha.text stringByAppendingString:string];
-                
-                NSLog(@"phone %@", self.captcha.text);
-                
-            } else {
-                
-                checkString = [checkString stringByDeletingLastPathComponent];
-                
-            }
-            
-            if (checkString.length == 6) {
-                self.block1();
-            } else {
-                self.block2();
-            }
-            
-            
-        }
-        
-        return YES;
-        
-        
-        
-    }
-    
-    return YES;
-}
-
-- (void)textFieldDidChange:(UITextField *)textField
-{
-    // 判断是不是要输入文字的文本框
-    if (textField == self.captcha) {
-        
-        // 判断选择输入文本框的长度
-        if (textField.text.length > 6) {
-            
-            // 超过限制从0 截取到限制长度
-            textField.text = [textField.text substringToIndex:6];
-            
-            if (textField.text.length == 6) {
-                
-                self.block1();
-            }
-            
-            
-        }
-    }
-}
-*/
 
 @end

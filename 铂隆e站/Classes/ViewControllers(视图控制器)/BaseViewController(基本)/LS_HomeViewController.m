@@ -30,6 +30,11 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *width;
 
 
+
+@property (strong, nonatomic) UIButton *rewardImage; // 奖励图片
+@property (assign, nonatomic) NSInteger countdown;   // 倒计时秒数
+@property (strong, nonatomic) NSTimer *timer;
+
 @end
 
 @implementation LS_HomeViewController
@@ -44,6 +49,43 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // 判断是否是注册后第一次登陆
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstRegistration"]) {
+        [self createrBoLongBiImage];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstRegistration"];
+    }
+    
+#warning mark - 隐藏为完成的下一版本在展开
+    _parking_View.hidden = YES;
+    _mall_View.hidden = YES;
+    
+    
+    _width.constant = SCREEN_WIDTH * 0;
+    
+    NSString *equipmentModel = [[LS_EquipmentModel sharedEquipmentModel] accessModel];
+    if ([equipmentModel isEqualToString:@"4_inch"]) {
+        
+        
+        return;
+    }
+    if ([equipmentModel isEqualToString:@"4.7_inch"]) {
+        
+        _width.constant = SCREEN_WIDTH * 0.25;
+        return;
+    }
+    if ([equipmentModel isEqualToString:@"5.5_inch"]) {
+        
+        _width.constant = SCREEN_WIDTH * 0.3;
+        return;
+    }
+    
+    
 }
 
 #pragma makr - 物业缴费
@@ -81,35 +123,45 @@
     [self presentViewController:navigationC animated:YES completion:nil];
 }
 
-#warning mark - 隐藏为完成的下一版本在展开
-- (void)viewWillAppear:(BOOL)animated
+#pragma mark - 创建奖励铂隆币图片
+- (void)createrBoLongBiImage
 {
-    [super viewWillAppear:animated];
-    _parking_View.hidden = YES;
-    _mall_View.hidden = YES;
+    // 创建并启动倒计时
+    _countdown = 3; // 三秒
+    _timer = [NSTimer scheduledTimerWithTimeInterval:1
+                                              target:self
+                                            selector:@selector(onTimer)
+                                            userInfo:nil
+                                             repeats:YES];
     
-    NSString *equipmentModel = [[LS_EquipmentModel sharedEquipmentModel] accessModel];
-    
-    _width.constant = SCREEN_WIDTH * 0.25;
-    
-    if ([equipmentModel isEqualToString:@"4_inch"]) {
-        
-        _width.constant = SCREEN_WIDTH * 0.25;
-        return;
-    }
-    if ([equipmentModel isEqualToString:@"4.7_inch"]) {
-        
-        _width.constant = SCREEN_WIDTH * 0.3;
-        return;
-    }
-    if ([equipmentModel isEqualToString:@"5.5_inch"]) {
-        
-        _width.constant = SCREEN_WIDTH * 0.3;
-        return;
-    }
-    
-    
+    [self.navigationController setNavigationBarHidden:YES];
+    self.tabBarController.tabBar.hidden = YES;
+    self.rewardImage = [UIButton buttonWithType:UIButtonTypeCustom];
+    _rewardImage.frame = [UIScreen mainScreen].bounds;
+    [_rewardImage setImage:[UIImage imageNamed:@"new_jiangli"] forState:UIControlStateNormal];
+    [_rewardImage addTarget:self action:@selector(BoLongBiAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_rewardImage];
 }
 
+- (void)BoLongBiAction:(UIButton *)sender
+{
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    self.tabBarController.tabBar.hidden = NO;
+    [sender removeFromSuperview];
+}
+
+- (void)onTimer
+{
+    if (_countdown > 0) {
+        _countdown--;
+        
+    } else {
+        _countdown = 3;
+        [_timer invalidate];
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+        self.tabBarController.tabBar.hidden = NO;
+        [_rewardImage removeFromSuperview];
+    }
+}
 
 @end

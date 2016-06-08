@@ -21,31 +21,36 @@
 
 @implementation RegisteredViewController
 
-- (void)loadView
-{
-    self.regisView = [[RegisteredView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.view = _regisView;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.title = @"注册";
-    [self addBarButtonItem]; // 添加navigaction 按钮
+    self.navigationController.navigationBar.translucent = NO;
     
+    [self addBarButtonItem]; // 添加navigaction 按钮
+    [self initView];
+}
+
+- (void)initView {
+    self.regisView = [[RegisteredView alloc] initWithFrame:self.view.bounds];
+    self.view = _regisView;
     
     __weak RegisteredViewController *registered = self;
     _regisView.block = ^(UIButton *sender) {
         [registered gettingCaptchaAction:sender];
     };
-    
 }
-
-
 
 #pragma makr - 获取验证码事件
 - (void)gettingCaptchaAction:(UIButton *)sender
 {
+    // 输入手机号
+    NSString *phoneNumber = _regisView.phoneNumber.text;
+    
+    if ([phoneNumber isEqualToString:@""]) {
+        [self alertViewWithTitle:@"提示" message:@"请输入手机号"];
+        return;
+    }
+    
     self.sender = sender;
     // 设置倒计秒数 60；
     _countdown = 60;
@@ -57,34 +62,20 @@
                                             userInfo:nil
                                              repeats:YES];
     
-    // 输入手机号
-    NSString *phoneNumber = _regisView.phoneNumber.text;
-    
-    if ([phoneNumber isEqualToString:@""]) {
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                        message:@"请输入手机号"
-                                                       delegate:self
-                                              cancelButtonTitle:@"确定"
-                                              otherButtonTitles:nil];
-        [alert show];
-        
-    } else {
-        
-        // 发送短信验证码
-        __weak RegisteredViewController *registered = self;
-        [[NetWorkRequestManage sharInstance] senderVerificationCode:phoneNumber
-                                             returnVerificationCode:^(NSString *str) {
-                                                 
-                                                 [registered alertView:str];
-                                                 
-                                                 // 发送短信失败重新开启获取验证码
-                                                 [_timer invalidate];
-                                                 sender.enabled = YES;
-                                                 [sender setTitle:@"验证码" forState:UIControlStateNormal];
-                                                 
-                                             }];
-    }
+    // 发送短信验证码
+    __weak RegisteredViewController *registered = self;
+    [[NetWorkRequestManage sharInstance] senderVerificationCode:phoneNumber
+                                                           type:@"0"
+                                         returnVerificationCode:^(NSString *str) {
+                                             
+                                             [registered alertViewWithTitle:str message:nil];
+                                             
+                                             // 发送短信失败重新开启获取验证码
+                                             [_timer invalidate];
+                                             sender.enabled = YES;
+                                             [sender setTitle:@"验证码" forState:UIControlStateNormal];
+                                             
+                                         }];
     
 }
 // 倒计时方法
@@ -109,17 +100,24 @@
 #pragma mark - 添加 navigation Button
 - (void)addBarButtonItem
 {
+    UIBarButtonItem *leftBar = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"fanhui"] style:UIBarButtonItemStyleDone target:self action:@selector(didCilckLeftActin)];
+    self.navigationItem.leftBarButtonItem = leftBar;
+    
     UIBarButtonItem *rightBI1 = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(didClickRightBI:)];
     self.navigationItem.rightBarButtonItem = rightBI1;
-    [[UINavigationBar appearance] setTintColor:[UIColor lightGrayColor]];
     
+}
+
+// 左边
+- (void)didCilckLeftActin {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 // 右边事件
 - (void)didClickRightBI:(UIBarButtonItem *)but
 {
     if (!_regisView.record) {
-        [self alertView:@"请输入完整"];
+        [self alertViewWithTitle:@"请输入完整" message:nil];
         
         [self.navigationController popToRootViewControllerAnimated:YES];
         
@@ -131,33 +129,38 @@
     NSString *captcha = _regisView.captcha.text;
     
     // 给服务器发送注册信息返回是否注册成功
-    BOOL is = [[NetWorkRequestManage sharInstance] registeredAccount:userName
-                                                                code:captcha
-                                                            password:pawdName];
-    
-    // 根据是否注册成功判断提示用户
-    if (is) {
-        
-        // 注册成功
-        NSDictionary *userDic = @{
-                                  @"account":userName,
-                                  @"pawd":pawdName
-                                  };
-        // 账号密码存储到 userDefaults
-        [[NSUserDefaults standardUserDefaults] setObject:userDic forKey:@"account"];
-        
-        [self.navigationController popViewControllerAnimated:YES];
-        
-        // 注册成功退出当前视图控制器，下一步执行
-        if (self.block) {
-            self.block();
+    __weak RegisteredViewController *weak_control = self;
+    [[NetWorkRequestManage sharInstance] registeredAccount:userName
+                                                      code:captcha
+                                                  password:pawdName
+                                                   returns:^(NSDictionary *isRegisteredAccount)
+    {
+        RegisteredViewController *strong_control = weak_control;
+        if (strong_control) {
+            
+             NSInteger index = [[isRegisteredAccount objectForKey:@"code"] integerValue];
+            
+            // 根据是否注册成功判断提示用户
+            if (index == 0) {
+                
+                // 注册成功
+                NSDictionary *userDic = @{@"account":userName,
+                                          @"pawd":pawdName};
+                // 账号密码存储到 userDefaults
+                [[NSUserDefaults standardUserDefaults] setObject:userDic forKey:@"account"];
+                // 注册成功第一次登陆
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstRegistration"];
+                
+                [strong_control dismissViewControllerAnimated:YES completion:nil];
+                
+            } else {
+                
+                // 注册失败
+                [strong_control alertViewWithTitle:[isRegisteredAccount objectForKey:@"datas"] message:nil];
+            }
+            
         }
-        
-    } else {
-        
-        // 注册失败
-        [self alertView:@"注册失败"];
-    }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -166,14 +169,16 @@
 }
 
 #pragma mark - UIAlertView 提示框
-- (void)alertView:(NSString *)str
+- (void)alertViewWithTitle:(NSString *)title
+                   message:(NSString *)message
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:str
-                                                    message:nil
-                                                   delegate:self
-                                          cancelButtonTitle:@"确定"
-                                          otherButtonTitles:nil];
-    [alert show];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:cancel];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 @end

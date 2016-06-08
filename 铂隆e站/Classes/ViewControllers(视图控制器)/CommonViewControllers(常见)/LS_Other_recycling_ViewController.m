@@ -51,6 +51,10 @@
     [[NetWorkRequestManage sharInstance] other_FeipinPriceReturn:^(NSArray *array) {
         LS_Other_recycling_ViewController *strong_control = weak_control;
         if (strong_control) {
+            if (!array) {
+                return;
+            }
+            
             dispatch_async(dispatch_get_main_queue(), ^{ // 主线程刷新UI
                 strong_control.priceAr = array;
                 LS_feipinPrice_model *model = [array objectAtIndex:1];
@@ -72,7 +76,7 @@
     _LS_view.button.label.text = @"易拉罐:--元";
     [_LS_view.buyBut addTarget:self action:@selector(buyAction:) forControlEvents:UIControlEventTouchUpInside];
     
-    _index = 1; // 默认收购2
+    _index = 1; // 默认收购1
 }
 #pragma mark - 监听上门收购按钮事件
 - (void)buyAction:(UIButton *)sender

@@ -38,12 +38,12 @@
 #pragma mark - initData
 - (void)initData
 {
-    _imageArray = @[@"LS_xinxishezhi",
-                    @"LS_qingchuhuancun",
-                    @"LS_dizhiguabli"];
-    _titleArray = @[@"信息设置",
-                    @"清理缓存",
-                    @"地址管理"];
+    _imageArray = @[@"LS_qingchuhuancun",
+                    @"LS_dizhiguabli",
+                    @"LS_xinxishezhi"];
+    _titleArray = @[@"清理缓存",
+                    @"地址管理",
+                    @"信息设置"];
 }
 
 #pragma mark - 添加 BarBUtton
@@ -80,7 +80,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (_titleArray.count != 0) {
-        return _titleArray.count;
+#warning mark - 隐藏了一项
+        return _titleArray.count - 1;
     } else {
         return 0;
     }
@@ -141,13 +142,27 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     switch (indexPath.row) {
-        case 0: {
+        case 2: {
             
             _inforSetTVC = [[InforSetTableViewController alloc] init];
             [self.navigationController pushViewController:_inforSetTVC animated:YES];
             break;
         }
-        case 2: {
+        case 0: {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"是否清理缓存" message:nil preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            [alert addAction:cancel];
+            
+            UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [[LocalStoreManage sharInstance] clearTheCache];
+            }];
+            [alert addAction:action];
+            
+            [self presentViewController:alert animated:YES completion:nil];
+            break;
+        }
+        case 1: {
             _addressManage = [[LS_AddressManage_ViewController alloc] init];
             [self.navigationController pushViewController:_addressManage animated:YES];
             break;

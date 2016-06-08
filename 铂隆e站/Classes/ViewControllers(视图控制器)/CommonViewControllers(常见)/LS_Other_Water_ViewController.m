@@ -37,9 +37,13 @@
 #pragma mark - dat
 - (void)initData
 {
-    NSString *pice = [[NetWorkRequestManage sharInstance] other_WaterMoney];
-    _price.text = [NSString stringWithFormat:@"每桶: %@元", pice];
-    _priceMoney = [pice floatValue];
+    [[NetWorkRequestManage sharInstance] other_WaterMoneyWithPrice:^(NSString *price) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            _price.text = [NSString stringWithFormat:@"每桶: %@元", price];
+            _priceMoney = [price floatValue];
+        });
+    }];
 }
 
 #pragma mark - 送水支付事件
@@ -47,11 +51,21 @@
     
     UserInformation *userInfo = [[LocalStoreManage sharInstance] requestUserInfor];
     
+    NSString *address = _address.text;
+    if ([address isEqualToString:@""]) {
+        [self createrAlertControlWithTitle:@"请输入地址"];
+        return;
+    }
     NSString *totalPrice = [NSString stringWithFormat:@"%.2f", [_number.text integerValue] * _priceMoney];
+    if ([_number.text isEqualToString:@""]) {
+        [self createrAlertControlWithTitle:@"请输入购买数量"];
+        return;
+    }
     
-    [[NetWorkRequestManage sharInstance] other_waterAddress:_address.text
-                                                      momey:totalPrice
-                                                   userInfo:userInfo];
+    [[NetWorkRequestManage sharInstance] other_waterWithWuYeId:@"4"
+                                                       Address:address
+                                                         momey:totalPrice
+                                                      userInfo:userInfo.user_id];
     
 }
 
@@ -73,6 +87,15 @@
     [_address resignFirstResponder];
     [_number resignFirstResponder];
     _price_Y.constant = 0;
+}
+
+- (void)createrAlertControlWithTitle:(NSString *)title {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:title preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:cancel];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 @end

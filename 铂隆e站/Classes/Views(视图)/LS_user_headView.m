@@ -51,6 +51,7 @@
     // 铂隆币
     self.BoLongbi = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(view.frame) - 30, CGRectGetMinX(_portraitImage.frame), 30)];
     _BoLongbi.textAlignment = NSTextAlignmentCenter;
+    _BoLongbi.text = @"铂隆币: 0.00";
     _BoLongbi.textColor = [UIColor whiteColor];
     _BoLongbi.font = [UIFont systemFontOfSize:14.0f];
     [self addSubview:_BoLongbi];

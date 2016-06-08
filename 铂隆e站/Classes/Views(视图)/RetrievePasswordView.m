@@ -85,35 +85,33 @@
 - (void)clickButton:(UIButton *)sender
 {
     if ([_phone.text isEqualToString:@""]) {
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                        message:@"请输入手机号"
-                                                       delegate:self
-                                              cancelButtonTitle:@"确定"
-                                              otherButtonTitles:nil];
-        [alert show];
-        
+        [self createrAlertViewWithMessage:@"请输入手机号"];
+        return;
     } else {
-        
-        // 发送验证码请求
-        [[NetWorkRequestManage sharInstance] senderVerificationCode:_phone.text returnVerificationCode:^(NSString *str) {
-            
-        }];
-        
-        sender.enabled = NO;
-        [sender setTitle:@"60秒" forState:UIControlStateNormal];
-        [sender setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [sender setBackgroundColor:[UIColor lightGrayColor]];
-        
         _countdown = 60;
         _timer = [NSTimer scheduledTimerWithTimeInterval:1.0
                                                   target:self
                                                 selector:@selector(onTimer)
                                                 userInfo:nil
                                                  repeats:YES];
+        sender.enabled = NO;
+        [sender setTitle:@"60秒" forState:UIControlStateNormal];
+        [sender setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [sender setBackgroundColor:[UIColor lightGrayColor]];
+        
+        // 发送验证码请求
+        __weak RetrievePasswordView *view = self;
+        [[NetWorkRequestManage sharInstance] senderVerificationCode:_phone.text type:@"1" returnVerificationCode:^(NSString *str) {
+            
+            [view createrAlertViewWithMessage:str];
+            [_timer invalidate];
+            [_verificationButton setTitle:@"验证码" forState:UIControlStateNormal];
+            [_verificationButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+            [_verificationButton setBackgroundColor:[UIColor whiteColor]];
+            _verificationButton.enabled = YES;
+            
+        }];
     }
-    
-    
 }
 
 #pragma  mark - 倒计时事件
@@ -131,6 +129,15 @@
         _verificationButton.enabled = YES;
         
     }
+}
+
+- (void)createrAlertViewWithMessage:(NSString *)message {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                    message:message
+                                                   delegate:self
+                                          cancelButtonTitle:@"确定"
+                                          otherButtonTitles:nil];
+    [alert show];
 }
 
 @end

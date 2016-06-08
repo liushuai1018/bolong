@@ -8,8 +8,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LS_Wallet_Root_ViewController">
             <connections>
+                <outlet property="bolongbi" destination="7Oa-Oo-obG" id="Sg4-Xi-PCb"/>
                 <outlet property="distanceTop" destination="ED1-FB-mr5" id="Oaz-X7-nB7"/>
                 <outlet property="dough" destination="Lsf-xk-Haj" id="R4v-LY-x6l"/>
+                <outlet property="qianbao_yue_height" destination="Rx3-vH-KcJ" id="hgF-YH-qF4"/>
+                <outlet property="qianbao_yue_widht" destination="FK7-cL-O4l" id="Qks-zN-sgx"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -25,9 +28,9 @@
                     <rect key="frame" x="56" y="0.0" width="208" height="256"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lsf-xk-Haj">
-                    <rect key="frame" x="85" y="85" width="150" height="50"/>
+                    <rect key="frame" x="85" y="85" width="150" height="40"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="50" id="X7x-Id-H5T"/>
+                        <constraint firstAttribute="height" constant="40" id="X7x-Id-H5T"/>
                         <constraint firstAttribute="width" constant="150" id="YvG-ei-oyC"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
@@ -35,7 +38,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="铂隆币余额" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Oa-Oo-obG">
-                    <rect key="frame" x="85" y="135" width="150" height="25"/>
+                    <rect key="frame" x="85" y="125" width="150" height="16"/>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -48,14 +51,14 @@
                     </constraints>
                     <state key="normal" image="LS_qianbao_center_logo.png"/>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="utJ-4p-yfJ">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="utJ-4p-yfJ">
                     <rect key="frame" x="67" y="316" width="60" height="60"/>
                     <state key="normal" image="LS_qianbao_gouwuche.png"/>
                     <connections>
                         <action selector="shoppingCart:" destination="-1" eventType="touchUpInside" id="eHK-08-rdE"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beg-kV-IzQ">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beg-kV-IzQ">
                     <rect key="frame" x="193" y="316" width="60" height="60"/>
                     <state key="normal" image="LS_qianbao_xiaofei.png"/>
                     <connections>
@@ -69,7 +72,7 @@
                         <action selector="service:" destination="-1" eventType="touchUpInside" id="5NO-BK-dpJ"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hzA-kO-epm">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hzA-kO-epm">
                     <rect key="frame" x="162" y="266" width="60" height="60"/>
                     <state key="normal" image="LS_qianbao_shangcheng.png"/>
                     <connections>
@@ -207,7 +210,7 @@
                 <constraint firstItem="gjQ-Kp-SG5" firstAttribute="trailing" secondItem="hzA-kO-epm" secondAttribute="trailing" constant="-32" id="rvc-Me-3vl"/>
                 <constraint firstItem="C1I-nW-9R3" firstAttribute="width" secondItem="gjQ-Kp-SG5" secondAttribute="width" id="s9G-zy-Ej7"/>
                 <constraint firstItem="utJ-4p-yfJ" firstAttribute="width" secondItem="gjQ-Kp-SG5" secondAttribute="width" id="sZ6-SG-xvC"/>
-                <constraint firstItem="7Oa-Oo-obG" firstAttribute="height" secondItem="Lsf-xk-Haj" secondAttribute="height" multiplier="0.5" id="t1S-Rm-ynH"/>
+                <constraint firstItem="7Oa-Oo-obG" firstAttribute="height" secondItem="Lsf-xk-Haj" secondAttribute="height" multiplier="0.4" id="t1S-Rm-ynH"/>
                 <constraint firstItem="C1I-nW-9R3" firstAttribute="height" secondItem="gjQ-Kp-SG5" secondAttribute="height" id="tEU-i4-Smr"/>
                 <constraint firstItem="utJ-4p-yfJ" firstAttribute="height" secondItem="gjQ-Kp-SG5" secondAttribute="height" id="tZe-XB-RGO"/>
                 <constraint firstItem="utJ-4p-yfJ" firstAttribute="top" secondItem="HpU-1S-szd" secondAttribute="top" id="td6-x5-cqE"/>

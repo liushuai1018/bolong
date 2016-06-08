@@ -18,10 +18,6 @@
 @property (nonatomic, strong) UITextField *passwordText; // 密码
 @property (nonatomic, strong) UIButton *longBut; // 登陆按钮
 @property (nonatomic, strong) UIButton *registeredBut; // 注册按钮
-@property (nonatomic, strong) UILabel *thirdLabel; // 第三方登陆
 @property (nonatomic, strong) UILabel *promptLabel; // 密码错误提示框
-@property (nonatomic, strong) UIButton *qqBut; // QQ第三方
-@property (nonatomic, strong) UIButton *weiXinBut; // 微信第三方
-@property (nonatomic, strong) UIButton *weiBoBut; // 微博第三方
 
 @end

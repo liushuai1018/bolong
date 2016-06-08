@@ -56,7 +56,7 @@
     self.submitBtn.frame = CGRectMake(CGRectGetMinX(label1.frame), CGRectGetMaxY(_unmberTF.frame) + 20, CGRectGetWidth(label1.frame), 40);
     self.submitBtn.backgroundColor = [UIColor orangeColor];
     [self.submitBtn setTitle:@"提交" forState:UIControlStateNormal];
-    [self.submitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.submitBtn setTitleColor:[UIColor yellowColor] forState:UIControlStateNormal];
     [self addSubview:_submitBtn];
     
 }

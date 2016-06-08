@@ -12,6 +12,8 @@
 #import "LonginViewController.h"
 #import <RongIMKit/RongIMKit.h>
 #import <AlipaySDK/AlipaySDK.h>
+#import <AdSupport/AdSupport.h>
+#import "JPUSHService.h"
 
 @interface AppDelegate ()
  
@@ -30,9 +32,9 @@
     // 隐藏状态栏
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
     
-    [self initializeUM];
     [self initiazeRong];
     [self connectionIMSDKServer];
+    [self initJPUSHWithOptions:launchOptions];
     
     // 判断是不是第一次启动
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"firstLaunch"]) {
@@ -67,15 +69,6 @@
     
     return YES;
 }
-
-#pragma mark - 初始化友盟key
-- (void)initializeUM
-{
-    // 友盟AppKey
-    [UMSocialData setAppKey:UMKey];
-    
-}
-
 #pragma mark - 初始化融云key
 - (void)initiazeRong
 {
@@ -138,6 +131,33 @@
     
 }
 
+#pragma mark - 极光推送
+- (void)initJPUSHWithOptions:(NSDictionary *)launchOption {
+    // 广告标示符
+    NSString *advertisingID = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+    
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) { // 系统版本
+        // 可以自定义类别categories
+        [JPUSHService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
+                                                          UIUserNotificationTypeSound |
+                                                          UIUserNotificationTypeAlert )
+                                              categories:nil];
+    } else {
+        // 类别categories 必须为nil
+        [JPUSHService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
+                                                          UIUserNotificationTypeSound |
+                                                          UIUserNotificationTypeAlert )
+                                              categories:nil];
+    }
+    
+    // 如果不需要使用IDFA, advertisingIDentifier 可为nil
+    [JPUSHService setupWithOption:launchOption
+                           appKey:JPush_key
+                          channel:@"App Store"
+                 apsForProduction:FALSE
+            advertisingIdentifier:advertisingID];
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
@@ -148,6 +168,7 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0]; // 设置通知消息归0
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -155,6 +176,8 @@
     
     // 隐藏状态栏
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
+    [application setApplicationIconBadgeNumber:0];// 设置通知消息归0
+    [application cancelAllLocalNotifications]; // 取消全部的本地通知
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -174,24 +197,53 @@
             openURL:(NSURL *)url
             options:(NSDictionary<NSString *,id> *)options
 {
-    BOOL result = [UMSocialSnsService handleOpenURL:url];
-    if (result == FALSE) {
-        NSLog(@"跳转状态未知!");
-    }
-    
     // 跳转支付宝钱包进行支付，处理支付结果
     if ([url.host isEqualToString:@"safepay"]) {
         
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url
                                                   standbyCallback:^(NSDictionary *resultDic)
          {
-             NSLog(@"aliPay = %@", resultDic);
+             
          }];
-        
     }
-    
-    
     return YES;
 }
 
+#pragma mark - JPUSH
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(nonnull NSData *)deviceToken {
+    // JPUSH 注册 DeviceToken
+    [JPUSHService registerDeviceToken:deviceToken];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(nonnull NSError *)error {
+    NSLog(@"推送错误信息 Error: %@", error);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(nonnull NSDictionary *)userInfo fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler {
+    
+    // 判断程序是否在前台
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
+        
+        // 在前台弹出一个提示框
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"推送消息" message:@"你有一条新的推送消息" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:cancel];
+        
+        UIAlertAction *chakan = [UIAlertAction actionWithTitle:@"查看" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        [alert addAction:chakan];
+        
+        [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
+    } else {
+        [JPUSHService handleRemoteNotification:userInfo];
+    }
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    completionHandler(UIBackgroundFetchResultNewData);
+}
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(nonnull UILocalNotification *)notification
+{
+    [JPUSHService showLocalNotificationAtFront:notification identifierKey:nil];
+}
 @end

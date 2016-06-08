@@ -305,17 +305,23 @@
     
     UserInformation *user =  [[LocalStoreManage sharInstance] requestUserInfor];
     
-    WuYeDetails *wuye = [[NetWorkRequestManage sharInstance] wuyeInoformationID:user.user_id
-                                                                           wuye:communityID
-                                                                         number:number
-                                                                           name:name];
-    if (0 == wuye.code) {
-        
-        WuYePayCostViewController *wuyePay = [[WuYePayCostViewController alloc] init];
-        wuyePay.wuye = wuye;
-        wuyePay.userInformation = user;
-        [self.navigationController pushViewController:wuyePay animated:YES];
-    }
+    __weak PropertyViewController *weak_control = self;
+    [[NetWorkRequestManage sharInstance] wuyeInoformationID:user.user_id
+                                                       wuye:communityID
+                                                     number:number
+                                                       name:name
+                                                    returns:^(WuYeDetails *wuyeDetails) {
+                                                        PropertyViewController *strong_control = weak_control;
+                                                        if (strong_control) {
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                WuYePayCostViewController *wuyePay = [[WuYePayCostViewController alloc] init];
+                                                                wuyePay.wuye = wuyeDetails;
+                                                                wuyePay.userInformation = user;
+                                                                [strong_control.navigationController pushViewController:wuyePay animated:YES];
+                                                            });
+                                                        }
+                                                    }];
 }
 
 #pragma makr - textFieldDelegate

@@ -76,4 +76,9 @@
  */
 - (NSMutableArray *)obtainAddressList;
 
+/**
+ *  清理缓存
+ */
+- (void)clearTheCache;
+
 @end

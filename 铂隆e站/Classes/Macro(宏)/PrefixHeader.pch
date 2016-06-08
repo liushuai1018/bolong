@@ -15,34 +15,9 @@
 #define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
 
 /**
- *  微信KEY
+ *  高德地图 Key
  */
-#define WXAppId @"wxac7a9b0e54792579"
-#define WXSecret @"6495cf5079105add555117a7eb6160e1"
-#define WXURL @"http://www.umeng.com/social"
-
-/**
- *  QQ Key
- */
-#define QQAppId @"1105024974"
-#define QQSecret @"N6Cr9uUMhTx6kpTb"
-#define QQURL @"http://www.umeng.com/social"
-
-/**
- *  友盟 Key
- */
-#define UMKey @"566e68d967e58eeb4e0023ff"
-
-/**
- *  友盟 IM Key
- */
-#define UM_IM_Key @"23287383"
-#define UM_IM_Appkey @"77f1e86dfc704dd70868fea2390887e6"
-
-/**
- *  百度地图 Key
- */
-#define MA_Map_Key @"936f390ba2e0836fa084ec4f61afc41c"
+#define MA_Map_Key @"02cac2680412de36f8a0ff5ea41ae69a"
 
 /**
  *  融云 IM Key
@@ -50,9 +25,12 @@
 #define RC_IM_Key @"8w7jv4qb7ey6y"
 #define RC_IM_Temp_Token @"VAZqz8j5M8QUss7jfSTc5DVHXkAG7pcbJF4TZk7kk0nL6WDRhRfgEW6YMsqg4LLcWSL898AphGuL8iwmgPbJcQ=="
 
+/**
+ *  极光推送 Key
+ */
+#define JPush_key @"fe34a14344083c7d18bbd0f6"
 
 // 引入
-#import "UMSocial.h"
 #import "UIImageView+WebCache.h"
 #import "NetWorkRequestManage.h"
 #import "LocalStoreManage.h"
@@ -86,7 +64,7 @@
 // 物业缴费信息
 #define kWuYePayInformation @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/pay_wuye"
 // 确认物业缴费
-#define kWuYePay @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/pay"
+#define kWuYePayURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/pay"
 
 
 // 获取咨询列表
@@ -137,5 +115,11 @@
 #define kBoLongBiURL @"http://101.201.147.70/bolong/mobile.php/Mobile/User/moneyNum"
 // 钱包_充值
 #define ktopUpMoneyURL @"http://101.201.147.70/bolong/mobile.php/Mobile/User/money"
+// 钱包_查询充值记录
+#define kMoneyRecordURL @"http://101.201.147.70/bolong/mobile.php/Mobile/user/record"
+
+
+// 帮助_意见反馈
+#define kFankuiURL @"http://101.201.147.70/bolong/mobile.php/Mobile/user/fankui"
 
 #endif /* PrefixHeader_pch */

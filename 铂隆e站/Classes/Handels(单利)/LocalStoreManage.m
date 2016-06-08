@@ -208,4 +208,14 @@
     }
 }
 
+#pragma mark - 清理缓存
+- (void)clearTheCache {
+    // 获取所有路径
+    NSString *headPath = kHeadImagePath;
+    
+    if ([kFileManager fileExistsAtPath:headPath]) {
+        [kFileManager removeItemAtPath:headPath error:nil];
+    }
+}
+
 @end

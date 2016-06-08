@@ -80,8 +80,6 @@
                     
                     [wuyePay createrAlertString:@"缴费成功" choose:NO];
                     
-                    
-                    
                 } else {
                     
                     [wuyePay createrAlertString:[dict objectForKey:@"memo"] choose:YES];

@@ -12,10 +12,6 @@
  */
 #import <UIKit/UIKit.h>
 
-
-typedef void(^kBlock)();
 @interface RegisteredViewController : UIViewController
-
-@property (copy, nonatomic) kBlock block;
 
 @end

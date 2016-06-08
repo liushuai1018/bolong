@@ -48,19 +48,48 @@
 // 左边BarButton
 - (void)didClickLeftAction:(UIBarButtonItem *)but
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didClickAction:(UIButton *)but
 {
     NSString *opinion = _feedbckView.opinionTF.text;
+    if ([opinion isEqualToString:@""]) {
+        [self createrAlertViewString:@"请输入意见!"];
+        return;
+    }
     NSString *unmber = _feedbckView.unmberTF.text;
-    NSLog(@"意见: %@, 手机号: %@", opinion, unmber);
+    if ([unmber isEqualToString:@""]) {
+        [self createrAlertViewString:@"请输入手机号!"];
+        return;
+    }
+    
+    UserInformation *userInfo = [[LocalStoreManage sharInstance] requestUserInfor];
+    
+    __weak FeedbckViewController *weak_control = self;
+    [[NetWorkRequestManage sharInstance] help_opinionUserID:userInfo.user_id content:opinion phone:unmber returns:^(BOOL is) {
+        if (is) {
+            FeedbckViewController *strong_control = weak_control;
+            if (strong_control) {
+                [self createrAlertViewString:@"意见反馈成功"];
+            }
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)createrAlertViewString:(NSString *)string
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:string message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:cancel];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 @end

@@ -19,9 +19,15 @@
 
 // 剩余铂隆币
 @property (weak, nonatomic) IBOutlet UILabel *dough;
+// 铂隆币余额
+@property (weak, nonatomic) IBOutlet UILabel *bolongbi;
 
 // 设置铂隆币距离上边的距离
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *distanceTop;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *qianbao_yue_widht;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *qianbao_yue_height;
+
 
 @end
 
@@ -33,7 +39,6 @@
     self.navigationController.navigationBar.translucent = NO;
     
     [self createrItem];
-    [self adapter];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,32 +49,34 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self getTheLatestBalance];
-}
-
-#pragma mark - 获取最新余额
-- (void)getTheLatestBalance
-{
-    UserInformation *userInfo = [[LocalStoreManage sharInstance] requestUserInfor];
+    [self adapter];
     
-    __weak LS_Wallet_Root_ViewController *weak_control = self;
-    [[NetWorkRequestManage sharInstance] wallet_obtainMoneyUserID:userInfo.user_id returns:^(NSString *money) {
-        LS_Wallet_Root_ViewController *strong_control = weak_control;
-        if (strong_control) {
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                // 主线程更新余额
-                strong_control.dough.text = money;
-            });
-            
-        }
-    }];
+    UserInformation *userInfo = [[LocalStoreManage sharInstance] requestUserInfor];
+    _dough.text = userInfo.money;
 }
 
-#pragma mark - 适配
+#warning mark - 实适配
 - (void)adapter
 {
-    _distanceTop.constant = SCREEN_HEIGHT * 0.12;
+    NSString *equipmentModel = [[LS_EquipmentModel sharedEquipmentModel] accessModel];
+    
+    if ([equipmentModel isEqualToString:@"4_inch"]) {
+        _distanceTop.constant = SCREEN_HEIGHT * 0.1; // 剩余铂隆币距离上边的距离
+        _dough.font = [UIFont systemFontOfSize:25];  // 设置字体
+        _bolongbi.font = [UIFont systemFontOfSize:15]; // 设置字体
+        _qianbao_yue_height.constant =  -(CGRectGetHeight(self.view.frame) * 0.05);
+        _qianbao_yue_widht.constant = -(CGRectGetWidth(self.view.frame) * 0.1);
+        return;
+    }
+    if ([equipmentModel isEqualToString:@"4.7_inch"]) {
+        
+        return;
+    }
+    if ([equipmentModel isEqualToString:@"5.5_inch"]) {
+        
+        return;
+    }
+    
 }
 
 #pragma mark - 添加返回按钮
@@ -135,4 +142,5 @@
     [self.navigationController pushViewController:topUp animated:YES];
 }
 
+#warning mark - 隐藏商城,购物车,消费清单, 在 XIB 中
 @end

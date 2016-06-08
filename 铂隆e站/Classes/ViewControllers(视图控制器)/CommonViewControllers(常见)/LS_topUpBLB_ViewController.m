@@ -8,6 +8,7 @@
 
 #import "LS_topUpBLB_ViewController.h"
 #import "LS_TopUpBLB_View.h"
+#import "LS_Record_TableViewController.h"
 
 @interface LS_topUpBLB_ViewController () <UITextFieldDelegate>
 
@@ -15,6 +16,8 @@
 
 // 记录当前选择的金额
 @property (assign , nonatomic) NSInteger index;
+
+@property (strong, nonatomic) UserInformation *userInfo;
 
 @end
 
@@ -26,8 +29,14 @@
     self.title = @"充值";
     
     [self createrRightBarButton];
+    [self initData];
     [self createrSubView];
     
+}
+
+- (void)initData {
+    UserInformation *userInfor = [[LocalStoreManage sharInstance] requestUserInfor];
+    _userInfo = userInfor;
 }
 
 #pragma mark - 创建子视图
@@ -42,7 +51,7 @@
         _index = index;
     };
     
-    [self getTheLatestBalance];
+    _topUpView.balance.text = [NSString stringWithFormat:@"余额: %@", _userInfo.money];
     [_topUpView.purchase addTarget:self action:@selector(purchase:) forControlEvents:UIControlEventTouchUpInside];
     
 }
@@ -57,7 +66,8 @@
 #pragma mark - 右BarButton
 - (void)rightDidAction:(UIBarButtonItem *)sender
 {
-    
+    LS_Record_TableViewController *control = [[LS_Record_TableViewController alloc] init];
+    [self.navigationController pushViewController:control animated:YES];
 }
 
 #pragma mark - 购买按钮
@@ -82,12 +92,8 @@
         title = [title substringToIndex:title.length - 1];
     }
     
-    NSLog(@"title = %@", title);
-    
-    UserInformation *userInfo = [[LocalStoreManage sharInstance] requestUserInfor];
-    
     __weak LS_topUpBLB_ViewController *weak_control = self;
-    [[NetWorkRequestManage sharInstance] wallet_top_upMoneyUserID:userInfo.user_id RMB:title returns:^(NSDictionary *dic) {
+    [[NetWorkRequestManage sharInstance] wallet_top_upMoneyUserID:_userInfo.user_id RMB:title returns:^(NSDictionary *dic) {
         LS_topUpBLB_ViewController *strong_control = weak_control;
         if (strong_control) {
             
@@ -149,16 +155,18 @@
 #pragma mark - 获取最新余额
 - (void)getTheLatestBalance
 {
-    UserInformation *userInfo = [[LocalStoreManage sharInstance] requestUserInfor];
     
     __weak LS_topUpBLB_ViewController *weak_control = self;
-    [[NetWorkRequestManage sharInstance] wallet_obtainMoneyUserID:userInfo.user_id returns:^(NSString *money) {
+    [[NetWorkRequestManage sharInstance] wallet_obtainMoneyUserID:_userInfo.user_id returns:^(NSString *money) {
         LS_topUpBLB_ViewController *strong_control = weak_control;
         if (strong_control) {
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 // 主线程更新余额
                 strong_control.topUpView.balance.text = [NSString stringWithFormat:@"余额: %@", money];
+                
+                _userInfo.money = money; // 跟新本地铂隆币数量
+                [[LocalStoreManage sharInstance] UserInforStoredLocally:_userInfo];
             });
             
         }

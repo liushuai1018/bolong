@@ -86,7 +86,7 @@
 - (void)clickBarButton:(UIBarButtonItem *)sender
 {
     [self.mapView stopDelegateLocation];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

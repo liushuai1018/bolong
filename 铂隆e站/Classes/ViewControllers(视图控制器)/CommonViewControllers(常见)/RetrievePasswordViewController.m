@@ -73,18 +73,31 @@
         NSString *phone = _passwordView.phone.text;
         NSString *code = _passwordView.verificationCode.text;
         
+        __weak RetrievePasswordViewController *weak_control = self;
         [[NetWorkRequestManage sharInstance] forgetPasswordphone:phone
                                                         password:password1
                                                             code:code
                                                            retun:^(NSString *str)
         {
-           UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:str delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
-           [alert show];
+            RetrievePasswordViewController *strong_control = weak_control;
+            if (strong_control) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [strong_control alertControlWithMessage:str];
+                    
+                    // 修改成功的账号
+                    NSDictionary *userDic = @{
+                                              @"account":phone,
+                                              @"pawd":password1
+                                              };
+                    // 账号密码存储到 userDefaults
+                    [[NSUserDefaults standardUserDefaults] setObject:userDic forKey:@"account"];
+                    
+                });
+            }
         }];
         
     } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确认密码有误" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
-        [alert show];
+        [self alertControlWithMessage:@"两次输入密码不相同!"];
     }
 }
 
@@ -93,6 +106,14 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+#pragma mark - alertControl
+- (void)alertControlWithMessage:(NSString *)message {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:message preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:cancel];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
 
 @end

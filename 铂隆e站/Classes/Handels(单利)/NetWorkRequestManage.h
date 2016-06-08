@@ -28,45 +28,36 @@
 /**
  *  注册用户信息
  *
- *  @param account  注册账号
- *  @param password 注册密码
- *
- *  @return 注册是否成功
+ *  @param account  账号
+ *  @param code     验证码
+ *  @param password 密码
+ *  @param block    注册结果
  */
-- (BOOL)registeredAccount:(NSString *)account
+- (void)registeredAccount:(NSString *)account
                      code:(NSString *)code
-                 password:(NSString *)password;
+                 password:(NSString *)password
+                  returns:(void(^)(NSDictionary *isRegisteredAccount))block;
 
 /**
  *  用户登陆
  *
- *  @param account  登陆账号
- *  @param password 登陆密码
- *
- *  @return 登陆是否成功
+ *  @param account  账号
+ *  @param password 密码
+ *  @param block    登陆结果
  */
-- (BOOL)longinAccount:(NSString *)account
-             password:(NSString *)password;
-
-/**
- *  第三方登陆
- *
- *  @param openID 用户ID
- *  @param type   用户平台
- *  @param name   用户昵称
- *  @param avar   用户头像
- */
-- (BOOL)otherLoginOpenID:(NSInteger)openID
-                    type:(NSInteger)type
-               user_name:(NSString *)name
-               user_avar:(NSString *)avar;
+- (void)longinAccount:(NSString *)account
+             password:(NSString *)password
+              returns:(void(^)(NSDictionary *isLongin))block;
 
 /**
  *  发送手机号获取验证码
  *
- *  @param phone 手机号
+ *  @param phone        手机号
+ *  @param type         类型
+ *  @param verification 结果
  */
 - (void)senderVerificationCode:(NSString *)phone
+                          type:(NSString *)type
         returnVerificationCode:(void(^)(NSString *str))verification;
 
 /**
@@ -116,13 +107,13 @@
  *  @param wuye_id 所在小区ID
  *  @param number  户主身份证号码
  *  @param name    业主姓名
- *
- *  @return 返回户主信息
+ *  @param block   返回业主房屋信息
  */
-- (WuYeDetails *)wuyeInoformationID:(NSString *)user_id
+- (void)wuyeInoformationID:(NSString *)user_id
                       wuye:(NSString *)wuye_id
                     number:(NSString *)number
-                      name:(NSString *)name;
+                      name:(NSString *)name
+                   returns:(void(^)(WuYeDetails *wuyeDetails))block;
 
 
 /**
@@ -136,21 +127,24 @@
           retum:(void(^)(NSDictionary *dict))inform;
 
 /**
- *  每桶水价格
+ *  其他_水价
  *
- *  @return 获取的水的价格
+ *  @param block 返回水价
  */
-- (NSString *)other_WaterMoney;
+- (void)other_WaterMoneyWithPrice:(void(^)(NSString *price))block;
 
 /**
  *  其他_送水
- *  @param address   送水地址
- *  @param momey     总钱数
- *  @param userInfo  用户信息
+ *
+ *  @param wuyeId  物业Id
+ *  @param address 地址
+ *  @param momey   总价格
+ *  @param userId  用户Id
  */
-- (void)other_waterAddress:(NSString *)address
-                     momey:(NSString *)momey
-                  userInfo:(UserInformation *)user;
+- (void)other_waterWithWuYeId:(NSString *)wuyeId
+                      Address:(NSString *)address
+                        momey:(NSString *)momey
+                     userInfo:(NSString *)userId;
 
 /**
  *  其他_开锁
@@ -208,19 +202,19 @@
  *  其他_是否已经签到
  *
  *  @param userID 用户ID
- *
- *  @return 是否已经签到
+ *  @param block  是否以签到
  */
-- (BOOL)other_isSignInUserID:(NSString *)userID;
+- (void)other_isSignInUserID:(NSString *)userID
+                     returns:(void(^)(BOOL is))block;
 
 /**
  *  其他_签到
  *
- *  @param userID 用户ID
- *
- *  @return 签到结果
+ *  @param userID 用户Id
+ *  @param block  签到结果
  */
-- (BOOL)other_signinUserID:(NSString *)userID;
+- (void)other_signinUserID:(NSString *)userID
+                   returns:(void(^)(BOOL is))block;
 
 #pragma mark - 停车咨询接口
 
@@ -330,5 +324,30 @@
 - (void)wallet_top_upMoneyUserID:(NSString *)userID
                       RMB:(NSString *)RMB
                   returns:(void(^)(NSDictionary *dic))block;
+
+/**
+ *  查询铂隆币充值记录
+ *
+ *  @param userID 用户ID
+ *  @param block  充值的记录
+ */
+- (void)wallet_moneyRecordUserID:(NSString *)userID
+                         returns:(void(^)(NSArray *array))block;
+
+#pragma mark - 帮助接口
+
+/**
+ *  帮助_意见反馈
+ *
+ *  @param userID  用户ID
+ *  @param content 反馈意见
+ *  @param phone   手机号
+ *  @param block   反馈结果
+ */
+- (void)help_opinionUserID:(NSString *)userID
+                   content:(NSString *)content
+                     phone:(NSString *)phone
+                   returns:(void(^)(BOOL is))block;
+
 
 @end

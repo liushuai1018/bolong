@@ -41,8 +41,7 @@
 // 点击签到
 @property (weak, nonatomic) IBOutlet UIButton *didSign;
 
-// 记录是否已经签到
-@property (assign, nonatomic) BOOL isSignIn;
+@property (strong, nonatomic) UserInformation *userInfo;
 
 @end
 
@@ -61,19 +60,19 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    if (_isSignIn) {
-        [self didSignInAction];
-    }
-}
-
 #pragma mark - initData
 - (void)initData
 {
     UserInformation *userInfo = [[LocalStoreManage sharInstance] requestUserInfor];
-    _isSignIn = ![[NetWorkRequestManage sharInstance] other_isSignInUserID:userInfo.user_id];
+    _userInfo = userInfo;
+    __weak LS_Other_Sign_ViewController *weak_control = self;
+    [[NetWorkRequestManage sharInstance] other_isSignInUserID:userInfo.user_id returns:^(BOOL is) {
+        if (is) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weak_control didSignInAction];
+            });
+        }
+    }];
     
     // 获取当月天数
     NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -102,12 +101,12 @@
         
         NSInteger index2 = index1 + 7 * i;
         if (index2 < numberOfDaysInMonth) {
-            [_daySet addObject:[NSString stringWithFormat:@"%ld", index2]];
+            [_daySet addObject:[NSString stringWithFormat:@"%d", index2]];
         }
         
         NSInteger index3 = index1 - 7 * i;
         if (index2 > 0) {
-            [_daySet addObject:[NSString stringWithFormat:@"%ld", index3]];
+            [_daySet addObject:[NSString stringWithFormat:@"%d", index3]];
         }
         
     }
@@ -115,11 +114,16 @@
 
 #pragma mark - 点击签到
 - (IBAction)didSign:(UIButton *)sender {
-    
-    UserInformation *userInfo = [[LocalStoreManage sharInstance] requestUserInfor];
-    
     // 签到
-    BOOL is = [[NetWorkRequestManage sharInstance] other_signinUserID:userInfo.user_id];
+    [[NetWorkRequestManage sharInstance] other_signinUserID:_userInfo.user_id returns:^(BOOL is) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self siginIS:is];
+        });
+    }];
+}
+
+// 签到结果
+- (void)siginIS:(BOOL)is {
     
     if (!is) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"签到失败" message:nil preferredStyle:UIAlertControllerStyleAlert];
@@ -130,25 +134,36 @@
         [self presentViewController:alert animated:YES completion:nil];
         
         return;
+    } else {
+        __weak LS_Other_Sign_ViewController *weak_control = self; // 签到成功后最新剩余铂隆币在本地存储一下
+        [[NetWorkRequestManage sharInstance] wallet_obtainMoneyUserID:_userInfo.user_id returns:^(NSString *money) {
+            
+            LS_Other_Sign_ViewController *strong_control = weak_control;
+            if (strong_control) {
+                _userInfo.money = money;
+                [[LocalStoreManage sharInstance] UserInforStoredLocally:_userInfo];
+            }
+            
+        }];
+        
+        _imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+        
+        [self didSignInAction];
+        // 计时器
+        _timer = [NSTimer scheduledTimerWithTimeInterval:1
+                                                  target:self
+                                                selector:@selector(countdown:)
+                                                userInfo:nil
+                                                 repeats:YES];
+        _number = 1;
     }
-    
-    [self didSignInAction];
-    
-    _imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    // 计时器
-    _timer = [NSTimer scheduledTimerWithTimeInterval:1
-                                              target:self
-                                            selector:@selector(countdown:)
-                                            userInfo:nil
-                                             repeats:YES];
-    _number = 1;
 }
 
 #pragma mark - 签到后变成点击都状态
 - (void)didSignInAction
 {
     // 判断是否星期五
-    if ([_daySet containsObject:[NSString stringWithFormat:@"%ld", _day]]) {
+    if ([_daySet containsObject:[NSString stringWithFormat:@"%d", _day]]) {
         
         _imageView.image = [UIImage imageNamed:@"LS_qiandao_x4"];
         _bg.image = [UIImage imageNamed:@"LS_qiandao_bg_after_x4"];
@@ -157,7 +172,9 @@
         _bg.image = [UIImage imageNamed:@"LS_qiandao_bg_after"];
     }
     
-    [self.view addSubview:_imageView];
+    if (_imageView) {
+        [self.view addSubview:_imageView];
+    }
     
     // 小🐱
     _xm.image = [UIImage imageNamed:@"LS_qiandao_mao_pre"];
@@ -263,7 +280,7 @@
     LS_Other_Sign_day_CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     
     // 日期
-    NSString *day = [NSString stringWithFormat:@"%ld", indexPath.row + 1];
+    NSString *day = [NSString stringWithFormat:@"%d", indexPath.row + 1];
     
     cell.image.image = nil;
     cell.title.text = day;

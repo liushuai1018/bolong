@@ -56,15 +56,17 @@
 - (void)initData
 {
     _imageAr = @[@"LS_qianbao_ico",
-                 @"LS_chongzhi_ico",
-                 @"LS_haoyou_ico",
                  @"LS_quanzi_ico",
-                 @"LS_shezhi_ico"];
+                 @"LS_shezhi_ico",
+                 @"LS_chongzhi_ico",
+                 @"LS_haoyou_ico"
+                 ];
     _titleAr = @[@"钱包",
-                 @"话费充值",
-                 @"好友",
                  @"圈子",
-                 @"设置",];
+                 @"设置",
+                 @"话费充值",
+                 @"好友"
+                 ];
     
     // 获取用户信息
     _userInfo = [[LocalStoreManage sharInstance] requestUserInfor];
@@ -92,7 +94,7 @@
     /**
      *   设置显示信息
      */
-    [self getTheLatestBalance];
+    _headView.BoLongbi.text = [NSString stringWithFormat:@"铂隆币: %@", _userInfo.money];
     
     NSRange range = {3, 6};
     // 手机号
@@ -102,25 +104,6 @@
     _headView.name.text = _userInfo.name;
     // 设置头像
     [self downloadHeadImage];
-}
-
-#pragma mark - 获取最新余额
-- (void)getTheLatestBalance
-{
-    UserInformation *userInfo = [[LocalStoreManage sharInstance] requestUserInfor];
-    
-    __weak LS_UserTableViewController *weak_control = self;
-    [[NetWorkRequestManage sharInstance] wallet_obtainMoneyUserID:userInfo.user_id returns:^(NSString *money) {
-        LS_UserTableViewController *strong_control = weak_control;
-        if (strong_control) {
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                // 主线程更新余额
-                _headView.BoLongbi.text = [NSString stringWithFormat:@"铂隆币: %@", money];
-            });
-            
-        }
-    }];
 }
 
 #pragma marrk - 判断是否有头像图片没有下载
@@ -163,7 +146,8 @@
     if (_imageAr.count == 0) {
         return 0;
     } else {
-        return _imageAr.count;
+#warning mark - 隐藏两个功能
+        return _imageAr.count - 2;
     }
 }
 
@@ -194,19 +178,11 @@
             control = [[LS_Wallet_Root_ViewController alloc] init];
         }
             break;
-        case 1:{ // 充值
-            control = [[PhoneViewController alloc]init];
-        }
-            break;
-        case 2:{ // 好友
-            control = [[YourTestChatViewController alloc] init];
-        }
-            break;
-        case 3:{ // 圈子
+        case 1:{ // 圈子
             control = [[CircleTableViewController alloc] init];
         }
             break;
-        case 4:{ // 设置
+        case 2:{ // 设置
             __weak LS_UserTableViewController *user = self;
             SetTableViewController *set = [[SetTableViewController alloc] init];
             set.block = ^(){
@@ -215,6 +191,14 @@
                 user.tabBarController.selectedIndex = 0;
             };
             control = set;
+        }
+            break;
+        case 3:{ // 充值
+            control = [[PhoneViewController alloc]init];
+        }
+            break;
+        case 4:{ // 好友
+            control = [[YourTestChatViewController alloc] init];
         }
             break;
             

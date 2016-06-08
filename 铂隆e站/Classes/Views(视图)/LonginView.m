@@ -96,46 +96,6 @@
     [_registeredBut setTintColor:[UIColor grayColor]];
     [self addSubview:_registeredBut];
     
-    
-      
-    // 第三方登陆按钮
-    self.thirdLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(_registeredBut.frame) - 9, CGRectGetMaxY(_registeredBut.frame) + 30, 80, 30)];
-    _thirdLabel.text = @"第三方登陆";
-    _thirdLabel.textColor = [UIColor grayColor];
-    _thirdLabel.font = [UIFont systemFontOfSize:15.0f];
-//    [self addSubview:_thirdLabel];
-    
-    // 微信
-    self.weiXinBut = [UIButton buttonWithType:UIButtonTypeCustom];
-    _weiXinBut.frame = CGRectMake( CGRectGetMinX(_userNameText.frame) + 20, CGRectGetMaxY(_thirdLabel.frame) + 20, 48, 48);
-    [_weiXinBut setImage:[UIImage imageNamed:@"weixin.png"] forState:UIControlStateNormal];
-//    [self addSubview:_weiXinBut];
-    
-    // 微博
-    self.weiBoBut = [UIButton buttonWithType:UIButtonTypeCustom];
-    _weiBoBut.frame = CGRectMake(SCREEN_WIDTH * 0.5 - 25, CGRectGetMinY(_weiXinBut.frame), 50, 50);
-    [_weiBoBut setImage:[UIImage imageNamed:@"weibo.png"] forState:UIControlStateNormal];
-//    [self addSubview:_weiBoBut];
-    
-    // QQ
-    self.qqBut = [UIButton buttonWithType:UIButtonTypeCustom];
-    _qqBut.frame = CGRectMake(CGRectGetMaxX(_userNameText.frame) - 68, CGRectGetMinY(_weiXinBut.frame), 48, 48);
-    [_qqBut setImage:[UIImage imageNamed:@"qq.png"] forState:UIControlStateNormal];
-//    [self addSubview:_qqBut];
-    
-    
-    /*
-    // 判断是否安装某些程序
-    NSURL *qqURL = [NSURL URLWithString:@"mqq://"];
-    NSURL *weixinURL = [NSURL URLWithString:@"weixin://"];
-    NSURL *weiboURL = [NSURL URLWithString:@"sinaweibo://"];
-    BOOL isQQ = [[UIApplication sharedApplication] canOpenURL:qqURL];
-    BOOL isWeiXin = [[UIApplication sharedApplication] canOpenURL:weixinURL];
-    BOOL isWeiBo = [[UIApplication sharedApplication] canOpenURL:weiboURL];
-    NSLog(@"qq == %d", isQQ);
-    NSLog(@"weixin == %d", isWeiXin);
-    NSLog(@"weibo == %d", isWeiBo);
-    */
 }
 
 // 点击空白处收回键盘

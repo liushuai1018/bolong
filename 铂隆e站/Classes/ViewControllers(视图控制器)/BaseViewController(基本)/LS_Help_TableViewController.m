@@ -28,6 +28,9 @@
     // 背景图组
     NSArray *_imageAr;
 }
+
+@property (strong, nonatomic) UINavigationController *navigationContol;
+
 @end
 
 @implementation LS_Help_TableViewController
@@ -98,7 +101,9 @@
 // 点击的那个cell
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    if (!_navigationContol) {
+        _navigationContol = [[UINavigationController alloc] init];
+    }
     id control = nil;
     
     switch (indexPath.row) {
@@ -121,8 +126,8 @@
         default:
             break;
     }
-    
-    [self.navigationController pushViewController:control animated:YES];
+    _navigationContol.viewControllers = @[control];
+    [self presentViewController:_navigationContol animated:YES completion:nil];
 }
 
 @end

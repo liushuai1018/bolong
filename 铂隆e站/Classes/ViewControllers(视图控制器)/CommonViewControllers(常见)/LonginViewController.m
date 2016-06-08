@@ -11,18 +11,12 @@
 #import "LonginView.h"
 #import "RegisteredViewController.h"
 #import "RetrievePasswordViewController.h"
-@interface LonginViewController () <UIAlertViewDelegate>
+@interface LonginViewController ()
 
 @property (nonatomic, strong) LonginView *longView;
 
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView; // 菊花
 @property (nonatomic, strong) UIView *backgView; // 菊花背景
-
-// 奖励图片
-@property (strong, nonatomic) UIButton *rewardImage;
-// 倒计时
-@property (assign, nonatomic) NSInteger countdown; // 倒计时秒数
-@property (strong, nonatomic) NSTimer *timer;
 
 @end
 
@@ -35,22 +29,12 @@
     self.view = _longView; // 替换自带的View
 }
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"登陆";
     self.navigationController.navigationBar.translucent = NO;
     
     [self addAction]; // 事件关联
-    
-    // 设置微信 AppId、appSecret、分享
-    [UMSocialWechatHandler setWXAppId:WXAppId appSecret:WXSecret url:nil];
-    // 设置QQ AppId、appSecret、分享
-    [UMSocialQQHandler setQQWithAppId:QQAppId appKey:QQSecret url:QQURL];
-    
-    // 微博 SSO
-    [UMSocialSinaHandler openSSOWithRedirectURL:@"http://sns.whalecloud.com/sina2/callback_success_151218"];
-    
 }
 
 #pragma mark - 视图将要显示
@@ -75,14 +59,6 @@
     // 注册按钮
     [_longView.registeredBut addTarget:self action:@selector(registeredAction:) forControlEvents:UIControlEventTouchUpInside];
     
-    // 微信
-    [_longView.weiXinBut addTarget:self action:@selector(didClickWeiXinAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    // QQ
-    [_longView.qqBut addTarget:self action:@selector(didClickQQAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    // 微博
-    [_longView.weiBoBut addTarget:self action:@selector(didClickWeiBoAction:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 #pragma Mark - 登陆
@@ -94,26 +70,52 @@
     NSString *userName =  _longView.userNameText.text;
     NSString *pawdName = _longView.passwordText.text;
     
-    BOOL is = [[NetWorkRequestManage sharInstance] longinAccount:userName password:pawdName];
-    
-    if (is) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"status"];
-        
-        // 记录登陆成功的账号
-        NSDictionary *userDic = @{
-                                  @"account":userName,
-                                  @"pawd":pawdName
-                                  };
-        // 账号密码存储到 userDefaults
-        [[NSUserDefaults standardUserDefaults] setObject:userDic forKey:@"account"];
-        
-        [self successPushRootViewControl]; // 登陆成功跳转主界面
-    } else {
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示:" message:@"密码或账户错误!" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"找回密码", nil];
-        [alert show];
+    if ([userName isEqualToString:@""] || [pawdName isEqualToString:@""]) {
+        [self alertControlWithTitle:@"请输入账号密码" action:nil];
+        return;
     }
     
+    __weak LonginViewController *weak_control = self;
+    [[NetWorkRequestManage sharInstance] longinAccount:userName password:pawdName returns:^(NSDictionary *isLongin) {
+        LonginViewController *strong_control = weak_control;
+        if (strong_control) {
+            
+            NSInteger index = [[isLongin objectForKey:@"code"] integerValue];
+            
+            if (index == 0) {
+                
+                NSDictionary *dict = [isLongin objectForKey:@"datas"];
+                UserInformation *infor = [[UserInformation alloc] init];
+                [infor setValuesForKeysWithDictionary:dict];
+                // 用户信息存储到本地
+                [[LocalStoreManage sharInstance] UserInforStoredLocally:infor];
+                
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"status"];
+                
+                // 记录登陆成功的账号
+                NSDictionary *userDic = @{
+                                          @"account":userName,
+                                          @"pawd":pawdName
+                                          };
+                // 账号密码存储到 userDefaults
+                [[NSUserDefaults standardUserDefaults] setObject:userDic forKey:@"account"];
+                
+                [strong_control successPushRootViewControl]; // 登陆成功跳转主界面
+            } else {
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    UIAlertAction *retrievePassword = [UIAlertAction actionWithTitle:@"找回密码" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        RetrievePasswordViewController *retrievePas = [[RetrievePasswordViewController alloc] init];
+                        UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:retrievePas];
+                        [strong_control presentViewController:navigation animated:YES completion:nil];
+                    }];
+                    
+                    [strong_control alertControlWithTitle:[isLongin objectForKey:@"datas"] action:retrievePassword];
+                    
+                });
+            }
+        }
+    }];
 }
 
 #pragma mark - 注册
@@ -121,134 +123,9 @@
 {
     RegisteredViewController *registeredVC = [[RegisteredViewController alloc] init];
     
-    __weak LonginViewController *control = self;
-    registeredVC.block = ^(){
-        
-        // 注册成功后弹出奖励铂隆币图片
-        [control createrBoLongBiImage];
-    };
-    [self.navigationController pushViewController:registeredVC animated:YES];
-}
-
-// 创建奖励铂隆币图片
-- (void)createrBoLongBiImage
-{
-    // 创建并启动倒计时
-    _countdown = 3; // 三秒
-    _timer = [NSTimer scheduledTimerWithTimeInterval:1
-                                              target:self
-                                            selector:@selector(onTimer)
-                                            userInfo:nil
-                                             repeats:YES];
+    UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:registeredVC];
     
-    [self.navigationController setNavigationBarHidden:YES];
-    self.rewardImage = [UIButton buttonWithType:UIButtonTypeCustom];
-    _rewardImage.frame = [UIScreen mainScreen].bounds;
-    [_rewardImage setImage:[UIImage imageNamed:@"new_jiangli"] forState:UIControlStateNormal];
-    [_rewardImage addTarget:self action:@selector(BoLongBiAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_rewardImage];
-}
-
-- (void)BoLongBiAction:(UIButton *)sender
-{
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [sender removeFromSuperview];
-}
-
-- (void)onTimer
-{
-    if (_countdown > 0) {
-        _countdown--;
-        
-    } else {
-        _countdown = 3;
-        [_timer invalidate];
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
-        [_rewardImage removeFromSuperview];
-    }
-}
-
-#pragma mark -- 获取微信的授权
-- (void)didClickWeiXinAction:(UIButton *)but
-{
-    [self thirdPartyAuthorization:UMShareToWechatSession]; // 微信
-}
-
-#pragma mark -- 获取QQ授权
-- (void)didClickQQAction:(UIButton *)but
-{
-    [self thirdPartyAuthorization:UMShareToQQ]; // QQ
-}
-
-#pragma mark -- 获取微博授权
-- (void)didClickWeiBoAction:(UIButton *)but
-{
-    [self thirdPartyAuthorization:UMShareToSina]; // 微博
-}
-
-
-// 第三方授权
-- (void)thirdPartyAuthorization:(NSString *)snsName
-{
-    
-    // 创建 Sns 平台
-    UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:snsName];
-    /**
-     *  处理点击登录事件后的block对象
-     @param presentingController 点击后弹出的分享页面或者授权页面所在的UIViewController对象
-     @param socialControllerService 可以用此对象的socialControllerService.socialData可以获取分享内嵌文字、内嵌图片，分享次数等
-     @param isPresentInController 如果YES代表弹出(present)到当前UIViewController，否则push到UIViewController的navigationController
-     @param completion 授权完成之后的回调对象，返回的response参数表示成功与否和拿到的授权信息
-     */
-    
-    [self activityIndicatorViews]; 
-    
-    __weak LonginViewController *longinVC = self;
-    snsPlatform.loginClickHandler(self, [UMSocialControllerService defaultControllerService], YES, ^(UMSocialResponseEntity *response) {
-        
-        // 判断是否授权成功
-        if (response.responseCode == UMSResponseCodeSuccess) {
-            
-            // 获取用户消息
-            UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:snsName];
-            
-            // 获取用户信息
-            [[UMSocialDataService defaultDataService] requestSnsInformation:snsName completion:^(UMSocialResponseEntity *response) {
-                
-                NSLog(@"response :%@", response.data);
-                
-                // 记录登陆那个平台
-                NSInteger index = 1;
-                // 记录唯一ID
-                NSInteger openID = 0;
-                if ([snsName isEqualToString:UMShareToQQ]) {
-                    index = 1;
-                    openID = [[response.data objectForKey:@"openid"] integerValue];
-                }
-                if ([snsName isEqualToString:UMShareToWechatSession]) {
-                    index = 2;
-                }
-                if ([snsName isEqualToString:UMShareToSina]) {
-                    index = 3;
-                    openID = [[response.data objectForKey:@"uid"] integerValue];
-                }
-                
-                // 获取第三方信息绑定到服务器
-                [[NetWorkRequestManage sharInstance] otherLoginOpenID:openID
-                                                                 type:index
-                                                            user_name:[response.data objectForKey:@"screen_name"]
-                                                            user_avar:snsAccount.iconURL];
-                
-            }];
-            
-            // 登陆成功跳转主界面
-            [longinVC successPushRootViewControl];
-        } else {
-            [_activityIndicatorView stopAnimating];
-            [_backgView removeFromSuperview];
-        }
-        
-    });
+    [self presentViewController:navigation animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -305,8 +182,6 @@
                                         
                                     } error:^(RCConnectErrorCode status) {
                                         
-                                        NSLog(@"登陆的错误码为: %ld", (long)status);
-                                        
                                     } tokenIncorrect:^{
                                         
                                         /**
@@ -314,21 +189,23 @@
                                          *  如果设置了token有限期限并且token过期，请重新请求您的服务器获取新的token
                                          *  如果没有设置token有效期却提示token错误，请检查您的客户端和服务端的appkey是否匹配，还有检查您获取token的流程。
                                          */
-                                        NSLog(@"token错误");
-                                        
                                     }];
     }];
     
 }
 
-#pragma mark - alertDelegate
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (1 == buttonIndex) {
-        RetrievePasswordViewController *retrievePas = [[RetrievePasswordViewController alloc] init];
-        UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:retrievePas];
-        [self presentViewController:navigation animated:YES completion:nil];
+#pragma mark - alertControl
+- (void)alertControlWithTitle:(NSString *)title action:(UIAlertAction *)retrievePassword {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:cancel];
+    
+    if (retrievePassword) {
+        [alert addAction:retrievePassword];
     }
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 @end
