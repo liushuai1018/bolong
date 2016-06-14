@@ -142,6 +142,7 @@
             break;
         }
         case 1: {
+            cell.detailTextLabel.text = @"请选择小区";
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator; // 显示跳转图标
             cell.contentView.frame = CGRectMake(0, 0, 320, 100);
             break;
@@ -197,6 +198,8 @@
         SelectAVillageTableViewController *selectVillage = [[SelectAVillageTableViewController alloc] init];
         
         selectVillage.dataArray = _communityArray;
+        selectVillage.title = @"选择小区";
+        
         
         // 选择完成本界面并设置上选择的小区
         __block PropertyViewController *property = self;

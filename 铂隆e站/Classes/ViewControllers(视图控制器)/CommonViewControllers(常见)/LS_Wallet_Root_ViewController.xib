@@ -11,6 +11,7 @@
                 <outlet property="bolongbi" destination="7Oa-Oo-obG" id="Sg4-Xi-PCb"/>
                 <outlet property="distanceTop" destination="ED1-FB-mr5" id="Oaz-X7-nB7"/>
                 <outlet property="dough" destination="Lsf-xk-Haj" id="R4v-LY-x6l"/>
+                <outlet property="logo_top" destination="lvq-Kk-kqq" id="Sx6-2Q-eqX"/>
                 <outlet property="qianbao_yue_height" destination="Rx3-vH-KcJ" id="hgF-YH-qF4"/>
                 <outlet property="qianbao_yue_widht" destination="FK7-cL-O4l" id="Qks-zN-sgx"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>

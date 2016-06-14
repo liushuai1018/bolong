@@ -170,8 +170,6 @@
 {
     NSIndexPath *indexPath = [self indexPathForSender:sender event:event];
     
-    NSLog(@" 赞 indexPath : %@", indexPath);
-    
     ConsultListModel *model = [_dataArray objectAtIndex:indexPath.row];
     
     [[NetWorkRequestManage sharInstance] consultZanUser_id:self.userInfo.user_id consult_id:model.consult_id];
@@ -213,7 +211,6 @@
 - (void)senderButAtion:(UIButton *)sneder
 {
     [_inputBox.textField resignFirstResponder];
-    NSLog(@"----发送新的咨询----");
     
     if (![_inputBox.textField.text isEqualToString:@""]) {
         

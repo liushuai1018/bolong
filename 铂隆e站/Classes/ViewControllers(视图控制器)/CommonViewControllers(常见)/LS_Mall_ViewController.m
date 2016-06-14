@@ -86,19 +86,19 @@
      */
     switch (sender.tag) {
         case 100000:{
-            NSLog(@"点击零食");
+//            NSLog(@"点击零食");
             break;
         }
         case 100001:{
-            NSLog(@"点击饮品");
+//            NSLog(@"点击饮品");
             break;
         }
         case 100002:{
-            NSLog(@"点击粮油");
+//            NSLog(@"点击粮油");
             break;
         }
         case 100003:{
-            NSLog(@"点击酒类");
+//            NSLog(@"点击酒类");
             break;
         }
         default:
@@ -113,19 +113,19 @@
      */
     switch (sender.tag) {
         case 100005:{
-            NSLog(@"打折第一个");
+//            NSLog(@"打折第一个");
             break;
         }
         case 100006:{
-            NSLog(@"打折第二个");
+//            NSLog(@"打折第二个");
             break;
         }
         case 100007:{
-            NSLog(@"打折第三个");
+//            NSLog(@"打折第三个");
             break;
         }
         case 100008:{
-            NSLog(@"打折第四个");
+//            NSLog(@"打折第四个");
             break;
         }
         default:
@@ -137,7 +137,7 @@
 // 左边
 - (IBAction)leftAction:(UIButton *)sender {
     
-    NSLog(@"上一个");
+//    NSLog(@"上一个");
     // 创建动画
     CATransition *transaction = [CATransition animation];
     // 响应时间
@@ -163,7 +163,7 @@
 }
 // 右边
 - (IBAction)rigthAction:(UIButton *)sender {
-    NSLog(@"下一个");
+//    NSLog(@"下一个");
     CATransition *transaction = [CATransition animation];
     transaction.duration = 0.5;
     transaction.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
@@ -186,13 +186,13 @@
     
     NSInteger index = [_xihuan_Ar indexOfObject:_xihuan_image.image];
     
-    NSLog(@"点击了喜欢的第%ld项", index);
+//    NSLog(@"点击了喜欢的第%ld项", index);
     
 }
 
 #pragma mark - 购物车
 - (IBAction)shoppingCart:(UIButton *)sender {
-    NSLog(@"购物车");
+//    NSLog(@"购物车");
     
 }
 

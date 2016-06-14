@@ -81,7 +81,6 @@
 #pragma mark - 监听上门收购按钮事件
 - (void)buyAction:(UIButton *)sender
 {
-    NSLog(@"上门收购 %ld", (long)_index);
     
     [self createrAlertView];
 }

@@ -285,10 +285,8 @@
     CGPoint touchPosition = [touch locationInView:self.tableView];
     // 根据点击位置获取所点击的区、行。
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:touchPosition];
-    NSLog(@"indexPath : %@", indexPath);
     
     AddressBook *addressBook = _addressBookArr[indexPath.row];
-    NSLog(@"addressBook = %@", addressBook.name);
     
     _applyFor = [[ApplyForViewController alloc] init];
     [self.navigationController pushViewController:_applyFor animated:YES];
@@ -304,8 +302,6 @@
         
         [self.tableView reloadData];
     });
-    
-    NSLog(@"这个方法真晕了");
 }
 
 @end

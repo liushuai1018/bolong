@@ -111,8 +111,6 @@
 {
     if (_userInfo.headPortrait == nil) {
         
-        NSLog(@"UserTableView_headURL %@", _userInfo.headPortraitURL);
-        
         [[SDWebImageManager sharedManager] downloadImageWithURL:[NSURL URLWithString:_userInfo.headPortraitURL]
                                                         options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {// 下载中
                                                         }

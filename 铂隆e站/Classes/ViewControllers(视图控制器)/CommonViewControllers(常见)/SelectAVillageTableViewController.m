@@ -18,11 +18,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"选择小区";
+//    self.title = @"选择小区";
     self.navigationController.navigationBar.translucent = NO;
     
     
     self.tableView.tableFooterView = [UIImageView new];
+}
+
+- (void)setTitles:(NSString *)titles
+{
+    
 }
 
 - (void)didReceiveMemoryWarning {

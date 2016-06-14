@@ -100,7 +100,6 @@ NSString const *DownloadStageIsRunningKey2 = @"DownloadStageIsRunningKey";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     NSInteger number = self.sectionTitles.count + self.provinces.count;
-    NSLog(@"sectionsIndex ====  %ld", (long)number);
     return number;
 }
 
@@ -123,7 +122,6 @@ NSString const *DownloadStageIsRunningKey2 = @"DownloadStageIsRunningKey";
         default: {
             if (_expandedSections[section]) {
                 
-                NSLog(@"number ====== %lu - %lu = %lu", section, self.sectionTitles.count, section - self.sectionTitles.count);
                 MAOfflineProvince *pro = self.provinces[section - self.sectionTitles.count];
                 number = pro.cities.count + 1;   // 加1用以下载整个省份的数据
             }
@@ -402,7 +400,6 @@ NSString const *DownloadStageIsRunningKey2 = @"DownloadStageIsRunningKey";
         return;
     }
     
-    NSLog(@"download : %@", item.name);
     
     // 启动下载
     [[MAOfflineMap sharedOfflineMap] downloadItem:item shouldContinueWhenAppEntersBackground:YES downloadBlock:^(MAOfflineItem *downloadItem, MAOfflineMapDownloadStatus downloadStatus, id info) {
@@ -487,14 +484,12 @@ NSString const *DownloadStageIsRunningKey2 = @"DownloadStageIsRunningKey";
 #pragma mark - 暂停
 - (void)pause:(MAOfflineItem *)item
 {
-    NSLog(@"puase : %@", item.name);
     [[MAOfflineMap sharedOfflineMap] pauseItem:item];
 }
 
 #pragma mark - 删除
 - (void)deleteItem:(MAOfflineItem *)item
 {
-    NSLog(@"delete :%@", item.name);
     [[MAOfflineMap sharedOfflineMap] deleteItem:item];
 }
 

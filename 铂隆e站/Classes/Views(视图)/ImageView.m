@@ -46,7 +46,6 @@
     
     // 创建提示窗口按钮
     UIAlertAction *action = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        NSLog(@"取消操作");
     }];
     [alert addAction:action]; // 取消按钮添加到提示框上
     
@@ -54,7 +53,7 @@
     // 2.添加相册按钮
     [alert addAction:({
         UIAlertAction *action = [UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            NSLog(@"打开相册");
+            
             
             // 跳转到相册
             UIImagePickerController *imageController = [[UIImagePickerController alloc] init];
@@ -70,7 +69,7 @@
     
     // 3.添加摄像头按钮
     [alert addAction:[UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSLog(@"打开摄像头");
+        
         // 判断是否支持相机
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
             
@@ -89,7 +88,7 @@
             UIAlertController *MYalert = [UIAlertController alertControllerWithTitle:@"没有摄像头" message:nil preferredStyle:UIAlertControllerStyleAlert];
             
             UIAlertAction *action = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                NSLog(@"取消操作");
+                
             }];
             [MYalert addAction:action]; // 取消按钮添加到提示框上
             

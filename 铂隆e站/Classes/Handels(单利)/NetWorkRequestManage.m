@@ -220,7 +220,6 @@
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
         
         if ([dic[@"code"] integerValue] == 0) {
-            NSLog(@"修改头像获取URL datas = %@", dic[@"datas"]);
             NSString *headURL = [dic objectForKey:@"datas"];
             [[LocalStoreManage sharInstance] upUserHeadURL:headURL];
         }
@@ -547,8 +546,6 @@
         if (block) {
             block(YES);
         }
-        
-        NSLog(@"question = %@", dataDict);
         
     }];
     [upLoadTask resume];

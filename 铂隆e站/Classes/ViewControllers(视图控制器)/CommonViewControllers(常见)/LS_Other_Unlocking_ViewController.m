@@ -64,7 +64,6 @@
 // 调用电话
 - (void)callPhonenumber:(NSString *)phone
 {
-    NSLog(@"phone = %@", phone);
     
     NSString *parameter = [NSString stringWithFormat:@"tel://%@", phone];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:parameter]];

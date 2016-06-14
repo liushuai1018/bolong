@@ -117,12 +117,12 @@
     if (!name_Is && !mobile_Is && !region_Is && !street_Is) {
         
         if (_judge) { // YES 代表是创建新地址
-            NSLog(@"----添加新的地址----");
+//            NSLog(@"----添加新的地址----");
             [[NetWorkRequestManage sharInstance] addNewAddressUser_id:userInfo.user_id full_address:address];
         } else { // NO 代理修改原有地址
             
             address.address_id = _modeifyAddress.address_id;
-            NSLog(@"----修改原有地址----");
+//            NSLog(@"----修改原有地址----");
             [[NetWorkRequestManage sharInstance] upAddressUser_id:userInfo.user_id address:address];
         }
         

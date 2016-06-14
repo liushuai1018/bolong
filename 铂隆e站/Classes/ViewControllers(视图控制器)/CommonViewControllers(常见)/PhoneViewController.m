@@ -66,32 +66,27 @@
     switch (but.tag) {
             
         case 11200:
-            NSLog(@"10Y");
             [self alertViewWithString:10 actualName:9.96];
             break;
             
         case 11201:
-            NSLog(@"20Y");
             [self alertViewWithString:20 actualName:19.95];
             break;
             
         case 11202:
-            NSLog(@"30Y");
             [self alertViewWithString:30 actualName:19.97];
             break;
             
         case 11203:
-            NSLog(@"50Y");
             [self alertViewWithString:50 actualName:49.96];
             break;
             
         case 11204:
-            NSLog(@"100Y");
             [self alertViewWithString:100 actualName:99.90];
             break;
             
         case 11205:
-            NSLog(@"其他");
+//            NSLog(@"其他");
             break;
             
         default:

@@ -351,7 +351,6 @@
 		0CB1ABA91C3F80CA00C14662 /* SetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CB1ABA71C3F80CA00C14662 /* SetTableViewCell.m */; };
 		0CB1ABAA1C3F80CA00C14662 /* SetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CB1ABA81C3F80CA00C14662 /* SetTableViewCell.xib */; };
 		0CB1ABAC1C3F8B5A00C14662 /* haoyou.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0CB1ABAB1C3F8B5A00C14662 /* haoyou.jpg */; };
-		0CB1ABB01C3F8E9E00C14662 /* MallTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CB1ABAF1C3F8E9E00C14662 /* MallTableViewController.m */; };
 		0CB1ABB41C3F90FA00C14662 /* MallHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CB1ABB31C3F90FA00C14662 /* MallHeaderView.m */; };
 		0CB86CA01CF6FC180079CE4A /* LS_feipinPrice_model.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CB86C9F1CF6FC180079CE4A /* LS_feipinPrice_model.m */; };
 		0CEA408E1C5780F500E036B4 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEA408D1C5780F500E036B4 /* Reachability.m */; };
@@ -953,8 +952,6 @@
 		0CB1ABA71C3F80CA00C14662 /* SetTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetTableViewCell.m; sourceTree = "<group>"; };
 		0CB1ABA81C3F80CA00C14662 /* SetTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetTableViewCell.xib; sourceTree = "<group>"; };
 		0CB1ABAB1C3F8B5A00C14662 /* haoyou.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = haoyou.jpg; path = "钱包/haoyou.jpg"; sourceTree = "<group>"; };
-		0CB1ABAE1C3F8E9E00C14662 /* MallTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallTableViewController.h; sourceTree = "<group>"; };
-		0CB1ABAF1C3F8E9E00C14662 /* MallTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallTableViewController.m; sourceTree = "<group>"; };
 		0CB1ABB21C3F90FA00C14662 /* MallHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MallHeaderView.h; sourceTree = "<group>"; };
 		0CB1ABB31C3F90FA00C14662 /* MallHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallHeaderView.m; sourceTree = "<group>"; };
 		0CB86C9E1CF6FC180079CE4A /* LS_feipinPrice_model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LS_feipinPrice_model.h; sourceTree = "<group>"; };
@@ -1995,8 +1992,6 @@
 		0C696B931C3E1945007AE88A /* 商城 */ = {
 			isa = PBXGroup;
 			children = (
-				0CB1ABAE1C3F8E9E00C14662 /* MallTableViewController.h */,
-				0CB1ABAF1C3F8E9E00C14662 /* MallTableViewController.m */,
 				0C6289211CE1BB33003430E8 /* LS_Mall_ViewController.h */,
 				0C6289221CE1BB34003430E8 /* LS_Mall_ViewController.m */,
 				0C6289231CE1BB34003430E8 /* LS_Mall_ViewController.xib */,
@@ -2884,7 +2879,6 @@
 				0CEA40B41C5781CC00E036B4 /* SDWebImageCompat.m in Sources */,
 				0C63867D1C60862100EF9806 /* InforSetTableViewController.m in Sources */,
 				0C3818A61C27A30A00A6B8A4 /* UserInformation.m in Sources */,
-				0CB1ABB01C3F8E9E00C14662 /* MallTableViewController.m in Sources */,
 				0C76320F1C112DB2005EB27E /* RegisteredView.m in Sources */,
 				0C6F72081CC4BE7C00E62EA0 /* LS_Help_TableViewController.m in Sources */,
 				0C9DE4B91CE037110018A68B /* LS_Other_recycling_View.m in Sources */,
@@ -3162,13 +3156,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: xiao long bai (B5M652N94A)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
-					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/WXFrameworks",
 					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)",
 					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/Rong_Cloud_iOS_IMKit_SDK_v2_4_7_stable",
 					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/Alipay",
@@ -3182,11 +3174,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/UMSocial_Sdk_4.4",
-					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/UMSocial_Sdk_Extra_Frameworks/Sina",
-					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/UMSocial_Sdk_Extra_Frameworks/SinaSSO",
-					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
-					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/UMSocial_Sdk_Extra_Frameworks/Wechat",
 					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/Rong_Cloud_iOS_IMKit_SDK_v2_4_7_stable",
 					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/Alipay",
 					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)",
@@ -3194,7 +3181,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bolong.bolongezhan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "33cbb925-c7a2-4434-8862-9afc1e39e1f9";
+				PROVISIONING_PROFILE = "c6a2d179-df34-463f-80fd-155872366599";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -3203,13 +3190,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: xiao long bai (B5M652N94A)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
-					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/WXFrameworks",
 					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)",
 					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/Rong_Cloud_iOS_IMKit_SDK_v2_4_7_stable",
 					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/Alipay",
@@ -3223,11 +3208,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/UMSocial_Sdk_4.4",
-					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/UMSocial_Sdk_Extra_Frameworks/Sina",
-					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/UMSocial_Sdk_Extra_Frameworks/SinaSSO",
-					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
-					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/UMSocial_Sdk_Extra_Frameworks/Wechat",
 					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/Rong_Cloud_iOS_IMKit_SDK_v2_4_7_stable",
 					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/Alipay",
 					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)",
@@ -3235,7 +3215,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bolong.bolongezhan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "33cbb925-c7a2-4434-8862-9afc1e39e1f9";
+				PROVISIONING_PROFILE = "c6a2d179-df34-463f-80fd-155872366599";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

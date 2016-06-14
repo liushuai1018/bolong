@@ -84,7 +84,6 @@
     [_numberView.determine addTarget:self action:@selector(determineAction:) forControlEvents:UIControlEventTouchUpInside];
     
     // 电子标签View
-    NSLog(@"frame = %@", _numberView);
     _tagsView = [[PresenceTags alloc] initWithFrame:_numberView.frame];
     
     [self.view addSubview:_numberView];

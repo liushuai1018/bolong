@@ -29,6 +29,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *qianbao_yue_height;
 
 
+// 小logo
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *logo_top;
 @end
 
 @implementation LS_Wallet_Root_ViewController
@@ -59,8 +61,7 @@
 - (void)adapter
 {
     NSString *equipmentModel = [[LS_EquipmentModel sharedEquipmentModel] accessModel];
-    
-    if ([equipmentModel isEqualToString:@"4_inch"]) {
+    if ([equipmentModel isEqualToString:@"3.5_inch"]) {
         _distanceTop.constant = SCREEN_HEIGHT * 0.1; // 剩余铂隆币距离上边的距离
         _dough.font = [UIFont systemFontOfSize:25];  // 设置字体
         _bolongbi.font = [UIFont systemFontOfSize:15]; // 设置字体
@@ -68,12 +69,19 @@
         _qianbao_yue_widht.constant = -(CGRectGetWidth(self.view.frame) * 0.1);
         return;
     }
+    if ([equipmentModel isEqualToString:@"4_inch"]) {
+        _distanceTop.constant = SCREEN_HEIGHT * 0.14; // 剩余铂隆币距离上边的距离
+        _dough.font = [UIFont systemFontOfSize:28];  // 设置字体
+        _bolongbi.font = [UIFont systemFontOfSize:18]; // 设置字体
+        return;
+    }
     if ([equipmentModel isEqualToString:@"4.7_inch"]) {
-        
+        _distanceTop.constant = SCREEN_HEIGHT * 0.16; // 剩余铂隆币距离上边的距离
         return;
     }
     if ([equipmentModel isEqualToString:@"5.5_inch"]) {
-        
+        _logo_top.constant = 100;
+        _distanceTop.constant = SCREEN_HEIGHT * 0.16; // 剩余铂隆币距离上边的距离
         return;
     }
     

@@ -73,25 +73,25 @@
     switch (switchButton.tag) {
         case 13100: {
             if (isBut) {
-                NSLog(@"接受圈子消息");
+//                NSLog(@"接受圈子消息");
             } else {
-                NSLog(@"拒绝圈子消息");
+//                NSLog(@"拒绝圈子消息");
             }
             break;
         }
         case 13101: {
             if (isBut) {
-                NSLog(@"接受好友邀请");
+//                NSLog(@"接受好友邀请");
             } else {
-                NSLog(@"拒绝好友邀请");
+//                NSLog(@"拒绝好友邀请");
             }
             break;
         }
         case 13102: {
             if (isBut) {
-                NSLog(@"接受消息");
+//                NSLog(@"接受消息");
             } else {
-                NSLog(@"拒绝消息");
+//                NSLog(@"拒绝消息");
             }
             break;
         }

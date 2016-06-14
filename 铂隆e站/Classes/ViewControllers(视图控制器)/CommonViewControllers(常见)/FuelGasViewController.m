@@ -73,7 +73,6 @@
             break;
         case 12501:
             [_fuelGasV.confirmView removeFromSuperview];
-            NSLog(@"取消缴纳暖气费用");
             break;
             
         default:
@@ -101,7 +100,6 @@
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
-    NSLog(@"注册监控键盘");
 }
 #pragma mark - 视图将要消失
 - (void)viewWillDisappear:(BOOL)animated
@@ -114,7 +112,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIKeyboardWillHideNotification
                                                   object:nil];
-    NSLog(@"注销监控键盘");
 }
 
 #pragma mark - 监听键盘的弹出

@@ -10,7 +10,6 @@
 #import "LS_pay_TableViewController.h"
 #import "LS_ParkingRootViewController.h"
 #import "LS_Mall_ViewController.h"
-#import "MallTableViewController.h"
 
 @interface LS_HomeViewController ()
 {
@@ -65,18 +64,17 @@
     _parking_View.hidden = YES;
     _mall_View.hidden = YES;
     
-    
-    _width.constant = SCREEN_WIDTH * 0;
-    
     NSString *equipmentModel = [[LS_EquipmentModel sharedEquipmentModel] accessModel];
+    if ([equipmentModel isEqualToString:@"3.5_inch"]) {
+        _width.constant = 0;
+        return;
+    }
     if ([equipmentModel isEqualToString:@"4_inch"]) {
-        
-        
+        _width.constant = 80;
         return;
     }
     if ([equipmentModel isEqualToString:@"4.7_inch"]) {
-        
-        _width.constant = SCREEN_WIDTH * 0.25;
+        _width.constant = 100;
         return;
     }
     if ([equipmentModel isEqualToString:@"5.5_inch"]) {

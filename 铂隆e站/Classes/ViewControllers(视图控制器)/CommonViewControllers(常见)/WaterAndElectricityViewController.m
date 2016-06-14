@@ -62,12 +62,10 @@
     
     switch (sender.tag) {
         case 12300:
-            NSLog(@"水费");
             [self.waterV createConfirmView]; // 创建缴费确认视图
             [self confirmAction]; // 给确认缴费按钮添加事件
             break;
         case 12301:
-            NSLog(@"电费");
             [self.waterV createConfirmView]; // 创建缴费确认视图
             [self confirmAction]; // 给确认缴费按钮添加事件
             break;
@@ -127,7 +125,6 @@
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
-    NSLog(@"注册监控键盘");
 }
 #pragma mark - 视图将要消失
 - (void)viewWillDisappear:(BOOL)animated
@@ -140,7 +137,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIKeyboardWillHideNotification
                                                   object:nil];
-    NSLog(@"注销监控键盘");
 }
 
 - (void)didReceiveMemoryWarning {

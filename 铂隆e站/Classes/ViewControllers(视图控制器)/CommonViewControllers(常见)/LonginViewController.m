@@ -178,7 +178,7 @@
         [[RCIM sharedRCIM] connectWithToken:token
                                     success:^(NSString *userId) {
                                         
-                                        NSLog(@"登陆融云IM成功,当前登陆的用户ID: %@", userId);
+//                                        NSLog(@"登陆融云IM成功,当前登陆的用户ID: %@", userId);
                                         
                                     } error:^(RCConnectErrorCode status) {
                                         
