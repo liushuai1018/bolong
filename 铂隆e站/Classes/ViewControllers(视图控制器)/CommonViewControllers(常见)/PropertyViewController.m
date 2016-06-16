@@ -193,10 +193,19 @@
     
     [self textFieldResignFirstResponder];
     
+//    if (0 == indexPath.row) {
+//        SelectAVillageTableViewController *selectVillage = [[SelectAVillageTableViewController alloc] init];
+//        selectVillage.title = @"选择物业";
+//        selectVillage.wuyeAr = @[@"", @"", @""];
+//        selectVillage.dataArray = nil;
+//        [self.navigationController pushViewController:selectVillage animated:YES];
+//    }
+    
     // 点击小区推出选择界面
     if (1 == indexPath.row) {
         SelectAVillageTableViewController *selectVillage = [[SelectAVillageTableViewController alloc] init];
         
+        selectVillage.wuyeAr = nil;
         selectVillage.dataArray = _communityArray;
         selectVillage.title = @"选择小区";
         

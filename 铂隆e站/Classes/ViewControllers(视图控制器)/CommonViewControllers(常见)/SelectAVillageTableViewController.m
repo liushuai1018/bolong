@@ -41,7 +41,13 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _dataArray.count;
+    if (_dataArray.count != 0) {
+        return _dataArray.count;
+    } else if (_wuyeAr.count != 0) {
+        return _wuyeAr.count;
+    } else {
+        return 0;
+    }
 }
 
 
@@ -54,11 +60,17 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    CommunityInformation *community = _dataArray[indexPath.row];
+    if (_dataArray.count != 0) {
+        CommunityInformation *community = _dataArray[indexPath.row];
+        cell.textLabel.text = community.home;
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"物业费每平方米: %.2f元", community.price];
+        cell.detailTextLabel.font = [UIFont systemFontOfSize:12.0];
+    }
     
-    cell.textLabel.text = community.home;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"物业费每平方米: %.2f元", community.price];
-    cell.detailTextLabel.font = [UIFont systemFontOfSize:12.0];
+    if (_wuyeAr.count != 0) {
+        
+        cell.textLabel.text = [NSString stringWithFormat:@"物业: %ld", indexPath.row];
+    }
     
     return cell;
 }

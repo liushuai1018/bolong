@@ -185,13 +185,6 @@
 		0C6386811C60864700EF9806 /* InforSetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C63867F1C60864700EF9806 /* InforSetTableViewCell.m */; };
 		0C6386821C60864700EF9806 /* InforSetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C6386801C60864700EF9806 /* InforSetTableViewCell.xib */; };
 		0C6386841C60869200EF9806 /* setquanzi_quanquan.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C6386831C60869200EF9806 /* setquanzi_quanquan.png */; };
-		0C642FCF1C756E4B00EEC11E /* Emoji.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C642FC61C756E4B00EEC11E /* Emoji.plist */; };
-		0C642FD01C756E4B00EEC11E /* RongCloudKit.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0C642FC71C756E4B00EEC11E /* RongCloudKit.strings */; };
-		0C642FD11C756E4B00EEC11E /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C642FC91C756E4B00EEC11E /* libopencore-amrnb.a */; };
-		0C642FD21C756E4B00EEC11E /* release_notes_ios.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0C642FCA1C756E4B00EEC11E /* release_notes_ios.txt */; };
-		0C642FD31C756E4B00EEC11E /* RongCloud.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0C642FCB1C756E4B00EEC11E /* RongCloud.bundle */; };
-		0C642FD41C756E4B00EEC11E /* RongIMKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C642FCC1C756E4B00EEC11E /* RongIMKit.framework */; };
-		0C642FD51C756E4B00EEC11E /* RongIMLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C642FCD1C756E4B00EEC11E /* RongIMLib.framework */; };
 		0C642FD71C75706900EEC11E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C642FD61C75706900EEC11E /* CFNetwork.framework */; };
 		0C642FD91C75707E00EEC11E /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C642FD81C75707E00EEC11E /* CoreAudio.framework */; };
 		0C642FDB1C7570AF00EEC11E /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C642FDA1C7570AF00EEC11E /* CoreMedia.framework */; };
@@ -353,6 +346,14 @@
 		0CB1ABAC1C3F8B5A00C14662 /* haoyou.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0CB1ABAB1C3F8B5A00C14662 /* haoyou.jpg */; };
 		0CB1ABB41C3F90FA00C14662 /* MallHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CB1ABB31C3F90FA00C14662 /* MallHeaderView.m */; };
 		0CB86CA01CF6FC180079CE4A /* LS_feipinPrice_model.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CB86C9F1CF6FC180079CE4A /* LS_feipinPrice_model.m */; };
+		0CD1D0511D12442300D05441 /* Emoji.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0CD1D0471D12442300D05441 /* Emoji.plist */; };
+		0CD1D0521D12442300D05441 /* RongCloudKit.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0CD1D0481D12442300D05441 /* RongCloudKit.strings */; };
+		0CD1D0531D12442300D05441 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CD1D04A1D12442300D05441 /* libopencore-amrnb.a */; };
+		0CD1D0541D12442300D05441 /* RCConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0CD1D04B1D12442300D05441 /* RCConfig.plist */; };
+		0CD1D0551D12442300D05441 /* release_notes_ios.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0CD1D04C1D12442300D05441 /* release_notes_ios.txt */; };
+		0CD1D0561D12442300D05441 /* RongCloud.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0CD1D04D1D12442300D05441 /* RongCloud.bundle */; };
+		0CD1D0571D12442300D05441 /* RongIMKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CD1D04E1D12442300D05441 /* RongIMKit.framework */; };
+		0CD1D0581D12442300D05441 /* RongIMLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CD1D04F1D12442300D05441 /* RongIMLib.framework */; };
 		0CEA408E1C5780F500E036B4 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEA408D1C5780F500E036B4 /* Reachability.m */; };
 		0CEA40B11C5781CC00E036B4 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEA40911C5781CC00E036B4 /* MKAnnotationView+WebCache.m */; };
 		0CEA40B21C5781CC00E036B4 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEA40931C5781CC00E036B4 /* NSData+ImageContentType.m */; };
@@ -740,14 +741,6 @@
 		0C63867F1C60864700EF9806 /* InforSetTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InforSetTableViewCell.m; sourceTree = "<group>"; };
 		0C6386801C60864700EF9806 /* InforSetTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InforSetTableViewCell.xib; sourceTree = "<group>"; };
 		0C6386831C60869200EF9806 /* setquanzi_quanquan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setquanzi_quanquan.png; sourceTree = "<group>"; };
-		0C642FC61C756E4B00EEC11E /* Emoji.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Emoji.plist; sourceTree = "<group>"; };
-		0C642FC81C756E4B00EEC11E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/RongCloudKit.strings; sourceTree = "<group>"; };
-		0C642FC91C756E4B00EEC11E /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrnb.a"; sourceTree = "<group>"; };
-		0C642FCA1C756E4B00EEC11E /* release_notes_ios.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes_ios.txt; sourceTree = "<group>"; };
-		0C642FCB1C756E4B00EEC11E /* RongCloud.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = RongCloud.bundle; sourceTree = "<group>"; };
-		0C642FCC1C756E4B00EEC11E /* RongIMKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RongIMKit.framework; sourceTree = "<group>"; };
-		0C642FCD1C756E4B00EEC11E /* RongIMLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RongIMLib.framework; sourceTree = "<group>"; };
-		0C642FCE1C756E4B00EEC11E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/RongCloudKit.strings"; sourceTree = "<group>"; };
 		0C642FD61C75706900EEC11E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		0C642FD81C75707E00EEC11E /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		0C642FDA1C7570AF00EEC11E /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
@@ -956,6 +949,15 @@
 		0CB1ABB31C3F90FA00C14662 /* MallHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MallHeaderView.m; sourceTree = "<group>"; };
 		0CB86C9E1CF6FC180079CE4A /* LS_feipinPrice_model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LS_feipinPrice_model.h; sourceTree = "<group>"; };
 		0CB86C9F1CF6FC180079CE4A /* LS_feipinPrice_model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LS_feipinPrice_model.m; sourceTree = "<group>"; };
+		0CD1D0471D12442300D05441 /* Emoji.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Emoji.plist; sourceTree = "<group>"; };
+		0CD1D0491D12442300D05441 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/RongCloudKit.strings; sourceTree = "<group>"; };
+		0CD1D04A1D12442300D05441 /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrnb.a"; sourceTree = "<group>"; };
+		0CD1D04B1D12442300D05441 /* RCConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RCConfig.plist; sourceTree = "<group>"; };
+		0CD1D04C1D12442300D05441 /* release_notes_ios.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes_ios.txt; sourceTree = "<group>"; };
+		0CD1D04D1D12442300D05441 /* RongCloud.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = RongCloud.bundle; sourceTree = "<group>"; };
+		0CD1D04E1D12442300D05441 /* RongIMKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RongIMKit.framework; sourceTree = "<group>"; };
+		0CD1D04F1D12442300D05441 /* RongIMLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RongIMLib.framework; sourceTree = "<group>"; };
+		0CD1D0501D12442300D05441 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/RongCloudKit.strings"; sourceTree = "<group>"; };
 		0CEA408C1C5780F500E036B4 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		0CEA408D1C5780F500E036B4 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		0CEA40901C5781CC00E036B4 /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
@@ -1023,6 +1025,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C642FE31C75715300EEC11E /* MapKit.framework in Frameworks */,
+				0CFFBC571C2CDB16005DEECC /* AssetsLibrary.framework in Frameworks */,
 				0C303FBF1D057AD100F05DD5 /* AdSupport.framework in Frameworks */,
 				0C916D041C1FC74300BC7071 /* libz.tbd in Frameworks */,
 				0C916CF61C1FC6A200BC7071 /* Security.framework in Frameworks */,
@@ -1031,6 +1035,7 @@
 				0C916CFC1C1FC6F700BC7071 /* CoreGraphics.framework in Frameworks */,
 				0C916CFA1C1FC6C600BC7071 /* SystemConfiguration.framework in Frameworks */,
 				0C916D001C1FC72500BC7071 /* CoreTelephony.framework in Frameworks */,
+				0CD1D0581D12442300D05441 /* RongIMLib.framework in Frameworks */,
 				0C303FBD1D057A3800F05DD5 /* CoreFoundation.framework in Frameworks */,
 				0C642FD71C75706900EEC11E /* CFNetwork.framework in Frameworks */,
 				0C87FB7E1C4C711200CC3498 /* libc++.tbd in Frameworks */,
@@ -1039,9 +1044,9 @@
 				0C5D1CC61CA4E6D9006494A5 /* CoreText.framework in Frameworks */,
 				0CFFBC471C2CDA2C005DEECC /* AddressBook.framework in Frameworks */,
 				0C87FB7C1C4C70ED00CC3498 /* OpenGLES.framework in Frameworks */,
-				0C642FE31C75715300EEC11E /* MapKit.framework in Frameworks */,
 				0C5D1BF31CA4E4E6006494A5 /* libcrypto.a in Frameworks */,
 				0C5D1BF21CA4E4E6006494A5 /* AlipaySDK.framework in Frameworks */,
+				0CD1D0571D12442300D05441 /* RongIMKit.framework in Frameworks */,
 				0C642FE11C75713B00EEC11E /* libxml2.tbd in Frameworks */,
 				0C916D021C1FC73700BC7071 /* libstdc++.tbd in Frameworks */,
 				0C916CFE1C1FC70500BC7071 /* libsqlite3.tbd in Frameworks */,
@@ -1055,16 +1060,13 @@
 				0C642FD91C75707E00EEC11E /* CoreAudio.framework in Frameworks */,
 				0CFFBC551C2CDAF5005DEECC /* AVFoundation.framework in Frameworks */,
 				0CFFBC531C2CDAE8005DEECC /* AudioToolbox.framework in Frameworks */,
-				0CFFBC571C2CDB16005DEECC /* AssetsLibrary.framework in Frameworks */,
+				0CD1D0531D12442300D05441 /* libopencore-amrnb.a in Frameworks */,
 				0C87FB781C4C6FD300CC3498 /* MAMapKit.framework in Frameworks */,
 				0CFFBC4D1C2CDABA005DEECC /* libstdc++.6.0.9.tbd in Frameworks */,
 				0CFFBC4F1C2CDACD005DEECC /* MobileCoreServices.framework in Frameworks */,
 				0CFFBC4B1C2CDA8C005DEECC /* CoreData.framework in Frameworks */,
 				0C6EF00C1C45F4C7009BADFF /* AMapSearchKit.framework in Frameworks */,
-				0C642FD11C756E4B00EEC11E /* libopencore-amrnb.a in Frameworks */,
 				0C916CF81C1FC6B000BC7071 /* libiconv.tbd in Frameworks */,
-				0C642FD51C756E4B00EEC11E /* RongIMLib.framework in Frameworks */,
-				0C642FD41C756E4B00EEC11E /* RongIMKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1294,11 +1296,11 @@
 		0C2562151C06D97F00543498 /* ThirdParty(第三方) */ = {
 			isa = PBXGroup;
 			children = (
+				0CD1D0461D12442300D05441 /* Rong_Cloud_iOS_IMKit_SDK_v2_6_2_dev */,
 				0C8617B71D0665F200EF6754 /* Frameworks */,
 				0C303FB81D0579BF00F05DD5 /* JPush */,
 				0C8A3FEB1CB3562E00505781 /* 判断网络连接 */,
 				0C5D1BEC1CA4E4A1006494A5 /* Alipay */,
-				0C642FC51C756E4B00EEC11E /* Rong_Cloud_iOS_IMKit_SDK_v2_4_7_stable */,
 				0CEA408F1C5781CC00E036B4 /* SDWebImage */,
 				0C6EF0091C45F4B4009BADFF /* MAMap */,
 			);
@@ -1922,20 +1924,6 @@
 			name = "占道停车";
 			sourceTree = "<group>";
 		};
-		0C642FC51C756E4B00EEC11E /* Rong_Cloud_iOS_IMKit_SDK_v2_4_7_stable */ = {
-			isa = PBXGroup;
-			children = (
-				0C642FC61C756E4B00EEC11E /* Emoji.plist */,
-				0C642FC71C756E4B00EEC11E /* RongCloudKit.strings */,
-				0C642FC91C756E4B00EEC11E /* libopencore-amrnb.a */,
-				0C642FCA1C756E4B00EEC11E /* release_notes_ios.txt */,
-				0C642FCB1C756E4B00EEC11E /* RongCloud.bundle */,
-				0C642FCC1C756E4B00EEC11E /* RongIMKit.framework */,
-				0C642FCD1C756E4B00EEC11E /* RongIMLib.framework */,
-			);
-			path = Rong_Cloud_iOS_IMKit_SDK_v2_4_7_stable;
-			sourceTree = "<group>";
-		};
 		0C6611571C084A65002315BD /* 首页 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2476,6 +2464,21 @@
 			path = "商城";
 			sourceTree = "<group>";
 		};
+		0CD1D0461D12442300D05441 /* Rong_Cloud_iOS_IMKit_SDK_v2_6_2_dev */ = {
+			isa = PBXGroup;
+			children = (
+				0CD1D0471D12442300D05441 /* Emoji.plist */,
+				0CD1D0481D12442300D05441 /* RongCloudKit.strings */,
+				0CD1D04A1D12442300D05441 /* libopencore-amrnb.a */,
+				0CD1D04B1D12442300D05441 /* RCConfig.plist */,
+				0CD1D04C1D12442300D05441 /* release_notes_ios.txt */,
+				0CD1D04D1D12442300D05441 /* RongCloud.bundle */,
+				0CD1D04E1D12442300D05441 /* RongIMKit.framework */,
+				0CD1D04F1D12442300D05441 /* RongIMLib.framework */,
+			);
+			path = Rong_Cloud_iOS_IMKit_SDK_v2_6_2_dev;
+			sourceTree = "<group>";
+		};
 		0CEA408F1C5781CC00E036B4 /* SDWebImage */ = {
 			isa = PBXGroup;
 			children = (
@@ -2658,11 +2661,11 @@
 				0C48B6FD1CCA20BD00F3251B /* LS_New_login.png in Resources */,
 				0C2561EC1C06D96A00543498 /* LaunchScreen.storyboard in Resources */,
 				0C6D48D51CC0B6EA00650E80 /* new_guanyuwomen.png in Resources */,
-				0C642FD01C756E4B00EEC11E /* RongCloudKit.strings in Resources */,
 				0C3269351CD0A38400BC0078 /* LS_qiandao_mao_pre.png in Resources */,
 				0C46C9D71C0C271E0074CE4F /* HelpTableViewCell.xib in Resources */,
 				0C49F95E1CBF8D68005850B6 /* new_xizhuang.png in Resources */,
 				0CF3CFD21D0039A400529CE7 /* LS_Wallet_record.jpg in Resources */,
+				0CD1D0551D12442300D05441 /* release_notes_ios.txt in Resources */,
 				0CA5EA4E1CCDC34D00346D34 /* LS_qianbao_shangdian.png in Resources */,
 				0C6F72021CC4B58500E62EA0 /* new_wuye_jiaofei.png in Resources */,
 				0CA5EA4F1CCDC34D00346D34 /* LS_qianbao_wuyefuwu.png in Resources */,
@@ -2670,6 +2673,7 @@
 				0CA5EA481CCDC34D00346D34 /* LS_qianbao_di_xian.png in Resources */,
 				0C09CB071C0D9FD8004E7B35 /* UserSecondTableViewCell.xib in Resources */,
 				0C86A9801CE1C7C10048EC16 /* LS_Mall_jiulei.png in Resources */,
+				0CD1D0521D12442300D05441 /* RongCloudKit.strings in Resources */,
 				0C49F96C1CBF9D3E005850B6 /* new_jiaofei_other_qiandao.png in Resources */,
 				0C0ED3D71C30E405008847AF /* 50Y.png in Resources */,
 				0C3269341CD0A38400BC0078 /* LS_qiandao_mao_after.png in Resources */,
@@ -2692,7 +2696,6 @@
 				0C3269331CD0A38400BC0078 /* LS_qiandao_lihe.png in Resources */,
 				0C6F72131CC4CD3000E62EA0 /* LS_Other_baoxiu_bg.png in Resources */,
 				0C9DE4C01CE067310018A68B /* LS_huishou_logo.png in Resources */,
-				0C642FD31C756E4B00EEC11E /* RongCloud.bundle in Resources */,
 				0C49F96B1CBF9D3E005850B6 /* new_jiaofei_other_kaisuo.png in Resources */,
 				0C5864891C339D7D008FF9E2 /* bangzhu-2.jpg in Resources */,
 				0C6F72151CC4CFAF00E62EA0 /* LS_Other_baoxiu_shangbao.png in Resources */,
@@ -2709,6 +2712,7 @@
 				0CB1ABAA1C3F80CA00C14662 /* SetTableViewCell.xib in Resources */,
 				0C6D48D61CC0B6EA00650E80 /* new_lixianditu.png in Resources */,
 				0C1E84541C34D9EF009D6AB8 /* xuanze.png in Resources */,
+				0CD1D0511D12442300D05441 /* Emoji.plist in Resources */,
 				0CA5EA451CCDC34D00346D34 /* LS_qianbao_bg.png in Resources */,
 				0C602C7E1CBE4DF70079DBAC /* bochehao_bg.png in Resources */,
 				0C86CAAD1CCF0D4B0034A00E /* LS_kaisuo_bottom_bg.png in Resources */,
@@ -2732,8 +2736,6 @@
 				0C6B18741C43976E0096DE3F /* meiqi_iOC.png in Resources */,
 				0C9AB9261C0FE9BF0070AF70 /* nanniu.png in Resources */,
 				0C4C43091CE2BFA300B14221 /* LS_Mall_left.png in Resources */,
-				0C642FD21C756E4B00EEC11E /* release_notes_ios.txt in Resources */,
-				0C642FCF1C756E4B00EEC11E /* Emoji.plist in Resources */,
 				0C3269261CD0A21400BC0078 /* LS_Other_Sign_ViewController.xib in Resources */,
 				0C0ED3D31C30E405008847AF /* 10Y.png in Resources */,
 				0CFFBC5F1C2D1025005DEECC /* 2.jpg in Resources */,
@@ -2748,6 +2750,7 @@
 				0C0ED3DB1C30E405008847AF /* xuanz.png in Resources */,
 				0C6D48BB1CC0899D00650E80 /* new_shequ_tingche.png in Resources */,
 				0C6D48E41CC0BF3800650E80 /* LS_quanzi_ico.png in Resources */,
+				0CD1D0561D12442300D05441 /* RongCloud.bundle in Resources */,
 				0CA786C01CD32FDD0077FB7D /* LS_tingche_jiayouzhan.png in Resources */,
 				0C0ED3D91C30E405008847AF /* kuang-3.png in Resources */,
 				0C1E84531C34D9EF009D6AB8 /* xuanze-2.png in Resources */,
@@ -2761,6 +2764,7 @@
 				0C49F9441CBF6F37005850B6 /* dianzibiaoqian_bg.png in Resources */,
 				0CFFBC601C2D1025005DEECC /* 3.jpg in Resources */,
 				0CA5EA491CCDC34D00346D34 /* LS_qianbao_eat.png in Resources */,
+				0CD1D0541D12442300D05441 /* RCConfig.plist in Resources */,
 				0C6D48C51CC08D4400650E80 /* new_tingche_other2.png in Resources */,
 				0C1E84501C34D9EF009D6AB8 /* shui.png in Resources */,
 				0C5391251CC8ADF000A97618 /* LS_addNewAddress_ViewController.xib in Resources */,
@@ -3058,11 +3062,11 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		0C642FC71C756E4B00EEC11E /* RongCloudKit.strings */ = {
+		0CD1D0481D12442300D05441 /* RongCloudKit.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				0C642FC81C756E4B00EEC11E /* en */,
-				0C642FCE1C756E4B00EEC11E /* zh-Hans */,
+				0CD1D0491D12442300D05441 /* en */,
+				0CD1D0501D12442300D05441 /* zh-Hans */,
 			);
 			name = RongCloudKit.strings;
 			sourceTree = "<group>";
@@ -3161,9 +3165,9 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)",
-					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/Rong_Cloud_iOS_IMKit_SDK_v2_4_7_stable",
 					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/Alipay",
+					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/Rong_Cloud_iOS_IMKit_SDK_v2_6_2_dev",
+					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)",
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -3174,8 +3178,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/Rong_Cloud_iOS_IMKit_SDK_v2_4_7_stable",
 					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/Alipay",
+					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/Rong_Cloud_iOS_IMKit_SDK_v2_6_2_dev",
 					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)",
 				);
 				OTHER_LDFLAGS = "-ObjC";
@@ -3192,12 +3196,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: xiao long bai (B5M652N94A)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)",
-					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/Rong_Cloud_iOS_IMKit_SDK_v2_4_7_stable",
 					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/Alipay",
+					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/Rong_Cloud_iOS_IMKit_SDK_v2_6_2_dev",
+					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)",
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -3208,8 +3213,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/Rong_Cloud_iOS_IMKit_SDK_v2_4_7_stable",
 					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/Alipay",
+					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)/Rong_Cloud_iOS_IMKit_SDK_v2_6_2_dev",
 					"$(PROJECT_DIR)/铂隆e站/Classes/ThirdParty(第三方)",
 				);
 				OTHER_LDFLAGS = "-ObjC";

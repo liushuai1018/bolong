@@ -13,8 +13,10 @@ typedef void(^kBlock)(CommunityInformation *);
 
 @interface SelectAVillageTableViewController : UITableViewController
 
-@property (strong, nonatomic) NSArray *dataArray;
+@property (strong, nonatomic) NSArray *dataArray; // 小区
 
-@property (copy, nonatomic) kBlock block;
+@property (strong, nonatomic) NSArray *wuyeAr;    // 物业
+
+@property (copy, nonatomic) kBlock block; // 小区
 
 @end

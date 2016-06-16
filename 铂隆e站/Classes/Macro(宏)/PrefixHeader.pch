@@ -23,7 +23,6 @@
  *  融云 IM Key
  */
 #define RC_IM_Key @"8w7jv4qb7ey6y"
-#define RC_IM_Temp_Token @"VAZqz8j5M8QUss7jfSTc5DVHXkAG7pcbJF4TZk7kk0nL6WDRhRfgEW6YMsqg4LLcWSL898AphGuL8iwmgPbJcQ=="
 
 /**
  *  极光推送 Key

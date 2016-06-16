@@ -130,8 +130,6 @@
 
 #pragma mark - 极光推送
 - (void)initJPUSHWithOptions:(NSDictionary *)launchOption {
-    // 广告标示符
-    NSString *advertisingID = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
     
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) { // 系统版本
         // 可以自定义类别categories
@@ -152,7 +150,7 @@
                            appKey:JPush_key
                           channel:@"App Store"
                  apsForProduction:FALSE
-            advertisingIdentifier:advertisingID];
+            advertisingIdentifier:nil];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
