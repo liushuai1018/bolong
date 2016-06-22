@@ -94,25 +94,36 @@
 
 #pragma mark - 物业方法接口
 /**
- *  获取小区
+ *  获取物业
  *
- *  @param sneder 获取的小区信息
+ *  @param block 获取的物业信息
  */
-- (void)getCommunity:(void(^)(NSArray *array))sender;
+- (void)getWuYeRetuns:(void(^)(NSArray *array))block;
 
 /**
- *  物业缴费
+ *  获取小区
  *
- *  @param user_id 用户ID
- *  @param wuye_id 所在小区ID
- *  @param number  户主身份证号码
- *  @param name    业主姓名
- *  @param block   返回业主房屋信息
+ *  @param wuYeID 物业ID
+ *  @param sender 小区信息
+ */
+- (void)getCommunityWuYeID:(NSString *)wuYeID
+           communityInform:(void(^)(NSArray *array))sender;
+
+/**
+ *  物业缴费信息
+ *
+ *  @param user_id     用户ID
+ *  @param communityID 小区ID
+ *  @param number      身份证号码
+ *  @param name        户主姓名
+ *  @param wuyeID      物业ID
+ *  @param block       户主房屋信息
  */
 - (void)wuyeInoformationID:(NSString *)user_id
-                      wuye:(NSString *)wuye_id
+               communityID:(NSString *)communityID
                     number:(NSString *)number
                       name:(NSString *)name
+                    wuyeID:(NSString *)wuyeID
                    returns:(void(^)(WuYeDetails *wuyeDetails))block;
 
 
@@ -123,7 +134,7 @@
  *  @param log_ids 缴费的房屋
  */
 - (void)wuyePay:(NSString *)user_id
-        log_ids:(NSInteger)log_ids
+        log_ids:(NSString *)log_ids
           retum:(void(^)(NSDictionary *dict))inform;
 
 /**

@@ -57,11 +57,12 @@
 // 忘记密码
 #define kForgetPassword @"http://101.201.147.70/bolong/mobile.php/Mobile/Login/forgetPassword"
 
-
+// 获取物业
+#define kObtainWuYeURL @"http://192.168.1.60/bolong/mobile.php/Mobile/Wuye/get_fenqu"
 // 获取小区
-#define kGetCommunity @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/get_home"
+#define kGetCommunityURL @"http://192.168.1.60/bolong/mobile.php/Mobile/Wuye/get_home"
 // 物业缴费信息
-#define kWuYePayInformation @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/pay_wuye"
+#define kWuYePayInformationURL @"http://192.168.1.60/bolong/mobile.php/Mobile/Wuye/pay_wuye"
 // 确认物业缴费
 #define kWuYePayURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/pay"
 

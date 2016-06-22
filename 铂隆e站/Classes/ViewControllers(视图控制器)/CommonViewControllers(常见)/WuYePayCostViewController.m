@@ -10,13 +10,14 @@
 #import "WuYePayCostView.h"
 #import "WuYeDetails.h"
 #import "HousingAddress.h"
+#import "LS_MultiSelectMenu_TableViewController.h"
 
 @interface WuYePayCostViewController ()
 
 @property (strong, nonatomic) WuYePayCostView *wuyePayCostView;
 
 // 记录选择缴费的房屋
-@property (strong, nonatomic) HousingAddress *chooseAddress;
+@property (strong, nonatomic) NSArray *chooseAddressAr;
 
 @property (strong, nonatomic) NSTimer *timer;
 @property (assign, nonatomic) int secondsCountDown;
@@ -39,13 +40,6 @@
     _wuyePayCostView.name.text = [NSString stringWithFormat:@"姓名:%@", _wuye.name];
     _wuyePayCostView.number.text = [NSString stringWithFormat:@"身份证:%@", _wuye.number];
     
-    NSMutableArray *array = [NSMutableArray array];
-    for (HousingAddress *address in _wuye.addressList) {
-        [array addObject:[NSString stringWithFormat:@"地址:%@",address.address]];
-    }
-    _wuyePayCostView.pulldownMenus.textField.placeholder = @"地址:选择缴纳的房屋";
-    _wuyePayCostView.pulldownMenus.tableArray = array;
-    
     _wuyePayCostView.paymentDetails.text = [NSString stringWithFormat:@"详情:物业费每平方米按%.2f元收取", _wuye.unit_price];
     _wuyePayCostView.totalFee.text = @"总计:0.00元";
     
@@ -67,12 +61,18 @@
     // 支付block
     _wuyePayCostView.block = ^(){
         
-        BOOL is = (wuyePay.chooseAddress != nil);
+        BOOL is = (wuyePay.chooseAddressAr.count != 0);
         
         if (is) { // 判断有没有选择房屋
+            NSMutableArray *log_idsAR = [NSMutableArray array];
+            for (HousingAddress *model in wuyePay.chooseAddressAr) {
+                [log_idsAR addObject:[NSString stringWithFormat:@"%ld", model.log_id]];
+            }
+            
+            NSString *log_IDs = [log_idsAR componentsJoinedByString:@","];
             
             [[NetWorkRequestManage sharInstance] wuyePay:wuyePay.userInformation.user_id
-                                                 log_ids:wuyePay.chooseAddress.log_id
+                                                 log_ids:log_IDs
                                                    retum:^(NSDictionary *dict)
             {
                 NSInteger index = [[dict objectForKey:@"resultStatus"] integerValue];
@@ -97,7 +97,7 @@
         
     };
     
-    
+    /*
     // 选择房屋
     _wuyePayCostView.pulldownMenus.chooseBlcok = ^(NSIndexPath *indexPath){
         
@@ -106,11 +106,36 @@
         wuyePay.wuyePayCostView.totalFee.text = [NSString stringWithFormat:@"总计:%.2f元", address.price];
         
     };
+     */
+    
+    [_wuyePayCostView.pulldownMenus addTarget:self action:@selector(didClickHousingInform:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - 选择缴费房屋
+- (void)didClickHousingInform:(UIButton *)sender {
+    LS_MultiSelectMenu_TableViewController *control = [[LS_MultiSelectMenu_TableViewController alloc] init];
+    control.housingInform = _wuye;
+    __weak WuYePayCostViewController *weak_control = self;
+    control.block = ^(NSArray *dataAr) {
+        WuYePayCostViewController *strong_control = weak_control;
+        if (strong_control) {
+            strong_control.chooseAddressAr = dataAr;
+            
+            CGFloat price = 0;
+            for (HousingAddress *model in dataAr) {
+                price = price + model.price;
+            }
+            
+            strong_control.wuyePayCostView.totalFee.text = [NSString stringWithFormat:@"总计:%.2f元", price];
+        }
+    };
+    
+    [self.navigationController pushViewController:control animated:YES];
 }
 
 #pragma mark - 提示框

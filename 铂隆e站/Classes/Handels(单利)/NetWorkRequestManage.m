@@ -20,6 +20,7 @@
 #import "LS_addressManage.h"
 #import "LS_feipinPrice_model.h"
 #import "LS_Record_Model.h"
+#import "LS_WuYeInform_Model.h"
 
 #define LSEncode(string) [string dataUsingEncoding:NSUTF8StringEncoding]
 
@@ -255,12 +256,51 @@
     }];
 }
 
-#pragma mark - 获取小区
-- (void)getCommunity:(void(^)(NSArray *array))sender
+#pragma mark - 获取物业
+- (void)getWuYeRetuns:(void(^)(NSArray *array))block
 {
-    [self requestNetworkURL:kGetCommunity requserParameter:nil returns:^(NSMutableDictionary *dataDict) {
-        NSArray *array = [dataDict objectForKey:@"datas"];
+    [self requestNetworkURL:kObtainWuYeURL requserParameter:nil returns:^(NSMutableDictionary *dataDict) {
+        NSInteger index = [[dataDict objectForKey:@"code"] integerValue];
+        if (0 == index) {
+            NSArray *dataAr = [dataDict objectForKey:@"datas"];
+            NSMutableArray *array = [NSMutableArray array];
+            for (int i = 0; i < dataAr.count; i++) {
+                NSDictionary *dict = [dataAr objectAtIndex:i];
+                LS_WuYeInform_Model *model = [[LS_WuYeInform_Model alloc] init];
+                [model setValuesForKeysWithDictionary:dict];
+                NSLog(@"wuyeInform : id:%@ 名称: %@ 编号: %@", model.wuyeID, model.fenqu, model.fenquhao);
+                [array addObject:model];
+            }
+            if (block) {
+                block(array);
+            }
+            
+        } else {
+            if (block) {
+                block(nil);
+            }
+        }
         
+    }];
+}
+
+#pragma mark - 获取小区
+- (void)getCommunityWuYeID:(NSString *)wuYeID
+           communityInform:(void(^)(NSArray *array))sender
+{
+    NSString *parameter = [NSString stringWithFormat:@"id=%@", wuYeID];
+    [self requestNetworkURL:kGetCommunityURL requserParameter:parameter returns:^(NSMutableDictionary *dataDict) {
+        
+        NSInteger index = [[dataDict objectForKey:@"code"] integerValue];
+        
+        if (index != 0) {
+            if (sender) {
+                sender(nil);
+            }
+            return;
+        }
+        
+        NSArray *array = [dataDict objectForKey:@"datas"];
         NSMutableArray *communityArray = [NSMutableArray array];
         
         for (NSDictionary *dict in array) {
@@ -277,14 +317,15 @@
 
 #pragma mark - 交物业费
 - (void)wuyeInoformationID:(NSString *)user_id
-                      wuye:(NSString *)wuye_id
+               communityID:(NSString *)communityID
                     number:(NSString *)number
                       name:(NSString *)name
+                    wuyeID:(NSString *)wuyeID
                    returns:(void(^)(WuYeDetails *wuyeDetails))block
 {
-    NSString *parameter = [NSString stringWithFormat:@"user_id=%@&wuye_id=%@&number=%@&name=%@", user_id, wuye_id, number, name];
+    NSString *parameter = [NSString stringWithFormat:@"user_id=%@&wuye_id=%@&number=%@&name=%@&id=%@", user_id, communityID, number, name, wuyeID];
     __weak NetWorkRequestManage *weak_object = self;
-    [self requestNetworkURL:kWuYePayInformation requserParameter:parameter returns:^(NSMutableDictionary *dataDict) {
+    [self requestNetworkURL:kWuYePayInformationURL requserParameter:parameter returns:^(NSMutableDictionary *dataDict) {
         NetWorkRequestManage *strong_object = weak_object;
         if (strong_object) {
             WuYeDetails *wuye = [[WuYeDetails alloc] init];
@@ -299,6 +340,7 @@
                 }
         
             } else {
+                
                 [strong_object alertView:[dataDict objectForKey:@"datas"]];
             }
         }
@@ -307,10 +349,10 @@
 
 #pragma makr - 确认物业缴费
 - (void)wuyePay:(NSString *)user_id
-        log_ids:(NSInteger)log_ids
+        log_ids:(NSString *)log_ids
           retum:(void(^)(NSDictionary *dict))inform
 {
-    NSString *parameter = [NSString stringWithFormat:@"user_id=%@&log_ids=%d", user_id, log_ids];
+    NSString *parameter = [NSString stringWithFormat:@"user_id=%@&log_ids=%@", user_id, log_ids];
     [self requestNetworkURL:kWuYePayURL requserParameter:parameter returns:^(NSMutableDictionary *dataDict) {
         NSInteger index = [[dataDict objectForKey:@"code"] integerValue];
         if (0 == index) {

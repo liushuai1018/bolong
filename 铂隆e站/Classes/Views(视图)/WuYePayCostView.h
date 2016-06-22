@@ -28,7 +28,7 @@ typedef void(^kBlock)();
 /**
  *  选择缴费的房屋
  */
-@property (strong, nonatomic) PulldownMenusView *pulldownMenus;
+@property (strong, nonatomic) UIButton *pulldownMenus;
 
 /**
  *  缴费详情

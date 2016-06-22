@@ -39,9 +39,15 @@
     _number.font = [UIFont systemFontOfSize:14.0];
     [self addSubview:_number];
     
+    /*
     self.pulldownMenus = [[PulldownMenusView alloc] initWithFrame:CGRectMake(X, CGRectGetMaxY(_number.frame) + interval, width, height)];
     _pulldownMenus.textField.textAlignment = NSTextAlignmentCenter;
     _pulldownMenus.textField.font = [UIFont systemFontOfSize:14.0];
+    [self addSubview:_pulldownMenus];
+    */
+    self.pulldownMenus = [UIButton buttonWithType:UIButtonTypeSystem];
+    _pulldownMenus.frame = CGRectMake(X, CGRectGetMaxY(_number.frame) + interval, width, height);
+    [_pulldownMenus setTitle:@"选择缴纳的房屋" forState:UIControlStateNormal];
     [self addSubview:_pulldownMenus];
     
     self.paymentDetails = [[UILabel alloc] initWithFrame:CGRectMake(X, CGRectGetMaxY(_pulldownMenus.frame) + interval, width, height)];

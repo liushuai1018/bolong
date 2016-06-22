@@ -8,6 +8,7 @@
 
 #import "SelectAVillageTableViewController.h"
 #import "CommunityInformation.h"
+#import "LS_WuYeInform_Model.h"
 
 @interface SelectAVillageTableViewController ()
 
@@ -17,17 +18,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-//    self.title = @"选择小区";
     self.navigationController.navigationBar.translucent = NO;
-    
-    
     self.tableView.tableFooterView = [UIImageView new];
 }
 
-- (void)setTitles:(NSString *)titles
+- (void)setDataArray:(NSArray *)dataArray
 {
-    
+    _dataArray = dataArray;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 - (void)didReceiveMemoryWarning {
@@ -41,9 +41,9 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (_dataArray.count != 0) {
+    if (_dataArray) {
         return _dataArray.count;
-    } else if (_wuyeAr.count != 0) {
+    } else if (_wuyeAr) {
         return _wuyeAr.count;
     } else {
         return 0;
@@ -60,16 +60,16 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    if (_dataArray.count != 0) {
+    if (_dataArray) {
         CommunityInformation *community = _dataArray[indexPath.row];
         cell.textLabel.text = community.home;
         cell.detailTextLabel.text = [NSString stringWithFormat:@"物业费每平方米: %.2f元", community.price];
         cell.detailTextLabel.font = [UIFont systemFontOfSize:12.0];
     }
     
-    if (_wuyeAr.count != 0) {
-        
-        cell.textLabel.text = [NSString stringWithFormat:@"物业: %ld", indexPath.row];
+    if (_wuyeAr) {
+        LS_WuYeInform_Model *model = [_wuyeAr objectAtIndex:indexPath.row];
+        cell.textLabel.text = model.fenqu;
     }
     
     return cell;
@@ -77,12 +77,21 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (_dataArray) {
+        
+        CommunityInformation *community = [_dataArray objectAtIndex:indexPath.row];
+        
+        // 判断block 是否实现
+        if (self.block) {
+            self.block(community);
+        }
+    }
     
-    CommunityInformation *community = [_dataArray objectAtIndex:indexPath.row];
-    
-    // 判断block 是否实现
-    if (self.block) {
-        self.block(community);
+    if (_wuyeAr) {
+        LS_WuYeInform_Model *model = [_wuyeAr objectAtIndex:indexPath.row];
+        if (self.wuyeBlock) {
+            self.wuyeBlock(model);
+        }
     }
     
     [self.navigationController popViewControllerAnimated:YES];

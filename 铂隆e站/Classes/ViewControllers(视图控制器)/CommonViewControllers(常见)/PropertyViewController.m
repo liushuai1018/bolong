@@ -11,15 +11,18 @@
 #import "CommunityInformation.h"
 #import "WuYePayCostViewController.h"
 #import "WuYeDetails.h"
+#import "LS_WuYeInform_Model.h"
 
 @interface PropertyViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 {
+    LS_WuYeInform_Model *_wuyeModel;     // 记录选择的物业
     CommunityInformation *_community;    // 记录选择的小区
 }
 
 @property (nonatomic, strong) UITableView *aTableView;  // 表格
 @property (nonatomic, strong) NSArray *dataArray;       // 表格数据
-@property (strong, nonatomic) NSArray *communityArray;  // 小区数据
+
+@property (strong, nonatomic) NSArray *wuyeInformAr;    // 物业数据
 
 @end
 
@@ -44,9 +47,21 @@
                    @"户主姓名",
                    @"身份证号"];
     
-    // 获取所有小区信息
-    [[NetWorkRequestManage sharInstance] getCommunity:^(NSArray *array) {
-        _communityArray = array;
+    
+    
+    // 获取物业信息
+    __weak PropertyViewController *weak_control = self;
+    [[NetWorkRequestManage sharInstance]  getWuYeRetuns:^(NSArray *array) {
+        if (array) {
+            _wuyeInformAr = array;
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                PropertyViewController *strong_control = weak_control;
+                if (strong_control) {
+                    [strong_control createrAlertControlTitle:@"请求物业失败!"];
+                }
+            });
+        }
     }];
     
 }
@@ -137,7 +152,7 @@
     
     switch (indexPath.row) {
         case 0: {
-            cell.detailTextLabel.text = @"华特物业";
+            cell.detailTextLabel.text = @"请选择物业";
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator; // 显示跳转图标
             break;
         }
@@ -191,34 +206,52 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+    __block PropertyViewController *property = self;
     [self textFieldResignFirstResponder];
     
-//    if (0 == indexPath.row) {
-//        SelectAVillageTableViewController *selectVillage = [[SelectAVillageTableViewController alloc] init];
-//        selectVillage.title = @"选择物业";
-//        selectVillage.wuyeAr = @[@"", @"", @""];
-//        selectVillage.dataArray = nil;
-//        [self.navigationController pushViewController:selectVillage animated:YES];
-//    }
+    if (0 == indexPath.row) {
+        SelectAVillageTableViewController *selectVillage = [[SelectAVillageTableViewController alloc] init];
+        selectVillage.title = @"选择物业";
+        selectVillage.wuyeAr = _wuyeInformAr;
+        selectVillage.dataArray = nil;
+        selectVillage.wuyeBlock = ^(LS_WuYeInform_Model *model){
+            _wuyeModel = model;
+            
+            UITableViewCell *cell = [property.aTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+            cell.detailTextLabel.text = model.fenqu;
+            
+            UITableViewCell *cell1 = [property.aTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+            cell1.detailTextLabel.text = @"请选择小区";
+        };
+        
+        [self.navigationController pushViewController:selectVillage animated:YES];
+    }
     
     // 点击小区推出选择界面
     if (1 == indexPath.row) {
+        if (!_wuyeModel) {
+            [self createrAlertControlTitle:@"请选择物业"];
+            return;
+        }
+        
         SelectAVillageTableViewController *selectVillage = [[SelectAVillageTableViewController alloc] init];
         
+        [[NetWorkRequestManage sharInstance] getCommunityWuYeID:_wuyeModel.wuyeID communityInform:^(NSArray *array) {
+            
+            selectVillage.dataArray = array;
+        }];
+        
+        
         selectVillage.wuyeAr = nil;
-        selectVillage.dataArray = _communityArray;
         selectVillage.title = @"选择小区";
         
         
         // 选择完成本界面并设置上选择的小区
-        __block PropertyViewController *property = self;
         selectVillage.block = ^(CommunityInformation *community){
-            
             _community = community;
             
             UITableViewCell *cell = [property.aTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
             cell.detailTextLabel.text = community.home;
-            
         };
         
         [self.navigationController pushViewController:selectVillage animated:YES];
@@ -315,25 +348,24 @@
     // 小区id
     NSString *communityID = _community.wuye_id;
     
+    // 物业ID
+    NSString *wuyeID = _wuyeModel.wuyeID;
+    
     UserInformation *user =  [[LocalStoreManage sharInstance] requestUserInfor];
     
     __weak PropertyViewController *weak_control = self;
-    [[NetWorkRequestManage sharInstance] wuyeInoformationID:user.user_id
-                                                       wuye:communityID
-                                                     number:number
-                                                       name:name
-                                                    returns:^(WuYeDetails *wuyeDetails) {
-                                                        PropertyViewController *strong_control = weak_control;
-                                                        if (strong_control) {
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                
-                                                                WuYePayCostViewController *wuyePay = [[WuYePayCostViewController alloc] init];
-                                                                wuyePay.wuye = wuyeDetails;
-                                                                wuyePay.userInformation = user;
-                                                                [strong_control.navigationController pushViewController:wuyePay animated:YES];
-                                                            });
-                                                        }
-                                                    }];
+    [[NetWorkRequestManage sharInstance] wuyeInoformationID:user.user_id communityID:communityID number:number name:name wuyeID:wuyeID returns:^(WuYeDetails *wuyeDetails) {
+        PropertyViewController *strong_control = weak_control;
+        if (strong_control) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                WuYePayCostViewController *wuyePay = [[WuYePayCostViewController alloc] init];
+                wuyePay.wuye = wuyeDetails;
+                wuyePay.userInformation = user;
+                [strong_control.navigationController pushViewController:wuyePay animated:YES];
+            });
+        }
+    }];
 }
 
 #pragma makr - textFieldDelegate
@@ -387,4 +419,15 @@
         _aTableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT);
     }];
 }
+
+#pragma mark - alertControl 
+- (void)createrAlertControlTitle:(NSString *)title {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:title preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:cancel];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 @end

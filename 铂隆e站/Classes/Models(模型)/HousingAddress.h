@@ -16,7 +16,7 @@
 @property (strong, nonatomic) NSString *address;
 
 /**
- *  房屋标签
+ *  房屋编号
  */
 @property (assign, nonatomic) NSInteger log_id;
 
