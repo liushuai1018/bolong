@@ -362,6 +362,7 @@
                 WuYePayCostViewController *wuyePay = [[WuYePayCostViewController alloc] init];
                 wuyePay.wuye = wuyeDetails;
                 wuyePay.userInformation = user;
+                wuyePay.wuyeID = wuyeID;
                 [strong_control.navigationController pushViewController:wuyePay animated:YES];
             });
         }

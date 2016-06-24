@@ -18,6 +18,7 @@
 
 // 记录选择缴费的房屋
 @property (strong, nonatomic) NSArray *chooseAddressAr;
+@property (strong, nonatomic) NSString *log_IDs;
 
 @property (strong, nonatomic) NSTimer *timer;
 @property (assign, nonatomic) int secondsCountDown;
@@ -64,15 +65,10 @@
         BOOL is = (wuyePay.chooseAddressAr.count != 0);
         
         if (is) { // 判断有没有选择房屋
-            NSMutableArray *log_idsAR = [NSMutableArray array];
-            for (HousingAddress *model in wuyePay.chooseAddressAr) {
-                [log_idsAR addObject:[NSString stringWithFormat:@"%ld", model.log_id]];
-            }
-            
-            NSString *log_IDs = [log_idsAR componentsJoinedByString:@","];
             
             [[NetWorkRequestManage sharInstance] wuyePay:wuyePay.userInformation.user_id
-                                                 log_ids:log_IDs
+                                                 log_ids:wuyePay.log_IDs
+                                                  wuyeID:wuyePay.wuyeID
                                                    retum:^(NSDictionary *dict)
             {
                 NSInteger index = [[dict objectForKey:@"resultStatus"] integerValue];
@@ -127,10 +123,14 @@
             strong_control.chooseAddressAr = dataAr;
             
             CGFloat price = 0;
+            NSMutableArray *log_idsAR = [NSMutableArray array];
             for (HousingAddress *model in dataAr) {
                 price = price + model.price;
+                [log_idsAR addObject:[NSString stringWithFormat:@"%ld", (long)model.log_id]];
             }
-            
+            NSString *log_IDs = [log_idsAR componentsJoinedByString:@","];
+            strong_control.log_IDs = log_IDs;
+            [sender setTitle:[NSString stringWithFormat:@"选择房屋编号:%@", log_IDs] forState:UIControlStateNormal];
             strong_control.wuyePayCostView.totalFee.text = [NSString stringWithFormat:@"总计:%.2f元", price];
         }
     };

@@ -128,13 +128,16 @@
 
 
 /**
- *  确认物业缴费
+ *  物业缴费支付
  *
- *  @param user_id 缴费用户ID
- *  @param log_ids 缴费的房屋
+ *  @param user_id 用户ID
+ *  @param log_ids 房屋ID
+ *  @param wuyeID  物业ID
+ *  @param inform  缴费订单信息
  */
 - (void)wuyePay:(NSString *)user_id
         log_ids:(NSString *)log_ids
+         wuyeID:(NSString *)wuyeID
           retum:(void(^)(NSDictionary *dict))inform;
 
 /**
@@ -161,10 +164,12 @@
  *  其他_开锁
  *
  *  @param address 开锁地址
+ *  @param wuYeID  物业ID
  *  @param block   求助电话
  */
 - (void)other_UnlockingAddress:(NSString *)address
-                        returns:(void(^)(NSString *phone))block;
+                        wuYeID:(NSString *)wuyeID
+                       returns:(void(^)(NSString *phone))block;
 
 /**
  *  获取废品单价
@@ -176,17 +181,15 @@
 /**
  *  其他_废品回收
  *
- *  @param feipinID 废品ID
- *  @param wuye_id  物业ID
- *  @param address  用户地址
- *  @param phone    用户手机号
- *  @param block    返回是否发送成功
+ *  @param wuye_id 物业ID
+ *  @param address 地址
+ *  @param phone   手机号
+ *  @param block   消息是否成功
  */
-- (void)other_FeipinAcquisitionID:(NSString *)feipinID
-                          wuye_id:(NSString *)wuye_id
-                          address:(NSString *)address
-                            phone:(NSString *)phone
-                           returns:(void(^)(BOOL is))block;
+- (void)other_FeipinAcquisitionWuye_id:(NSString *)wuye_id
+                               address:(NSString *)address
+                                 phone:(NSString *)phone
+                               returns:(void(^)(BOOL is))block;
 
 /**
  *  其他_报修

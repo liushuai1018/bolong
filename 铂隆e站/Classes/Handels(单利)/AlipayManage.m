@@ -31,28 +31,13 @@
                            retum:(void(^)(NSDictionary *dict))retum
 {
     /**
-     *  商户的唯一的parnter和seller
-     *  签约后，支付宝会为每个商户分配一个唯一的 parnter 和 seller.
-     */
-    
-    /*============================================================================*/
-    /*=======================需要填写商户app申请的===================================*/
-    /*============================================================================*/
-    NSString *partner = @"2088221426772441";
-    NSString *seller = @"bolongapp@126.com";
-    NSString *privateKey = @"MIICXAIBAAKBgQDA9iKi0o2Kw0qoEKnRyITKz5mgupiWuJ5svgIFfkI+xVUErnqNl72Uno5f5s44qam9xGB7xfUUhPka8lI4AqHRso7cVTTGqV+kALzKOpkitk84uk1+ooeCkQDU1wFNX6Nfsh4O0p/xVcr1KxXnEc66wDoEeTK28rxxETdZe6i6lQIDAQABAoGAdOOlT6TkgS6URwLxHFevuXvQwIDIdmUX8x+W8eTuFEBNpCxdqPBGs4TpEkcqnUCJxp7zI4djUy7KB/zKuYs+ok+KRAisRodUKcj33oGPqdHc9rKhGSRLuAMKJHvq3moi0OsYjrzCpeHC/BKLPiBMZ9ye9gSkxa11lNLQCJ/JdIECQQDiWqBQHtAnjMj8j0y5CQ7scOP6zemqAtWLmylMUfXM02//9Om0XLg+hydqxRpQwXmZanR9FAGSSLTZV4jG1/hdAkEA2jvl2c1pPSuAHOcnqAHAxn9UhL4A6Enj/rPnmfV1ncrV1qy7OkPtndl4phaNy5XAncCCAeEzst3wHLVPsEnHmQJAIUcXmI/fJGFjTxY2PmHhistSCRZqyu7dvEeUe7709ycCqUu1bCnRgIfYOK8/ni3DldV7yMO/M2VzCR0AY9NulQJAaL48+MelTi21xKmRmAqXWu48Q6XqS5NDcbkpXPS56e0zq2CmUDXQM2XwiU7j6aXLmCuQepR7OstY9n5za/pNaQJBAMsQtS7r4y9ApUe0+eceXAtakz5EfHlx0YJ3Plz4mnrawLWy9JC2slUaYh2S+0SDLKLwetnFRXSaWu/6UHaqFyA=";
-    /*============================================================================*/
-    /*============================================================================*/
-    /*============================================================================*/
-    
-    /**
      *  生成订单信息及签名
      */
     
     // 将商品信息赋予AliixPayOrder的成员变量
     Order *order = [[Order alloc] init];
-    order.partner = partner;                  // 合作伙伴ID
-    order.seller = seller;                    // 收款账号
+    order.partner = product.partner;                  // 合作伙伴ID
+    order.seller = product.seller;                    // 收款账号
     order.tradeNO = product.orderId;          // 订单ID
     order.productName = product.subject;      // 商品标题
     order.productDescription = product.body;  // 商品描述
@@ -73,6 +58,7 @@
     NSString *orderSpec = [order description];
     
     //获取私钥并将商户信息签名,外部商户可以根据情况存放私钥和签名,只需要遵循RSA签名规范,并将签名字符串base64编码和UrlEncode
+    NSString *privateKey = product.privateKey;
     id<DataSigner> signer = CreateRSADataSigner(privateKey);
     NSString *signedString = [signer signString:orderSpec];
     

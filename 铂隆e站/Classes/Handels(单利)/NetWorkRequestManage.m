@@ -347,12 +347,13 @@
     }];
 }
 
-#pragma makr - 确认物业缴费
+#pragma makr - 物业缴费支付
 - (void)wuyePay:(NSString *)user_id
         log_ids:(NSString *)log_ids
+         wuyeID:(NSString *)wuyeID
           retum:(void(^)(NSDictionary *dict))inform
 {
-    NSString *parameter = [NSString stringWithFormat:@"user_id=%@&log_ids=%@", user_id, log_ids];
+    NSString *parameter = [NSString stringWithFormat:@"user_id=%@&log_ids=%@&id=%@", user_id, log_ids, wuyeID];
     [self requestNetworkURL:kWuYePayURL requserParameter:parameter returns:^(NSMutableDictionary *dataDict) {
         NSInteger index = [[dataDict objectForKey:@"code"] integerValue];
         if (0 == index) {
@@ -393,7 +394,7 @@
                         momey:(NSString *)momey
                      userInfo:(NSString *)userId
 {
-    NSString *parameter = [NSString stringWithFormat:@"wuye_id=%@& money=%@&address=%@&user_id=%@", wuyeId, momey, address, userId];
+    NSString *parameter = [NSString stringWithFormat:@"id=%@&money=%@&address=%@&user_id=%@", wuyeId, momey, address, userId];
     
     __weak NetWorkRequestManage *weak_object = self;
     [self requestNetworkURL:kWaterURL requserParameter:parameter returns:^(NSMutableDictionary *dataDict) {
@@ -421,12 +422,21 @@
 }
 
 #pragma mark - 其他_开锁
-- (void)other_UnlockingAddress:(NSString *)address returns:(void(^)(NSString *phone))block
+- (void)other_UnlockingAddress:(NSString *)address
+                        wuYeID:(NSString *)wuyeID
+                       returns:(void(^)(NSString *phone))block
 {
-    NSString *parameter = [NSString stringWithFormat:@"wuye_id=%@&unlock=%@", @"4", address];
+    NSString *parameter = [NSString stringWithFormat:@"id=%@&unlock=%@", wuyeID, address];
     [self requestNetworkURL:kUnlockingURL requserParameter:parameter returns:^(NSMutableDictionary *dataDict) {
-        NSDictionary *dict = [dataDict objectForKey:@"datas"];
-        block([dict objectForKey:@"phone"]);
+        NSInteger index = [[dataDict objectForKey:@"code"] integerValue];
+        if (index == 0) {
+            NSDictionary *dict = [dataDict objectForKey:@"datas"];
+            block([dict objectForKey:@"phone"]);
+        } else {
+            if (block) {
+                block(@"求助失败!");
+            }
+        }
     }];
 }
 
@@ -455,13 +465,12 @@
 }
 
 #pragma mark - 其他_废品回收
-- (void)other_FeipinAcquisitionID:(NSString *)feipinID
-                          wuye_id:(NSString *)wuye_id
+- (void)other_FeipinAcquisitionWuye_id:(NSString *)wuye_id
                           address:(NSString *)address
                             phone:(NSString *)phone
                            returns:(void(^)(BOOL is))block
 {
-    NSString *parameter = [NSString stringWithFormat:@"id=%@&wuye_id=%@&address=%@&phone=%@", feipinID, wuye_id, address, phone];
+    NSString *parameter = [NSString stringWithFormat:@"id=%@&address=%@&phone=%@", wuye_id, address, phone];
     
     [self requestNetworkURL:kFeiPinRecycleURL
            requserParameter:parameter
@@ -544,14 +553,14 @@
     
     // 参数
     [data appendData:LSEncode(@"--LS\r\n")];
-    NSString *parameter_userID = @"Content-Disposition: form-data; name=\"id\"\r\n";
+    NSString *parameter_userID = @"Content-Disposition: form-data; name=\"user_id\"\r\n";
     [data appendData:LSEncode(parameter_userID)];
     [data appendData:LSEncode(@"\r\n")];
     [data appendData:LSEncode(userID)];
     [data appendData:LSEncode(@"\r\n")];
     
     [data appendData:LSEncode(@"--LS\r\n")];
-    NSString *parameter_wuyeID = @"Content-Disposition: form-data; name=\"wuye_id\"\r\n";
+    NSString *parameter_wuyeID = @"Content-Disposition: form-data; name=\"id\"\r\n";
     [data appendData:LSEncode(parameter_wuyeID)];
     [data appendData:LSEncode(@"\r\n")];
     [data appendData:LSEncode(wuye_ID)];
@@ -573,6 +582,11 @@
     
     NSURLSessionUploadTask *upLoadTask = [session uploadTaskWithRequest:request fromData:data completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
+            
+            if (block) {
+                block(NO);
+            }
+            
             [self alertView:@"网络请求失败!"];
             return ;
         }
@@ -581,6 +595,11 @@
                                                                         options:NSJSONReadingMutableLeaves
                                                                           error:nil];
         if ([[dataDict objectForKey:@"code"] integerValue] != 0) {
+            
+            if (block) {
+                block(NO);
+            }
+            
             [self alertView:[dataDict objectForKey:@"datas"]];
             return ;
         }

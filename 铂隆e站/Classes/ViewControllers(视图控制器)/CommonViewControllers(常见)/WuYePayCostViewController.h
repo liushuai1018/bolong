@@ -16,4 +16,7 @@
 
 @property (strong, nonatomic) UserInformation *userInformation;
 
+// 物业ID
+@property (strong, nonatomic) NSString *wuyeID;
+
 @end

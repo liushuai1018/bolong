@@ -7,17 +7,14 @@
 //
 
 #import "LS_Other_BaoXiu_ViewController.h"
+#import "SelectAVillageTableViewController.h"
+#import "LS_WuYeInform_Model.h"
 
 @interface LS_Other_BaoXiu_ViewController () <UITextViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 // 报修
 @property (weak, nonatomic) IBOutlet UITextView *baoXiu;
 // 地址
 @property (weak, nonatomic) IBOutlet UITextView *address;
-
-// 报修约束 距离上边
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *baoXiu_top;
-// 图片按钮长款比例
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageWidthHeightProportion;
 
 // 记录点击的那个imageBut
 @property (assign, nonatomic) NSInteger index;
@@ -30,6 +27,26 @@
 // alert
 @property (strong, nonatomic) UIAlertController *alertView;
 
+// 选择物业
+@property (weak, nonatomic) IBOutlet UIButton *selectWuye;
+
+// 所有物业
+@property (copy, nonatomic) NSArray *dataAr;
+
+// 选择的物业
+@property (strong, nonatomic) LS_WuYeInform_Model *model;
+
+// 菊花
+@property (strong, nonatomic) UIActivityIndicatorView *activity;
+
+
+// ---------------- 约束 ---------------
+// 图片按钮长款比例
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageWidthHeightProportion;
+
+// 问题框的高度
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *baoXiu_Height;
+
 @end
 
 @implementation LS_Other_BaoXiu_ViewController
@@ -38,8 +55,17 @@
     [super viewDidLoad];
     self.title = @"报修";
     
+    [self initData];
     [self setAttribute];
     [self setFrame];
+}
+
+#pragma mark - initData
+- (void)initData {
+    __weak LS_Other_BaoXiu_ViewController *weak_control = self;
+    [[NetWorkRequestManage sharInstance] getWuYeRetuns:^(NSArray *array) {
+        weak_control.dataAr = array;
+    }];
 }
 
 #pragma mark - 设置属性
@@ -52,13 +78,25 @@
 #pragma mark - 设置Frame
 - (void)setFrame
 {
+    _selectWuye.layer.masksToBounds = YES;
+    _selectWuye.layer.cornerRadius = 8;
+    _selectWuye.layer.borderWidth = 1;
+    _selectWuye.layer.borderColor = [UIColor colorWithRed:0.56 green:0.56 blue:0.56 alpha:1.0].CGColor;
+    _address.layer.borderWidth = 1;
+    _address.layer.borderColor = [UIColor colorWithRed:0.56 green:0.56 blue:0.56 alpha:1.0].CGColor;
+    _baoXiu.layer.borderWidth = 1;
+    _baoXiu.layer.borderColor = [UIColor colorWithRed:0.56 green:0.56 blue:0.56 alpha:1.0].CGColor;
+    
     // 适配
     NSString *deviceModel = [[LS_EquipmentModel sharedEquipmentModel] accessModel];
     
+
     if ([deviceModel isEqualToString:@"iPhone 4S"] || [deviceModel isEqualToString:@"iPhone 4"]) {
-        _baoXiu_top.constant = CGRectGetHeight(self.view.frame) * 0.1;
+        _imageWidthHeightProportion.constant = 20;
+        _baoXiu_Height.constant = 50;
+        
     } else {
-        _baoXiu_top.constant = CGRectGetHeight(self.view.frame) * 0.12;
+        
     }
     
 }
@@ -66,6 +104,18 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - 选择物业
+- (IBAction)selectWuYe:(UIButton *)sender {
+    SelectAVillageTableViewController *control = [[SelectAVillageTableViewController alloc] init];
+    control.wuyeAr = _dataAr;
+    __weak LS_Other_BaoXiu_ViewController *weak_control = self;
+    control.wuyeBlock = ^(LS_WuYeInform_Model *model) {
+        weak_control.model = model;
+        [sender setTitle:model.fenqu forState:UIControlStateNormal];
+    };
+    [self.navigationController pushViewController:control animated:YES];
 }
 
 #pragma mark - 选择图片
@@ -87,6 +137,11 @@
 #pragma mark - 上传报修问题
 - (IBAction)postBaoXiu:(UIButton *)sender {
     
+    if (!_model) {
+        [self alertViewTitle:@"请选择物业公司!"];
+        return;
+    }
+    
     NSString *question = _baoXiu.text;
     if ([question isEqualToString:@"维修问题"] || [question isEqualToString:@""]) {
         [self alertViewTitle:@"请填写报修的问题!"];
@@ -103,7 +158,7 @@
     
     __weak LS_Other_BaoXiu_ViewController *weak_control = self;
     [[NetWorkRequestManage sharInstance] other_repairUserID:userInfo.user_id
-                                                    wuye_id:@"3"
+                                                    wuye_id:_model.wuyeID
                                                    question:question
                                                     address:address
                                                        pic1:_image11
@@ -112,12 +167,25 @@
                                                     returns:^(BOOL is) {
                                                         LS_Other_BaoXiu_ViewController *strong_control = weak_control;
                                                         if (strong_control) {
-                                                            if (is) {
-                                                                [strong_control alertViewTitle:@"我们以收到您的问题,会尽快给您去维修!"];
-                                                            }
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                if (is) {
+                                                                    
+                                                                    [strong_control.activity stopAnimating];
+                                                                    [strong_control.activity setHidesWhenStopped:YES];
+                                                                    
+                                                                    [strong_control alertViewTitle:@"我们以收到您的问题,会尽快给您去维修!"];
+                                                                    
+                                                                } else {
+                                                                    
+                                                                    [strong_control.activity stopAnimating];
+                                                                    [strong_control.activity setHidesWhenStopped:YES];
+                                                                }
+                                                            
+                                                            });
                                                         }
                                                         
                                                     }];
+    [self activityIndicatorViews];
 }
 
 
@@ -225,6 +293,15 @@
     }
     _alertView.message = title;
     [self presentViewController:_alertView animated:YES completion:nil];
+}
+
+#pragma mark - 菊花
+- (void)activityIndicatorViews {
+    UIActivityIndicatorView *activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    activity.center = self.view.center;
+    self.activity = activity;
+    [self.view addSubview:self.activity];
+    [self.activity startAnimating];
 }
 
 @end

@@ -8,6 +8,9 @@
 
 #import "LS_Other_Water_ViewController.h"
 
+#import "SelectAVillageTableViewController.h"
+#import "LS_WuYeInform_Model.h"
+
 @interface LS_Other_Water_ViewController () <UITextFieldDelegate>
 //  每桶价格
 @property (weak, nonatomic) IBOutlet UILabel *price;
@@ -24,6 +27,15 @@
 // 每桶单价
 @property (assign, nonatomic) CGFloat priceMoney;
 
+// 选择物业
+@property (weak, nonatomic) IBOutlet UIButton *selectWuye;
+
+// 所有物业
+@property (copy, nonatomic) NSArray *dataAr;
+
+// 选择的物业
+@property (strong, nonatomic) LS_WuYeInform_Model *model;
+
 @end
 
 @implementation LS_Other_Water_ViewController
@@ -34,7 +46,7 @@
     [self initData];
 }
 
-#pragma mark - dat
+#pragma mark - data
 - (void)initData
 {
     [[NetWorkRequestManage sharInstance] other_WaterMoneyWithPrice:^(NSString *price) {
@@ -44,10 +56,32 @@
             _priceMoney = [price floatValue];
         });
     }];
+    
+    __weak LS_Other_Water_ViewController *weak_control = self;
+    [[NetWorkRequestManage sharInstance] getWuYeRetuns:^(NSArray *array) {
+        weak_control.dataAr = array;
+    }];
+}
+
+#pragma mark - 选择物业公司
+- (IBAction)selectWuYe:(UIButton *)sender {
+    SelectAVillageTableViewController *control = [[SelectAVillageTableViewController alloc] init];
+    control.wuyeAr = _dataAr;
+    __weak LS_Other_Water_ViewController *weak_control = self;
+    control.wuyeBlock = ^(LS_WuYeInform_Model *model) {
+        weak_control.model = model;
+        [weak_control.selectWuye setTitle:model.fenqu forState:UIControlStateNormal];
+    };
+    [self.navigationController pushViewController:control animated:YES];
 }
 
 #pragma mark - 送水支付事件
 - (IBAction)songShui_pay:(UIButton *)sender {
+    
+    if (!_model) {
+        [self createrAlertControlWithTitle:@"选择物业公司!"];
+        return;
+    }
     
     UserInformation *userInfo = [[LocalStoreManage sharInstance] requestUserInfor];
     
@@ -56,13 +90,13 @@
         [self createrAlertControlWithTitle:@"请输入地址"];
         return;
     }
-    NSString *totalPrice = [NSString stringWithFormat:@"%.2f", [_number.text integerValue] * _priceMoney];
     if ([_number.text isEqualToString:@""]) {
         [self createrAlertControlWithTitle:@"请输入购买数量"];
         return;
     }
+    NSString *totalPrice = [NSString stringWithFormat:@"%.2f", [_number.text integerValue] * _priceMoney];
     
-    [[NetWorkRequestManage sharInstance] other_waterWithWuYeId:@"4"
+    [[NetWorkRequestManage sharInstance] other_waterWithWuYeId:_model.wuyeID
                                                        Address:address
                                                          momey:totalPrice
                                                       userInfo:userInfo.user_id];

@@ -42,4 +42,19 @@
  */
 @property (copy, nonatomic) NSString *notify_url;
 
+/**
+ *  合作ID
+ */
+@property (copy, nonatomic) NSString *partner;
+
+/**
+ *  私钥
+ */
+@property (copy, nonatomic) NSString *privateKey;
+
+/**
+ *  支付账户
+ */
+@property (copy, nonatomic) NSString *seller;
+
 @end

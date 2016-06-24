@@ -54,11 +54,14 @@
 #pragma mark - initData
 - (void)initData
 {
+#warning mark - 隐藏租赁
     _backgroundImageAr = @[@"new_jiaofei_other_kaisuo",
                            @"new_jiaofei_other_huishou",
                            @"new_jiaofei_other_songshui",
                            @"new_jiaofei_other_weixiu",
-                           @"new_jiaofei_other_qiandao"];
+                           @"new_jiaofei_other_qiandao",
+//                           @"new_jiaof?|ei_other_zulin" // 隐藏租赁选项
+                           ];
 }
 
 #pragma mark - init TableView

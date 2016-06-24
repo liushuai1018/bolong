@@ -11,6 +11,9 @@
 #import "LS_button.h"
 #import "LS_feipinPrice_model.h"
 
+#import "SelectAVillageTableViewController.h"
+#import "LS_WuYeInform_Model.h"
+
 @interface LS_Other_recycling_ViewController () <LS_buttonDelegate, UITextViewDelegate>
 
 @property (strong, nonatomic) LS_Other_recycling_View *LS_view;
@@ -25,6 +28,15 @@
 
 // 记录废品单价数组
 @property (strong, nonatomic) NSArray *priceAr;
+
+// 物业公司选项
+@property (strong, nonatomic) UIButton *wuye;
+
+// 记录物业公司
+@property (copy, nonatomic) NSArray *dataAr;
+
+// 选择的物业公司
+@property (strong, nonatomic) LS_WuYeInform_Model *model;
 
 @end
 
@@ -63,6 +75,9 @@
         }
     }];
     
+    [[NetWorkRequestManage sharInstance] getWuYeRetuns:^(NSArray *array) {
+        weak_control.dataAr = array;
+    }];
 }
 
 #pragma mark - 创建视图
@@ -112,8 +127,19 @@
         _textView.delegate = self;
         [whiteView addSubview:_textView];
         
+        UIButton *wuye = [UIButton buttonWithType:UIButtonTypeCustom];
+        wuye.frame = CGRectMake(CGRectGetWidth(whiteView.frame) * 0.1, CGRectGetHeight(whiteView.frame) * 0.7 + 5, CGRectGetWidth(whiteView.frame) * 0.35, CGRectGetHeight(whiteView.frame) * 0.2);
+        [wuye setBackgroundColor:[UIColor blackColor]];
+        [wuye setTitle:@"选择物业" forState:UIControlStateNormal];
+        [wuye setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        wuye.layer.masksToBounds = YES;
+        wuye.layer.cornerRadius = CGRectGetHeight(wuye.frame) * 0.5;
+        [wuye addTarget:self action:@selector(didClickWuYeAction:) forControlEvents:UIControlEventTouchUpInside];
+        self.wuye = wuye;
+        [whiteView addSubview:self.wuye];
+        
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(CGRectGetWidth(whiteView.frame) * 0.3, CGRectGetHeight(whiteView.frame) * 0.7 + 5, CGRectGetWidth(whiteView.frame) * 0.4, CGRectGetHeight(whiteView.frame) * 0.2);
+        button.frame = CGRectMake(CGRectGetWidth(whiteView.frame) * 0.55, CGRectGetMinY(wuye.frame), CGRectGetWidth(wuye.frame), CGRectGetHeight(wuye.frame));
         [button setBackgroundColor:[UIColor blackColor]];
         [button setTitle:@"收购" forState:UIControlStateNormal];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -147,10 +173,27 @@
     }
 }
 
+#pragma mark - 选择物业公司
+- (void)didClickWuYeAction:(UIButton *)sender {
+    SelectAVillageTableViewController *control = [[SelectAVillageTableViewController alloc] init];
+    control.wuyeAr = _dataAr;
+    __weak LS_Other_recycling_ViewController *weak_control = self;
+    control.wuyeBlock = ^(LS_WuYeInform_Model *model) {
+        weak_control.model = model;
+        [weak_control.wuye setTitle:model.fenqu forState:UIControlStateNormal];
+    };
+    [self.navigationController pushViewController:control animated:YES];
+}
+
 #pragma mark - 收购action
 - (void)recycleAction
 {
     NSString *address = _textView.text;
+    
+    if (!_model) {
+        [self alertViewString:@"请选择物业公司!"];
+        return;
+    }
     
     if ([address isEqualToString:@""] || [address isEqualToString:@"请输入详细地址"]) {
         [self alertViewString:@"地址不能为空!"];
@@ -159,14 +202,21 @@
     
     UserInformation *userInfo = [[LocalStoreManage sharInstance] requestUserInfor];
     __weak LS_Other_recycling_ViewController *weak_control = self;
-    [[NetWorkRequestManage sharInstance] other_FeipinAcquisitionID:[NSString stringWithFormat:@"%ld", _index] wuye_id:@"3" address:address phone:userInfo.mobile returns:^(BOOL is) {
+    [[NetWorkRequestManage sharInstance] other_FeipinAcquisitionWuye_id:_model.wuyeID
+                                                                address:address
+                                                                  phone:userInfo.mobile
+                                                                returns:^(BOOL is)
+    {
         LS_Other_recycling_ViewController *strong_control = weak_control;
         if (strong_control) {
-            if (is) {
-                [strong_control alertViewString:@"消息发送成功,敬请耐心等待!"];
-            } else {
-                [strong_control alertViewString:@"消息发送失败!"];
-            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                if (is) {
+                    [strong_control alertViewString:@"消息发送成功,敬请耐心等待!"];
+                } else {
+                    [strong_control alertViewString:@"消息发送失败!"];
+                }
+            });
         }
     }];
     

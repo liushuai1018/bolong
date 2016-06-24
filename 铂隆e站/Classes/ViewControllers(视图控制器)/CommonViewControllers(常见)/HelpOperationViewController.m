@@ -7,6 +7,7 @@
 //
 
 #import "HelpOperationViewController.h"
+#import "LS_HelpOper_Image_ViewController.h"
 
 @interface HelpOperationViewController ()
 
@@ -17,15 +18,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
     self.title = @"操作指南";
     self.navigationController.navigationBar.translucent = NO;
     
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 64)];
-    imageView.image = [UIImage imageNamed:@"zhinan.jpg"];
-    [self.view addSubview:imageView];
-    
     [self addBarButton]; // 添加左边BarButton
 }
+
+#pragma mark - 如何缴纳物业费
+- (IBAction)wuYe:(UIButton *)sender {
+    LS_HelpOper_Image_ViewController *control = [[LS_HelpOper_Image_ViewController alloc] init];
+    control.title = @"物业缴费";
+    control.images = [UIImage imageNamed:@"LS_Help_wuye.jpg"];
+    [self.navigationController pushViewController:control animated:YES];
+}
+
+#pragma mark - 铂隆币获取
+- (IBAction)boLongBi:(UIButton *)sender {
+    LS_HelpOper_Image_ViewController *control = [[LS_HelpOper_Image_ViewController alloc] init];
+    control.title = @"获取铂隆币";
+    control.images = [UIImage imageNamed:@"LS_Help_BoLongBi.jpg"];
+    [self.navigationController pushViewController:control animated:YES];
+}
+
 
 #pragma mark BarButton
 - (void)addBarButton

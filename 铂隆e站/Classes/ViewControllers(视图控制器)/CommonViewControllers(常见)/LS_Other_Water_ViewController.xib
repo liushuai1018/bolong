@@ -12,6 +12,7 @@
                 <outlet property="number" destination="c7c-p8-6Qc" id="QaB-eQ-UOl"/>
                 <outlet property="price" destination="dNO-WO-WtN" id="ufq-ne-S76"/>
                 <outlet property="price_Y" destination="5p6-by-TNr" id="bOd-N7-Yt0"/>
+                <outlet property="selectWuye" destination="TNR-XS-Ezk" id="QWh-hg-PXi"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -57,18 +58,6 @@
                         <outlet property="delegate" destination="-1" id="dml-F3-gW2"/>
                     </connections>
                 </textField>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5GV-dU-3hC">
-                    <rect key="frame" x="96" y="390" width="128" height="40"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="40" id="gJ3-iL-MZT"/>
-                    </constraints>
-                    <state key="normal" title="支付" backgroundImage="LS_kaisuo_qiuzhu.png">
-                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    </state>
-                    <connections>
-                        <action selector="songShui_pay:" destination="-1" eventType="touchUpInside" id="ezW-Tg-myB"/>
-                    </connections>
-                </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="每桶:元" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dNO-WO-WtN">
                     <rect key="frame" x="20" y="272" width="280" height="25"/>
                     <constraints>
@@ -86,6 +75,27 @@
                         <outlet property="delegate" destination="-1" id="vdU-QU-a6b"/>
                     </connections>
                 </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TNR-XS-Ezk">
+                    <rect key="frame" x="20" y="410" width="128" height="40"/>
+                    <state key="normal" title="选择物业" backgroundImage="LS_kaisuo_qiuzhu.png">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="selectWuYe:" destination="-1" eventType="touchUpInside" id="8fl-EV-AX3"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5GV-dU-3hC">
+                    <rect key="frame" x="172" y="410" width="128" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="gJ3-iL-MZT"/>
+                    </constraints>
+                    <state key="normal" title="支付" backgroundImage="LS_kaisuo_qiuzhu.png">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="songShui_pay:" destination="-1" eventType="touchUpInside" id="ezW-Tg-myB"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -95,8 +105,11 @@
                 <constraint firstItem="TnQ-C9-9lm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="5Ga-vw-yQS"/>
                 <constraint firstItem="dNO-WO-WtN" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="5p6-by-TNr"/>
                 <constraint firstItem="gUF-5v-w33" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="6NF-H9-Rd8"/>
+                <constraint firstItem="5GV-dU-3hC" firstAttribute="top" secondItem="TNR-XS-Ezk" secondAttribute="top" id="7yG-85-1H3"/>
+                <constraint firstItem="TNR-XS-Ezk" firstAttribute="width" secondItem="5GV-dU-3hC" secondAttribute="width" id="BJa-M2-FJt"/>
                 <constraint firstItem="KRN-x6-Kv3" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="BWe-oh-SSd"/>
                 <constraint firstAttribute="trailing" secondItem="c7c-p8-6Qc" secondAttribute="trailing" constant="20" id="C2H-Da-B7H"/>
+                <constraint firstItem="TNR-XS-Ezk" firstAttribute="height" secondItem="5GV-dU-3hC" secondAttribute="height" id="DBZ-lP-vNj"/>
                 <constraint firstItem="KRN-x6-Kv3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="FgS-5X-FJL"/>
                 <constraint firstItem="KRN-x6-Kv3" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" id="JBg-g6-6dj"/>
                 <constraint firstAttribute="trailing" secondItem="B1A-Da-Hvx" secondAttribute="trailing" constant="20" id="Jks-pl-RIS"/>
@@ -111,9 +124,10 @@
                 <constraint firstItem="B1A-Da-Hvx" firstAttribute="leading" secondItem="Bpj-LJ-rSa" secondAttribute="trailing" id="ikn-i2-5mz"/>
                 <constraint firstItem="c7c-p8-6Qc" firstAttribute="top" secondItem="gUF-5v-w33" secondAttribute="bottom" constant="5" id="k64-di-bRA"/>
                 <constraint firstItem="5GV-dU-3hC" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.4" id="lc8-Bd-Ohe"/>
-                <constraint firstItem="5GV-dU-3hC" firstAttribute="top" secondItem="c7c-p8-6Qc" secondAttribute="bottom" constant="20" id="pXT-6e-M6a"/>
+                <constraint firstItem="TNR-XS-Ezk" firstAttribute="leading" secondItem="TnQ-C9-9lm" secondAttribute="leading" id="mvr-di-Ysd"/>
+                <constraint firstItem="5GV-dU-3hC" firstAttribute="top" secondItem="c7c-p8-6Qc" secondAttribute="bottom" constant="40" id="pXT-6e-M6a"/>
+                <constraint firstItem="5GV-dU-3hC" firstAttribute="trailing" secondItem="c7c-p8-6Qc" secondAttribute="trailing" id="qdn-ie-vMP"/>
                 <constraint firstItem="KRN-x6-Kv3" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="xec-88-lMv"/>
-                <constraint firstItem="5GV-dU-3hC" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="zEe-oa-VDx"/>
             </constraints>
             <point key="canvasLocation" x="152" y="318"/>
         </view>
