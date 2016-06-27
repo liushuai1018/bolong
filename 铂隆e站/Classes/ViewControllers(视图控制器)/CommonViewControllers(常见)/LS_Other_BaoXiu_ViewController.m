@@ -41,6 +41,10 @@
 
 
 // ---------------- 约束 ---------------
+
+// 图片的宽度
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageWidht;
+
 // 图片按钮长款比例
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageWidthHeightProportion;
 
@@ -90,13 +94,15 @@
     // 适配
     NSString *deviceModel = [[LS_EquipmentModel sharedEquipmentModel] accessModel];
     
-
-    if ([deviceModel isEqualToString:@"iPhone 4S"] || [deviceModel isEqualToString:@"iPhone 4"]) {
+    if ([deviceModel isEqualToString:@"3.5_inch"]) {
         _imageWidthHeightProportion.constant = 20;
         _baoXiu_Height.constant = 50;
-        
-    } else {
-        
+    }
+    
+    if ([deviceModel isEqualToString:@"5.5_inch"]) {
+        _imageWidht.constant = 15;
+        _imageWidthHeightProportion.constant = 0;
+        _baoXiu_Height.constant = 80;
     }
     
 }

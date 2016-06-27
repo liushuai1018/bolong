@@ -79,21 +79,26 @@
     self.tableView.scrollEnabled = NO;
     self.tableView.tableFooterView = [UIImageView new];
     self.tableView.backgroundColor = [UIColor colorWithRed:0.89 green:0.89 blue:0.89 alpha:1.0];
-    [self createrHeadView];
+    
     [self.tableView registerNib:[UINib nibWithNibName:@"LS_user_TableViewCell" bundle:nil] forCellReuseIdentifier:@"cell"];
 }
 
 #pragma mark - initHeadView
 - (void)createrHeadView
 {
-    _headView = [[LS_user_headView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT * 0.45)];
-    self.tableView.tableHeaderView = _headView;
-    _headView.name.delegate = self;
-    [_headView.portraitBut addTarget:self action:@selector(headPortraitAction:) forControlEvents:UIControlEventTouchUpInside];
+    if (!_headView) {
+        
+        _headView = [[LS_user_headView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT * 0.45)];
+        self.tableView.tableHeaderView = _headView;
+        _headView.name.delegate = self;
+        [_headView.portraitBut addTarget:self action:@selector(headPortraitAction:) forControlEvents:UIControlEventTouchUpInside];
+    }
     
     /**
      *   设置显示信息
      */
+    _userInfo = [[LocalStoreManage sharInstance] requestUserInfor];
+    
     _headView.BoLongbi.text = [NSString stringWithFormat:@"铂隆币: %@", _userInfo.money];
     
     NSRange range = {3, 6};
@@ -132,6 +137,13 @@
 - (void)headPortraitAction:(UIButton *)sender
 {
     [self createrImagePickerControlAlertControl];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self createrHeadView];
 }
 
 #pragma mark - Table view data source

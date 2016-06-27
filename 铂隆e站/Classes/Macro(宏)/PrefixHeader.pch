@@ -58,13 +58,13 @@
 #define kForgetPassword @"http://101.201.147.70/bolong/mobile.php/Mobile/Login/forgetPassword"
 
 // 获取物业
-#define kObtainWuYeURL @"http://192.168.1.60/bolong/mobile.php/Mobile/Wuye/get_fenqu"
+#define kObtainWuYeURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/get_fenqu"
 // 获取小区
-#define kGetCommunityURL @"http://192.168.1.60/bolong/mobile.php/Mobile/Wuye/get_home"
+#define kGetCommunityURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/get_home"
 // 物业缴费信息
-#define kWuYePayInformationURL @"http://192.168.1.60/bolong/mobile.php/Mobile/Wuye/pay_wuye"
+#define kWuYePayInformationURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/pay_wuye"
 // 确认物业缴费
-#define kWuYePayURL @"http://192.168.1.60/bolong/mobile.php/Mobile/Wuye/pay"
+#define kWuYePayURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/pay"
 
 
 // 获取咨询列表
@@ -96,15 +96,15 @@
 // 其他_每桶水单价
 #define kWaterMoneyURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/water_pric"
 // 其他_送水
-#define kWaterURL @"http://192.168.1.60/bolong/mobile.php/Mobile/Wuye/water"
+#define kWaterURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/water"
 // 其他_开锁
-#define kUnlockingURL @"http://192.168.1.60/bolong/mobile.php/Mobile/Wuye/unlock"
+#define kUnlockingURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/unlock"
 // 其他_废品单价
 #define kFeipinPriceURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/feipinprice"
 // 其他_废品回收
-#define kFeiPinRecycleURL @"http://192.168.1.60/bolong/mobile.php/Mobile/Wuye/feipin"
+#define kFeiPinRecycleURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/feipin"
 // 其他_报修
-#define kQuestionURL @"http://192.168.1.60/bolong/mobile.php/Mobile/Wuye/question"
+#define kQuestionURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/question"
 // 其他_是否已经签到
 #define kIsSignInURL @"http://101.201.147.70/bolong/mobile.php/Mobile/user/old_time"
 // 其他_签到

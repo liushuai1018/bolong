@@ -60,7 +60,7 @@
                            @"new_jiaofei_other_songshui",
                            @"new_jiaofei_other_weixiu",
                            @"new_jiaofei_other_qiandao",
-//                           @"new_jiaof?|ei_other_zulin" // 隐藏租赁选项
+                           @"new_jiaofei_other_zulin" // 隐藏租赁选项
                            ];
 }
 

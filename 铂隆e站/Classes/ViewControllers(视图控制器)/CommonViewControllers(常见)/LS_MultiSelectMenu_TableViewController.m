@@ -105,8 +105,6 @@
             [_dataAr removeObject:model];
         }
     }
-    
-    NSLog(@"count = %ld", _dataAr.count);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

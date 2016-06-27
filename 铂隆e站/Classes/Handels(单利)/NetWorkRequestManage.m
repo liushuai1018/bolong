@@ -268,7 +268,6 @@
                 NSDictionary *dict = [dataAr objectAtIndex:i];
                 LS_WuYeInform_Model *model = [[LS_WuYeInform_Model alloc] init];
                 [model setValuesForKeysWithDictionary:dict];
-                NSLog(@"wuyeInform : id:%@ 名称: %@ 编号: %@", model.wuyeID, model.fenqu, model.fenquhao);
                 [array addObject:model];
             }
             if (block) {
@@ -954,6 +953,12 @@
                                           NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:data
                                                                                                       options:NSJSONReadingMutableLeaves
                                                                                                         error:nil];
+                                          
+                                          if (!dict) {
+                                              [strong_control alertView:@"网络请求失败"];
+                                              return;
+                                          }
+                                          
                                           if (block) {
                                               block(dict);
                                           }

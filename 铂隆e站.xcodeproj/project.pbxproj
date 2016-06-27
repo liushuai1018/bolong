@@ -1703,6 +1703,13 @@
 			name = Circle;
 			sourceTree = "<group>";
 		};
+		0C57BFF71D20D2C900DD107E /* 租赁 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "租赁";
+			sourceTree = "<group>";
+		};
 		0C58EF5B1CA3D3250045FE7C /* 物业 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2109,6 +2116,7 @@
 				0C86CAA01CCF0AE60034A00E /* 送水 */,
 				0C6D48B01CC077BE00650E80 /* 报修 */,
 				0C86CAA11CCF0AED0034A00E /* 签到 */,
+				0C57BFF71D20D2C900DD107E /* 租赁 */,
 			);
 			name = "其他";
 			sourceTree = "<group>";
@@ -3228,7 +3236,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: xiao long bai (577L6BX39S)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3262,7 +3270,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: xiao long bai (577L6BX39S)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_BITCODE = NO;
