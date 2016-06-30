@@ -630,6 +630,166 @@
     }];
 }
 
+#pragma mark - 其他_租赁_发布信息
+- (void)other_releaseHousingInformLeaseOrSell:(NSInteger)index
+                                         Geju:(NSString *)geju
+                                        price:(NSString *)price
+                                    community:(NSString *)community
+                                      address:(NSString *)address
+                                    introduce:(NSString *)introduce
+                                        phone:(NSString *)phone
+                                         name:(NSString *)name
+                                       image1:(UIImage *)image1
+                                       image2:(UIImage *)image2
+                                       image3:(UIImage *)image3
+                                      returns:(void(^)(BOOL is))block
+{
+    
+    if (![self determineTheNetwork]) {
+        return;
+    }
+    
+    NSURL *url = [NSURL URLWithString:kReleaseLeaseInformURl];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    // 设置为 multipart 请求
+    NSString *contenType = @"multipart/form-data;boundary=LS";
+    [request setValue:contenType forHTTPHeaderField:@"Content-Type"];
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+    
+    // data
+    NSMutableData *data = [NSMutableData data];
+    
+    // 参数
+    [data appendData:LSEncode(@"--LS\r\n")];
+    NSString *parameter_leaseOrSell = @"Content-Disposition: form-data; name=\"leaseOrSell\"\r\n";
+    [data appendData:LSEncode(parameter_leaseOrSell)];
+    [data appendData:LSEncode(@"\r\n")];
+    NSString *param = [NSString stringWithFormat:@"%ld", index];
+    [data appendData:LSEncode(param)];
+    [data appendData:LSEncode(@"\r\n")]; // 租赁或出售
+    
+    [data appendData:LSEncode(@"--LS\r\n")];
+    NSString *parameter_geju = @"Content-Disposition: form-data; name=\"geju\"\r\n";
+    [data appendData:LSEncode(parameter_geju)];
+    [data appendData:LSEncode(@"\r\n")];
+    [data appendData:LSEncode(geju)];
+    [data appendData:LSEncode(@"\r\n")]; // 格局
+    
+    [data appendData:LSEncode(@"--LS\r\n")];
+    NSString *parameter_price = @"Content-Disposition: form-data; name=\"price\"\r\n";
+    [data appendData:LSEncode(parameter_price)];
+    [data appendData:LSEncode(@"\r\n")];
+    [data appendData:LSEncode(price)];
+    [data appendData:LSEncode(@"\r\n")]; // 价格
+    
+    [data appendData:LSEncode(@"--LS\r\n")];
+    NSString *parameter_community = @"Content-Disposition: form-data; name=\"community\"\r\n";
+    [data appendData:LSEncode(parameter_community)];
+    [data appendData:LSEncode(@"\r\n")];
+    [data appendData:LSEncode(community)];
+    [data appendData:LSEncode(@"\r\n")]; // 小区
+    
+    [data appendData:LSEncode(@"--LS\r\n")];
+    NSString *parameter_address = @"Content-Disposition: form-data; name=\"address\"\r\n";
+    [data appendData:LSEncode(parameter_address)];
+    [data appendData:LSEncode(@"\r\n")];
+    [data appendData:LSEncode(address)];
+    [data appendData:LSEncode(@"\r\n")]; // 地址
+    
+    [data appendData:LSEncode(@"--LS\r\n")];
+    NSString *parameter_introduce = @"Content-Disposition: form-data; name=\"introduce\"\r\n";
+    [data appendData:LSEncode(parameter_introduce)];
+    [data appendData:LSEncode(@"\r\n")];
+    [data appendData:LSEncode(introduce)];
+    [data appendData:LSEncode(@"\r\n")]; // 介绍
+    
+    [data appendData:LSEncode(@"--LS\r\n")];
+    NSString *parameter_phone = @"Content-Disposition: form-data; name=\"phone\"\r\n";
+    [data appendData:LSEncode(parameter_phone)];
+    [data appendData:LSEncode(@"\r\n")];
+    [data appendData:LSEncode(phone)];
+    [data appendData:LSEncode(@"\r\n")]; // 手机号
+    
+    [data appendData:LSEncode(@"--LS\r\n")];
+    NSString *parameter_name = @"Content-Disposition: form-data; name=\"name\"\r\n";
+    [data appendData:LSEncode(parameter_name)];
+    [data appendData:LSEncode(@"\r\n")];
+    [data appendData:LSEncode(name)];
+    [data appendData:LSEncode(@"\r\n")]; // 姓名
+    
+    // 图片
+    if (image1) {
+        
+        [data appendData:LSEncode(@"--LS\r\n")];
+        NSString *disposition = @"Content-Disposition: form-data; name=\"pic1\"; filename=\"image1.jpeg\"\r\n";
+        [data appendData:LSEncode(disposition)];
+        NSString *imageFormat = @"Content-Type: image/jpeg \r\n";
+        [data appendData:LSEncode(imageFormat)];
+        [data appendData:LSEncode(@"\r\n")];
+        NSData *imageData = UIImageJPEGRepresentation(image1, 0.5);
+        [data appendData:imageData];
+        [data appendData:LSEncode(@"\r\n")];
+    }
+    
+    if (image2) {
+        
+        [data appendData:LSEncode(@"--LS\r\n")];
+        NSString *disposition = @"Content-Disposition: form-data; name=\"pic2\"; filename=\"image2.jpeg\"\r\n";
+        [data appendData:LSEncode(disposition)];
+        NSString *imageFormat = @"Content-Type: image/jpeg \r\n";
+        [data appendData:LSEncode(imageFormat)];
+        [data appendData:LSEncode(@"\r\n")];
+        NSData *imageData = UIImageJPEGRepresentation(image2, 0.5);
+        [data appendData:imageData];
+        [data appendData:LSEncode(@"\r\n")];
+    }
+    
+    if (image3) {
+        
+        [data appendData:LSEncode(@"--LS\r\n")];
+        NSString *disposition = @"Content-Disposition: form-data; name=\"pic3\"; filename=\"image3.jpeg\"\r\n";
+        [data appendData:LSEncode(disposition)];
+        NSString *imageFormat = @"Content-Type: image/jpeg \r\n";
+        [data appendData:LSEncode(imageFormat)];
+        [data appendData:LSEncode(@"\r\n")];
+        NSData *imageData = UIImageJPEGRepresentation(image3, 0.5);
+        [data appendData:imageData];
+        [data appendData:LSEncode(@"\r\n")];
+    }
+    
+    NSURLSessionUploadTask *upLoadTask = [session uploadTaskWithRequest:request fromData:data completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error) {
+            
+            if (block) {
+                block(NO);
+            }
+            
+            [self alertView:@"网络请求失败!"];
+            return ;
+        }
+        
+        NSMutableDictionary *dataDict = [NSJSONSerialization JSONObjectWithData:data
+                                                                        options:NSJSONReadingMutableLeaves
+                                                                          error:nil];
+        if ([[dataDict objectForKey:@"code"] integerValue] != 0) {
+            
+            if (block) {
+                block(NO);
+            }
+            
+        } else {
+            
+            if (block) {
+                block(YES);
+            }
+        }
+    }];
+    [upLoadTask resume];
+}
+
 #pragma mark - 其他_签到
 - (void)other_signinUserID:(NSString *)userID
                    returns:(void(^)(BOOL is))block

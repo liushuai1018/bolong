@@ -230,6 +230,35 @@
 - (void)other_signinUserID:(NSString *)userID
                    returns:(void(^)(BOOL is))block;
 
+/**
+ *  其他_租赁_发布信息
+ *
+ *  @param leaseOrSell 租赁或出售
+ *  @param geju      房屋格局
+ *  @param price     房屋价格
+ *  @param community 所属小区
+ *  @param address   详细地址
+ *  @param introduce 房屋介绍
+ *  @param phone     联系手机
+ *  @param name      联系姓名
+ *  @param image1    房屋图片1
+ *  @param image2    房屋图片2
+ *  @param image3    房屋图片3
+ *  @param returns   发布是否成功
+ */
+- (void)other_releaseHousingInformLeaseOrSell:(NSInteger)index
+                                         Geju:(NSString *)geju
+                                        price:(NSString *)price
+                                    community:(NSString *)community
+                                      address:(NSString *)address
+                                    introduce:(NSString *)introduce
+                                        phone:(NSString *)phone
+                                         name:(NSString *)name
+                                       image1:(UIImage *)image1
+                                       image2:(UIImage *)image2
+                                       image3:(UIImage *)image3
+                                      returns:(void(^)(BOOL is))block;
+
 #pragma mark - 停车咨询接口
 
 /**

@@ -1,0 +1,15 @@
+//
+//  LS_Lease_Inform_ViewController.h
+//  铂隆e站
+//
+//  Created by 铂隆资产1号 on 16/6/28.
+//  Copyright © 2016年 铂隆资产. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface LS_Lease_Inform_ViewController : UIViewController
+
+@property (assign, nonatomic) CGRect bounds;
+
+@end

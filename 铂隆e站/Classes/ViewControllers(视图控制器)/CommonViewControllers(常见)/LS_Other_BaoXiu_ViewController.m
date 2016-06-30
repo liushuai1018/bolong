@@ -174,19 +174,14 @@
                                                         LS_Other_BaoXiu_ViewController *strong_control = weak_control;
                                                         if (strong_control) {
                                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                                [strong_control.activity stopAnimating];
+                                                                [strong_control.activity.superview removeFromSuperview];
+                                                                
                                                                 if (is) {
-                                                                    
-                                                                    [strong_control.activity stopAnimating];
-                                                                    [strong_control.activity setHidesWhenStopped:YES];
                                                                     
                                                                     [strong_control alertViewTitle:@"我们以收到您的问题,会尽快给您去维修!"];
                                                                     
-                                                                } else {
-                                                                    
-                                                                    [strong_control.activity stopAnimating];
-                                                                    [strong_control.activity setHidesWhenStopped:YES];
                                                                 }
-                                                            
                                                             });
                                                         }
                                                         
@@ -303,11 +298,16 @@
 
 #pragma mark - 菊花
 - (void)activityIndicatorViews {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    view.backgroundColor = [UIColor colorWithRed:0.54 green:0.54 blue:0.54 alpha:0.6];
+    
     UIActivityIndicatorView *activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    activity.center = self.view.center;
+    activity.center = view.center;
     self.activity = activity;
-    [self.view addSubview:self.activity];
+    [view addSubview:self.activity];
     [self.activity startAnimating];
+    
+    [self.view addSubview:view];
 }
 
 @end

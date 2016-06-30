@@ -14,6 +14,7 @@
 #import "LS_Other_Water_ViewController.h"
 #import "LS_Other_BaoXiu_ViewController.h"
 #import "LS_Other_Sign_ViewController.h"
+#import "LS_Lease_ViewController.h"
 
 @interface LS_Pay_OtherTableViewController ()
 // 背景图片
@@ -54,7 +55,6 @@
 #pragma mark - initData
 - (void)initData
 {
-#warning mark - 隐藏租赁
     _backgroundImageAr = @[@"new_jiaofei_other_kaisuo",
                            @"new_jiaofei_other_huishou",
                            @"new_jiaofei_other_songshui",
@@ -127,6 +127,10 @@
         }
         case 4: {
             control = [[LS_Other_Sign_ViewController alloc] init];
+            break;
+        }
+        case 5: {
+            control = [[LS_Lease_ViewController alloc] init];
             break;
         }
             

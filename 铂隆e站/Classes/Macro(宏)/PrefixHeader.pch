@@ -109,6 +109,8 @@
 #define kIsSignInURL @"http://101.201.147.70/bolong/mobile.php/Mobile/user/old_time"
 // 其他_签到
 #define kSignInURl @"http://101.201.147.70/bolong/mobile.php/Mobile/user/time"
+// 其他_租赁_发布消息
+#define kReleaseLeaseInformURl @""
 
 
 // 钱包_剩余铂隆币
