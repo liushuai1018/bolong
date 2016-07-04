@@ -110,7 +110,9 @@
 // 其他_签到
 #define kSignInURl @"http://101.201.147.70/bolong/mobile.php/Mobile/user/time"
 // 其他_租赁_发布消息
-#define kReleaseLeaseInformURl @""
+#define kReleaseLeaseInformURl @"http://192.168.1.55/bolong/mobile.php/Mobile/House/addmessage"
+// 其他_租赁_租赁出售列表
+#define kLeaseOrSellListURL @"http://192.168.1.55/bolong/mobile.php/Mobile/House/looklist"
 
 
 // 钱包_剩余铂隆币

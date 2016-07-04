@@ -21,6 +21,7 @@
 #import "LS_feipinPrice_model.h"
 #import "LS_Record_Model.h"
 #import "LS_WuYeInform_Model.h"
+#import "LS_LeaseOrSell_Model.h"
 
 #define LSEncode(string) [string dataUsingEncoding:NSUTF8StringEncoding]
 
@@ -579,6 +580,9 @@
     [data appendData:LSEncode(address)];
     [data appendData:LSEncode(@"\r\n")];
     
+    /**参数结束**/
+    [data appendData:LSEncode(@"LS--")];
+    
     NSURLSessionUploadTask *upLoadTask = [session uploadTaskWithRequest:request fromData:data completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             
@@ -630,6 +634,25 @@
     }];
 }
 
+#pragma mark - 其他_签到
+- (void)other_signinUserID:(NSString *)userID
+                   returns:(void(^)(BOOL is))block
+{
+    NSString *parameter = [NSString stringWithFormat:@"user_id=%@", userID];
+    [self requestNetworkURL:kSignInURl requserParameter:parameter returns:^(NSMutableDictionary *dataDict) {
+        NSInteger index = [[dataDict objectForKey:@"code"] integerValue];
+        if (0 == index) {
+            if (block) {
+                block(YES);
+            }
+        } else {
+            if (block) {
+                block(NO);
+            }
+        }
+    }];
+}
+
 #pragma mark - 其他_租赁_发布信息
 - (void)other_releaseHousingInformLeaseOrSell:(NSInteger)index
                                          Geju:(NSString *)geju
@@ -662,9 +685,76 @@
     // data
     NSMutableData *data = [NSMutableData data];
     
+    // 图片
+    if (image1) {
+        
+        // 记录Image的类型和data
+        NSData *imageData;
+        NSString *imageFormat;
+        if (UIImagePNGRepresentation(image1) == nil) {
+            imageFormat = @"Content-Type: image/jpeg \r\n";
+            imageData = UIImageJPEGRepresentation(image1, 0.5f);
+        } else {
+            imageFormat = @"Content-Type: image/png \r\n";
+            imageData = UIImagePNGRepresentation(image1);
+        }
+        
+        [data appendData:LSEncode(@"--LS\r\n")];
+        NSString *disposition = @"Content-Disposition: form-data; name=\"image1\"; filename=\"image1.png\"\r\n";
+        [data appendData:LSEncode(disposition)];
+        [data appendData:LSEncode(imageFormat)];
+        [data appendData:LSEncode(@"\r\n")];
+        [data appendData:imageData];
+        [data appendData:LSEncode(@"\r\n")];
+    }
+    
+    if (image2) {
+        
+        // 记录Image的类型和data
+        NSData *imageData;
+        NSString *imageFormat;
+        if (UIImagePNGRepresentation(image2) == nil) {
+            imageFormat = @"Content-Type: image/jpeg \r\n";
+            imageData = UIImageJPEGRepresentation(image2, 0.5f);
+        } else {
+            imageFormat = @"Content-Type: image/png \r\n";
+            imageData = UIImagePNGRepresentation(image2);
+        }
+        
+        [data appendData:LSEncode(@"--LS\r\n")];
+        NSString *disposition = @"Content-Disposition: form-data; name=\"image2\"; filename=\"image2.png\"\r\n";
+        [data appendData:LSEncode(disposition)];
+        [data appendData:LSEncode(imageFormat)];
+        [data appendData:LSEncode(@"\r\n")];
+        [data appendData:imageData];
+        [data appendData:LSEncode(@"\r\n")];
+    }
+    
+    if (image3) {
+        
+        // 记录Image的类型和data
+        NSData *imageData;
+        NSString *imageFormat;
+        if (UIImagePNGRepresentation(image3) == nil) {
+            imageFormat = @"Content-Type: image/jpeg \r\n";
+            imageData = UIImageJPEGRepresentation(image3, 0.5f);
+        } else {
+            imageFormat = @"Content-Type: image/png \r\n";
+            imageData = UIImagePNGRepresentation(image3);
+        }
+        
+        [data appendData:LSEncode(@"--LS\r\n")];
+        NSString *disposition = @"Content-Disposition: form-data; name=\"image3\"; filename=\"image3.png\"\r\n";
+        [data appendData:LSEncode(disposition)];
+        [data appendData:LSEncode(imageFormat)];
+        [data appendData:LSEncode(@"\r\n")];
+        [data appendData:imageData];
+        [data appendData:LSEncode(@"\r\n")];
+    }
+    
     // 参数
     [data appendData:LSEncode(@"--LS\r\n")];
-    NSString *parameter_leaseOrSell = @"Content-Disposition: form-data; name=\"leaseOrSell\"\r\n";
+    NSString *parameter_leaseOrSell = @"Content-Disposition: form-data; name=\"state\"\r\n";
     [data appendData:LSEncode(parameter_leaseOrSell)];
     [data appendData:LSEncode(@"\r\n")];
     NSString *param = [NSString stringWithFormat:@"%ld", index];
@@ -672,35 +762,35 @@
     [data appendData:LSEncode(@"\r\n")]; // 租赁或出售
     
     [data appendData:LSEncode(@"--LS\r\n")];
-    NSString *parameter_geju = @"Content-Disposition: form-data; name=\"geju\"\r\n";
+    NSString *parameter_geju = @"Content-Disposition: form-data; name=\"house_style\"\r\n";
     [data appendData:LSEncode(parameter_geju)];
     [data appendData:LSEncode(@"\r\n")];
     [data appendData:LSEncode(geju)];
     [data appendData:LSEncode(@"\r\n")]; // 格局
     
     [data appendData:LSEncode(@"--LS\r\n")];
-    NSString *parameter_price = @"Content-Disposition: form-data; name=\"price\"\r\n";
+    NSString *parameter_price = @"Content-Disposition: form-data; name=\"house_price\"\r\n";
     [data appendData:LSEncode(parameter_price)];
     [data appendData:LSEncode(@"\r\n")];
     [data appendData:LSEncode(price)];
     [data appendData:LSEncode(@"\r\n")]; // 价格
     
     [data appendData:LSEncode(@"--LS\r\n")];
-    NSString *parameter_community = @"Content-Disposition: form-data; name=\"community\"\r\n";
+    NSString *parameter_community = @"Content-Disposition: form-data; name=\"house_name\"\r\n";
     [data appendData:LSEncode(parameter_community)];
     [data appendData:LSEncode(@"\r\n")];
     [data appendData:LSEncode(community)];
     [data appendData:LSEncode(@"\r\n")]; // 小区
     
     [data appendData:LSEncode(@"--LS\r\n")];
-    NSString *parameter_address = @"Content-Disposition: form-data; name=\"address\"\r\n";
+    NSString *parameter_address = @"Content-Disposition: form-data; name=\"house_address\"\r\n";
     [data appendData:LSEncode(parameter_address)];
     [data appendData:LSEncode(@"\r\n")];
     [data appendData:LSEncode(address)];
     [data appendData:LSEncode(@"\r\n")]; // 地址
     
     [data appendData:LSEncode(@"--LS\r\n")];
-    NSString *parameter_introduce = @"Content-Disposition: form-data; name=\"introduce\"\r\n";
+    NSString *parameter_introduce = @"Content-Disposition: form-data; name=\"house_info\"\r\n";
     [data appendData:LSEncode(parameter_introduce)];
     [data appendData:LSEncode(@"\r\n")];
     [data appendData:LSEncode(introduce)];
@@ -714,51 +804,14 @@
     [data appendData:LSEncode(@"\r\n")]; // 手机号
     
     [data appendData:LSEncode(@"--LS\r\n")];
-    NSString *parameter_name = @"Content-Disposition: form-data; name=\"name\"\r\n";
+    NSString *parameter_name = @"Content-Disposition: form-data; name=\"people_name\"\r\n";
     [data appendData:LSEncode(parameter_name)];
     [data appendData:LSEncode(@"\r\n")];
     [data appendData:LSEncode(name)];
     [data appendData:LSEncode(@"\r\n")]; // 姓名
     
-    // 图片
-    if (image1) {
-        
-        [data appendData:LSEncode(@"--LS\r\n")];
-        NSString *disposition = @"Content-Disposition: form-data; name=\"pic1\"; filename=\"image1.jpeg\"\r\n";
-        [data appendData:LSEncode(disposition)];
-        NSString *imageFormat = @"Content-Type: image/jpeg \r\n";
-        [data appendData:LSEncode(imageFormat)];
-        [data appendData:LSEncode(@"\r\n")];
-        NSData *imageData = UIImageJPEGRepresentation(image1, 0.5);
-        [data appendData:imageData];
-        [data appendData:LSEncode(@"\r\n")];
-    }
-    
-    if (image2) {
-        
-        [data appendData:LSEncode(@"--LS\r\n")];
-        NSString *disposition = @"Content-Disposition: form-data; name=\"pic2\"; filename=\"image2.jpeg\"\r\n";
-        [data appendData:LSEncode(disposition)];
-        NSString *imageFormat = @"Content-Type: image/jpeg \r\n";
-        [data appendData:LSEncode(imageFormat)];
-        [data appendData:LSEncode(@"\r\n")];
-        NSData *imageData = UIImageJPEGRepresentation(image2, 0.5);
-        [data appendData:imageData];
-        [data appendData:LSEncode(@"\r\n")];
-    }
-    
-    if (image3) {
-        
-        [data appendData:LSEncode(@"--LS\r\n")];
-        NSString *disposition = @"Content-Disposition: form-data; name=\"pic3\"; filename=\"image3.jpeg\"\r\n";
-        [data appendData:LSEncode(disposition)];
-        NSString *imageFormat = @"Content-Type: image/jpeg \r\n";
-        [data appendData:LSEncode(imageFormat)];
-        [data appendData:LSEncode(@"\r\n")];
-        NSData *imageData = UIImageJPEGRepresentation(image3, 0.5);
-        [data appendData:imageData];
-        [data appendData:LSEncode(@"\r\n")];
-    }
+    /**参数结束**/
+    [data appendData:LSEncode(@"LS--")];
     
     NSURLSessionUploadTask *upLoadTask = [session uploadTaskWithRequest:request fromData:data completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
@@ -790,20 +843,24 @@
     [upLoadTask resume];
 }
 
-#pragma mark - 其他_签到
-- (void)other_signinUserID:(NSString *)userID
-                   returns:(void(^)(BOOL is))block
+#pragma mark - 租赁或出售列表
+- (void)other_LeaseOrSellLiseInfostate:(NSString *)stater
+                               returns:(void(^)(NSArray *dataAr))block
 {
-    NSString *parameter = [NSString stringWithFormat:@"user_id=%@", userID];
-    [self requestNetworkURL:kSignInURl requserParameter:parameter returns:^(NSMutableDictionary *dataDict) {
-        NSInteger index = [[dataDict objectForKey:@"code"] integerValue];
-        if (0 == index) {
-            if (block) {
-                block(YES);
+    NSString *parameter = [NSString stringWithFormat:@"state=%@", stater];
+    [self requestNetworkURL:kLeaseOrSellListURL requserParameter:parameter returns:^(NSMutableDictionary *dataDict) {
+        NSInteger code = [[dataDict objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            NSArray *array = [dataDict objectForKey:@"datas"];
+            NSMutableArray *mutableAr = [NSMutableArray array];
+            for (NSDictionary *dict in array) {
+                LS_LeaseOrSell_Model *model = [[LS_LeaseOrSell_Model alloc] init];
+                [model setValuesForKeysWithDictionary:dict];
+                [mutableAr addObject:model];
             }
-        } else {
+            
             if (block) {
-                block(NO);
+                block(mutableAr);
             }
         }
     }];
@@ -1122,6 +1179,44 @@
                                           if (block) {
                                               block(dict);
                                           }
+                                      }
+                                      
+                                  }];
+    [task resume];
+}
+
+- (void)downloadImageURL:(NSString *)url
+                 returns:(void(^)(UIImage *image))block
+{
+    if (![self determineTheNetwork]) {
+        return;
+    }
+    NSURL *urlPath = [NSURL URLWithString:url];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:urlPath];
+    [request setHTTPMethod:@"POST"];
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    [configuration setTimeoutIntervalForRequest:10.0];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+    
+    __weak NetWorkRequestManage *weak_control = self; // 若引用防止block循环引用
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request
+                                            completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)
+                                  {
+                                      NetWorkRequestManage *strong_control = weak_control; // 弱引用转换强引用,防止在多线程和ARC下随时被释放的问题
+                                      if (strong_control) { // 判断释放释放已经被释放
+                                          
+                                          if (error) {
+                                              [strong_control alertView:@"网络请求失败"];
+                                              return;
+                                          }
+                                          
+                                          UIImage *image = [UIImage imageWithData:data];
+                                          if (block) {
+                                              block(image);
+                                          }
+                                          
                                       }
                                       
                                   }];

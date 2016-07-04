@@ -10,4 +10,6 @@
 
 @interface LS_Lease_Sell_TableViewController : UITableViewController
 
+@property (strong, nonatomic) NSArray *dataAr;
+
 @end

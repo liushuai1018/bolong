@@ -28,6 +28,7 @@
 		0C0ED3DB1C30E405008847AF /* xuanz.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0ED3C01C30E405008847AF /* xuanz.png */; };
 		0C1539FD1C7D55D5003AF119 /* AddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C1539FC1C7D55D5003AF119 /* AddressBook.m */; };
 		0C153A031C7DAC20003AF119 /* sousuo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C153A021C7DAC20003AF119 /* sousuo@2x.png */; };
+		0C15AB221D265422004C35CA /* LS_LeaseOrSell_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C15AB211D265422004C35CA /* LS_LeaseOrSell_Model.m */; };
 		0C1E843F1C34CEF5009D6AB8 /* WaterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C1E843E1C34CEF5009D6AB8 /* WaterView.m */; };
 		0C1E844C1C34D9EF009D6AB8 /* daxuanze.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C1E84421C34D9EE009D6AB8 /* daxuanze.png */; };
 		0C1E844D1C34D9EF009D6AB8 /* dingwei.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C1E84431C34D9EE009D6AB8 /* dingwei.png */; };
@@ -468,6 +469,8 @@
 		0C1539FB1C7D55D5003AF119 /* AddressBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBook.h; sourceTree = "<group>"; };
 		0C1539FC1C7D55D5003AF119 /* AddressBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBook.m; sourceTree = "<group>"; };
 		0C153A021C7DAC20003AF119 /* sousuo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sousuo@2x.png"; sourceTree = "<group>"; };
+		0C15AB201D265422004C35CA /* LS_LeaseOrSell_Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LS_LeaseOrSell_Model.h; sourceTree = "<group>"; };
+		0C15AB211D265422004C35CA /* LS_LeaseOrSell_Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LS_LeaseOrSell_Model.m; sourceTree = "<group>"; };
 		0C1E843D1C34CEF5009D6AB8 /* WaterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterView.h; sourceTree = "<group>"; };
 		0C1E843E1C34CEF5009D6AB8 /* WaterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterView.m; sourceTree = "<group>"; };
 		0C1E84421C34D9EE009D6AB8 /* daxuanze.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = daxuanze.png; sourceTree = "<group>"; };
@@ -2029,6 +2032,8 @@
 			children = (
 				0CB86C9E1CF6FC180079CE4A /* LS_feipinPrice_model.h */,
 				0CB86C9F1CF6FC180079CE4A /* LS_feipinPrice_model.m */,
+				0C15AB201D265422004C35CA /* LS_LeaseOrSell_Model.h */,
+				0C15AB211D265422004C35CA /* LS_LeaseOrSell_Model.m */,
 			);
 			name = "其他";
 			sourceTree = "<group>";
@@ -3053,6 +3058,7 @@
 				0CEA40B71C5781CC00E036B4 /* SDWebImageDownloaderOperation.m in Sources */,
 				0C79AE011C89363000A1D332 /* RetrievePasswordViewController.m in Sources */,
 				0C91B7F51D2254C700070161 /* LS_Lease_Sell_TableViewController.m in Sources */,
+				0C15AB221D265422004C35CA /* LS_LeaseOrSell_Model.m in Sources */,
 				0C8047111C76EC070002F031 /* UIColor+RCColor.m in Sources */,
 				0C5D1CCB1CA4E917006494A5 /* Product.m in Sources */,
 				0C5D1C731CA4E633006494A5 /* DataVerifier.m in Sources */,

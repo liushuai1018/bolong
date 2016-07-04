@@ -259,6 +259,15 @@
                                        image3:(UIImage *)image3
                                       returns:(void(^)(BOOL is))block;
 
+/**
+ *  其他_租赁或出售列表信息
+ *
+ *  @param stater 出售或租赁
+ *  @param block 列表信息
+ */
+- (void)other_LeaseOrSellLiseInfostate:(NSString *)stater
+                               returns:(void(^)(NSArray *dataAr))block;
+
 #pragma mark - 停车咨询接口
 
 /**
@@ -392,5 +401,15 @@
                      phone:(NSString *)phone
                    returns:(void(^)(BOOL is))block;
 
+
+#pragma mark  - 下载图片
+/**
+ *   下载图片
+ *
+ *  @param url   图片地址
+ *  @param block 下载的图
+ */
+- (void)downloadImageURL:(NSString *)url
+                 returns:(void(^)(UIImage *image))block;
 
 @end

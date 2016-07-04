@@ -8,6 +8,7 @@
 
 #import "LS_Lease_Sell_TableViewController.h"
 #import "LS_Lease_TableViewCell.h"
+#import "LS_LeaseOrSell_Model.h"
 
 #define cellStr @"sellCell"
 
@@ -28,6 +29,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)setDataAr:(NSArray *)dataAr {
+    _dataAr = dataAr;
+    [self.tableView reloadData];
+}
+
 #pragma mark - initTableView
 - (void)initTableView {
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -41,18 +47,30 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    if (_dataAr) {
+        return _dataAr.count;
+    } else {
+        return 0;
+    }
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     LS_Lease_TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellStr forIndexPath:indexPath];
     
-    cell.geju.text = @"三室一厅 坐北朝南";
-    cell.price.text = @"价格: 120W";
-    cell.fangshi.text = @"首付20W";
+    LS_LeaseOrSell_Model *model = [_dataAr objectAtIndex:indexPath.row];
     
-    cell.browse.text = @"1234 浏览";
+    /*
+     [[NetWorkRequestManage sharInstance] downloadImageURL:model.house_image returns:^(UIImage *image) {
+     dispatch_async(dispatch_get_main_queue(), ^{
+     cell.icoImage.image = image;
+     });
+     }];
+     */
+    
+    cell.geju.text = model.house_style;
+    cell.price.text = model.house_price;
+    cell.browse.text = [NSString stringWithFormat:@"%@ 人浏览", model.house_count];
     
     [cell.details addTarget:self action:@selector(deailsAction:event:) forControlEvents:UIControlEventTouchUpInside];
     

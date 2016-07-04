@@ -8,6 +8,7 @@
 
 #import "LS_Lease_LeaseList_TableViewController.h"
 #import "LS_Lease_TableViewCell.h"
+#import "LS_LeaseOrSell_Model.h"
 
 #define cellStr @"leaseCell"
 
@@ -16,6 +17,11 @@
 @end
 
 @implementation LS_Lease_LeaseList_TableViewController
+
+- (void)setDataAr:(NSArray *)dataAr {
+    _dataAr = dataAr;
+    [self.tableView reloadData];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -43,17 +49,31 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    if (_dataAr) {
+        return _dataAr.count;
+    } else {
+        return 0;
+    }
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     LS_Lease_TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellStr forIndexPath:indexPath];
-    
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    cell.geju.text = @"坐北朝南 两室一厅";
-    cell.price.text = @"价格: 3500/月";
-    cell.browse.text = @"2345人浏览";
+    
+    LS_LeaseOrSell_Model *model = [_dataAr objectAtIndex:indexPath.row];
+    
+    /*
+    [[NetWorkRequestManage sharInstance] downloadImageURL:model.house_image returns:^(UIImage *image) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            cell.icoImage.image = image;
+        });
+    }];
+    */
+     
+    cell.geju.text = model.house_style;
+    cell.price.text = model.house_price;
+    cell.browse.text = [NSString stringWithFormat:@"%@ 人浏览", model.house_count];
     [cell.details addTarget:self action:@selector(datailsAction:event:) forControlEvents:UIControlEventTouchUpInside];
     
     return cell;

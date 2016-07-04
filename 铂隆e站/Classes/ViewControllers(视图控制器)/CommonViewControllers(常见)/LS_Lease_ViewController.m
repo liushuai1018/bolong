@@ -27,6 +27,14 @@
 @property (strong, nonatomic) LS_Lease_Sell_TableViewController *sellList;        // 出售信息
 @property (strong, nonatomic) LS_Lease_Inform_ViewController *housingInform; // 房屋信息
 
+// 菊花
+@property (strong, nonatomic) UIActivityIndicatorView *activity;
+
+// 租赁Data
+@property (strong, nonatomic) NSArray *leaseDataAr;
+// 出售
+@property (strong, nonatomic) NSArray *sellDataAr;
+
 @end
 
 @implementation LS_Lease_ViewController
@@ -35,13 +43,35 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    [self activityIndicatorViews];
     [self initViewControl];
+    [self initData];
     
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - initData
+- (void)initData {
+    __weak LS_Lease_ViewController *weak_control = self;
+    [[NetWorkRequestManage sharInstance] other_LeaseOrSellLiseInfostate:@"1" returns:^(NSArray *dataAr) {
+        weak_control.leaseDataAr = dataAr;
+        weak_control.leaseList.dataAr = dataAr;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [weak_control stopActivity]; // 停止菊花
+        });
+    }];
+    
+    [[NetWorkRequestManage sharInstance] other_LeaseOrSellLiseInfostate:@"2" returns:^(NSArray *dataAr) {
+        weak_control.sellDataAr = dataAr;
+        weak_control.sellList.dataAr = dataAr;
+    }];
+    
 }
 
 #pragma mark - initVC
@@ -55,10 +85,8 @@
     [self addChildViewController:_housingInform];
     
     _leaseList.tableView.frame = _showView.bounds;
-    
-    _housingInform.view.frame = _showView.bounds;
-    
     [_showView addSubview:_leaseList.view];
+    
 }
 
 #pragma mark - 租赁
@@ -69,6 +97,7 @@
     
     [_housingInform.view removeFromSuperview];
     [_sellList.view removeFromSuperview];
+    _leaseList.tableView.frame = _showView.bounds;
     [_showView addSubview:_leaseList.view];
 }
 
@@ -96,5 +125,25 @@
     [_showView addSubview:_housingInform.view];
 }
 
+#pragma mark - 菊花
+- (void)activityIndicatorViews {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    view.backgroundColor = [UIColor colorWithRed:0.54 green:0.54 blue:0.54 alpha:0.6];
+    
+    UIActivityIndicatorView *activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    activity.center = view.center;
+    self.activity = activity;
+    [view addSubview:self.activity];
+    [self.activity startAnimating];
+    
+    view.center = self.view.superview.center;
+    [self.view addSubview:view];
+    
+}
+
+- (void)stopActivity {
+    [_activity stopAnimating];
+    [_activity.superview removeFromSuperview];
+}
 
 @end
