@@ -91,7 +91,7 @@
                 [[LocalStoreManage sharInstance] UserInforStoredLocally:infor];
                 
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"status"];
-                
+                [[NSUserDefaults standardUserDefaults] synchronize];
                 // 记录登陆成功的账号
                 NSDictionary *userDic = @{
                                           @"account":userName,
@@ -99,7 +99,7 @@
                                           };
                 // 账号密码存储到 userDefaults
                 [[NSUserDefaults standardUserDefaults] setObject:userDic forKey:@"account"];
-                
+                [[NSUserDefaults standardUserDefaults] synchronize];
                 [strong_control successPushRootViewControl]; // 登陆成功跳转主界面
             } else {
                 

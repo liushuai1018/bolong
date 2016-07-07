@@ -10,7 +10,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LS_HomeViewController">
             <connections>
                 <outlet property="mall_View" destination="faO-Na-KCs" id="Ad9-sT-VqX"/>
+                <outlet property="mall_right" destination="m5A-7P-cu3" id="ZDS-Qi-9rW"/>
+                <outlet property="parkOrMall_top" destination="qqh-HR-Wl1" id="lIo-cV-jlS"/>
                 <outlet property="parking_View" destination="6To-u8-Oqf" id="uFj-0P-iGf"/>
+                <outlet property="parking_left" destination="sal-64-tPu" id="lU9-Nd-QYu"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="width" destination="Upj-vQ-uhT" id="ESb-Y4-ubg"/>
             </connections>
@@ -128,7 +131,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="faO-Na-KCs">
-                    <rect key="frame" x="50" y="363" width="80" height="71"/>
+                    <rect key="frame" x="32" y="363" width="80" height="71"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="停车" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aei-aC-zWx">
                             <rect key="frame" x="20" y="40" width="40" height="15"/>
@@ -214,7 +217,7 @@
                 <constraint firstItem="faO-Na-KCs" firstAttribute="top" secondItem="OTQ-r4-HdS" secondAttribute="bottom" constant="30" id="qqh-HR-Wl1"/>
                 <constraint firstItem="qcQ-uC-hPR" firstAttribute="width" secondItem="eks-8M-QpO" secondAttribute="width" id="r5B-JN-468"/>
                 <constraint firstItem="b4l-M4-IwV" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="sRy-bX-hC2"/>
-                <constraint firstItem="faO-Na-KCs" firstAttribute="leading" secondItem="OTQ-r4-HdS" secondAttribute="leading" constant="-46" id="sal-64-tPu"/>
+                <constraint firstItem="faO-Na-KCs" firstAttribute="leading" secondItem="OTQ-r4-HdS" secondAttribute="leading" constant="-64" id="sal-64-tPu"/>
                 <constraint firstItem="HWz-r9-GP0" firstAttribute="width" secondItem="qcQ-uC-hPR" secondAttribute="width" id="wBg-k2-Ec4"/>
                 <constraint firstItem="qcQ-uC-hPR" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="wve-LA-HXW"/>
                 <constraint firstItem="qcQ-uC-hPR" firstAttribute="top" secondItem="b4l-M4-IwV" secondAttribute="bottom" constant="10" id="x0G-8k-y7v"/>

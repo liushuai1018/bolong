@@ -37,6 +37,7 @@
 @property (strong, nonatomic) LS_WuYeInform_Model *model;
 
 // 菊花
+@property (strong, nonatomic) UIView *activityView;
 @property (strong, nonatomic) UIActivityIndicatorView *activity;
 
 
@@ -174,8 +175,7 @@
                                                         LS_Other_BaoXiu_ViewController *strong_control = weak_control;
                                                         if (strong_control) {
                                                             dispatch_async(dispatch_get_main_queue(), ^{
-                                                                [strong_control.activity stopAnimating];
-                                                                [strong_control.activity.superview removeFromSuperview];
+                                                                [strong_control stopActivityIndicator];
                                                                 
                                                                 if (is) {
                                                                     
@@ -186,7 +186,7 @@
                                                         }
                                                         
                                                     }];
-    [self activityIndicatorViews];
+    [self activityControl];
 }
 
 
@@ -297,17 +297,42 @@
 }
 
 #pragma mark - 菊花
-- (void)activityIndicatorViews {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    view.backgroundColor = [UIColor colorWithRed:0.54 green:0.54 blue:0.54 alpha:0.6];
+- (void)activityControl {
+    
+    _activityView = [[UIView alloc] initWithFrame:self.view.bounds];
+    _activityView.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:_activityView];
+    /**
+     *  蒙版
+     */
+    CAShapeLayer *maskLayer = [CAShapeLayer layer];
+    CGRect rect = CGRectMake(_activityView.center.x - 50, _activityView.center.y - 140, 100, 80);
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:rect byRoundingCorners:UIRectCornerAllCorners cornerRadii:CGSizeMake(10, 10)];
+    [maskLayer setPath:maskPath.CGPath];
+    _activityView.layer.mask = maskLayer;
+    
     
     UIActivityIndicatorView *activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    activity.center = view.center;
-    self.activity = activity;
-    [view addSubview:self.activity];
-    [self.activity startAnimating];
+    activity.center = CGPointMake(_activityView.center.x, _activityView.center.y - 110);
+    _activity = activity;
+    [_activityView addSubview:_activity];
+    [_activity startAnimating];
     
-    [self.view addSubview:view];
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 10)];
+    title.center = CGPointMake(_activity.center.x, _activity.center.y + 30);
+    title.text = @"正在加载...";
+    title.textColor = [UIColor whiteColor];
+    title.textAlignment = NSTextAlignmentCenter;
+    title.font = [UIFont systemFontOfSize:10.0f];
+    [_activityView addSubview:title];
 }
+
+- (void)stopActivityIndicator {
+    if ([_activity isAnimating]) {
+        [_activity stopAnimating];
+        [_activityView removeFromSuperview];
+    }
+}
+
 
 @end

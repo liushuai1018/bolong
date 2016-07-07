@@ -102,13 +102,15 @@
         // 发送验证码请求
         __weak RetrievePasswordView *view = self;
         [[NetWorkRequestManage sharInstance] senderVerificationCode:_phone.text type:@"1" returnVerificationCode:^(NSString *str) {
-            
-            [view createrAlertViewWithMessage:str];
-            [_timer invalidate];
-            [_verificationButton setTitle:@"验证码" forState:UIControlStateNormal];
-            [_verificationButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-            [_verificationButton setBackgroundColor:[UIColor whiteColor]];
-            _verificationButton.enabled = YES;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [view createrAlertViewWithMessage:str];
+                [_timer invalidate];
+                [_verificationButton setTitle:@"验证码" forState:UIControlStateNormal];
+                [_verificationButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+                [_verificationButton setBackgroundColor:[UIColor whiteColor]];
+                _verificationButton.enabled = YES;
+            });
             
         }];
     }

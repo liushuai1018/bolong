@@ -91,6 +91,7 @@
                                               };
                     // 账号密码存储到 userDefaults
                     [[NSUserDefaults standardUserDefaults] setObject:userDic forKey:@"account"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
                     
                 });
             }

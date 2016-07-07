@@ -57,7 +57,6 @@
     _dough.text = userInfo.money;
 }
 
-#warning mark - 实适配
 - (void)adapter
 {
     NSString *equipmentModel = [[LS_EquipmentModel sharedEquipmentModel] accessModel];
@@ -111,13 +110,16 @@
 
 #pragma mark - 铂隆商城
 - (IBAction)boLongMall:(UIButton *)sender {
+    /*
     LS_Mall_ViewController *mall = [[LS_Mall_ViewController alloc] init];
     
     UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:mall];
     
     [self presentViewController:navigation animated:YES completion:nil];
+     */
+    [self alertControlTitle:@"攻城狮正在努力开发中..."];
 }
-
+#warning mark - 隐藏购物车,消费清单, 在 XIB 中
 #pragma mark - 购物车
 - (IBAction)shoppingCart:(UIButton *)sender {
 }
@@ -150,5 +152,14 @@
     [self.navigationController pushViewController:topUp animated:YES];
 }
 
-#warning mark - 隐藏商城,购物车,消费清单, 在 XIB 中
+#pragma mark - alertControl
+- (void)alertControlTitle:(NSString *)title {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:title preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:cancel];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 @end

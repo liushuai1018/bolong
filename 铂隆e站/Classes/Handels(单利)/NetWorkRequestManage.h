@@ -13,6 +13,7 @@
 @class UserInformation;
 @class WuYeDetails;
 @class LS_addressManage;
+@class LS_LeaseOrSell_Model;
 
 @interface NetWorkRequestManage : NSObject
 
@@ -267,6 +268,15 @@
  */
 - (void)other_LeaseOrSellLiseInfostate:(NSString *)stater
                                returns:(void(^)(NSArray *dataAr))block;
+
+/**
+ *  其他_租售详情
+ *
+ *  @param listID 列表ID
+ *  @param block  详情信息
+ */
+- (void)other_LeaseOrSellDetailsListID:(NSString *)listID
+                               returns:(void(^)(LS_LeaseOrSell_Model *model))block;
 
 #pragma mark - 停车咨询接口
 

@@ -12,6 +12,7 @@
                 <outlet property="mark1" destination="TOU-vn-NAE" id="Dsm-Hu-60t"/>
                 <outlet property="mark2" destination="BXV-WE-qJu" id="Xdo-B0-G0l"/>
                 <outlet property="mark3" destination="b86-Tr-Izr" id="0DG-u1-btR"/>
+                <outlet property="menu_height" destination="xAC-IU-8mE" id="PoT-Mx-Uqj"/>
                 <outlet property="showView" destination="A5I-jX-hgZ" id="G6P-bH-Mao"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

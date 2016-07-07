@@ -115,6 +115,7 @@
 {
     // 设置登录状态
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"status"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     // 移除上一个用户信息
     [[LocalStoreManage sharInstance] removeAllUserInfor];
     

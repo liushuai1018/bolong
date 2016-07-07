@@ -10,4 +10,6 @@
 
 @interface LS_LeaseDetails_ViewController : UIViewController
 
+@property (strong, nonatomic) NSString *listID;
+
 @end

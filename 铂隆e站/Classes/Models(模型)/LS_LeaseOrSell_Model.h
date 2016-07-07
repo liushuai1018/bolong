@@ -33,7 +33,7 @@
 /**
  *  房屋图片URL
  */
-@property (strong, nonatomic) NSString *house_image;
+@property (strong, nonatomic) NSArray *house_image;
 /**
  *  房屋介绍
  */

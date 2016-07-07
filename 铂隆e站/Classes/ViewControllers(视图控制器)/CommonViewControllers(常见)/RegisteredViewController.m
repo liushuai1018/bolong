@@ -150,7 +150,7 @@
                 [[NSUserDefaults standardUserDefaults] setObject:userDic forKey:@"account"];
                 // 注册成功第一次登陆
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstRegistration"];
-                
+                [[NSUserDefaults standardUserDefaults] synchronize];
                 [strong_control dismissViewControllerAnimated:YES completion:nil];
                 
             } else {

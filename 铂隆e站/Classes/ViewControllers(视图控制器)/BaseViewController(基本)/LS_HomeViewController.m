@@ -10,11 +10,13 @@
 #import "LS_pay_TableViewController.h"
 #import "LS_ParkingRootViewController.h"
 #import "LS_Mall_ViewController.h"
+#import "LS_temp_parking_ViewController.h"
 
 @interface LS_HomeViewController ()
 {
     LS_pay_TableViewController *_pay;       // 缴费
     LS_ParkingRootViewController *_parking; // 停车
+    LS_temp_parking_ViewController *_tempParking; // 临时停车视图
 //    MallTableViewController *_mall;       // 商城
     LS_Mall_ViewController *_mall;          // 新商城
     
@@ -27,7 +29,12 @@
 
 // 约束
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *width;
-
+// 停车or商城距离上的距离
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *parkOrMall_top;
+// 右边视图距离右边
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *mall_right;
+// 左边视图距离左边
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *parking_left;
 
 
 @property (strong, nonatomic) UIButton *rewardImage; // 奖励图片
@@ -58,28 +65,29 @@
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstRegistration"]) {
         [self createrBoLongBiImage];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstRegistration"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
-#warning mark - 隐藏为完成的下一版本在展开
-    _parking_View.hidden = YES;
-    _mall_View.hidden = YES;
     
     NSString *equipmentModel = [[LS_EquipmentModel sharedEquipmentModel] accessModel];
     if ([equipmentModel isEqualToString:@"3.5_inch"]) {
-        _width.constant = 0;
+        _width.constant = -20;
+        _parkOrMall_top.constant = -30;
+        _parking_left.constant = -104;
+        _mall_right.constant = 104;
         return;
     }
     if ([equipmentModel isEqualToString:@"4_inch"]) {
-        _width.constant = 80;
+        _width.constant = 0;
         return;
     }
     if ([equipmentModel isEqualToString:@"4.7_inch"]) {
-        _width.constant = 100;
+        _width.constant = 0;
         return;
     }
     if ([equipmentModel isEqualToString:@"5.5_inch"]) {
         
-        _width.constant = SCREEN_WIDTH * 0.3;
+        _width.constant = 0;
         return;
     }
     
@@ -95,16 +103,22 @@
 
 #pragma mark - 停车
 - (IBAction)parking:(UIButton *)sender {
-    
+    /*
     _parking = [[LS_ParkingRootViewController alloc] init];
     [self presentViewcontrol:@[_parking]];
+     */
+    
+    _tempParking = [[LS_temp_parking_ViewController alloc] init];
+    [self presentViewcontrol:@[_tempParking]];
 }
 
 #pragma mark - 商城
 - (IBAction)mall:(UIButton *)sender {
-    
+    /*
     _mall = [[LS_Mall_ViewController alloc] init];
     [self presentViewcontrol:@[_mall]];
+     */
+    [self alertControlTitle:@"攻城狮正在努力开发中..."];
 }
 
 // 推出下一级视图控制器
@@ -160,6 +174,16 @@
         self.tabBarController.tabBar.hidden = NO;
         [_rewardImage removeFromSuperview];
     }
+}
+
+#pragma mark - alertControl
+- (void)alertControlTitle:(NSString *)title {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:title preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:cancel];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 @end

@@ -119,7 +119,7 @@
     
     [self requestNetworkURL:kSenderPhoneURL requserParameter:parameters returns:^(NSMutableDictionary *dataDict) {
         
-        if ([[dataDict objectForKey:@"code"] integerValue] == 1) {
+        if ([[[dataDict objectForKey:@"code"] stringValue] isEqualToString:@"1"]) {
             verification([dataDict objectForKey:@"datas"]);
         }
         
@@ -221,7 +221,8 @@
         
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
         
-        if ([dic[@"code"] integerValue] == 0) {
+        NSString *code = [[dic objectForKey:@"code"] stringValue];
+        if ([code isEqualToString:@"0"]) {
             NSString *headURL = [dic objectForKey:@"datas"];
             [[LocalStoreManage sharInstance] upUserHeadURL:headURL];
         }
@@ -248,7 +249,7 @@
 {
     NSString *parameter = [NSString stringWithFormat:@"mobile=%@&password=%@&code=%@", phone, password, code];
     [self requestNetworkURL:kForgetPassword requserParameter:parameter returns:^(NSMutableDictionary *dataDict) {
-        if ([[dataDict objectForKey:@"code"] integerValue] == 0) {
+        if ([[[dataDict objectForKey:@"code"] stringValue] isEqualToString:@"0"]) {
             block(@"修改成功");
         } else {
             block([dataDict objectForKey:@"datas"]);
@@ -261,8 +262,8 @@
 - (void)getWuYeRetuns:(void(^)(NSArray *array))block
 {
     [self requestNetworkURL:kObtainWuYeURL requserParameter:nil returns:^(NSMutableDictionary *dataDict) {
-        NSInteger index = [[dataDict objectForKey:@"code"] integerValue];
-        if (0 == index) {
+        NSString *code = [[dataDict objectForKey:@"code"] stringValue];
+        if ([code isEqualToString:@"0"]) {
             NSArray *dataAr = [dataDict objectForKey:@"datas"];
             NSMutableArray *array = [NSMutableArray array];
             for (int i = 0; i < dataAr.count; i++) {
@@ -291,26 +292,24 @@
     NSString *parameter = [NSString stringWithFormat:@"id=%@", wuYeID];
     [self requestNetworkURL:kGetCommunityURL requserParameter:parameter returns:^(NSMutableDictionary *dataDict) {
         
-        NSInteger index = [[dataDict objectForKey:@"code"] integerValue];
-        
-        if (index != 0) {
+        NSString *code = [[dataDict objectForKey:@"code"] stringValue];
+        if ([code isEqualToString:@"0"]) {
+            NSArray *array = [dataDict objectForKey:@"datas"];
+            NSMutableArray *communityArray = [NSMutableArray array];
+            
+            for (NSDictionary *dict in array) {
+                
+                CommunityInformation *community = [[CommunityInformation alloc] init];
+                [community setValuesForKeysWithDictionary:dict];
+                [communityArray addObject:community];
+            }
+            if (sender) {
+                sender(communityArray);
+            }
+        } else {
             if (sender) {
                 sender(nil);
             }
-            return;
-        }
-        
-        NSArray *array = [dataDict objectForKey:@"datas"];
-        NSMutableArray *communityArray = [NSMutableArray array];
-        
-        for (NSDictionary *dict in array) {
-            
-            CommunityInformation *community = [[CommunityInformation alloc] init];
-            [community setValuesForKeysWithDictionary:dict];
-            [communityArray addObject:community];
-        }
-        if (sender) {
-            sender(communityArray);
         }
     }];
 }
@@ -355,8 +354,8 @@
 {
     NSString *parameter = [NSString stringWithFormat:@"user_id=%@&log_ids=%@&id=%@", user_id, log_ids, wuyeID];
     [self requestNetworkURL:kWuYePayURL requserParameter:parameter returns:^(NSMutableDictionary *dataDict) {
-        NSInteger index = [[dataDict objectForKey:@"code"] integerValue];
-        if (0 == index) {
+        NSString *code = [[dataDict objectForKey:@"code"] stringValue];
+        if ([code isEqualToString:@"0"]) {
             
             NSDictionary *productDict = [dataDict objectForKey:@"datas"];
             Product *product = [[Product alloc] init];
@@ -757,7 +756,7 @@
     NSString *parameter_leaseOrSell = @"Content-Disposition: form-data; name=\"state\"\r\n";
     [data appendData:LSEncode(parameter_leaseOrSell)];
     [data appendData:LSEncode(@"\r\n")];
-    NSString *param = [NSString stringWithFormat:@"%ld", index];
+    NSString *param = [NSString stringWithFormat:@"%ld", (long)index];
     [data appendData:LSEncode(param)];
     [data appendData:LSEncode(@"\r\n")]; // 租赁或出售
     
@@ -849,8 +848,8 @@
 {
     NSString *parameter = [NSString stringWithFormat:@"state=%@", stater];
     [self requestNetworkURL:kLeaseOrSellListURL requserParameter:parameter returns:^(NSMutableDictionary *dataDict) {
-        NSInteger code = [[dataDict objectForKey:@"code"] integerValue];
-        if (code == 0) {
+        NSString *code = [[dataDict objectForKey:@"code"] stringValue];
+        if ([code isEqualToString:@"0"]) {
             NSArray *array = [dataDict objectForKey:@"datas"];
             NSMutableArray *mutableAr = [NSMutableArray array];
             for (NSDictionary *dict in array) {
@@ -861,6 +860,25 @@
             
             if (block) {
                 block(mutableAr);
+            }
+        }
+    }];
+}
+
+#pragma mark - 租售详情
+- (void)other_LeaseOrSellDetailsListID:(NSString *)listID
+                               returns:(void(^)(LS_LeaseOrSell_Model *model))block
+{
+    NSString *parameter = [NSString stringWithFormat:@"id=%@", listID];
+    [self requestNetworkURL:kRentalDetailsURL requserParameter:parameter returns:^(NSMutableDictionary *dataDict) {
+        NSString *code = [[dataDict objectForKey:@"code"] stringValue];
+        if ([code isEqualToString:@"0"]) {
+            NSDictionary *dict = [dataDict objectForKey:@"datas"];
+            LS_LeaseOrSell_Model *model = [[LS_LeaseOrSell_Model alloc] init];
+            [model setValuesForKeysWithDictionary:dict];
+            
+            if (block) {
+                block(model);
             }
         }
     }];
@@ -1001,8 +1019,8 @@
     NSString *parameter = [NSString stringWithFormat:@"user_id=%@&user_name=%@&user_avar=%@", userInfo.user_id, userInfo.name, userInfo.headPortraitURL];
     __weak NetWorkRequestManage *weak_object = self;
     [self requestNetworkURL:kIM_token requserParameter:parameter returns:^(NSMutableDictionary *dataDict) {
-        NSInteger code = [[dataDict objectForKey:@"code"] integerValue];
-        if (code == 200) {
+        NSString *code = [[dataDict objectForKey:@"code"] stringValue];
+        if ([code isEqualToString:@"200"]) {
             
             NSString *token = [dataDict objectForKey:@"token"];
             block(token);
@@ -1164,6 +1182,7 @@
                                       if (strong_control) { // 判断释放释放已经被释放
                                           
                                           if (error) {
+                                              NSLog(@"error = %@", error);
                                               [strong_control alertView:@"网络请求失败"];
                                               return;
                                           }
@@ -1172,7 +1191,7 @@
                                                                                                         error:nil];
                                           
                                           if (!dict) {
-                                              [strong_control alertView:@"网络请求失败"];
+                                              [strong_control alertView:@"网络请求为空"];
                                               return;
                                           }
                                           
@@ -1193,7 +1212,6 @@
     }
     NSURL *urlPath = [NSURL URLWithString:url];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:urlPath];
-    [request setHTTPMethod:@"POST"];
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     [configuration setTimeoutIntervalForRequest:10.0];
@@ -1213,6 +1231,11 @@
                                           }
                                           
                                           UIImage *image = [UIImage imageWithData:data];
+                                          
+                                          if (!image) {
+                                              return;
+                                          }
+                                          
                                           if (block) {
                                               block(image);
                                           }

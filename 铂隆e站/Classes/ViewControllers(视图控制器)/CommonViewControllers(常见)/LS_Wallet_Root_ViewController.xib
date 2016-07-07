@@ -73,7 +73,7 @@
                         <action selector="service:" destination="-1" eventType="touchUpInside" id="5NO-BK-dpJ"/>
                     </connections>
                 </button>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hzA-kO-epm">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hzA-kO-epm">
                     <rect key="frame" x="162" y="266" width="60" height="60"/>
                     <state key="normal" image="LS_qianbao_shangcheng.png"/>
                     <connections>

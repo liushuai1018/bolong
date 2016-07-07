@@ -55,7 +55,7 @@
 - (void)replaceLeftBarButton
 {
     
-    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"fanhui.png"] style:UIBarButtonItemStylePlain target:self action:@selector(didClickLeftAction:)];
+    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"fanhui"] style:UIBarButtonItemStylePlain target:self action:@selector(didClickLeftAction:)];
     self.navigationItem.leftBarButtonItem = left;
     
 }

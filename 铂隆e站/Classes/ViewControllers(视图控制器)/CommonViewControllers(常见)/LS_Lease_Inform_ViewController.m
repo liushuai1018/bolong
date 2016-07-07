@@ -48,6 +48,7 @@
 @property (assign, nonatomic) NSInteger selectImage;
 
 // 菊花
+@property (strong, nonatomic) UIView *activityView;
 @property (strong, nonatomic) UIActivityIndicatorView *activity;
 
 @end
@@ -174,14 +175,13 @@
         return;
     }
     
-    [self activityIndicatorViews]; // 打开菊花
+    [self activityControl]; // 打开菊花
     
     __weak LS_Lease_Inform_ViewController *weak_control = self;
     [[NetWorkRequestManage sharInstance] other_releaseHousingInformLeaseOrSell:_index Geju:geju price:price community:xiaoqu address:address introduce:jieshao phone:phone name:name image1:_image11 image2:_image22 image3:_image33 returns:^(BOOL is) {
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            [weak_control.activity stopAnimating];
-            [weak_control.activity.superview removeFromSuperview];
+            [weak_control stopActivityIndicator];
             if (is) {
                 [weak_control createrAlertControlMessage:@"信息发布成功!"];
             } else {
@@ -317,17 +317,40 @@
 }
 
 #pragma mark - 菊花
-- (void)activityIndicatorViews {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    view.backgroundColor = [UIColor colorWithRed:0.54 green:0.54 blue:0.54 alpha:0.6];
+- (void)activityControl {
+    
+    _activityView = [[UIView alloc] initWithFrame:self.view.superview.bounds];
+    _activityView.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:_activityView];
+    /**
+     *  蒙版
+     */
+    CAShapeLayer *maskLayer = [CAShapeLayer layer];
+    CGRect rect = CGRectMake(_activityView.center.x - 50, _activityView.center.y - 140, 100, 80);
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:rect byRoundingCorners:UIRectCornerAllCorners cornerRadii:CGSizeMake(10, 10)];
+    [maskLayer setPath:maskPath.CGPath];
+    _activityView.layer.mask = maskLayer;
+    
     
     UIActivityIndicatorView *activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    activity.center = view.center;
-    self.activity = activity;
-    [view addSubview:self.activity];
-    [self.activity startAnimating];
+    activity.center = CGPointMake(_activityView.center.x, _activityView.center.y - 110);
+    _activity = activity;
+    [_activityView addSubview:_activity];
+    [_activity startAnimating];
     
-    view.center = self.view.superview.center;
-    [self.view.superview addSubview:view];
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 10)];
+    title.center = CGPointMake(_activity.center.x, _activity.center.y + 30);
+    title.text = @"正在加载...";
+    title.textColor = [UIColor whiteColor];
+    title.textAlignment = NSTextAlignmentCenter;
+    title.font = [UIFont systemFontOfSize:10.0f];
+    [_activityView addSubview:title];
+}
+
+- (void)stopActivityIndicator {
+    if ([_activity isAnimating]) {
+        [_activity stopAnimating];
+        [_activityView removeFromSuperview];
+    }
 }
 @end

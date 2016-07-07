@@ -9,6 +9,7 @@
 #import "LS_Lease_LeaseList_TableViewController.h"
 #import "LS_Lease_TableViewCell.h"
 #import "LS_LeaseOrSell_Model.h"
+#import "LS_LeaseDetails_ViewController.h"
 
 #define cellStr @"leaseCell"
 
@@ -20,19 +21,52 @@
 
 - (void)setDataAr:(NSArray *)dataAr {
     _dataAr = dataAr;
-    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"Lease_tableView_loadData" object:self];
+    });
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self initTableView];
+    [self initRefreshControl];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - initRefreshControl
+- (void)initRefreshControl {
+    UIRefreshControl *refreshC = [[UIRefreshControl alloc] init];
+    refreshC.attributedTitle = [[NSAttributedString alloc] initWithString:@"下拉刷新..."];
+    [refreshC addTarget:self action:@selector(refreshControlAction:) forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refreshC;
+}
+
+- (void)refreshControlAction:(UIRefreshControl *)sneder {
+    if (self.refreshControl.refreshing) { // 判断状态
+        self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"正在加载..."];
+        __weak LS_Lease_LeaseList_TableViewController *weak_control = self;
+        [[NetWorkRequestManage sharInstance] other_LeaseOrSellLiseInfostate:@"1" returns:^(NSArray *dataAr) {
+            weak_control.dataAr = dataAr;
+            [weak_control endRefreshings];
+        }];
+    }
+}
+
+- (void)endRefreshings {
+    __weak LS_Lease_LeaseList_TableViewController *weak_control = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weak_control.refreshControl endRefreshing];
+        weak_control.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"下拉刷新..."];
+    });
+}
+
 #pragma mark - initTableView
 - (void)initTableView {
     
@@ -45,6 +79,7 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
     return 1;
 }
 
@@ -63,13 +98,11 @@
     
     LS_LeaseOrSell_Model *model = [_dataAr objectAtIndex:indexPath.row];
     
-    /*
-    [[NetWorkRequestManage sharInstance] downloadImageURL:model.house_image returns:^(UIImage *image) {
+    [[NetWorkRequestManage sharInstance] downloadImageURL:[model.house_image objectAtIndex:0] returns:^(UIImage *image) {
         dispatch_async(dispatch_get_main_queue(), ^{
             cell.icoImage.image = image;
         });
     }];
-    */
      
     cell.geju.text = model.house_style;
     cell.price.text = model.house_price;
@@ -84,7 +117,15 @@
 }
 
 - (void)datailsAction:(UIButton *)sneder event:(UIEvent *)event {
-    NSLog(@"......");
+    UITouch *touch = [[event allTouches] anyObject];
+    CGPoint point = [touch locationInView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
+    
+    LS_LeaseOrSell_Model *model = [_dataAr objectAtIndex:indexPath.row];
+    
+    LS_LeaseDetails_ViewController *control = [[LS_LeaseDetails_ViewController alloc] init];
+    control.title = @"租赁详情";
+    control.listID = model.listID;
+    [self.navigationController pushViewController:control animated:YES];
 }
-
 @end

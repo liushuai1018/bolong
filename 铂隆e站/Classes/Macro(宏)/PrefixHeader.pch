@@ -43,87 +43,88 @@
 
 
 // 注册接口
-#define kRegistURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Login/register"
+#define kRegistURL @"http://101.201.101.178/bolong/mobile.php/Mobile/Login/register"
 // 登陆接口
-#define kLonginURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Login"
+#define kLonginURL @"http://101.201.101.178/bolong/mobile.php/Mobile/Login"
 // 发送注册码
-#define kSenderPhoneURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Login/sendCode"
+#define kSenderPhoneURL @"http://101.201.101.178/bolong/mobile.php/Mobile/Login/sendCode"
 // 第三方登陆
-#define kOpenLoginURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Login/otherLogin"
+#define kOpenLoginURL @"http://101.201.101.178/bolong/mobile.php/Mobile/Login/otherLogin"
 // 修改头像
-#define kUpLoadHead @"http://101.201.147.70/bolong/mobile.php/Mobile/User/uploadHead"
+#define kUpLoadHead @"http://101.201.101.178/bolong/mobile.php/Mobile/User/uploadHead"
 // 修改昵称
-#define kUpdateUserName @"http://101.201.147.70/bolong/mobile.php/Mobile/User/updateUser"
+#define kUpdateUserName @"http://101.201.101.178/bolong/mobile.php/Mobile/User/updateUser"
 // 忘记密码
-#define kForgetPassword @"http://101.201.147.70/bolong/mobile.php/Mobile/Login/forgetPassword"
+#define kForgetPassword @"http://101.201.101.178/bolong/mobile.php/Mobile/Login/forgetPassword"
 
 // 获取物业
-#define kObtainWuYeURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/get_fenqu"
+#define kObtainWuYeURL @"http://101.201.101.178/bolong/mobile.php/Mobile/Wuye/get_fenqu"
 // 获取小区
-#define kGetCommunityURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/get_home"
+#define kGetCommunityURL @"http://101.201.101.178/bolong/mobile.php/Mobile/Wuye/get_home"
 // 物业缴费信息
-#define kWuYePayInformationURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/pay_wuye"
+#define kWuYePayInformationURL @"http://101.201.101.178/bolong/mobile.php/Mobile/Wuye/pay_wuye"
 // 确认物业缴费
-#define kWuYePayURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/pay"
+#define kWuYePayURL @"http://101.201.101.178/bolong/mobile.php/Mobile/Wuye/pay"
 
 
 // 获取咨询列表
-#define kConsultList @"http://101.201.147.70/bolong/mobile.php/Mobile/Consult"
+#define kConsultList @"http://101.201.101.178/bolong/mobile.php/Mobile/Consult"
 // 发送新的咨询
-#define kSenderConsult @"http://101.201.147.70/bolong/mobile.php/Mobile/Consult/add_consult"
+#define kSenderConsult @"http://101.201.101.178/bolong/mobile.php/Mobile/Consult/add_consult"
 // 赞
-#define kConsult_zan @"http://101.201.147.70/bolong/mobile.php/Mobile/Consult/zan"
+#define kConsult_zan @"http://101.201.101.178/bolong/mobile.php/Mobile/Consult/zan"
 // 回复咨询
-#define kReplyConsult @"http://101.201.147.70/bolong/mobile.php/Mobile/Consult/reply"
+#define kReplyConsult @"http://101.201.101.178/bolong/mobile.php/Mobile/Consult/reply"
 // 我的答复列表
-#define kReplyList @"http://101.201.147.70/bolong/mobile.php/Mobile/Consult/reply_list"
+#define kReplyList @"http://101.201.101.178/bolong/mobile.php/Mobile/Consult/reply_list"
 
 
 // 我的地址列表
-#define kAddress_list @"http://101.201.147.70/bolong/mobile.php/Address"
+#define kAddress_list @"http://101.201.101.178/bolong/mobile.php/Address"
 // 删除地址
-#define kRemoveAddress @"http://101.201.147.70/bolong/mobile.php/Address/address_del"
+#define kRemoveAddress @"http://101.201.101.178/bolong/mobile.php/Address/address_del"
 // 添加新地址
-#define kAddNewAddress @"http://101.201.147.70/bolong/mobile.php/Mobile/Address/address_add"
+#define kAddNewAddress @"http://101.201.101.178/bolong/mobile.php/Mobile/Address/address_add"
 // 修改地址
-#define kUpAddress @"http://101.201.147.70/bolong/mobile.php/Mobile/Address/address_update"
+#define kUpAddress @"http://101.201.101.178/bolong/mobile.php/Mobile/Address/address_update"
 
 
 // 即时通讯touke
-#define kIM_token @"http://101.201.147.70/bolong/mobile.php/Mobile/Token/toke"
+#define kIM_token @"http://101.201.101.178/bolong/mobile.php/Mobile/Token/toke"
 
 
 // 其他_每桶水单价
-#define kWaterMoneyURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/water_pric"
+#define kWaterMoneyURL @"http://101.201.101.178/bolong/mobile.php/Mobile/Wuye/water_pric"
 // 其他_送水
-#define kWaterURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/water"
+#define kWaterURL @"http://101.201.101.178/bolong/mobile.php/Mobile/Wuye/water"
 // 其他_开锁
-#define kUnlockingURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/unlock"
+#define kUnlockingURL @"http://101.201.101.178/bolong/mobile.php/Mobile/Wuye/unlock"
 // 其他_废品单价
-#define kFeipinPriceURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/feipinprice"
+#define kFeipinPriceURL @"http://101.201.101.178/bolong/mobile.php/Mobile/Wuye/feipinprice"
 // 其他_废品回收
-#define kFeiPinRecycleURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/feipin"
+#define kFeiPinRecycleURL @"http://101.201.101.178/bolong/mobile.php/Mobile/Wuye/feipin"
 // 其他_报修
-#define kQuestionURL @"http://101.201.147.70/bolong/mobile.php/Mobile/Wuye/question"
+#define kQuestionURL @"http://101.201.101.178/bolong/mobile.php/Mobile/Wuye/question"
 // 其他_是否已经签到
-#define kIsSignInURL @"http://101.201.147.70/bolong/mobile.php/Mobile/user/old_time"
+#define kIsSignInURL @"http://101.201.101.178/bolong/mobile.php/Mobile/user/old_time"
 // 其他_签到
-#define kSignInURl @"http://101.201.147.70/bolong/mobile.php/Mobile/user/time"
+#define kSignInURl @"http://101.201.101.178/bolong/mobile.php/Mobile/user/time"
 // 其他_租赁_发布消息
-#define kReleaseLeaseInformURl @"http://192.168.1.55/bolong/mobile.php/Mobile/House/addmessage"
+#define kReleaseLeaseInformURl @"http://101.201.101.178/bolong/mobile.php/Mobile/House/addmessage"
 // 其他_租赁_租赁出售列表
-#define kLeaseOrSellListURL @"http://192.168.1.55/bolong/mobile.php/Mobile/House/looklist"
-
+#define kLeaseOrSellListURL @"http://101.201.101.178/bolong/mobile.php/Mobile/House/looklist"
+// 其他_租售详情
+#define kRentalDetailsURL @"http://101.201.101.178/bolong/mobile.php/Mobile/House/details"
 
 // 钱包_剩余铂隆币
-#define kBoLongBiURL @"http://101.201.147.70/bolong/mobile.php/Mobile/User/moneyNum"
+#define kBoLongBiURL @"http://101.201.101.178/bolong/mobile.php/Mobile/User/moneyNum"
 // 钱包_充值
-#define ktopUpMoneyURL @"http://101.201.147.70/bolong/mobile.php/Mobile/User/money"
+#define ktopUpMoneyURL @"http://101.201.101.178/bolong/mobile.php/Mobile/User/money"
 // 钱包_查询充值记录
-#define kMoneyRecordURL @"http://101.201.147.70/bolong/mobile.php/Mobile/user/record"
+#define kMoneyRecordURL @"http://101.201.101.178/bolong/mobile.php/Mobile/user/record"
 
 
 // 帮助_意见反馈
-#define kFankuiURL @"http://101.201.147.70/bolong/mobile.php/Mobile/user/fankui"
+#define kFankuiURL @"http://101.201.101.178/bolong/mobile.php/Mobile/user/fankui"
 
 #endif /* PrefixHeader_pch */

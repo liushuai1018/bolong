@@ -40,6 +40,7 @@
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"firstLaunch"]) {
         
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstLaunch"]; // 第一次启动后设为YES
+        [[NSUserDefaults standardUserDefaults] synchronize];
         
         //创建用户引导页
         UserGuideViewController *userGuide = [[UserGuideViewController alloc] init];

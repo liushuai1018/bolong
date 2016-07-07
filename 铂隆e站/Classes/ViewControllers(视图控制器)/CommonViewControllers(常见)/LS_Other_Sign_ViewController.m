@@ -101,12 +101,12 @@
         
         NSInteger index2 = index1 + 7 * i;
         if (index2 < numberOfDaysInMonth) {
-            [_daySet addObject:[NSString stringWithFormat:@"%d", index2]];
+            [_daySet addObject:[NSString stringWithFormat:@"%ld", (long)index2]];
         }
         
         NSInteger index3 = index1 - 7 * i;
         if (index2 > 0) {
-            [_daySet addObject:[NSString stringWithFormat:@"%d", index3]];
+            [_daySet addObject:[NSString stringWithFormat:@"%ld", (long)index3]];
         }
         
     }
@@ -163,7 +163,7 @@
 - (void)didSignInAction
 {
     // 判断是否星期五
-    if ([_daySet containsObject:[NSString stringWithFormat:@"%d", _day]]) {
+    if ([_daySet containsObject:[NSString stringWithFormat:@"%ld", (long)_day]]) {
         
         _imageView.image = [UIImage imageNamed:@"LS_qiandao_x4"];
         _bg.image = [UIImage imageNamed:@"LS_qiandao_bg_after_x4"];
@@ -280,7 +280,7 @@
     LS_Other_Sign_day_CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     
     // 日期
-    NSString *day = [NSString stringWithFormat:@"%d", indexPath.row + 1];
+    NSString *day = [NSString stringWithFormat:@"%ld", indexPath.row + 1];
     
     cell.image.image = nil;
     cell.title.text = day;
